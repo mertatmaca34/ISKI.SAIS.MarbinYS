@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace WinUI.Helpers;
 
@@ -24,7 +19,10 @@ public static class RoundedCorners
     {
         foreach (Control control in controls)
         {
-            control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, 10, 10));
+            if (control != null)
+            {
+                control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, 20, 20));
+            }
         }
     }
 }

@@ -118,6 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="CalibrationPageButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAWVJREFUSEvt
+        lD1LHFEUhkcURP0HCn6AVimjdoGtAlukEYfMvM+5Y7fgB6aM4O8ISSEpLLSw8y/YmM7KwsLSSi0lTTQc
+        2IHdg6i7biP4wIXLnPfwzpz3zs2yd3rFzD6Z2bc8z8dibSAAN8CDmW3F2kAADoBbScux9jYAVoHT9v4X
+        8AP4nOf5cNT2RVVV08BX3wP7kv56JsClpO1GozESe3qi08BptVrjklbM7KRt9EfSgplVwEV39wuQlANn
+        8bnjxsC1LzPbc8OoeTUppTngHLjry6Az5IikBNy3R+XrX10DloDNZrM52t0ViBl0Ymbzkr7XC1ira/7v
+        tE03ursCTxlEUkoTwFFRFLNmdghcpZQWo66Lp0KuKcvyA/DT7ytJv6uqmoqavijL8osfT0kf/UrJsmwo
+        ap7lsZB9rv7WktaB3c5az9QZ+OcDOz5nMzt246jti9qgKIpJP++SZqLmVbwk5HcGyn+sJp7yVRkvaQAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABsNAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAAAFz
