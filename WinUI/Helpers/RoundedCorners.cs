@@ -21,7 +21,7 @@ public static class RoundedCorners
         {
             if (control != null)
             {
-                control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, 20, 20));
+                control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, 10, 10));
             }
         }
     }

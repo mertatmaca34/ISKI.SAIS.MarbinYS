@@ -32,25 +32,27 @@
             label1 = new Label();
             label2 = new Label();
             LabelVersion = new Label();
+            tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.BackColor = Color.FromArgb(0, 148, 212);
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(label1, 0, 1);
             tableLayoutPanel1.Controls.Add(label2, 0, 2);
             tableLayoutPanel1.Controls.Add(LabelVersion, 0, 3);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Location = new Point(3, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel1.Size = new Size(800, 450);
+            tableLayoutPanel1.Size = new Size(764, 414);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -59,7 +61,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(312, 138);
+            label1.Location = new Point(294, 120);
             label1.Name = "label1";
             label1.Size = new Size(176, 86);
             label1.TabIndex = 0;
@@ -71,7 +73,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(201, 224);
+            label2.Location = new Point(183, 206);
             label2.Name = "label2";
             label2.Size = new Size(397, 40);
             label2.TabIndex = 0;
@@ -83,12 +85,26 @@
             LabelVersion.AutoSize = true;
             LabelVersion.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
             LabelVersion.ForeColor = Color.White;
-            LabelVersion.Location = new Point(783, 430);
+            LabelVersion.Location = new Point(747, 394);
             LabelVersion.Margin = new Padding(3);
             LabelVersion.Name = "LabelVersion";
             LabelVersion.Size = new Size(14, 17);
             LabelVersion.TabIndex = 0;
             LabelVersion.Text = "v";
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.BackColor = Color.White;
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(15, 15);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new Size(770, 420);
+            tableLayoutPanel2.TabIndex = 1;
             // 
             // SplashScreenForm
             // 
@@ -96,13 +112,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 148, 212);
             ClientSize = new Size(800, 450);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tableLayoutPanel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SplashScreenForm";
+            Padding = new Padding(15);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SplashScreenForm";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -112,5 +130,6 @@
         private Label label1;
         private Label label2;
         private Label LabelVersion;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }
