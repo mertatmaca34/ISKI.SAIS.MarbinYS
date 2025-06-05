@@ -23,8 +23,6 @@ public static class RoundedCorners
     public static void MakeRounded(params Control[] controls)
     {
         foreach (Control control in controls)
-        {
-            control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, 10, 10));
-        }
+    {
     }
 }

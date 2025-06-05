@@ -13,10 +13,12 @@ namespace WinUI.Forms;
 
 public partial class MainForm : Form
 {
-    public MainForm()
+    public partial class MainForm: Form
     {
-        InitializeComponent();
-    }
+        public MainForm()
+        {
+            InitializeComponent();
+        }
 
     private void MainForm_Load(object sender, EventArgs e)
     {
