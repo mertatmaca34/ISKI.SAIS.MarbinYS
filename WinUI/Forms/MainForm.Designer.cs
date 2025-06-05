@@ -183,12 +183,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 681);
             Controls.Add(MainContentPanel);
+>>>>>>>>> Temporary merge branch 2
             Controls.Add(SideBarTableLayoutPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "İSKİ Marbin Yönetim Sistemi";
+<<<<<<<<< Temporary merge branch 1
+=========
             Load += MainForm_Load;
+>>>>>>>>> Temporary merge branch 2
             SideBarTableLayoutPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
