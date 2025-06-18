@@ -12,16 +12,14 @@ namespace WinUI
         {
             ApplicationConfiguration.Initialize();
 
-            // 1. Splash ekraný ayrý thread'de baþlat
             SplashScreenForm splash = new SplashScreenForm();
             var splashThread = new Thread(() =>
             {
-                Application.Run(splash); // kendi UI loop'u
+                Application.Run(splash);
             });
             splashThread.SetApartmentState(ApartmentState.STA);
             splashThread.Start();
 
-            // 2. Main host'u hazýrla (bu biraz zaman alýr)
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -29,11 +27,9 @@ namespace WinUI
             // 3. Ana formu hazýrla
             var mainForm = services.GetRequiredService<MainForm>();
 
-            // 4. Splash kapanacak, thread de bitirilecek
-            splash.Invoke(() => splash.Close()); // UI thread'inde kapat
-            splashThread.Join(); // splash kapanana kadar bekle
+            splash.Invoke(() => splash.Close());
+            splashThread.Join();
 
-            // 5. Ana formu baþlat
             Application.Run(mainForm);
         }
 
@@ -43,6 +39,7 @@ namespace WinUI
                 {
                     services.AddScoped<MainForm>();
                     services.AddSingleton<HomePage>();
+                    services.AddSingleton<CalibrationPage>();
                 });
     }
 }

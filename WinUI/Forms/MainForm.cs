@@ -15,11 +15,14 @@ namespace WinUI.Forms;
 public partial class MainForm : Form
 {
     HomePage _homePage;
-    public MainForm(HomePage homePage)
+    CalibrationPage _calibrationPage;
+
+    public MainForm(HomePage homePage, CalibrationPage calibrationPage)
     {
         InitializeComponent();
 
         _homePage = homePage;
+        _calibrationPage = calibrationPage;
 
         PageManager.ShowPage(MainContentPanel, _homePage);
     }
@@ -45,10 +48,7 @@ public partial class MainForm : Form
     private void CalibrationPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, CalibrationPageButton);
-
-        SplashScreenForm splashScreenForm = new SplashScreenForm();
-
-        splashScreenForm.ShowDialog();
+        PageManager.ShowPage(MainContentPanel, _calibrationPage);
     }
 
     private void MailPageButton_Click(object sender, EventArgs e)
