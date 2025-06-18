@@ -2,15 +2,8 @@
 {
     partial class DigitalSensorBar
     {
-        /// <summary> 
-        ///Gerekli tasarımcı değişkeni.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        ///Kullanılan tüm kaynakları temizleyin.
-        /// </summary>
-        ///<param name="disposing">yönetilen kaynaklar dispose edilmeliyse doğru; aksi halde yanlış.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,202 +13,239 @@
             base.Dispose(disposing);
         }
 
-        #region Bileşen Tasarımcısı üretimi kod
+        #region Designer generated code
 
-        /// <summary> 
-        /// Tasarımcı desteği için gerekli metot - bu metodun 
-        ///içeriğini kod düzenleyici ile değiştirmeyin.
-        /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            PanelStatement = new Panel();
-            PanelSplit2 = new Panel();
-            PanelSplit1 = new Panel();
-            tableLayoutPanel3 = new TableLayoutPanel();
+            tableLayoutMain = new TableLayoutPanel();
+            tableLayoutContent = new TableLayoutPanel();
+            tableLayoutSystemState = new TableLayoutPanel();
+            LabelSystemStateTitle = new Label();
+            LabelSystemStateDescription = new Label();
+            PanelState = new Panel();
+            Splitter2 = new Panel();
+            Splitter1 = new Panel();
+            tableLayoutChannel = new TableLayoutPanel();
             LabelChannelName = new Label();
             LabelChannelDescription = new Label();
-            TableLayoutPanelSystemStatement = new TableLayoutPanel();
-            LabelSystemStatementTitle = new Label();
-            LabelSystemStatementDescription = new Label();
-            tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
-            TableLayoutPanelSystemStatement.SuspendLayout();
+            tableLayoutDataState = new TableLayoutPanel();
+            LabelDataStateTitle = new Label();
+            LabelDataStateDescription = new Label();
+            tableLayoutMain.SuspendLayout();
+            tableLayoutContent.SuspendLayout();
+            tableLayoutSystemState.SuspendLayout();
+            tableLayoutChannel.SuspendLayout();
+            tableLayoutDataState.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutMain
             // 
-            tableLayoutPanel1.BackColor = Color.FromArgb(235, 235, 235);
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(579, 48);
-            tableLayoutPanel1.TabIndex = 1;
+            tableLayoutMain.BackColor = Color.FromArgb(235, 235, 235);
+            tableLayoutMain.ColumnCount = 1;
+            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutMain.Controls.Add(tableLayoutContent, 0, 0);
+            tableLayoutMain.Dock = DockStyle.Fill;
+            tableLayoutMain.Location = new Point(0, 0);
+            tableLayoutMain.Margin = new Padding(1);
+            tableLayoutMain.Name = "tableLayoutMain";
+            tableLayoutMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutMain.Size = new Size(579, 48);
+            tableLayoutMain.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // tableLayoutContent
             // 
-            tableLayoutPanel2.BackColor = Color.White;
-            tableLayoutPanel2.ColumnCount = 6;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.Controls.Add(PanelStatement, 0, 0);
-            tableLayoutPanel2.Controls.Add(PanelSplit2, 4, 0);
-            tableLayoutPanel2.Controls.Add(PanelSplit1, 2, 0);
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 1, 0);
-            tableLayoutPanel2.Controls.Add(TableLayoutPanelSystemStatement, 5, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(1, 1);
-            tableLayoutPanel2.Margin = new Padding(1);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(577, 46);
-            tableLayoutPanel2.TabIndex = 0;
+            tableLayoutContent.BackColor = Color.White;
+            tableLayoutContent.ColumnCount = 6;
+            tableLayoutContent.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            tableLayoutContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333F));
+            tableLayoutContent.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            tableLayoutContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333F));
+            tableLayoutContent.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            tableLayoutContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333F));
+            tableLayoutContent.Controls.Add(tableLayoutSystemState, 3, 0);
+            tableLayoutContent.Controls.Add(PanelState, 0, 0);
+            tableLayoutContent.Controls.Add(Splitter2, 4, 0);
+            tableLayoutContent.Controls.Add(Splitter1, 2, 0);
+            tableLayoutContent.Controls.Add(tableLayoutChannel, 1, 0);
+            tableLayoutContent.Controls.Add(tableLayoutDataState, 5, 0);
+            tableLayoutContent.Dock = DockStyle.Fill;
+            tableLayoutContent.Location = new Point(1, 1);
+            tableLayoutContent.Margin = new Padding(1);
+            tableLayoutContent.Name = "tableLayoutContent";
+            tableLayoutContent.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutContent.Size = new Size(577, 46);
+            tableLayoutContent.TabIndex = 0;
             // 
-            // PanelStatement
+            // tableLayoutSystemState
             // 
-            PanelStatement.BackColor = Color.Gray;
-            PanelStatement.Dock = DockStyle.Fill;
-            PanelStatement.Location = new Point(0, 0);
-            PanelStatement.Margin = new Padding(0);
-            PanelStatement.Name = "PanelStatement";
-            PanelStatement.Size = new Size(8, 46);
-            PanelStatement.TabIndex = 0;
+            tableLayoutSystemState.ColumnCount = 1;
+            tableLayoutSystemState.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutSystemState.Controls.Add(LabelSystemStateTitle, 0, 0);
+            tableLayoutSystemState.Controls.Add(LabelSystemStateDescription, 0, 1);
+            tableLayoutSystemState.Dock = DockStyle.Fill;
+            tableLayoutSystemState.Location = new Point(203, 3);
+            tableLayoutSystemState.Name = "tableLayoutSystemState";
+            tableLayoutSystemState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutSystemState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutSystemState.Size = new Size(176, 40);
+            tableLayoutSystemState.TabIndex = 0;
             // 
-            // PanelSplit2
+            // LabelSystemStateTitle
             // 
-            PanelSplit2.Anchor = AnchorStyles.None;
-            PanelSplit2.BackColor = Color.FromArgb(235, 235, 235);
-            PanelSplit2.Location = new Point(388, 4);
-            PanelSplit2.Name = "PanelSplit2";
-            PanelSplit2.Size = new Size(1, 37);
-            PanelSplit2.TabIndex = 1;
+            LabelSystemStateTitle.Anchor = AnchorStyles.Bottom;
+            LabelSystemStateTitle.AutoSize = true;
+            LabelSystemStateTitle.Font = new Font("Arial", 8.25F);
+            LabelSystemStateTitle.Location = new Point(43, 6);
+            LabelSystemStateTitle.Name = "LabelSystemStateTitle";
+            LabelSystemStateTitle.Size = new Size(89, 14);
+            LabelSystemStateTitle.TabIndex = 0;
+            LabelSystemStateTitle.Text = "SİSTEM DURUMU";
             // 
-            // PanelSplit1
+            // LabelSystemStateDescription
             // 
-            PanelSplit1.Anchor = AnchorStyles.None;
-            PanelSplit1.BackColor = Color.FromArgb(235, 235, 235);
-            PanelSplit1.Location = new Point(195, 4);
-            PanelSplit1.Name = "PanelSplit1";
-            PanelSplit1.Size = new Size(1, 37);
-            PanelSplit1.TabIndex = 1;
+            LabelSystemStateDescription.Anchor = AnchorStyles.Top;
+            LabelSystemStateDescription.AutoSize = true;
+            LabelSystemStateDescription.Font = new Font("Arial", 11.25F, FontStyle.Bold);
+            LabelSystemStateDescription.Location = new Point(81, 20);
+            LabelSystemStateDescription.Name = "LabelSystemStateDescription";
+            LabelSystemStateDescription.Size = new Size(13, 18);
+            LabelSystemStateDescription.TabIndex = 1;
+            LabelSystemStateDescription.Text = "-";
             // 
-            // tableLayoutPanel3
+            // PanelState
             // 
-            tableLayoutPanel3.ColumnCount = 1;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Controls.Add(LabelChannelName, 0, 0);
-            tableLayoutPanel3.Controls.Add(LabelChannelDescription, 0, 1);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(8, 0);
-            tableLayoutPanel3.Margin = new Padding(0);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 59.57F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 40.43F));
-            tableLayoutPanel3.Size = new Size(183, 46);
-            tableLayoutPanel3.TabIndex = 3;
+            PanelState.BackColor = Color.Gray;
+            PanelState.Dock = DockStyle.Fill;
+            PanelState.Location = new Point(0, 0);
+            PanelState.Margin = new Padding(0);
+            PanelState.Name = "PanelState";
+            PanelState.Size = new Size(8, 46);
+            PanelState.TabIndex = 1;
+            // 
+            // Splitter2
+            // 
+            Splitter2.Anchor = AnchorStyles.None;
+            Splitter2.BackColor = Color.FromArgb(235, 235, 235);
+            Splitter2.Location = new Point(386, 5);
+            Splitter2.Name = "Splitter2";
+            Splitter2.Size = new Size(1, 36);
+            Splitter2.TabIndex = 2;
+            // 
+            // Splitter1
+            // 
+            Splitter1.Anchor = AnchorStyles.None;
+            Splitter1.BackColor = Color.FromArgb(235, 235, 235);
+            Splitter1.Location = new Point(194, 5);
+            Splitter1.Name = "Splitter1";
+            Splitter1.Size = new Size(1, 36);
+            Splitter1.TabIndex = 3;
+            // 
+            // tableLayoutChannel
+            // 
+            tableLayoutChannel.ColumnCount = 1;
+            tableLayoutChannel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutChannel.Controls.Add(LabelChannelName, 0, 0);
+            tableLayoutChannel.Controls.Add(LabelChannelDescription, 0, 1);
+            tableLayoutChannel.Dock = DockStyle.Fill;
+            tableLayoutChannel.Location = new Point(11, 3);
+            tableLayoutChannel.Name = "tableLayoutChannel";
+            tableLayoutChannel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutChannel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutChannel.Size = new Size(176, 40);
+            tableLayoutChannel.TabIndex = 4;
             // 
             // LabelChannelName
             // 
             LabelChannelName.Anchor = AnchorStyles.Bottom;
             LabelChannelName.AutoSize = true;
-            LabelChannelName.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LabelChannelName.Location = new Point(11, 9);
+            LabelChannelName.Font = new Font("Arial", 11.25F, FontStyle.Bold);
+            LabelChannelName.Location = new Point(8, 2);
             LabelChannelName.Name = "LabelChannelName";
             LabelChannelName.Size = new Size(160, 18);
-            LabelChannelName.TabIndex = 2;
+            LabelChannelName.TabIndex = 0;
             LabelChannelName.Text = "DİJİTAL SENSÖRLER";
             // 
             // LabelChannelDescription
             // 
             LabelChannelDescription.Anchor = AnchorStyles.Top;
             LabelChannelDescription.AutoSize = true;
-            LabelChannelDescription.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelChannelDescription.Location = new Point(45, 27);
+            LabelChannelDescription.Font = new Font("Arial", 8.25F);
+            LabelChannelDescription.Location = new Point(42, 20);
             LabelChannelDescription.Name = "LabelChannelDescription";
             LabelChannelDescription.Size = new Size(92, 14);
-            LabelChannelDescription.TabIndex = 2;
+            LabelChannelDescription.TabIndex = 1;
             LabelChannelDescription.Text = "SENSÖR İSİMLERİ";
             // 
-            // TableLayoutPanelSystemStatement
+            // tableLayoutDataState
             // 
-            TableLayoutPanelSystemStatement.ColumnCount = 1;
-            TableLayoutPanelSystemStatement.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TableLayoutPanelSystemStatement.Controls.Add(LabelSystemStatementTitle, 0, 0);
-            TableLayoutPanelSystemStatement.Controls.Add(LabelSystemStatementDescription, 0, 1);
-            TableLayoutPanelSystemStatement.Dock = DockStyle.Fill;
-            TableLayoutPanelSystemStatement.Location = new Point(399, 5);
-            TableLayoutPanelSystemStatement.Margin = new Padding(5);
-            TableLayoutPanelSystemStatement.Name = "TableLayoutPanelSystemStatement";
-            TableLayoutPanelSystemStatement.RowCount = 2;
-            TableLayoutPanelSystemStatement.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TableLayoutPanelSystemStatement.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TableLayoutPanelSystemStatement.Size = new Size(173, 36);
-            TableLayoutPanelSystemStatement.TabIndex = 4;
+            tableLayoutDataState.ColumnCount = 1;
+            tableLayoutDataState.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutDataState.Controls.Add(LabelDataStateTitle, 0, 0);
+            tableLayoutDataState.Controls.Add(LabelDataStateDescription, 0, 1);
+            tableLayoutDataState.Dock = DockStyle.Fill;
+            tableLayoutDataState.Location = new Point(395, 3);
+            tableLayoutDataState.Name = "tableLayoutDataState";
+            tableLayoutDataState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutDataState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutDataState.Size = new Size(179, 40);
+            tableLayoutDataState.TabIndex = 5;
             // 
-            // LabelSystemStatementTitle
+            // LabelDataStateTitle
             // 
-            LabelSystemStatementTitle.Anchor = AnchorStyles.Bottom;
-            LabelSystemStatementTitle.AutoSize = true;
-            LabelSystemStatementTitle.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelSystemStatementTitle.Location = new Point(42, 4);
-            LabelSystemStatementTitle.Name = "LabelSystemStatementTitle";
-            LabelSystemStatementTitle.Size = new Size(89, 14);
-            LabelSystemStatementTitle.TabIndex = 0;
-            LabelSystemStatementTitle.Text = "SİSTEM DURUMU";
+            LabelDataStateTitle.Anchor = AnchorStyles.Bottom;
+            LabelDataStateTitle.AutoSize = true;
+            LabelDataStateTitle.Font = new Font("Arial", 8.25F);
+            LabelDataStateTitle.Location = new Point(51, 6);
+            LabelDataStateTitle.Name = "LabelDataStateTitle";
+            LabelDataStateTitle.Size = new Size(76, 14);
+            LabelDataStateTitle.TabIndex = 0;
+            LabelDataStateTitle.Text = "VERİ DURUMU";
             // 
-            // LabelSystemStatementDescription
+            // LabelDataStateDescription
             // 
-            LabelSystemStatementDescription.Anchor = AnchorStyles.Top;
-            LabelSystemStatementDescription.AutoSize = true;
-            LabelSystemStatementDescription.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LabelSystemStatementDescription.Location = new Point(80, 18);
-            LabelSystemStatementDescription.Name = "LabelSystemStatementDescription";
-            LabelSystemStatementDescription.Size = new Size(13, 18);
-            LabelSystemStatementDescription.TabIndex = 0;
-            LabelSystemStatementDescription.Text = "-";
+            LabelDataStateDescription.Anchor = AnchorStyles.Top;
+            LabelDataStateDescription.AutoSize = true;
+            LabelDataStateDescription.Font = new Font("Arial", 11.25F, FontStyle.Bold);
+            LabelDataStateDescription.Location = new Point(83, 20);
+            LabelDataStateDescription.Name = "LabelDataStateDescription";
+            LabelDataStateDescription.Size = new Size(13, 18);
+            LabelDataStateDescription.TabIndex = 1;
+            LabelDataStateDescription.Text = "-";
             // 
             // DigitalSensorBar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(235, 235, 235);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tableLayoutMain);
             Name = "DigitalSensorBar";
             Size = new Size(579, 48);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel3.PerformLayout();
-            TableLayoutPanelSystemStatement.ResumeLayout(false);
-            TableLayoutPanelSystemStatement.PerformLayout();
+            tableLayoutMain.ResumeLayout(false);
+            tableLayoutContent.ResumeLayout(false);
+            tableLayoutSystemState.ResumeLayout(false);
+            tableLayoutSystemState.PerformLayout();
+            tableLayoutChannel.ResumeLayout(false);
+            tableLayoutChannel.PerformLayout();
+            tableLayoutDataState.ResumeLayout(false);
+            tableLayoutDataState.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Panel PanelStatement;
-        private Panel PanelSplit2;
-        private Panel PanelSplit1;
-        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tableLayoutMain;
+        private TableLayoutPanel tableLayoutContent;
+        private Panel PanelState;
+        private Panel Splitter1;
+        private Panel Splitter2;
+        private TableLayoutPanel tableLayoutChannel;
         private Label LabelChannelName;
         private Label LabelChannelDescription;
-        private TableLayoutPanel TableLayoutPanelSystemStatement;
-        private Label LabelSystemStatementTitle;
-        private Label LabelSystemStatementDescription;
+        private TableLayoutPanel tableLayoutSystemState;
+        private Label LabelSystemStateTitle;
+        private Label LabelSystemStateDescription;
+        private TableLayoutPanel tableLayoutDataState;
+        private Label LabelDataStateTitle;
+        private Label LabelDataStateDescription;
     }
 }

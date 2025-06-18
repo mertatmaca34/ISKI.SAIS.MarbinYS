@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinUI.Forms;
 
-public partial class SplashScreenForm: Form
+public partial class SplashScreenForm : Form
 {
+    private int _currentDotCount = 1;
+    private const int MaxDots = 5;
+
     public SplashScreenForm()
     {
         var versionInfo = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
@@ -20,5 +16,22 @@ public partial class SplashScreenForm: Form
         InitializeComponent();
 
         LabelVersion.Text = $"v{versionInfo.FileVersion}";
+
+        timer1.Interval = 300; // hızını ayarlarsın
+        timer1.Start();
+    }
+
+    private void timer1_Tick(object sender, EventArgs e)
+    {
+        label3.Text = GenerateDots(_currentDotCount);
+        _currentDotCount++;
+
+        if (_currentDotCount > MaxDots)
+            _currentDotCount = 1;
+    }
+
+    private string GenerateDots(int count)
+    {
+        return string.Join(" ", Enumerable.Repeat(".", count));
     }
 }

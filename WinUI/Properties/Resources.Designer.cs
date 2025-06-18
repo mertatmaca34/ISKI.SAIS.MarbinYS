@@ -103,6 +103,16 @@ namespace WinUI.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap e57b3257b6ccd2895f11c6a89710e02b {
+            get {
+                object obj = ResourceManager.GetObject("e57b3257b6ccd2895f11c6a89710e02b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap filled_alarm_24px {
             get {
                 object obj = ResourceManager.GetObject("filled_alarm_24px", resourceCulture);

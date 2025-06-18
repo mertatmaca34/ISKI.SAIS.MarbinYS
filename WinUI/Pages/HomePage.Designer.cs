@@ -39,6 +39,7 @@
             ChannelSicaklik = new WinUI.Controls.IBKS.ChannelControl();
             ChannelCozunmusOksijen = new WinUI.Controls.IBKS.ChannelControl();
             channelControl1 = new WinUI.Controls.IBKS.ChannelControl();
+            ChannelAkm = new WinUI.Controls.IBKS.ChannelControl();
             tableLayoutPanel3 = new TableLayoutPanel();
             DigitalSensorKapi = new WinUI.Controls.IBKS.DigitalSensorControl();
             DigitalSensorDuman = new WinUI.Controls.IBKS.DigitalSensorControl();
@@ -49,12 +50,11 @@
             DigitalSensorTSuPompaTermik = new WinUI.Controls.IBKS.DigitalSensorControl();
             DigitalSensorYikamaTanki = new WinUI.Controls.IBKS.DigitalSensorControl();
             DigitalSensorEnerji = new WinUI.Controls.IBKS.DigitalSensorControl();
-            DigitalSensorBar = new WinUI.Controls.IBKS.DigitalSensorBar();
+            digitalSensorBar1 = new WinUI.Controls.IBKS.DigitalSensorBar();
             StationInfoControl = new WinUI.Controls.IBKS.StationInfoControl();
             StatusBarControl = new WinUI.Controls.IBKS.StatusBarControl();
             TimerAssignUI = new System.Windows.Forms.Timer(components);
             TimerGetMissingDates = new System.Windows.Forms.Timer(components);
-            ChannelAkm = new WinUI.Controls.IBKS.ChannelControl();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -220,6 +220,19 @@
             channelControl1.Size = new Size(568, 63);
             channelControl1.TabIndex = 0;
             // 
+            // ChannelAkm
+            // 
+            ChannelAkm.AvgDataOf60Min = "-";
+            ChannelAkm.BackColor = Color.FromArgb(230, 230, 230);
+            ChannelAkm.ChannelDescription = "Askıda Katı Madde";
+            ChannelAkm.ChannelName = "AKM";
+            ChannelAkm.Dock = DockStyle.Fill;
+            ChannelAkm.InstantData = "-";
+            ChannelAkm.Location = new Point(3, 72);
+            ChannelAkm.Name = "ChannelAkm";
+            ChannelAkm.Size = new Size(568, 63);
+            ChannelAkm.TabIndex = 1;
+            // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.BackColor = Color.WhiteSmoke;
@@ -236,153 +249,156 @@
             tableLayoutPanel3.Controls.Add(DigitalSensorTSuPompaTermik, 0, 3);
             tableLayoutPanel3.Controls.Add(DigitalSensorYikamaTanki, 1, 3);
             tableLayoutPanel3.Controls.Add(DigitalSensorEnerji, 2, 3);
-            tableLayoutPanel3.Controls.Add(DigitalSensorBar, 0, 0);
+            tableLayoutPanel3.Controls.Add(digitalSensorBar1, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(588, 8);
+            tableLayoutPanel3.Location = new Point(588, 12);
+            tableLayoutPanel3.Margin = new Padding(3, 7, 3, 4);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 4;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel3.Size = new Size(574, 205);
+            tableLayoutPanel3.Size = new Size(574, 200);
             tableLayoutPanel3.TabIndex = 1;
             // 
             // DigitalSensorKapi
             // 
             DigitalSensorKapi.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorKapi.Dock = DockStyle.Fill;
-            DigitalSensorKapi.Location = new Point(0, 51);
-            DigitalSensorKapi.Margin = new Padding(0);
+            DigitalSensorKapi.Location = new Point(0, 50);
+            DigitalSensorKapi.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorKapi.Name = "DigitalSensorKapi";
             DigitalSensorKapi.Padding = new Padding(1);
             DigitalSensorKapi.SensorDescription = "Kabin Kapısı";
             DigitalSensorKapi.SensorName = "Kapı";
-            DigitalSensorKapi.Size = new Size(191, 51);
+            DigitalSensorKapi.Size = new Size(188, 50);
             DigitalSensorKapi.TabIndex = 1;
             // 
             // DigitalSensorDuman
             // 
             DigitalSensorDuman.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorDuman.Dock = DockStyle.Fill;
-            DigitalSensorDuman.Location = new Point(191, 51);
-            DigitalSensorDuman.Margin = new Padding(0);
+            DigitalSensorDuman.Location = new Point(191, 50);
+            DigitalSensorDuman.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorDuman.Name = "DigitalSensorDuman";
             DigitalSensorDuman.Padding = new Padding(1);
             DigitalSensorDuman.SensorDescription = "Kabin içi duman durumu";
             DigitalSensorDuman.SensorName = "Duman";
-            DigitalSensorDuman.Size = new Size(191, 51);
+            DigitalSensorDuman.Size = new Size(188, 50);
             DigitalSensorDuman.TabIndex = 1;
             // 
             // DigitalSensorSuBaskini
             // 
             DigitalSensorSuBaskini.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorSuBaskini.Dock = DockStyle.Fill;
-            DigitalSensorSuBaskini.Location = new Point(382, 51);
+            DigitalSensorSuBaskini.Location = new Point(382, 50);
             DigitalSensorSuBaskini.Margin = new Padding(0);
             DigitalSensorSuBaskini.Name = "DigitalSensorSuBaskini";
             DigitalSensorSuBaskini.Padding = new Padding(1);
             DigitalSensorSuBaskini.SensorDescription = "Kabiniçi su baskını";
             DigitalSensorSuBaskini.SensorName = "Su Baskını";
-            DigitalSensorSuBaskini.Size = new Size(192, 51);
+            DigitalSensorSuBaskini.Size = new Size(192, 50);
             DigitalSensorSuBaskini.TabIndex = 1;
             // 
             // DigitalSensorPompa2Termik
             // 
             DigitalSensorPompa2Termik.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorPompa2Termik.Dock = DockStyle.Fill;
-            DigitalSensorPompa2Termik.Location = new Point(382, 102);
+            DigitalSensorPompa2Termik.Location = new Point(382, 100);
             DigitalSensorPompa2Termik.Margin = new Padding(0);
             DigitalSensorPompa2Termik.Name = "DigitalSensorPompa2Termik";
             DigitalSensorPompa2Termik.Padding = new Padding(1);
             DigitalSensorPompa2Termik.SensorDescription = "Pompa 2 Termik atma durumu";
             DigitalSensorPompa2Termik.SensorName = "Pompa 2 Termik";
-            DigitalSensorPompa2Termik.Size = new Size(192, 51);
+            DigitalSensorPompa2Termik.Size = new Size(192, 50);
             DigitalSensorPompa2Termik.TabIndex = 1;
             // 
             // DigitalSensorPompa1Termik
             // 
             DigitalSensorPompa1Termik.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorPompa1Termik.Dock = DockStyle.Fill;
-            DigitalSensorPompa1Termik.Location = new Point(191, 102);
-            DigitalSensorPompa1Termik.Margin = new Padding(0);
+            DigitalSensorPompa1Termik.Location = new Point(191, 100);
+            DigitalSensorPompa1Termik.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorPompa1Termik.Name = "DigitalSensorPompa1Termik";
             DigitalSensorPompa1Termik.Padding = new Padding(1);
             DigitalSensorPompa1Termik.SensorDescription = "Pompa 1 Termik atma durumu";
             DigitalSensorPompa1Termik.SensorName = "Pompa 1 Termik";
-            DigitalSensorPompa1Termik.Size = new Size(191, 51);
+            DigitalSensorPompa1Termik.Size = new Size(188, 50);
             DigitalSensorPompa1Termik.TabIndex = 1;
             // 
             // DigitalSensorAcilStop
             // 
             DigitalSensorAcilStop.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorAcilStop.Dock = DockStyle.Fill;
-            DigitalSensorAcilStop.Location = new Point(0, 102);
-            DigitalSensorAcilStop.Margin = new Padding(0);
+            DigitalSensorAcilStop.Location = new Point(0, 100);
+            DigitalSensorAcilStop.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorAcilStop.Name = "DigitalSensorAcilStop";
             DigitalSensorAcilStop.Padding = new Padding(1);
             DigitalSensorAcilStop.SensorDescription = "Acil Stop butonu durumu";
             DigitalSensorAcilStop.SensorName = "Acil Stop";
-            DigitalSensorAcilStop.Size = new Size(191, 51);
+            DigitalSensorAcilStop.Size = new Size(188, 50);
             DigitalSensorAcilStop.TabIndex = 1;
             // 
             // DigitalSensorTSuPompaTermik
             // 
             DigitalSensorTSuPompaTermik.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorTSuPompaTermik.Dock = DockStyle.Fill;
-            DigitalSensorTSuPompaTermik.Location = new Point(0, 153);
-            DigitalSensorTSuPompaTermik.Margin = new Padding(0);
+            DigitalSensorTSuPompaTermik.Location = new Point(0, 150);
+            DigitalSensorTSuPompaTermik.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorTSuPompaTermik.Name = "DigitalSensorTSuPompaTermik";
             DigitalSensorTSuPompaTermik.Padding = new Padding(1);
             DigitalSensorTSuPompaTermik.SensorDescription = "Temiz Su P. Termik atma durumu";
             DigitalSensorTSuPompaTermik.SensorName = "T. Su Pompa Termik";
-            DigitalSensorTSuPompaTermik.Size = new Size(191, 52);
+            DigitalSensorTSuPompaTermik.Size = new Size(188, 50);
             DigitalSensorTSuPompaTermik.TabIndex = 1;
             // 
             // DigitalSensorYikamaTanki
             // 
             DigitalSensorYikamaTanki.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorYikamaTanki.Dock = DockStyle.Fill;
-            DigitalSensorYikamaTanki.Location = new Point(191, 153);
-            DigitalSensorYikamaTanki.Margin = new Padding(0);
+            DigitalSensorYikamaTanki.Location = new Point(191, 150);
+            DigitalSensorYikamaTanki.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorYikamaTanki.Name = "DigitalSensorYikamaTanki";
             DigitalSensorYikamaTanki.Padding = new Padding(1);
             DigitalSensorYikamaTanki.SensorDescription = "Yıkama Tankı dolu/boş bilgisi";
             DigitalSensorYikamaTanki.SensorName = "Yıkama Tankı";
-            DigitalSensorYikamaTanki.Size = new Size(191, 52);
+            DigitalSensorYikamaTanki.Size = new Size(188, 50);
             DigitalSensorYikamaTanki.TabIndex = 1;
             // 
             // DigitalSensorEnerji
             // 
             DigitalSensorEnerji.BackColor = Color.FromArgb(230, 230, 230);
             DigitalSensorEnerji.Dock = DockStyle.Fill;
-            DigitalSensorEnerji.Location = new Point(382, 153);
+            DigitalSensorEnerji.Location = new Point(382, 150);
             DigitalSensorEnerji.Margin = new Padding(0);
             DigitalSensorEnerji.Name = "DigitalSensorEnerji";
             DigitalSensorEnerji.Padding = new Padding(1);
             DigitalSensorEnerji.SensorDescription = "Kabin elektrik enerjisi durumu";
             DigitalSensorEnerji.SensorName = "Enerji";
-            DigitalSensorEnerji.Size = new Size(192, 52);
+            DigitalSensorEnerji.Size = new Size(192, 50);
             DigitalSensorEnerji.TabIndex = 1;
             // 
-            // DigitalSensorBar
+            // digitalSensorBar1
             // 
-            DigitalSensorBar.BackColor = Color.FromArgb(230, 230, 230);
-            DigitalSensorBar.ChannelDescription = "SENSÖR İSİMLERİ";
-            DigitalSensorBar.ChannelName = "DİJİTAL SENSÖRLER";
-            DigitalSensorBar.ChannelStatement = Color.FromArgb(0, 131, 200);
-            tableLayoutPanel3.SetColumnSpan(DigitalSensorBar, 3);
-            DigitalSensorBar.Dock = DockStyle.Fill;
-            DigitalSensorBar.Location = new Point(3, 3);
-            DigitalSensorBar.Name = "DigitalSensorBar";
-            DigitalSensorBar.PanelSplit1Visible = false;
-            DigitalSensorBar.PanelSplit2Visible = false;
-            DigitalSensorBar.Size = new Size(568, 45);
-            DigitalSensorBar.SystemStatementColor = Color.White;
-            DigitalSensorBar.SystemStatementDescriptionTextColor = Color.White;
-            DigitalSensorBar.SystemStatementText = "-";
-            DigitalSensorBar.SystemStatementTitleTextColor = Color.White;
-            DigitalSensorBar.TabIndex = 2;
+            digitalSensorBar1.BackColor = Color.FromArgb(235, 235, 235);
+            digitalSensorBar1.ChannelDescription = "SENSÖR İSİMLERİ";
+            digitalSensorBar1.ChannelName = "DİJİTAL SENSÖRLER";
+            digitalSensorBar1.ChannelStateColor = Color.FromArgb(0, 131, 200);
+            tableLayoutPanel3.SetColumnSpan(digitalSensorBar1, 3);
+            digitalSensorBar1.DataStateColor = Color.White;
+            digitalSensorBar1.DataStateDescription = "-";
+            digitalSensorBar1.DataStateDescriptionColor = SystemColors.ControlText;
+            digitalSensorBar1.DataStateTitleColor = SystemColors.ControlText;
+            digitalSensorBar1.Dock = DockStyle.Fill;
+            digitalSensorBar1.Location = new Point(0, 0);
+            digitalSensorBar1.Margin = new Padding(0);
+            digitalSensorBar1.Name = "digitalSensorBar1";
+            digitalSensorBar1.Size = new Size(574, 50);
+            digitalSensorBar1.SystemStateDescription = "-";
+            digitalSensorBar1.SystemStateDescriptionColor = SystemColors.ControlText;
+            digitalSensorBar1.SystemStateTitleColor = SystemColors.ControlText;
+            digitalSensorBar1.TabIndex = 2;
             // 
             // StationInfoControl
             // 
@@ -466,20 +482,6 @@
             TimerGetMissingDates.Interval = 1200000;
             TimerGetMissingDates.Tick += TimerGetMissingDates_Tick;
             // 
-            // ChannelAkm
-            // 
-            ChannelAkm.AvgDataOf60Min = "-";
-            ChannelAkm.BackColor = Color.FromArgb(230, 230, 230);
-            ChannelAkm.ChannelDescription = "Askıda Katı Madde";
-            ChannelAkm.ChannelName = "AKM";
-            ChannelAkm.Dock = DockStyle.Fill;
-            ChannelAkm.InstantData = "-";
-            ChannelAkm.Location = new Point(3, 72);
-            ChannelAkm.Name = "ChannelAkm";
-            ChannelAkm.Size = new Size(568, 63);
-            ChannelAkm.TabIndex = 1;
-            ChannelAkm.Load += ChannelAkm_Load;
-            // 
             // HomePage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -495,17 +497,12 @@
 
         private void TimerAssignUI_Tick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void TimerGetMissingDates_Tick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void ChannelAkm_Load(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         #endregion
@@ -533,8 +530,8 @@
         private Controls.IBKS.StationInfoControl StationInfoControl;
         private System.Windows.Forms.Timer TimerAssignUI;
         private Controls.IBKS.StatusBarControl StatusBarControl;
-        private Controls.IBKS.DigitalSensorBar DigitalSensorBar;
         private System.Windows.Forms.Timer TimerGetMissingDates;
         private Controls.IBKS.ChannelControl ChannelAkm;
+        private Controls.IBKS.DigitalSensorBar digitalSensorBar1;
     }
 }

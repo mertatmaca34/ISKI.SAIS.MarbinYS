@@ -113,7 +113,7 @@
             CalibrationPageButton.Name = "CalibrationPageButton";
             CalibrationPageButton.Size = new Size(74, 68);
             CalibrationPageButton.TabIndex = 0;
-            CalibrationPageButton.Text = "Simülasyon";
+            CalibrationPageButton.Text = "Kalibrasyon";
             CalibrationPageButton.TextAlign = ContentAlignment.BottomCenter;
             CalibrationPageButton.UseVisualStyleBackColor = false;
             CalibrationPageButton.Click += CalibrationPageButton_Click;
@@ -130,7 +130,7 @@
             MailPageButton.Name = "MailPageButton";
             MailPageButton.Size = new Size(74, 68);
             MailPageButton.TabIndex = 0;
-            MailPageButton.Text = "Simülasyon";
+            MailPageButton.Text = "Mail";
             MailPageButton.TextAlign = ContentAlignment.BottomCenter;
             MailPageButton.UseVisualStyleBackColor = false;
             MailPageButton.Click += MailPageButton_Click;
@@ -147,7 +147,7 @@
             ReportingPageButton.Name = "ReportingPageButton";
             ReportingPageButton.Size = new Size(74, 68);
             ReportingPageButton.TabIndex = 0;
-            ReportingPageButton.Text = "Simülasyon";
+            ReportingPageButton.Text = "Raporlama";
             ReportingPageButton.TextAlign = ContentAlignment.BottomCenter;
             ReportingPageButton.UseVisualStyleBackColor = false;
             ReportingPageButton.Click += ReportingPageButton_Click;
@@ -164,7 +164,7 @@
             SettingsPageButton.Name = "SettingsPageButton";
             SettingsPageButton.Size = new Size(74, 68);
             SettingsPageButton.TabIndex = 0;
-            SettingsPageButton.Text = "Simülasyon";
+            SettingsPageButton.Text = "Ayarlar";
             SettingsPageButton.TextAlign = ContentAlignment.BottomCenter;
             SettingsPageButton.UseVisualStyleBackColor = false;
             SettingsPageButton.Click += SettingsPageButton_Click;

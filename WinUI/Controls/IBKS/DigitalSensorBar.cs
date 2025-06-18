@@ -1,88 +1,98 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinUI.Controls.IBKS
+namespace WinUI.Controls.IBKS;
+
+public partial class DigitalSensorBar : UserControl
 {
-    public partial class DigitalSensorBar: UserControl
+    [Category("IBKS"), Description("Kanal Adı")]
+    public string ChannelName
     {
-        [Description("Kanal adı"), Category("IBKS")]
-        public string ChannelName
-        {
-            get => LabelChannelName.Text;
-            set => LabelChannelName.Text = value;
-        }
+        get => LabelChannelName.Text;
+        set => LabelChannelName.Text = value;
+    }
 
-        [Description("Kanal Açıklaması"), Category("IBKS")]
-        public string ChannelDescription
-        {
-            get => LabelChannelDescription.Text;
-            set => LabelChannelDescription.Text = value;
-        }
+    [Category("IBKS"), Description("Kanal Açıklaması")]
+    public string ChannelDescription
+    {
+        get => LabelChannelDescription.Text;
+        set => LabelChannelDescription.Text = value;
+    }
 
-        [Description("Kanal Durumu"), Category("IBKS")]
-        [DefaultValue(typeof(Color), "Gray")]
-        public Color ChannelStatement
-        {
-            get => PanelStatement.BackColor;
-            set => PanelStatement.BackColor = value;
-        }
+    [Category("IBKS"), Description("Kanal Durumu"), DefaultValue(typeof(Color), "Gray")]
+    public Color ChannelStateColor
+    {
+        get => PanelState.BackColor;
+        set => PanelState.BackColor = value;
+    }
 
-        [Description("1. Ayraç"), Category("IBKS")]
-        [DefaultValue(typeof(bool), "true")]
-        public bool PanelSplit1Visible
-        {
-            get => PanelSplit1.Visible;
-            set => PanelSplit1.Visible = value;
-        }
+    [Category("IBKS"), Description("1. Ayraç Görünürlüğü"), DefaultValue(true)]
+    public bool Splitter1Visible
+    {
+        get => Splitter1.Visible;
+        set => Splitter1.Visible = value;
+    }
 
-        [Description("2. Ayraç"), Category("IBKS")]
-        [DefaultValue(typeof(bool), "true")]
-        public bool PanelSplit2Visible
-        {
-            get => PanelSplit2.Visible;
-            set => PanelSplit2.Visible = value;
-        }
+    [Category("IBKS"), Description("2. Ayraç Görünürlüğü"), DefaultValue(true)]
+    public bool Splitter2Visible
+    {
+        get => Splitter2.Visible;
+        set => Splitter2.Visible = value;
+    }
 
-        [Description("Sistem Durumu"), Category("IBKS")]
-        [DefaultValue(typeof(Color), "Gray")]
-        public Color SystemStatementColor
-        {
-            get => TableLayoutPanelSystemStatement.BackColor;
-            set => TableLayoutPanelSystemStatement.BackColor = value;
-        }
+    [Category("IBKS"), Description("Veri Durumu Arka Plan Rengi"), DefaultValue(typeof(Color), "Gray")]
+    public Color DataStateColor
+    {
+        get => tableLayoutDataState.BackColor;
+        set => tableLayoutDataState.BackColor = value;
+    }
 
-        [Description("Sistem Durumu Açıklaması"), Category("IBKS")]
-        public string SystemStatementText
-        {
-            get => LabelSystemStatementDescription.Text;
-            set => LabelSystemStatementDescription.Text = value;
-        }
+    [Category("IBKS"), Description("Veri Durumu Açıklaması")]
+    public string DataStateDescription
+    {
+        get => LabelDataStateDescription.Text;
+        set => LabelDataStateDescription.Text = value;
+    }
 
-        [Description("Sistem Durumu Başlığı Yazı Rengi"), Category("IBKS")]
-        public Color SystemStatementTitleTextColor
-        {
-            get => LabelSystemStatementTitle.ForeColor;
-            set => LabelSystemStatementTitle.ForeColor = value;
-        }
+    [Category("IBKS"), Description("Veri Durumu Başlık Yazı Rengi")]
+    public Color DataStateTitleColor
+    {
+        get => LabelDataStateTitle.ForeColor;
+        set => LabelDataStateTitle.ForeColor = value;
+    }
 
+    [Category("IBKS"), Description("Veri Durumu Açıklama Yazı Rengi")]
+    public Color DataStateDescriptionColor
+    {
+        get => LabelDataStateDescription.ForeColor;
+        set => LabelDataStateDescription.ForeColor = value;
+    }
 
-        [Description("Sistem Durumu Açıklaması Yazı Rengi"), Category("IBKS")]
-        public Color SystemStatementDescriptionTextColor
-        {
-            get => LabelSystemStatementDescription.ForeColor;
-            set => LabelSystemStatementDescription.ForeColor = value;
-        }
+    [Category("IBKS"), Description("Sistem Durumu Başlık Yazı Rengi")]
+    public Color SystemStateTitleColor
+    {
+        get => LabelSystemStateTitle.ForeColor;
+        set => LabelSystemStateTitle.ForeColor = value;
+    }
 
-        public DigitalSensorBar()
-        {
-            InitializeComponent();
-        }
+    [Category("IBKS"), Description("Sistem Durumu Açıklama Yazı Rengi")]
+    public Color SystemStateDescriptionColor
+    {
+        get => LabelSystemStateDescription.ForeColor;
+        set => LabelSystemStateDescription.ForeColor = value;
+    }
+
+    [Category("IBKS"), Description("Sistem Durumu Açıklaması")]
+    public string SystemStateDescription
+    {
+        get => LabelSystemStateDescription.Text;
+        set => LabelSystemStateDescription.Text = value;
+    }
+
+    public DigitalSensorBar()
+    {
+        InitializeComponent();
     }
 }
