@@ -16,13 +16,14 @@ public partial class MainForm : Form
 {
     HomePage _homePage;
     CalibrationPage _calibrationPage;
-
-    public MainForm(HomePage homePage, CalibrationPage calibrationPage)
+    SimulationPage _simulationPage;
+    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage)
     {
         InitializeComponent();
 
         _homePage = homePage;
         _calibrationPage = calibrationPage;
+        _simulationPage = simulationPage;
 
         PageManager.ShowPage(MainContentPanel, _homePage);
     }
@@ -43,6 +44,7 @@ public partial class MainForm : Form
     private void SimulationPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SimulationPageButton);
+        PageManager.ShowPage(MainContentPanel, _simulationPage);
     }
 
     private void CalibrationPageButton_Click(object sender, EventArgs e)

@@ -40,6 +40,7 @@ namespace WinUI
                     services.AddScoped<MainForm>();
                     services.AddSingleton<HomePage>();
                     services.AddSingleton<CalibrationPage>();
+                    services.AddSingleton<SimulationPage>();
                 });
     }
 }
