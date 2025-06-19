@@ -17,13 +17,16 @@ public partial class MainForm : Form
     HomePage _homePage;
     CalibrationPage _calibrationPage;
     SimulationPage _simulationPage;
-    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage)
+    ReportingPage _reportingPage;
+
+    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage, ReportingPage reportingPage)
     {
         InitializeComponent();
 
         _homePage = homePage;
         _calibrationPage = calibrationPage;
         _simulationPage = simulationPage;
+        _reportingPage = reportingPage;
 
         PageManager.ShowPage(MainContentPanel, _homePage);
     }
@@ -61,6 +64,7 @@ public partial class MainForm : Form
     private void ReportingPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, ReportingPageButton);
+        PageManager.ShowPage(MainContentPanel, _reportingPage);
     }
 
     private void SettingsPageButton_Click(object sender, EventArgs e)

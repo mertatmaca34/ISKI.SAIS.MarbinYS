@@ -24,7 +24,6 @@ namespace WinUI
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
 
-            // 3. Ana formu hazýrla
             var mainForm = services.GetRequiredService<MainForm>();
 
             splash.Invoke(() => splash.Close());
@@ -41,6 +40,7 @@ namespace WinUI
                     services.AddSingleton<HomePage>();
                     services.AddSingleton<CalibrationPage>();
                     services.AddSingleton<SimulationPage>();
+                    services.AddSingleton<ReportingPage>();
                 });
     }
 }
