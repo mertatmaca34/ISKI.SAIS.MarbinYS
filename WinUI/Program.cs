@@ -41,6 +41,7 @@ namespace WinUI
                     services.AddSingleton<CalibrationPage>();
                     services.AddSingleton<SimulationPage>();
                     services.AddSingleton<ReportingPage>();
+                    services.AddSingleton<MailPage>();
                 });
     }
 }

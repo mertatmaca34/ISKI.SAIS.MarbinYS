@@ -28,16 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             SideBarTableLayoutPanel = new TableLayoutPanel();
             HomePageButton = new Button();
             SimulationPageButton = new Button();
             CalibrationPageButton = new Button();
-            MailPageButton = new Button();
             ReportingPageButton = new Button();
+            MailPageButton = new Button();
+            MailPageMenuStrip = new ContextMenuStrip(components);
+            EventTriggersButton = new ToolStripMenuItem();
+            mailDuToolStripMenuItem = new ToolStripMenuItem();
+            mailKullanıcılarıToolStripMenuItem = new ToolStripMenuItem();
             SettingsPageButton = new Button();
+            LoginButton = new Button();
             MainContentPanel = new Panel();
             SideBarTableLayoutPanel.SuspendLayout();
+            MailPageMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // SideBarTableLayoutPanel
@@ -48,9 +55,10 @@
             SideBarTableLayoutPanel.Controls.Add(HomePageButton, 0, 0);
             SideBarTableLayoutPanel.Controls.Add(SimulationPageButton, 0, 1);
             SideBarTableLayoutPanel.Controls.Add(CalibrationPageButton, 0, 2);
-            SideBarTableLayoutPanel.Controls.Add(MailPageButton, 0, 3);
             SideBarTableLayoutPanel.Controls.Add(ReportingPageButton, 0, 4);
-            SideBarTableLayoutPanel.Controls.Add(SettingsPageButton, 0, 7);
+            SideBarTableLayoutPanel.Controls.Add(MailPageButton, 0, 3);
+            SideBarTableLayoutPanel.Controls.Add(SettingsPageButton, 0, 5);
+            SideBarTableLayoutPanel.Controls.Add(LoginButton, 0, 7);
             SideBarTableLayoutPanel.Dock = DockStyle.Left;
             SideBarTableLayoutPanel.Location = new Point(0, 0);
             SideBarTableLayoutPanel.Name = "SideBarTableLayoutPanel";
@@ -118,23 +126,6 @@
             CalibrationPageButton.UseVisualStyleBackColor = false;
             CalibrationPageButton.Click += CalibrationPageButton_Click;
             // 
-            // MailPageButton
-            // 
-            MailPageButton.Anchor = AnchorStyles.None;
-            MailPageButton.FlatAppearance.BorderSize = 0;
-            MailPageButton.FlatStyle = FlatStyle.Flat;
-            MailPageButton.Font = new Font("Calibri", 8.25F);
-            MailPageButton.ForeColor = Color.DimGray;
-            MailPageButton.Image = Properties.Resources.alarm_24px;
-            MailPageButton.Location = new Point(8, 260);
-            MailPageButton.Name = "MailPageButton";
-            MailPageButton.Size = new Size(74, 68);
-            MailPageButton.TabIndex = 0;
-            MailPageButton.Text = "Mail";
-            MailPageButton.TextAlign = ContentAlignment.BottomCenter;
-            MailPageButton.UseVisualStyleBackColor = false;
-            MailPageButton.Click += MailPageButton_Click;
-            // 
             // ReportingPageButton
             // 
             ReportingPageButton.Anchor = AnchorStyles.None;
@@ -152,6 +143,49 @@
             ReportingPageButton.UseVisualStyleBackColor = false;
             ReportingPageButton.Click += ReportingPageButton_Click;
             // 
+            // MailPageButton
+            // 
+            MailPageButton.Anchor = AnchorStyles.None;
+            MailPageButton.ContextMenuStrip = MailPageMenuStrip;
+            MailPageButton.FlatAppearance.BorderSize = 0;
+            MailPageButton.FlatStyle = FlatStyle.Flat;
+            MailPageButton.Font = new Font("Calibri", 8.25F);
+            MailPageButton.ForeColor = Color.DimGray;
+            MailPageButton.Image = Properties.Resources.alarm_24px;
+            MailPageButton.Location = new Point(8, 260);
+            MailPageButton.Name = "MailPageButton";
+            MailPageButton.Size = new Size(74, 68);
+            MailPageButton.TabIndex = 0;
+            MailPageButton.Text = "Mail";
+            MailPageButton.TextAlign = ContentAlignment.BottomCenter;
+            MailPageButton.UseVisualStyleBackColor = false;
+            MailPageButton.MouseClick += MailPageButton_MouseClick;
+            // 
+            // MailPageMenuStrip
+            // 
+            MailPageMenuStrip.Items.AddRange(new ToolStripItem[] { EventTriggersButton, mailDuToolStripMenuItem, mailKullanıcılarıToolStripMenuItem });
+            MailPageMenuStrip.Name = "contextMenuStrip1";
+            MailPageMenuStrip.Size = new Size(172, 70);
+            // 
+            // EventTriggersButton
+            // 
+            EventTriggersButton.Name = "EventTriggersButton";
+            EventTriggersButton.Size = new Size(171, 22);
+            EventTriggersButton.Text = "Olay Tanımları";
+            EventTriggersButton.Click += EventTriggersButton_Click;
+            // 
+            // mailDuToolStripMenuItem
+            // 
+            mailDuToolStripMenuItem.Name = "mailDuToolStripMenuItem";
+            mailDuToolStripMenuItem.Size = new Size(171, 22);
+            mailDuToolStripMenuItem.Text = "Kullanıcı Tanımları";
+            // 
+            // mailKullanıcılarıToolStripMenuItem
+            // 
+            mailKullanıcılarıToolStripMenuItem.Name = "mailKullanıcılarıToolStripMenuItem";
+            mailKullanıcılarıToolStripMenuItem.Size = new Size(171, 22);
+            mailKullanıcılarıToolStripMenuItem.Text = "Sunucu Ayarlarları";
+            // 
             // SettingsPageButton
             // 
             SettingsPageButton.Anchor = AnchorStyles.None;
@@ -160,7 +194,7 @@
             SettingsPageButton.Font = new Font("Calibri", 8.25F);
             SettingsPageButton.ForeColor = Color.DimGray;
             SettingsPageButton.Image = Properties.Resources.settings_24px;
-            SettingsPageButton.Location = new Point(8, 605);
+            SettingsPageButton.Location = new Point(8, 428);
             SettingsPageButton.Name = "SettingsPageButton";
             SettingsPageButton.Size = new Size(74, 68);
             SettingsPageButton.TabIndex = 0;
@@ -168,6 +202,23 @@
             SettingsPageButton.TextAlign = ContentAlignment.BottomCenter;
             SettingsPageButton.UseVisualStyleBackColor = false;
             SettingsPageButton.Click += SettingsPageButton_Click;
+            // 
+            // LoginButton
+            // 
+            LoginButton.Anchor = AnchorStyles.None;
+            LoginButton.FlatAppearance.BorderSize = 0;
+            LoginButton.FlatStyle = FlatStyle.Flat;
+            LoginButton.Font = new Font("Calibri", 8.25F);
+            LoginButton.ForeColor = Color.DimGray;
+            LoginButton.Image = Properties.Resources.user_24px;
+            LoginButton.Location = new Point(8, 605);
+            LoginButton.Name = "LoginButton";
+            LoginButton.Size = new Size(74, 68);
+            LoginButton.TabIndex = 0;
+            LoginButton.Text = "Giriş Yap";
+            LoginButton.TextAlign = ContentAlignment.BottomCenter;
+            LoginButton.UseVisualStyleBackColor = false;
+            LoginButton.Click += LoginButton_Click;
             // 
             // MainContentPanel
             // 
@@ -190,6 +241,7 @@
             Text = "İSKİ Marbin Yönetim Sistemi";
             Load += MainForm_Load;
             SideBarTableLayoutPanel.ResumeLayout(false);
+            MailPageMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -203,5 +255,10 @@
         private Button MailPageButton;
         private Button ReportingPageButton;
         private Button SettingsPageButton;
+        private ContextMenuStrip MailPageMenuStrip;
+        private ToolStripMenuItem EventTriggersButton;
+        private ToolStripMenuItem mailDuToolStripMenuItem;
+        private ToolStripMenuItem mailKullanıcılarıToolStripMenuItem;
+        private Button LoginButton;
     }
 }

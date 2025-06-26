@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinUI.Helpers;
 using WinUI.Pages;
+using WinUI.Pages.Mail;
 
 namespace WinUI.Forms;
 
@@ -18,8 +19,9 @@ public partial class MainForm : Form
     CalibrationPage _calibrationPage;
     SimulationPage _simulationPage;
     ReportingPage _reportingPage;
+    MailPage _mailPage;
 
-    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage, ReportingPage reportingPage)
+    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage, ReportingPage reportingPage, MailPage mailPage)
     {
         InitializeComponent();
 
@@ -27,6 +29,7 @@ public partial class MainForm : Form
         _calibrationPage = calibrationPage;
         _simulationPage = simulationPage;
         _reportingPage = reportingPage;
+        _mailPage = mailPage;
 
         PageManager.ShowPage(MainContentPanel, _homePage);
     }
@@ -56,9 +59,9 @@ public partial class MainForm : Form
         PageManager.ShowPage(MainContentPanel, _calibrationPage);
     }
 
-    private void MailPageButton_Click(object sender, EventArgs e)
+    private void MailPageButton_MouseClick(object sender, MouseEventArgs e)
     {
-        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
+        MailPageButton.ContextMenuStrip!.Show(MailPageButton, new Point(e.X, e.Y));
     }
 
     private void ReportingPageButton_Click(object sender, EventArgs e)
@@ -70,5 +73,19 @@ public partial class MainForm : Form
     private void SettingsPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SettingsPageButton);
+    }
+
+    private void EventTriggersButton_Click(object sender, EventArgs e)
+    {
+        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
+
+        PageManager.ShowPage(MainContentPanel, new EventTriggersPage());
+    }
+
+    private void LoginButton_Click(object sender, EventArgs e)
+    {
+        LoginForm loginForm = new LoginForm();
+
+        loginForm.ShowDialog();
     }
 }
