@@ -18,6 +18,7 @@ public static class ServiceRegistration
         services.AddScoped<IMailUserRepository, MailUserRepository>();
         services.AddScoped<IMailLogRepository, MailLogRepository>();
         services.AddScoped<IMailTriggerRecipientRepository, MailTriggerRecipientRepository>();
+        services.AddScoped<ISendDataRepository, SendDataRepository>();
 
         return services;
     }

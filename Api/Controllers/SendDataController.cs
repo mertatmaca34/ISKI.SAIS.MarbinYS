@@ -1,4 +1,6 @@
 using Application.Features.SendData.Commands;
+using Application.Features.SendData.Queries.GetList;
+using Application.Features.SendData.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +10,21 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 public class SendDataController(IMediator mediator) : ControllerBase
 {
+    [HttpGet]
+    public async Task<IActionResult> GetList()
+    {
+        var result = await mediator.Send(new GetSendDataQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var result = await mediator.Send(new GetSendDataByIdQuery(id));
+        if (result is null)
+            return NotFound();
+        return Ok(result);
+    }
     [HttpPost]
     public async Task<IActionResult> Send(SendDataCommand command)
     {

@@ -15,6 +15,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
     public DbSet<MailTrigger> MailTriggers  => Set<MailTrigger>();
     public DbSet<MailTriggerRecipient> MailTriggerRecipients => Set<MailTriggerRecipient>();
     public DbSet<MailUser> MailUsers => Set<MailUser>();
+    public DbSet<SendData> SendData => Set<SendData>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
