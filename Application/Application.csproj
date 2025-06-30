@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\ISKI.Core\ISKI.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

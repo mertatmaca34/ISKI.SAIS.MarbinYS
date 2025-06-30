@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISKI.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class MailSettings
+public class MailSettings : BaseEntity<int>
 {
-    public int Id { get; set; }
     public string SmtpHost { get; set; }
     public int SmtpPort { get; set; }
     public string SmtpUser { get; set; }
