@@ -11,7 +11,6 @@ public class MailLog : BaseEntity<int>
 {
     public int MailTriggerId { get; set; }
     public MailTrigger MailTrigger { get; set; }
-
     public string RecipientEmail { get; set; }
     public DateTime SentAt { get; set; }
     public bool IsSuccess { get; set; }
