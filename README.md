@@ -24,4 +24,14 @@ dotnet build ISKI.SAIS.MarbinYS.sln
 dotnet run --project Api/Api.csproj
 ```
 
+The API exposes `/api/mailtrigger` for full CRUD operations on mail triggers.
+
+## Running the WinForms app
+
+```
+dotnet run --project WinUI/WinUI.csproj
+```
+
+The UI connects to the same backend to display and manage mail triggers.
+=======
 The API exposes `/api/mailtrigger` for creating and listing mail triggers.
