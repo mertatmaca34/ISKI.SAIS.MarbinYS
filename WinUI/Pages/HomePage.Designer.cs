@@ -497,12 +497,12 @@
 
         private void TimerAssignUI_Tick(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            StatusBarControl.SistemSaati = System.DateTime.Now.ToString("T");
         }
 
         private void TimerGetMissingDates_Tick(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            StatusBarControl.ConnectionTime = System.DateTime.Now.ToString("g");
         }
 
         #endregion
