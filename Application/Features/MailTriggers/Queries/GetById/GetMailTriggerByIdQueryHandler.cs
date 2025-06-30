@@ -1,10 +1,13 @@
 using MediatR;
 using Application.Features.MailTriggers.Dtos;
 using Application.Services.Repositories;
+using AutoMapper;
 
 namespace Application.Features.MailTriggers.Queries.GetById;
 
-public class GetMailTriggerByIdQueryHandler(IMailTriggerRepository repository)
+public class GetMailTriggerByIdQueryHandler(
+    IMailTriggerRepository repository,
+    IMapper mapper)
     : IRequestHandler<GetMailTriggerByIdQuery, MailTriggerDto?>
 {
     public async Task<MailTriggerDto?> Handle(GetMailTriggerByIdQuery request, CancellationToken cancellationToken)
@@ -13,15 +16,6 @@ public class GetMailTriggerByIdQueryHandler(IMailTriggerRepository repository)
         if (entity is null)
             return null;
 
-        return new MailTriggerDto
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            SensorTag = entity.SensorTag,
-            Operator = (int)entity.Operator,
-            Threshold = entity.Threshold,
-            CooldownMinutes = entity.CooldownMinutes,
-            IsActive = entity.IsActive
-        };
+        return mapper.Map<MailTriggerDto>(entity);
     }
 }

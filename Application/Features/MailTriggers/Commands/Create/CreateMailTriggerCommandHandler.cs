@@ -1,35 +1,21 @@
 using MediatR;
 using Application.Features.MailTriggers.Dtos;
-using Domain.Entities;
 using Application.Services.Repositories;
+using AutoMapper;
+using Domain.Entities;
 
 namespace Application.Features.MailTriggers.Commands.Create;
 
-public class CreateMailTriggerCommandHandler(IMailTriggerRepository repository) : IRequestHandler<CreateMailTriggerCommand, MailTriggerDto>
+public class CreateMailTriggerCommandHandler(
+    IMailTriggerRepository repository,
+    IMapper mapper) : IRequestHandler<CreateMailTriggerCommand, MailTriggerDto>
 {
     public async Task<MailTriggerDto> Handle(CreateMailTriggerCommand request, CancellationToken cancellationToken)
     {
-        var entity = new MailTrigger
-        {
-            Name = request.Name,
-            SensorTag = request.SensorTag,
-            Operator = request.Operator,
-            Threshold = request.Threshold,
-            CooldownMinutes = request.CooldownMinutes,
-            IsActive = request.IsActive
-        };
+        var entity = mapper.Map<MailTrigger>(request);
 
         entity = await repository.AddAsync(entity);
 
-        return new MailTriggerDto
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            SensorTag = entity.SensorTag,
-            Operator = (int)entity.Operator,
-            Threshold = entity.Threshold,
-            CooldownMinutes = entity.CooldownMinutes,
-            IsActive = entity.IsActive
-        };
+        return mapper.Map<MailTriggerDto>(entity);
     }
 }
