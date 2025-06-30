@@ -14,6 +14,10 @@ public static class ServiceRegistration
             options.UseSqlServer(connectionString));
 
         services.AddScoped<IMailTriggerRepository, MailTriggerRepository>();
+        services.AddScoped<IMailSettingsRepository, MailSettingsRepository>();
+        services.AddScoped<IMailUserRepository, MailUserRepository>();
+        services.AddScoped<IMailLogRepository, MailLogRepository>();
+        services.AddScoped<IMailTriggerRecipientRepository, MailTriggerRecipientRepository>();
 
         return services;
     }
