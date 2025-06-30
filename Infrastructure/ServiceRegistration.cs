@@ -1,0 +1,24 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Application.Services.Repositories;
+using Infrastructure.Persistence.Repositories;
+using Infrastructure.Persistence;
+
+namespace Infrastructure;
+
+public static class ServiceRegistration
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
+    {
+        services.AddDbContext<IBKSContext>(options =>
+            options.UseSqlServer(connectionString));
+
+        services.AddScoped<IMailTriggerRepository, MailTriggerRepository>();
+        services.AddScoped<IMailSettingsRepository, MailSettingsRepository>();
+        services.AddScoped<IMailUserRepository, MailUserRepository>();
+        services.AddScoped<IMailLogRepository, MailLogRepository>();
+        services.AddScoped<IMailTriggerRecipientRepository, MailTriggerRecipientRepository>();
+
+        return services;
+    }
+}
