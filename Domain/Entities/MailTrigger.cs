@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using ISKI.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class MailTrigger
+public class MailTrigger : BaseEntity<int>
 {
-    public int Id { get; set; }
-    public string Name { get; set; }                  // "Yüksek AKM"
-    public string SensorTag { get; set; }             // "AKM"
-    public ComparisonOperator Operator { get; set; }  // >
-    public double Threshold { get; set; }             // 50
-    public int CooldownMinutes { get; set; }          // 30
+    public string Name { get; set; }
+    public string SensorTag { get; set; }
+    public ComparisonOperator Operator { get; set; }
+    public double Threshold { get; set; }
+    public int CooldownMinutes { get; set; }
     public bool IsActive { get; set; }
     public DateTime? LastMailSentAt { get; set; }
-
     public ICollection<MailTriggerRecipient> Recipients { get; set; }
 }

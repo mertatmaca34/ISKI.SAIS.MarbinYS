@@ -30,6 +30,7 @@ The API exposes endpoints for all domain entities. Currently implemented:
 - `/api/mailsettings` - list mail configuration records
 - `/api/mailusers` - list registered users
 - `/api/maillogs` - list mail send logs
+The API exposes `/api/mailtrigger` for full CRUD operations on mail triggers.
 
 ## Running the WinForms app
 
@@ -38,3 +39,4 @@ dotnet run --project WinUI/WinUI.csproj
 ```
 
 The UI connects to the same backend to display and manage mail triggers.
+The API exposes `/api/mailtrigger` for creating and listing mail triggers.
