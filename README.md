@@ -33,3 +33,5 @@ dotnet run --project WinUI/WinUI.csproj
 ```
 
 The UI connects to the same backend to display and manage mail triggers.
+=======
+The API exposes `/api/mailtrigger` for creating and listing mail triggers.

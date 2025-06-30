@@ -25,7 +25,6 @@ public class MailTriggerController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new GetMailTriggersQuery());
         return Ok(result);
     }
-
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
