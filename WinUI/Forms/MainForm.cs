@@ -88,4 +88,18 @@ public partial class MainForm : Form
 
         loginForm.ShowDialog();
     }
+
+    private void MailUsersButton_Click(object sender, EventArgs e)
+    {
+        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
+
+        PageManager.ShowPage(MainContentPanel, new MailUsersPage());
+    }
+
+    private void MailSettingsButton_Click(object sender, EventArgs e)
+    {
+        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
+
+        PageManager.ShowPage(MainContentPanel, new MailSettingsPage());
+    }
 }

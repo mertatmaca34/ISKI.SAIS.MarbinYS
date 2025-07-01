@@ -38,8 +38,8 @@
             MailPageButton = new Button();
             MailPageMenuStrip = new ContextMenuStrip(components);
             EventTriggersButton = new ToolStripMenuItem();
-            mailDuToolStripMenuItem = new ToolStripMenuItem();
-            mailKullanıcılarıToolStripMenuItem = new ToolStripMenuItem();
+            MailUsersButton = new ToolStripMenuItem();
+            MailSettingsButton = new ToolStripMenuItem();
             SettingsPageButton = new Button();
             LoginButton = new Button();
             MainContentPanel = new Panel();
@@ -163,28 +163,30 @@
             // 
             // MailPageMenuStrip
             // 
-            MailPageMenuStrip.Items.AddRange(new ToolStripItem[] { EventTriggersButton, mailDuToolStripMenuItem, mailKullanıcılarıToolStripMenuItem });
+            MailPageMenuStrip.Items.AddRange(new ToolStripItem[] { EventTriggersButton, MailUsersButton, MailSettingsButton });
             MailPageMenuStrip.Name = "contextMenuStrip1";
-            MailPageMenuStrip.Size = new Size(172, 70);
+            MailPageMenuStrip.Size = new Size(181, 92);
             // 
             // EventTriggersButton
             // 
             EventTriggersButton.Name = "EventTriggersButton";
-            EventTriggersButton.Size = new Size(171, 22);
+            EventTriggersButton.Size = new Size(180, 22);
             EventTriggersButton.Text = "Olay Tanımları";
             EventTriggersButton.Click += EventTriggersButton_Click;
             // 
-            // mailDuToolStripMenuItem
+            // MailUsersButton
             // 
-            mailDuToolStripMenuItem.Name = "mailDuToolStripMenuItem";
-            mailDuToolStripMenuItem.Size = new Size(171, 22);
-            mailDuToolStripMenuItem.Text = "Kullanıcı Tanımları";
+            MailUsersButton.Name = "MailUsersButton";
+            MailUsersButton.Size = new Size(180, 22);
+            MailUsersButton.Text = "Kullanıcı Tanımları";
+            MailUsersButton.Click += MailUsersButton_Click;
             // 
-            // mailKullanıcılarıToolStripMenuItem
+            // MailSettingsButton
             // 
-            mailKullanıcılarıToolStripMenuItem.Name = "mailKullanıcılarıToolStripMenuItem";
-            mailKullanıcılarıToolStripMenuItem.Size = new Size(171, 22);
-            mailKullanıcılarıToolStripMenuItem.Text = "Sunucu Ayarlarları";
+            MailSettingsButton.Name = "MailSettingsButton";
+            MailSettingsButton.Size = new Size(180, 22);
+            MailSettingsButton.Text = "Sunucu Ayarlarları";
+            MailSettingsButton.Click += MailSettingsButton_Click;
             // 
             // SettingsPageButton
             // 
@@ -257,8 +259,8 @@
         private Button SettingsPageButton;
         private ContextMenuStrip MailPageMenuStrip;
         private ToolStripMenuItem EventTriggersButton;
-        private ToolStripMenuItem mailDuToolStripMenuItem;
-        private ToolStripMenuItem mailKullanıcılarıToolStripMenuItem;
+        private ToolStripMenuItem MailUsersButton;
+        private ToolStripMenuItem MailSettingsButton;
         private Button LoginButton;
     }
 }
