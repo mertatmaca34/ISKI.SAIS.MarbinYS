@@ -24,6 +24,9 @@ dotnet build ISKI.SAIS.MarbinYS.sln
 dotnet run --project Api/Api.csproj
 ```
 
+When running in development mode the API serves an interactive Swagger UI at
+`/swagger` for exploring and testing endpoints.
+
 The API exposes endpoints for all domain entities. Currently implemented:
 
 - `/api/mailtrigger` - full CRUD operations for triggers
