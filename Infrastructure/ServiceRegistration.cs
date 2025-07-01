@@ -23,6 +23,7 @@ public static class ServiceRegistration
         services.AddScoped<ICalibrationLimitRepository, CalibrationLimitRepository>();
         services.AddScoped<ICalibrationMeasurementRepository, CalibrationMeasurementRepository>();
         services.AddScoped<IDigitalSensorDataRepository, DigitalSensorDataRepository>();
+        services.AddScoped<IAnalogSensorDataRepository, AnalogSensorDataRepository>();
         services.AddScoped<IPlcRepository, PlcRepository>();
         services.AddScoped<IStationRepository, StationRepository>();
 
