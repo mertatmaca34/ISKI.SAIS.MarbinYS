@@ -16,6 +16,12 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
     public DbSet<MailTriggerRecipient> MailTriggerRecipients => Set<MailTriggerRecipient>();
     public DbSet<MailUser> MailUsers => Set<MailUser>();
     public DbSet<SendData> SendData => Set<SendData>();
+    public DbSet<ApiEndpoint> ApiEndpoints => Set<ApiEndpoint>();
+    public DbSet<CalibrationLimit> CalibrationLimits => Set<CalibrationLimit>();
+    public DbSet<CalibrationMeasurement> CalibrationMeasurements => Set<CalibrationMeasurement>();
+    public DbSet<DigitalSensorData> DigitalSensorData => Set<DigitalSensorData>();
+    public DbSet<Plc> Plcs => Set<Plc>();
+    public DbSet<Station> Stations => Set<Station>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
