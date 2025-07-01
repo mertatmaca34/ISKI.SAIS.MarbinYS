@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Services.Repositories;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Persistence;
+using Infrastructure.Services.PLC;
 
 namespace Infrastructure;
 
@@ -26,6 +27,7 @@ public static class ServiceRegistration
         services.AddScoped<IAnalogSensorDataRepository, AnalogSensorDataRepository>();
         services.AddScoped<IPlcRepository, PlcRepository>();
         services.AddScoped<IStationRepository, StationRepository>();
+        services.AddSingleton<IPlcClient, SiemensPlcClient>();
 
         return services;
     }
