@@ -30,6 +30,7 @@ The API exposes endpoints for all domain entities. Currently implemented:
 - `/api/mailsettings` - list mail configuration records
 - `/api/mailusers` - list registered users
 - `/api/maillogs` - list mail send logs
+- `/api/analogsensordata` - CRUD operations for analog sensor measurements
 The API exposes `/api/mailtrigger` for full CRUD operations on mail triggers.
 
 ## Running the WinForms app
