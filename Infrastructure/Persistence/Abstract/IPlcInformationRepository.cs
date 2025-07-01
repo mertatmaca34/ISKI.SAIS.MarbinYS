@@ -3,6 +3,6 @@ using ISKI.Core.Infrastructure;
 
 namespace Infrastructure.Persistence.Abstract;
 
-public interface IPlcRepository : IAsyncRepository<Plc, int>
+public interface IPlcInformationRepository : IAsyncRepository<PlcInformation, int>
 {
 }

@@ -21,7 +21,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
     public DbSet<CalibrationMeasurement> CalibrationMeasurements => Set<CalibrationMeasurement>();
     public DbSet<DigitalSensorData> DigitalSensorData => Set<DigitalSensorData>();
     public DbSet<AnalogSensorData> AnalogSensorData => Set<AnalogSensorData>();
-    public DbSet<Plc> Plcs => Set<Plc>();
+    public DbSet<PlcInformation> PlcInformations => Set<PlcInformation>();
     public DbSet<Station> Stations => Set<Station>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
