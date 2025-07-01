@@ -19,6 +19,12 @@ public static class ServiceRegistration
         services.AddScoped<IMailLogRepository, MailLogRepository>();
         services.AddScoped<IMailTriggerRecipientRepository, MailTriggerRecipientRepository>();
         services.AddScoped<ISendDataRepository, SendDataRepository>();
+        services.AddScoped<IApiEndpointRepository, ApiEndpointRepository>();
+        services.AddScoped<ICalibrationLimitRepository, CalibrationLimitRepository>();
+        services.AddScoped<ICalibrationMeasurementRepository, CalibrationMeasurementRepository>();
+        services.AddScoped<IDigitalSensorDataRepository, DigitalSensorDataRepository>();
+        services.AddScoped<IPlcRepository, PlcRepository>();
+        services.AddScoped<IStationRepository, StationRepository>();
 
         return services;
     }
