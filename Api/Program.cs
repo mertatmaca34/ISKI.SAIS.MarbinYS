@@ -1,6 +1,7 @@
 ﻿using Application;
 using Infrastructure;
 using Api.BackgroundServices;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

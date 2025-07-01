@@ -14,18 +14,18 @@ public class PlcDataParser : IPlcDataParser
         // Expect sequential double values for each analog field.
         var result = new AnalogSensorData
         {
-            Readtime = DateTime.UtcNow,
-            AkisHizi = ReadDouble(data, 0),
-            Akm = ReadDouble(data, 8),
-            CozunmusOksijen = ReadDouble(data, 16),
-            Debi = ReadDouble(data, 24),
-            DesarjDebi = ReadDouble(data, 32),
-            HariciDebi = ReadDouble(data, 40),
-            HariciDebi2 = ReadDouble(data, 48),
-            Koi = ReadDouble(data, 56),
-            Ph = ReadDouble(data, 64),
-            Sicaklik = ReadDouble(data, 72),
-            Iletkenlik = ReadDouble(data, 80)
+            Readtime = DateTime.Now,
+            AkisHizi = ReadDouble(data, 4),
+            Akm = ReadDouble(data, 12),
+            CozunmusOksijen = ReadDouble(data, 24),
+            Debi = ReadDouble(data, 0),
+            DesarjDebi = ReadDouble(data, 60),
+            HariciDebi = ReadDouble(data, 52),
+            HariciDebi2 = ReadDouble(data, 56),
+            Koi = ReadDouble(data, 32),
+            Ph = ReadDouble(data, 16),
+            Sicaklik = ReadDouble(data, 40),
+            Iletkenlik = ReadDouble(data, 20)
         };
         return result;
     }
@@ -35,24 +35,24 @@ public class PlcDataParser : IPlcDataParser
         // Interpret each byte as boolean flag.
         return new DigitalSensorData
         {
-            ReadTime = DateTime.UtcNow,
-            Kapi = ReadBool(data, 0),
-            Duman = ReadBool(data, 1),
-            SuBaskini = ReadBool(data, 2),
-            AcilStop = ReadBool(data, 3),
-            Pompa1Termik = ReadBool(data, 4),
-            Pompa2Termik = ReadBool(data, 5),
-            TemizSuTermik = ReadBool(data, 6),
-            YikamaTanki = ReadBool(data, 7),
-            Enerji = ReadBool(data, 8),
-            Pompa1CalisiyorMu = ReadBool(data, 9),
-            Pompa2CalisiyorMu = ReadBool(data, 10)
+            ReadTime = DateTime.Now,
+            Kapi = ReadBool(data, 5),
+            Duman = ReadBool(data, 3),
+            SuBaskini = ReadBool(data, 4),
+            AcilStop = ReadBool(data, 7),
+            Pompa1Termik = ReadBool(data, 9),
+            Pompa2Termik = ReadBool(data, 10),
+            TemizSuTermik = ReadBool(data, 11),
+            YikamaTanki = ReadBool(data, 12),
+            Enerji = ReadBool(data, 6),
+            Pompa1CalisiyorMu = ReadBool(data, 14),
+            Pompa2CalisiyorMu = ReadBool(data, 15)
         };
     }
 
     private static double ReadDouble(byte[] data, int offset)
     {
-        if (data.Length < offset + 8) return 0;
+        if (data.Length < offset + 4) return 0;
         return BitConverter.ToDouble(data, offset);
     }
 

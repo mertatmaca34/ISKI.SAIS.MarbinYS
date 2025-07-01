@@ -9,7 +9,7 @@ namespace Infrastructure.Services.PLC;
 /// </summary>
 public class SiemensPlcClient : IPlcClient
 {
-    private const CpuType DefaultCpu = CpuType.S71500;
+    private const CpuType DefaultCpu = CpuType.S71200;
     private const short DefaultRack = 0;
     private const short DefaultSlot = 0;
 
