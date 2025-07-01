@@ -4,7 +4,7 @@ using ISKI.Core.Infrastructure;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class PlcRepository(IBKSContext context)
-    : EfRepositoryBase<Plc, int, IBKSContext>(context), IPlcRepository
+public class PlcInformationRepository(IBKSContext context)
+    : EfRepositoryBase<PlcInformation, int, IBKSContext>(context), IPlcInformationRepository
 {
 }

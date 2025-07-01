@@ -25,7 +25,7 @@ public static class ServiceRegistration
         services.AddScoped<ICalibrationMeasurementRepository, CalibrationMeasurementRepository>();
         services.AddScoped<IDigitalSensorDataRepository, DigitalSensorDataRepository>();
         services.AddScoped<IAnalogSensorDataRepository, AnalogSensorDataRepository>();
-        services.AddScoped<IPlcRepository, PlcRepository>();
+        services.AddScoped<IPlcInformationRepository, PlcInformationRepository>();
         services.AddScoped<IStationRepository, StationRepository>();
         services.AddSingleton<IPlcClient, SiemensPlcClient>();
 
