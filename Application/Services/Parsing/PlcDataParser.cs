@@ -1,5 +1,5 @@
 using Domain.Entities;
-using System;
+using Sharp7;
 
 namespace Application.Services.Parsing;
 
@@ -15,17 +15,17 @@ public class PlcDataParser : IPlcDataParser
         var result = new AnalogSensorData
         {
             Readtime = DateTime.Now,
-            AkisHizi = ReadDouble(data, 4),
-            Akm = ReadDouble(data, 12),
-            CozunmusOksijen = ReadDouble(data, 24),
-            Debi = ReadDouble(data, 0),
-            DesarjDebi = ReadDouble(data, 60),
-            HariciDebi = ReadDouble(data, 52),
-            HariciDebi2 = ReadDouble(data, 56),
-            Koi = ReadDouble(data, 32),
-            Ph = ReadDouble(data, 16),
-            Sicaklik = ReadDouble(data, 40),
-            Iletkenlik = ReadDouble(data, 20)
+            AkisHizi = GetReal(data, 4),
+            Akm = GetReal(data, 36, 60),
+            CozunmusOksijen = GetReal(data, 24),
+            Debi = GetReal(data, 0, 60),
+            DesarjDebi = GetReal(data, 60, 60),
+            HariciDebi = GetReal(data, 52, 60),
+            HariciDebi2 = GetReal(data, 56, 60),
+            Koi = GetReal(data, 32),
+            Ph = GetReal(data, 16),
+            Sicaklik = GetReal(data, 40),
+            Iletkenlik = GetReal(data, 20)
         };
         return result;
     }
@@ -36,29 +36,49 @@ public class PlcDataParser : IPlcDataParser
         return new DigitalSensorData
         {
             ReadTime = DateTime.Now,
-            Kapi = ReadBool(data, 5),
-            Duman = ReadBool(data, 3),
-            SuBaskini = ReadBool(data, 4),
-            AcilStop = ReadBool(data, 7),
-            Pompa1Termik = ReadBool(data, 9),
-            Pompa2Termik = ReadBool(data, 10),
-            TemizSuTermik = ReadBool(data, 11),
-            YikamaTanki = ReadBool(data, 12),
-            Enerji = ReadBool(data, 6),
-            Pompa1CalisiyorMu = ReadBool(data, 14),
-            Pompa2CalisiyorMu = ReadBool(data, 15)
+            Kapi = GetBit(data, 0, 5),
+            Duman = GetBit(data, 0, 3),
+            SuBaskini = GetBit(data, 0, 4),
+            AcilStop = GetBit(data, 0, 7),
+            Pompa1Termik = GetBit(data, 1, 2),
+            Pompa2Termik = GetBit(data, 1, 3),
+            TemizSuTermik = GetBit(data, 1, 4),
+            YikamaTanki = GetBit(data, 1, 5),
+            Enerji = GetBit(data, 0, 6),
+            Pompa1CalisiyorMu = GetBit(data, 1, 6),
+            Pompa2CalisiyorMu = GetBit(data, 1, 7)
         };
     }
 
-    private static double ReadDouble(byte[] data, int offset)
+    static public double GetReal(byte[] buffer, int offset, int? divider = null)
     {
-        if (data.Length < offset + 4) return 0;
-        return BitConverter.ToDouble(data, offset);
+        if (divider.HasValue)
+        {
+            return Math.Round((double)(S7.GetRealAt(buffer, offset) / divider), 2);
+        }
+        else
+        {
+            return Math.Round(S7.GetRealAt(buffer, offset), 2);
+        }
     }
-
-    private static bool ReadBool(byte[] data, int offset)
+    static public Byte GetByte(byte[] buffer, int offset)
     {
-        if (data.Length <= offset) return false;
-        return data[offset] != 0;
+        return S7.GetByteAt(buffer, offset);
+    }
+    static public DateTime GetTime(byte[] buffer, int offset)
+    {
+        return S7.GetDTLAt(buffer, offset);
+    }
+    static public Boolean GetInput(byte[] buffer, int pos, int bit)
+    {
+        return S7.GetBitAt(buffer, pos, bit);
+    }
+    static public Boolean GetMB(byte[] buffer, int pos, int bit)
+    {
+        return S7.GetBitAt(buffer, pos, bit);
+    }
+    static public Boolean GetBit(byte[] buffer, int pos, int bit)
+    {
+        return S7.GetBitAt(buffer, pos, bit);
     }
 }
