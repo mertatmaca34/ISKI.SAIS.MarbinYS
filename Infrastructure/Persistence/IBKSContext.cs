@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence;
 public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(options)
 {
     public DbSet<MailLog> MailLogs => Set<MailLog>();
-    public DbSet<MailSettings> MailSettings => Set<MailSettings>();
+    public DbSet<MailSetting> MailSettings => Set<MailSetting>();
     public DbSet<MailTrigger> MailTriggers  => Set<MailTrigger>();
     public DbSet<MailTriggerRecipient> MailTriggerRecipients => Set<MailTriggerRecipient>();
     public DbSet<MailUser> MailUsers => Set<MailUser>();

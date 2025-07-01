@@ -1,10 +1,10 @@
-using Application.Features.AnalogSensorData.Commands.Create;
-using Application.Features.AnalogSensorData.Commands.Delete;
-using Application.Features.AnalogSensorData.Commands.Update;
-using Application.Features.AnalogSensorData.Queries.GetList;
-using Application.Features.AnalogSensorData.Queries.GetById;
+using Application.Features.AnalogSensorDatas.Commands.Delete;
+using Application.Features.AnalogSensorDatas.Queries.GetList;
+using Application.Features.AnalogSensorDatas.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.AnalogSensorDatas.Commands.Create;
+using Application.Features.AnalogSensorDatas.Commands.Update;
 
 namespace Api.Controllers;
 

@@ -1,6 +1,6 @@
 using Application.Features.Plcs.Dtos;
-using Application.Services.Repositories;
 using AutoMapper;
+using Infrastructure.Persistence.Abstract;
 using MediatR;
 
 namespace Application.Features.Plcs.Commands.Update;

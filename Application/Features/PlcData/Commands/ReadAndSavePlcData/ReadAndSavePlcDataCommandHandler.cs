@@ -1,5 +1,5 @@
 using Application.Services.Parsing;
-using Application.Services.Repositories;
+using Infrastructure.Persistence.Abstract;
 using Infrastructure.Services.PLC;
 using MediatR;
 

@@ -1,10 +1,10 @@
-using Application.Features.DigitalSensorData.Commands.Create;
-using Application.Features.DigitalSensorData.Commands.Delete;
-using Application.Features.DigitalSensorData.Commands.Update;
-using Application.Features.DigitalSensorData.Queries.GetList;
-using Application.Features.DigitalSensorData.Queries.GetById;
+using Application.Features.DigitalSensorDatas.Commands.Delete;
+using Application.Features.DigitalSensorDatas.Queries.GetList;
+using Application.Features.DigitalSensorDatas.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.DigitalSensorDatas.Commands.Update;
+using Application.Features.DigitalSensorDatas.Commands.Create;
 
 namespace Api.Controllers;
 

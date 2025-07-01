@@ -1,4 +1,7 @@
-﻿namespace WinUI.Forms
+﻿using WinUI.Controls.IBKS;
+using System.Windows.Forms;
+
+namespace WinUI.Forms
 {
     partial class LoginForm
     {
@@ -34,9 +37,9 @@
             label2 = new Label();
             PasswordTextBox = new TextBox();
             labelTitle = new Label();
-            LoginButton = new WinUI.Controls.IBKS.Sidebar.Button();
-            EyeButton = new Button();
-            button1 = new Button();
+            LoginButton = new WinUI.Controls.IBKS.Button();
+            EyeButton = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
             textBox1 = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -194,9 +197,9 @@
         private Label label2;
         private TextBox PasswordTextBox;
         private Label labelTitle;
-        private Controls.IBKS.Sidebar.Button LoginButton;
-        private Button EyeButton;
-        private Button button1;
+        private Controls.IBKS.Button LoginButton;
+        private System.Windows.Forms.Button EyeButton;
+        private System.Windows.Forms.Button button1;
         private TextBox textBox1;
     }
 }

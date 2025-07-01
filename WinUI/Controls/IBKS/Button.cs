@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-namespace WinUI.Controls.IBKS.Sidebar;
+namespace WinUI.Controls.IBKS;
 
 public partial class Button : UserControl
 {

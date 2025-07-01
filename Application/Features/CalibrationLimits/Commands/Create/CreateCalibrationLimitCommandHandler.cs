@@ -1,7 +1,7 @@
 using Application.Features.CalibrationLimits.Dtos;
-using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Persistence.Abstract;
 using MediatR;
 
 namespace Application.Features.CalibrationLimits.Commands.Create;

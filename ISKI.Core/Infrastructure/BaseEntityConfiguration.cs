@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ISKI.SARS.Core.Infrastructure;
+namespace ISKI.Core.Infrastructure;
 
 public abstract class BaseEntityConfiguration<T, TId> : IEntityTypeConfiguration<T> where T : BaseEntity<TId>
 {

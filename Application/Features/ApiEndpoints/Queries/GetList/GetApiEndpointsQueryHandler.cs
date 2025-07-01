@@ -1,6 +1,6 @@
 using Application.Features.ApiEndpoints.Dtos;
-using Application.Services.Repositories;
 using AutoMapper;
+using Infrastructure.Persistence.Abstract;
 using MediatR;
 
 namespace Application.Features.ApiEndpoints.Queries.GetList;

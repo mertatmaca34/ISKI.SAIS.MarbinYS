@@ -1,4 +1,4 @@
-using Application.Services.Repositories;
+using Infrastructure.Persistence.Abstract;
 using MediatR;
 
 namespace Application.Features.MailSettings.Commands.Delete;

@@ -14,16 +14,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\ISKI.Core\ISKI.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\SendData\Commands\" />
-    <Folder Include="Features\SendData\Constants\" />
-    <Folder Include="Features\SendData\Dtos\" />
-    <Folder Include="Features\SendData\Rules\" />
-    <Folder Include="Features\SendData\Queries\" />
-    <Folder Include="Features\SendData\Profiles\" />
+    <Folder Include="Features\SendDatas\Rules\" />
     <Folder Include="Services\Parsing\" />
     <Folder Include="Features\PlcData\Commands\" />
   </ItemGroup>

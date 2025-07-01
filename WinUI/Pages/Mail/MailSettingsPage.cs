@@ -20,7 +20,7 @@ namespace WinUI.Pages.Mail
 
         private void MailSettingsPage_Load(object sender, EventArgs e)
         {
-            var settings = new MailSettings
+            var settings = new MailSetting
             {
                 SmtpHost = "smtp.example.com",
                 SmtpPort = 587,

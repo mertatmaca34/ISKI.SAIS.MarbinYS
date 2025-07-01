@@ -10,8 +10,8 @@ public class MailSettingsProfile : Profile
 {
     public MailSettingsProfile()
     {
-        CreateMap<MailSettings, MailSettingsDto>();
-        CreateMap<CreateMailSettingsCommand, MailSettings>();
-        CreateMap<UpdateMailSettingsCommand, MailSettings>();
+        CreateMap<MailSetting, MailSettingsDto>();
+        CreateMap<CreateMailSettingsCommand, MailSetting>();
+        CreateMap<UpdateMailSettingsCommand, MailSetting>();
     }
 }

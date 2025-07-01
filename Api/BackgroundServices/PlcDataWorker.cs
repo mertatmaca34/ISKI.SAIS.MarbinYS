@@ -18,7 +18,7 @@ public class PlcDataWorker(ILogger<PlcDataWorker> logger, IMediator mediator, IC
         while (!stoppingToken.IsCancellationRequested)
         {
             var cmd = new ReadAndSavePlcDataCommand(
-                configuration["PlcSettings:IpAddress"] ?? "127.0.0.1",
+                configuration["PlcSettings:IpAddress"] ?? "10.33.3.253",
                 configuration.GetValue<int>("PlcSettings:AnalogDb"),
                 configuration.GetValue<int>("PlcSettings:AnalogStart"),
                 configuration.GetValue<int>("PlcSettings:AnalogLength"),

@@ -1,7 +1,7 @@
 using Application.Features.MailSettings.Dtos;
-using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Persistence.Abstract;
 using MediatR;
 
 namespace Application.Features.MailSettings.Commands.Create;
@@ -12,7 +12,7 @@ public class CreateMailSettingsCommandHandler(
 {
     public async Task<MailSettingsDto> Handle(CreateMailSettingsCommand request, CancellationToken cancellationToken)
     {
-        var entity = mapper.Map<MailSettings>(request);
+        var entity = mapper.Map<MailSetting>(request);
         entity = await repository.AddAsync(entity);
         return mapper.Map<MailSettingsDto>(entity);
     }

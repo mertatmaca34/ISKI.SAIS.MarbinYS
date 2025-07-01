@@ -56,13 +56,13 @@ namespace WinUI.Pages
             RadioButtonMonthly = new RadioButton();
             RadioButtonWeekly = new RadioButton();
             RadioButtonDaily = new RadioButton();
-            ButtonGenerate = new Button();
+            ButtonGenerate = new System.Windows.Forms.Button();
             tableLayoutPanel4 = new TableLayoutPanel();
             DataGridViewDatas = new DataGridView();
             tableLayoutPanel5 = new TableLayoutPanel();
             tableLayoutPanel6 = new TableLayoutPanel();
-            ButtonSaveAsExcel = new Button();
-            ButtonSaveAsPdf = new Button();
+            ButtonSaveAsExcel = new System.Windows.Forms.Button();
+            ButtonSaveAsPdf = new System.Windows.Forms.Button();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -562,7 +562,7 @@ namespace WinUI.Pages
         private GroupBox groupBox1;
         private GroupBox GroupBoxDate;
         private GroupBox groupBox3;
-        private Button ButtonGenerate;
+        private System.Windows.Forms.Button ButtonGenerate;
         private RadioButton RadioButtonCustom;
         private RadioButton RadioButtonMonthly;
         private RadioButton RadioButtonWeekly;
@@ -583,8 +583,8 @@ namespace WinUI.Pages
         private DataGridView DataGridViewDatas;
         private TableLayoutPanel tableLayoutPanel5;
         private TableLayoutPanel tableLayoutPanel6;
-        private Button ButtonSaveAsPdf;
-        private Button ButtonSaveAsExcel;
+        private System.Windows.Forms.Button ButtonSaveAsPdf;
+        private System.Windows.Forms.Button ButtonSaveAsExcel;
         private RadioButton RadioButtonSampleData;
     }
 }

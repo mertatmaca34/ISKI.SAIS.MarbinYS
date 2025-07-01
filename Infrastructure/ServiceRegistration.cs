@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Application.Services.Repositories;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Services.PLC;
+using Infrastructure.Persistence.Abstract;
 
 namespace Infrastructure;
 

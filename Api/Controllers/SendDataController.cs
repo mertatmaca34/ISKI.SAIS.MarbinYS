@@ -1,8 +1,8 @@
-using Application.Features.SendData.Commands;
-using Application.Features.SendData.Queries.GetList;
-using Application.Features.SendData.Queries.GetById;
-using MediatR;
+using Application.Features.SendDatas.Queries.GetList;
+using Application.Features.SendDatas.Queries.GetById;
+using MediatR;                     
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.SendDatas.Commands;
 
 namespace Api.Controllers;
 

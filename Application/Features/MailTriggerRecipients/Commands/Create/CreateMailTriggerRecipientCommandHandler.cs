@@ -1,7 +1,7 @@
 using Application.Features.MailTriggerRecipients.Dtos;
-using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Persistence.Abstract;
 using MediatR;
 
 namespace Application.Features.MailTriggerRecipients.Commands.Create;
