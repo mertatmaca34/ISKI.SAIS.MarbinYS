@@ -16,4 +16,5 @@ public class MailSettings : BaseEntity<int>
     public bool UseSsl { get; set; }
     public string SenderEmail { get; set; }
     public string SenderName { get; set; }
+    public bool UseDefaultCredentials { get; set; }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Station : BaseEntity<int>
+public class ApiEndpoint : BaseEntity<int>
 {
-    public string StationName { get; set; }
-    public Guid StationId { get; set; }
+    public string ApiAdress { get; set; }
+    public string UserName { get; set; }
+    public string Password { get; set; }
 }
