@@ -1,24 +1,24 @@
-using S7.Net;
+using Sharp7;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services.PLC;
 
 /// <summary>
-/// PLC client implementation that uses the S7.Net library to communicate with
+/// PLC client implementation that uses the Sharp7 library to communicate with
 /// Siemens devices and read raw byte arrays from data blocks.
 /// </summary>
 public class SiemensPlcClient : IPlcClient
 {
-    private const CpuType DefaultCpu = CpuType.S71200;
     private const short DefaultRack = 0;
     private const short DefaultSlot = 0;
 
     public Task<byte[]> ReadBytesAsync(string ipAddress, int dbNumber, int startAddress, int length)
     {
-        using var plc = new Plc(DefaultCpu, ipAddress, DefaultRack, DefaultSlot);
-        plc.Open();
-        byte[] data = plc.ReadBytes(DataType.DataBlock, dbNumber, startAddress, length);
-        plc.Close();
-        return Task.FromResult(data);
+        var client = new S7Client();
+        client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
+        byte[] buffer = new byte[length];
+        client.DBRead(dbNumber, startAddress, length, buffer);
+        client.Disconnect();
+        return Task.FromResult(buffer);
     }
 }
