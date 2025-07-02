@@ -1,4 +1,5 @@
 using MediatR;
+using Application.Features.PlcData.Dtos;
 
 namespace Application.Features.PlcData.Commands.ReadAndSavePlcData;
 
@@ -12,4 +13,4 @@ public record ReadAndSavePlcDataCommand(
     int AnalogLength,
     int DigitalDbNumber,
     int DigitalStart,
-    int DigitalLength) : IRequest;
+    int DigitalLength) : IRequest<PlcDataDto>;

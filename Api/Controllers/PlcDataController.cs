@@ -20,7 +20,14 @@ public class PlcDataController(IMediator mediator, IConfiguration configuration)
             configuration.GetValue<int>("PlcSettings:DigitalStart"),
             configuration.GetValue<int>("PlcSettings:DigitalLength"));
 
-        await mediator.Send(cmd);
-        return Ok();
+        try
+        {
+            var result = await mediator.Send(cmd);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = ex.Message });
+        }
     }
 }
