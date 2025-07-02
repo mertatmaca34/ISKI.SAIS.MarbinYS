@@ -19,7 +19,7 @@ public class SiemensPlcClient : IPlcClient
         int connectResult = client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
         if (connectResult != 0)
         {
-            throw new Exception($"PLC connection error: {connectResult}");
+            throw new Exception(client.ErrorText(connectResult));
         }
 
         byte[] buffer = new byte[length];
@@ -27,7 +27,7 @@ public class SiemensPlcClient : IPlcClient
         client.Disconnect();
         if (readResult != 0)
         {
-            throw new Exception($"PLC read error: {readResult}");
+            throw new Exception(client.ErrorText(readResult));
         }
 
         return Task.FromResult(buffer);
