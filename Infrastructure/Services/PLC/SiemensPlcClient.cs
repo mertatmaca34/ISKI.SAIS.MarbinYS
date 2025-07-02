@@ -1,5 +1,6 @@
 using Sharp7;
 using System.Threading.Tasks;
+using System;
 
 namespace Infrastructure.Services.PLC;
 
@@ -15,10 +16,20 @@ public class SiemensPlcClient : IPlcClient
     public Task<byte[]> ReadBytesAsync(string ipAddress, int dbNumber, int startAddress, int length)
     {
         var client = new S7Client();
-        client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
+        int connectResult = client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
+        if (connectResult != 0)
+        {
+            throw new Exception($"PLC connection error: {connectResult}");
+        }
+
         byte[] buffer = new byte[length];
-        client.DBRead(dbNumber, startAddress, length, buffer);
+        int readResult = client.DBRead(dbNumber, startAddress, length, buffer);
         client.Disconnect();
+        if (readResult != 0)
+        {
+            throw new Exception($"PLC read error: {readResult}");
+        }
+
         return Task.FromResult(buffer);
     }
 }
