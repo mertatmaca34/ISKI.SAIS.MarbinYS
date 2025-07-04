@@ -4,6 +4,6 @@ using MediatR;
 namespace Application.Features.ApiEndpoints.Commands.Create;
 
 public record CreateApiEndpointCommand(
-    string ApiAdress,
+    string ApiAddress,
     string UserName,
     string Password) : IRequest<ApiEndpointDto>;

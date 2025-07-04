@@ -6,7 +6,7 @@ public class CreateApiEndpointCommandValidator : AbstractValidator<CreateApiEndp
 {
     public CreateApiEndpointCommandValidator()
     {
-        RuleFor(x => x.ApiAdress).NotEmpty();
+        RuleFor(x => x.ApiAddress).NotEmpty();
         RuleFor(x => x.UserName).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
     }
