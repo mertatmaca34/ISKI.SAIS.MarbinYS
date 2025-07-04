@@ -9,4 +9,5 @@ public interface IPlcDataParser
 {
     AnalogSensorData ParseAnalog(byte[] data);
     DigitalSensorData ParseDigital(byte[] data);
+    PlcTimeParameters ParseTimeParameters(byte[] data);
 }
