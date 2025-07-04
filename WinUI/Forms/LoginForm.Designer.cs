@@ -48,7 +48,7 @@ namespace WinUI.Forms
             // 
             tableLayoutPanel1.BackColor = Color.White;
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999962F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
@@ -62,7 +62,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(100);
+            tableLayoutPanel1.Padding = new Padding(100, 50, 100, 100);
             tableLayoutPanel1.RowCount = 8;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
@@ -72,7 +72,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
-            tableLayoutPanel1.Size = new Size(579, 492);
+            tableLayoutPanel1.Size = new Size(579, 438);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // label1
@@ -80,7 +80,7 @@ namespace WinUI.Forms
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.Location = new Point(130, 208);
+            label1.Location = new Point(130, 158);
             label1.Margin = new Padding(30, 0, 30, 0);
             label1.Name = "label1";
             label1.Size = new Size(72, 15);
@@ -92,7 +92,7 @@ namespace WinUI.Forms
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
-            label2.Location = new Point(130, 290);
+            label2.Location = new Point(130, 240);
             label2.Margin = new Padding(30, 0, 30, 0);
             label2.Name = "label2";
             label2.Size = new Size(32, 15);
@@ -104,7 +104,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.SetColumnSpan(PasswordTextBox, 2);
             PasswordTextBox.Dock = DockStyle.Fill;
             PasswordTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            PasswordTextBox.Location = new Point(130, 308);
+            PasswordTextBox.Location = new Point(130, 258);
             PasswordTextBox.Margin = new Padding(30, 3, 3, 3);
             PasswordTextBox.Name = "PasswordTextBox";
             PasswordTextBox.PlaceholderText = "sifre";
@@ -118,7 +118,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.SetColumnSpan(labelTitle, 3);
             labelTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labelTitle.ForeColor = Color.FromArgb(47, 47, 47);
-            labelTitle.Location = new Point(221, 149);
+            labelTitle.Location = new Point(221, 99);
             labelTitle.Margin = new Padding(3);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(137, 25);
@@ -133,7 +133,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.SetColumnSpan(LoginButton, 3);
             LoginButton.Dock = DockStyle.Fill;
             LoginButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            LoginButton.Location = new Point(130, 369);
+            LoginButton.Location = new Point(130, 319);
             LoginButton.Margin = new Padding(30, 23, 30, 13);
             LoginButton.Name = "LoginButton";
             LoginButton.Size = new Size(319, 36);
@@ -146,7 +146,7 @@ namespace WinUI.Forms
             EyeButton.FlatAppearance.BorderSize = 0;
             EyeButton.FlatStyle = FlatStyle.Flat;
             EyeButton.Image = Properties.Resources.eye_show;
-            EyeButton.Location = new Point(421, 308);
+            EyeButton.Location = new Point(421, 258);
             EyeButton.Name = "EyeButton";
             EyeButton.Size = new Size(24, 23);
             EyeButton.TabIndex = 7;
@@ -157,7 +157,7 @@ namespace WinUI.Forms
             // 
             tableLayoutPanel1.SetColumnSpan(button1, 3);
             button1.Dock = DockStyle.Fill;
-            button1.Location = new Point(103, 103);
+            button1.Location = new Point(103, 53);
             button1.Name = "button1";
             button1.Size = new Size(373, 35);
             button1.TabIndex = 8;
@@ -168,7 +168,7 @@ namespace WinUI.Forms
             // 
             tableLayoutPanel1.SetColumnSpan(textBox1, 2);
             textBox1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            textBox1.Location = new Point(130, 226);
+            textBox1.Location = new Point(130, 176);
             textBox1.Margin = new Padding(30, 3, 3, 3);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "kullanıcı adı";
@@ -179,7 +179,7 @@ namespace WinUI.Forms
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(579, 492);
+            ClientSize = new Size(579, 438);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "LoginForm";
