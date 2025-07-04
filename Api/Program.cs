@@ -2,6 +2,7 @@
 using Infrastructure;
 using Api.BackgroundServices;
 using Microsoft.EntityFrameworkCore;
+using ISKI.Core.CrossCuttingConcerns.Exceptions.ExceptionHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
         return Task.CompletedTask;
     });
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 
