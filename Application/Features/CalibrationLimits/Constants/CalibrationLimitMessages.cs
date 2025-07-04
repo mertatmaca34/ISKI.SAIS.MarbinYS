@@ -5,4 +5,5 @@ public static class CalibrationLimitMessages
     public const string Created = "CalibrationLimit created.";
     public const string Updated = "CalibrationLimit updated.";
     public const string Deleted = "CalibrationLimit deleted.";
+    public const string NotFound = "Kayıt bulunamadı.";
 }
