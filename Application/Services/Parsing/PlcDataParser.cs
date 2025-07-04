@@ -49,6 +49,19 @@ public class PlcDataParser : IPlcDataParser
         };
     }
 
+    public PlcTimeParameters ParseTimeParameters(byte[] data)
+    {
+        return new PlcTimeParameters
+        {
+            SystemTime = ReadTime(data, 0),
+            WeeklyWashDay = ReadByte(data, 12),
+            WeeklyWashHour = ReadByte(data, 13),
+            DailyWashHour = ReadByte(data, 14),
+            Minute = ReadByte(data, 15),
+            Second = ReadByte(data, 16)
+        };
+    }
+
     public static double ReadReal(byte[] buffer, int offset, int divider = 1)
     {
         double value = S7.GetRealAt(buffer, offset) / divider;
