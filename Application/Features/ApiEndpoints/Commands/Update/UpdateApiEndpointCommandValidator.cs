@@ -7,7 +7,7 @@ public class UpdateApiEndpointCommandValidator : AbstractValidator<UpdateApiEndp
     public UpdateApiEndpointCommandValidator()
     {
         RuleFor(x => x.Id).GreaterThan(0);
-        RuleFor(x => x.ApiAdress).NotEmpty();
+        RuleFor(x => x.ApiAddress).NotEmpty();
         RuleFor(x => x.UserName).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
     }

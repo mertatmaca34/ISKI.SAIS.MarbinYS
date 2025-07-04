@@ -5,6 +5,6 @@ namespace Application.Features.ApiEndpoints.Commands.Update;
 
 public record UpdateApiEndpointCommand(
     int Id,
-    string ApiAdress,
+    string ApiAddress,
     string UserName,
     string Password) : IRequest<ApiEndpointDto>;
