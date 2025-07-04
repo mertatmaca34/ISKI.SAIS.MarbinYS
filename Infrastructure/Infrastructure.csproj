@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
-    <PackageReference Include="Sharp7" Version="1.0.0" />
+    <PackageReference Include="Sharp7" Version="1.1.84" />
   </ItemGroup>
 
   <ItemGroup>
