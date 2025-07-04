@@ -12,7 +12,7 @@ public static class ServiceRegistration
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<IBKSContext>(options =>
-            options.UseInMemoryDatabase(connectionString));
+            options.UseSqlServer(connectionString));
 
         services.AddScoped<IMailTriggerRepository, MailTriggerRepository>();
         services.AddScoped<IMailSettingsRepository, MailSettingsRepository>();
