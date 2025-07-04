@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WinUI.Forms;
 using WinUI.Pages;
+using WinUI.Services;
 
 namespace WinUI
 {
@@ -42,6 +43,13 @@ namespace WinUI
                     services.AddSingleton<SimulationPage>();
                     services.AddSingleton<ReportingPage>();
                     services.AddSingleton<MailPage>();
+
+                    services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
+                    {
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "http://localhost:62731";
+                        if (!baseUrl.EndsWith('/')) baseUrl += "/";
+                        client.BaseAddress = new Uri(baseUrl);
+                    });
                 });
     }
 }

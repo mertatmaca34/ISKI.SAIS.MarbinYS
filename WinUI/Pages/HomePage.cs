@@ -7,14 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinUI.Models;
+using WinUI.Services;
 
 namespace WinUI.Pages
 {
-    public partial class HomePage: UserControl
+    public partial class HomePage : UserControl
     {
-        public HomePage()
+        private readonly IPlcDataService _plcService;
+
+        public HomePage(IPlcDataService plcService)
         {
             InitializeComponent();
+            _plcService = plcService;
+        }
+
+        public Task<PlcDataDto?> ReadPlcDataAsync()
+        {
+            return _plcService.ReadAndSaveAsync();
         }
     }
 }
