@@ -1,3 +1,4 @@
+using Application.Features.PlcData.Dtos;
 using Domain.Entities;
 using Sharp7;
 
@@ -46,6 +47,19 @@ public class PlcDataParser : IPlcDataParser
             Enerji = ReadBit(data, 0, 6),
             Pompa1CalisiyorMu = ReadBit(data, 1, 6),
             Pompa2CalisiyorMu = ReadBit(data, 1, 7)
+        };
+    }
+
+    public PlcTimeParametersDto ParseTimeParameter(byte[] data)
+    {
+        return new PlcTimeParametersDto
+        {
+            SystemTime = ReadTime(data, 0),
+            WeeklyWashDay = ReadByte(data, 14),
+            WeeklyWashHour = ReadByte(data, 15),
+            DailyWashHour = ReadByte(data, 16),
+            Minute = ReadByte(data, 17),
+            Second = ReadByte(data, 18)
         };
     }
 

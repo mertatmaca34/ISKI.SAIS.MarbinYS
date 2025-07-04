@@ -24,7 +24,10 @@ public class PlcDataWorker(ILogger<PlcDataWorker> logger, IMediator mediator, IC
                 configuration.GetValue<int>("PlcSettings:AnalogLength"),
                 configuration.GetValue<int>("PlcSettings:DigitalDb"),
                 configuration.GetValue<int>("PlcSettings:DigitalStart"),
-                configuration.GetValue<int>("PlcSettings:DigitalLength"));
+                configuration.GetValue<int>("PlcSettings:DigitalLength"),
+                configuration.GetValue<int>("PlcSettings:TimeParameterDb"),
+                configuration.GetValue<int>("PlcSettings:TimeParameterStart"),
+                configuration.GetValue<int>("PlcSettings:TimeParameterLength"));
 
             try
             {

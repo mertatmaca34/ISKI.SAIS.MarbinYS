@@ -46,7 +46,7 @@ namespace WinUI
 
                     services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
                     {
-                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "http://localhost:62731";
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "http://localhost:62730";
                         if (!baseUrl.EndsWith('/')) baseUrl += "/";
                         client.BaseAddress = new Uri(baseUrl);
                     });

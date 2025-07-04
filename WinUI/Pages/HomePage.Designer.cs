@@ -495,9 +495,19 @@
             ResumeLayout(false);
         }
 
-        private void TimerAssignUI_Tick(object sender, EventArgs e)
+        private async void TimerAssignUI_Tick(object sender, EventArgs e)
         {
-            StatusBarControl.SistemSaati = System.DateTime.Now.ToString("T");
+            var value = await ReadPlcDataAsync();
+
+            try
+            {
+                ChannelAkm.InstantData = value.Analog.Akm.ToString();
+                StatusBarControl.SistemSaati = value.TimeParameter.SystemTime.ToString("g");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void TimerGetMissingDates_Tick(object sender, EventArgs e)

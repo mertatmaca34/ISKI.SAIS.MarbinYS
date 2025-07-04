@@ -1,3 +1,4 @@
+using Application.Features.PlcData.Dtos;
 using Domain.Entities;
 
 namespace Application.Services.Parsing;
@@ -9,4 +10,5 @@ public interface IPlcDataParser
 {
     AnalogSensorData ParseAnalog(byte[] data);
     DigitalSensorData ParseDigital(byte[] data);
+    PlcTimeParametersDto ParseTimeParameter(byte[] data);
 }

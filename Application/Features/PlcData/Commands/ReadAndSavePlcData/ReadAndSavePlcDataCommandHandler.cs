@@ -32,14 +32,19 @@ public class ReadAndSavePlcDataCommandHandler(
         var digitalEntity = parser.ParseDigital(digitalBytes);
         digitalEntity = await digitalRepository.AddAsync(digitalEntity);
 
+        byte[] timeParameterBytes = await plcClient.ReadBytesAsync(request.IpAddress, request.TimeParameterDbNumber, request.TimeParameterStart, request.TimeParameterLength);
+        var timeParameterEntity = parser.ParseTimeParameter(timeParameterBytes);
+
         // Map to DTOs and return
         var analogDto = mapper.Map<AnalogSensorDataDto>(analogEntity);
         var digitalDto = mapper.Map<DigitalSensorDataDto>(digitalEntity);
+        var timeParameterDto = mapper.Map<PlcTimeParametersDto>(timeParameterEntity);
 
         return new PlcDataDto
         {
             Analog = analogDto,
-            Digital = digitalDto
+            Digital = digitalDto,
+            TimeParameter = timeParameterDto
         };
     }
 }

@@ -13,4 +13,7 @@ public record ReadAndSavePlcDataCommand(
     int AnalogLength,
     int DigitalDbNumber,
     int DigitalStart,
-    int DigitalLength) : IRequest<PlcDataDto>;
+    int DigitalLength,
+    int TimeParameterDbNumber,
+    int TimeParameterStart,
+    int TimeParameterLength) : IRequest<PlcDataDto>;
