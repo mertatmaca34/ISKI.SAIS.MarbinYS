@@ -473,7 +473,7 @@
             // TimerAssignUI
             // 
             TimerAssignUI.Enabled = true;
-            TimerAssignUI.Interval = 1000;
+            TimerAssignUI.Interval = 5000;
             TimerAssignUI.Tick += TimerAssignUI_Tick;
             // 
             // TimerGetMissingDates
@@ -501,8 +501,15 @@
 
             try
             {
-                ChannelAkm.InstantData = value.Analog.Akm.ToString();
-                StatusBarControl.SistemSaati = value.TimeParameter.SystemTime.ToString("g");
+                ChannelAkm.InstantData              = $"{value.Analog.Akm} mg/l";
+                ChannelCozunmusOksijen.InstantData  = $"{value.Analog.CozunmusOksijen} mg/l";
+                ChannelSicaklik.InstantData         = $"{value.Analog.Sicaklik} mg/l";
+                ChannelPh.InstantData               = $"{value.Analog.Ph} mg/l";
+                ChannelIletkenlik.InstantData       = $"{value.Analog.Iletkenlik} mg/l";
+                ChannelKoi.InstantData              = $"{value.Analog.Koi} mg/l";
+                ChannelAkisHizi.InstantData         = $"{value.Analog.AkisHizi} mg/l";
+                ChannelDebi.InstantData             = $"{value.Analog.Debi} mg/l";
+                StatusBarControl.SistemSaati        = $"Sistem Saati: {value.TimeParameter.SystemTime.ToString("g")}";
             }
             catch (Exception ex)
             {
