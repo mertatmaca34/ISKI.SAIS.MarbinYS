@@ -12,7 +12,7 @@ public class PlcDataController(IMediator mediator, IConfiguration configuration)
     public async Task<IActionResult> ReadAndSave()
     {
         var cmd = new ReadAndSavePlcDataCommand(
-            configuration["PlcSettings:IpAddress"] ?? "10.33.3.253",
+            configuration["PlcSettings:IpAddress"] ?? "10.33.6.253",
             configuration.GetValue<int>("PlcSettings:AnalogDb"),
             configuration.GetValue<int>("PlcSettings:AnalogStart"),
             configuration.GetValue<int>("PlcSettings:AnalogLength"),

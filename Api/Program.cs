@@ -1,8 +1,8 @@
-﻿using Application;
+﻿using Api.BackgroundServices;
+using Application;
 using Infrastructure;
-using Api.BackgroundServices;
-using Microsoft.EntityFrameworkCore;
 using ISKI.Core.CrossCuttingConcerns.Exceptions.ExceptionHandling;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,16 +16,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapGet("/", context =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapGet("/", context =>
-    {
-        context.Response.Redirect("/swagger");
-        return Task.CompletedTask;
-    });
-}
+    context.Response.Redirect("/swagger");
+    return Task.CompletedTask;
+});
 
 app.UseMiddleware<ExceptionMiddleware>();
 
