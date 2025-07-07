@@ -12,6 +12,7 @@ namespace WinUI.Pages
     {
         private readonly IPlcDataService _plcService;
         private readonly List<ChannelControl> _channels;
+        private readonly List<DigitalSensorControl> _digitalSensors;
         private DateTime? _connectedSince;
 
         public HomePage(IPlcDataService plcService)
@@ -28,6 +29,18 @@ namespace WinUI.Pages
                 ChannelKoi,
                 ChannelAkisHizi,
                 ChannelDebi
+            };
+            _digitalSensors = new()
+            {
+                DigitalSensorKapi,
+                DigitalSensorDuman,
+                DigitalSensorSuBaskini,
+                DigitalSensorPompa2Termik,
+                DigitalSensorPompa1Termik,
+                DigitalSensorAcilStop,
+                DigitalSensorTSuPompaTermik,
+                DigitalSensorYikamaTanki,
+                DigitalSensorEnerji
             };
         }
 
