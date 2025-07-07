@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using WinUI.Forms;
 using WinUI.Pages;
 using WinUI.Services;
+using System.Net.Http;
+using System.Net;
 
 namespace WinUI
 {
@@ -46,9 +48,18 @@ namespace WinUI
 
                     services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
                     {
-                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "http://localhost:62730";
-                        if (!baseUrl.EndsWith('/')) baseUrl += "/";
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:443";
+
+                        baseUrl = baseUrl.TrimEnd('/');
+
                         client.BaseAddress = new Uri(baseUrl);
+
+                    })
+                    .ConfigurePrimaryHttpMessageHandler(() =>
+                    {
+                        var handler = new HttpClientHandler();
+                        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                        return handler;
                     });
                 });
     }

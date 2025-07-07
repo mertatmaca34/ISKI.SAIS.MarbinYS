@@ -5,9 +5,17 @@ using WinUI.Models;
 
 namespace WinUI.Services;
 
-public class PlcDataService(HttpClient httpClient) : IPlcDataService
+public class PlcDataService : IPlcDataService
 {
-    private readonly HttpClient _httpClient = httpClient;
+    private readonly HttpClient _httpClient;
+
+    public PlcDataService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+
+        HttpClientHandler handler = new HttpClientHandler();
+        handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+    }
 
     public async Task<PlcDataDto?> ReadAndSaveAsync()
     {
