@@ -34,6 +34,35 @@ The API exposes endpoints for all domain entities. Currently implemented:
 - `/api/mailusers` - list registered users
 - `/api/maillogs` - list mail send logs
 - `/api/analogsensordata` - CRUD operations for analog sensor measurements
+- `/api/plcdata/read` - reads the latest measurements from the PLC
+
+### PLC background service
+
+The API continuously polls the PLC for measurements using `PlcDataWorker`.
+The polling interval and connection parameters are configured under the
+`PlcSettings` section of `Api/appsettings.json`:
+
+```json
+{
+  "PlcSettings": {
+    "IpAddress": "10.33.6.253",
+    "AnalogDb": 41,
+    "AnalogStart": 0,
+    "AnalogLength": 200,
+    "DigitalDb": 42,
+    "DigitalStart": 0,
+    "DigitalLength": 3,
+    "TimeParameterDb": 43,
+    "TimeParameterStart": 0,
+    "TimeParameterLength": 19,
+    "IntervalSeconds": 30
+  }
+}
+```
+
+Adjust `IntervalSeconds` to change how often data is retrieved. The
+`/api/plcdata/read` endpoint can be called to fetch the latest data
+manually.
 
 ## Running the WinForms app
 
