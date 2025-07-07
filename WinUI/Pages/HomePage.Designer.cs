@@ -1,4 +1,6 @@
-﻿namespace WinUI.Pages
+using WinUI.Helpers;
+
+namespace WinUI.Pages
 {
     partial class HomePage
     {
@@ -396,8 +398,8 @@
             digitalSensorBar1.Name = "digitalSensorBar1";
             digitalSensorBar1.Size = new Size(574, 50);
             digitalSensorBar1.SystemStateDescription = "-";
-            digitalSensorBar1.SystemStateDescriptionColor = SystemColors.ControlText;
-            digitalSensorBar1.SystemStateTitleColor = SystemColors.ControlText;
+            digitalSensorBar1.SystemStateDescriptionColor = StateColors.Waiting;
+            digitalSensorBar1.SystemStateTitleColor = StateColors.Waiting;
             digitalSensorBar1.TabIndex = 2;
             // 
             // StationInfoControl
@@ -497,10 +499,10 @@
 
         private async void TimerAssignUI_Tick(object sender, EventArgs e)
         {
-            var value = await ReadPlcDataAsync();
-
             try
             {
+                var value = await ReadPlcDataAsync();
+
                 ChannelAkm.InstantData              = $"{value.Analog.Akm} mg/l";
                 ChannelCozunmusOksijen.InstantData  = $"{value.Analog.CozunmusOksijen} mg/l";
                 ChannelSicaklik.InstantData         = $"{value.Analog.Sicaklik} mg/l";
@@ -509,17 +511,41 @@
                 ChannelKoi.InstantData              = $"{value.Analog.Koi} mg/l";
                 ChannelAkisHizi.InstantData         = $"{value.Analog.AkisHizi} mg/l";
                 ChannelDebi.InstantData             = $"{value.Analog.Debi} mg/l";
-                StatusBarControl.SistemSaati        = $"Sistem Saati: {value.TimeParameter.SystemTime.ToString("g")}";
+                StatusBarControl.SistemSaati        = $"Sistem Saati: {value.TimeParameter.SystemTime:g}";
+
+                foreach (var ch in _channels)
+                    ch.ChannelStatement = StateColors.Ok;
+
+                digitalSensorBar1.SystemStateDescription = "BAĞLI";
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.Ok;
+                digitalSensorBar1.SystemStateTitleColor = StateColors.Ok;
+                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı";
+
+                _connectedSince ??= DateTime.Now;
+                var elapsed = DateTime.Now - _connectedSince.Value;
+                StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                foreach (var ch in _channels)
+                    ch.ChannelStatement = _connectedSince.HasValue ? StateColors.Error : StateColors.Waiting;
+
+                digitalSensorBar1.SystemStateDescription = "HATA";
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
+                digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
+                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
+                StatusBarControl.ConnectionTime = "-";
+                _connectedSince = null;
             }
         }
 
         private void TimerGetMissingDates_Tick(object sender, EventArgs e)
         {
-            StatusBarControl.ConnectionTime = System.DateTime.Now.ToString("g");
+            if (_connectedSince.HasValue)
+            {
+                var elapsed = DateTime.Now - _connectedSince.Value;
+                StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
+            }
         }
 
         #endregion
