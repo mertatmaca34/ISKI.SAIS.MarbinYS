@@ -10,15 +10,15 @@ public static class StateColors
     /// <summary>
     /// Color used when status is unknown or data has not been retrieved yet.
     /// </summary>
-    public static readonly Color Waiting = Color.Gray;
+    public static readonly Color Waiting = Color.Black;
 
     /// <summary>
     /// Color used when the PLC connection and data are healthy.
     /// </summary>
-    public static readonly Color Ok = Color.LimeGreen;
+    public static readonly Color Ok = Color.FromArgb(19, 162, 97);
 
     /// <summary>
     /// Color used when an error occurs while retrieving PLC data.
     /// </summary>
-    public static readonly Color Error = Color.Red;
+    public static readonly Color Error = Color.FromArgb(235, 85, 101);
 }

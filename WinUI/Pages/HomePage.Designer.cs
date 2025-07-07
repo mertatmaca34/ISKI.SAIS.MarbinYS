@@ -398,8 +398,8 @@ namespace WinUI.Pages
             digitalSensorBar1.Name = "digitalSensorBar1";
             digitalSensorBar1.Size = new Size(574, 50);
             digitalSensorBar1.SystemStateDescription = "-";
-            digitalSensorBar1.SystemStateDescriptionColor = StateColors.Waiting;
-            digitalSensorBar1.SystemStateTitleColor = StateColors.Waiting;
+            digitalSensorBar1.SystemStateDescriptionColor = SystemColors.ControlText;
+            digitalSensorBar1.SystemStateTitleColor = SystemColors.ControlText;
             digitalSensorBar1.TabIndex = 2;
             // 
             // StationInfoControl
