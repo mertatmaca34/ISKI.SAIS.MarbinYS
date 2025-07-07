@@ -512,6 +512,10 @@ namespace WinUI.Pages
                 ChannelAkisHizi.InstantData         = $"{value.Analog.AkisHizi} mg/l";
                 ChannelDebi.InstantData             = $"{value.Analog.Debi} mg/l";
                 StatusBarControl.SistemSaati        = $"Sistem Saati: {value.TimeParameter.SystemTime:g}";
+                StatusBarControl.GunlukYikamaKalan  =
+                    $"G. Yıkamaya Kalan: {value.TimeParameter.DailyWashHour:D2}:{value.TimeParameter.Minute:D2}:{value.TimeParameter.Second:D2}";
+                StatusBarControl.HaftalikYikamaKalan =
+                    $"H. Yıkamaya Kalan: {value.TimeParameter.WeeklyWashDay:D2}:{value.TimeParameter.WeeklyWashHour:D2}:{value.TimeParameter.Minute:D2}:{value.TimeParameter.Second:D2}";
 
                 foreach (var ch in _channels)
                     ch.ChannelStatement = StateColors.Ok;
