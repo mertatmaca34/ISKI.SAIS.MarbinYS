@@ -781,8 +781,57 @@ namespace WinUI.Pages
             PerformLayout();
         }
 
-        private void TimerSimulation_Tick(object sender, EventArgs e)
+        private async void TimerSimulation_Tick(object sender, EventArgs e)
         {
+            try
+            {
+                var value = await _plcService.ReadAndSaveAsync();
+                if (value == null)
+                    return;
+
+                LabelAkm.Text            = value.Analog.Akm.ToString();
+                LabelPh.Text             = value.Analog.Ph.ToString();
+                LabelKoi.Text            = value.Analog.Koi.ToString();
+                LabelIletkenlik.Text     = value.Analog.Iletkenlik.ToString();
+                LabelOksijen.Text        = value.Analog.CozunmusOksijen.ToString();
+                LabelAkisHizi.Text       = value.Analog.AkisHizi.ToString();
+                LabelSicaklik.Text       = value.Analog.Sicaklik.ToString();
+                LabelDebi.Text           = value.Analog.Debi.ToString();
+                LabelDesarjDebi.Text     = value.Analog.DesarjDebi?.ToString() ?? "0";
+                LabelHariciDebi.Text     = value.Analog.HariciDebi?.ToString() ?? "0";
+                LabelHariciDebi2.Text    = value.Analog.HariciDebi2?.ToString() ?? "0";
+
+                PanelDoor.BackgroundImage = value.Digital.Kapi ?
+                    Properties.Resources.door_opened : Properties.Resources.door_closed;
+                PanelWaterTank.BackgroundImage = value.Digital.YikamaTanki ?
+                    Properties.Resources.water_tank_full : Properties.Resources.water_tank_empty;
+
+                if (value.Digital.Pompa1CalisiyorMu)
+                {
+                    PictureBoxPump1.Image = _pump1Frame ?
+                        Properties.Resources.pump1_animation : Properties.Resources.pump1_idle;
+                    _pump1Frame = !_pump1Frame;
+                }
+                else
+                {
+                    PictureBoxPump1.Image = Properties.Resources.pump1_idle;
+                }
+
+                if (value.Digital.Pompa2CalisiyorMu)
+                {
+                    PictureBoxPump2.Image = _pump2Frame ?
+                        Properties.Resources.pump2_animation : Properties.Resources.pump2_idle;
+                    _pump2Frame = !_pump2Frame;
+                }
+                else
+                {
+                    PictureBoxPump2.Image = Properties.Resources.pump2_idle;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         private void SimulationPage_SizeChanged(object sender, EventArgs e)
