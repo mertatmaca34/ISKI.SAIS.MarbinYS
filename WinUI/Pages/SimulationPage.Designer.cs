@@ -798,10 +798,6 @@ namespace WinUI.Pages
             }
         }
 
-        private void SimulationPage_SizeChanged(object sender, EventArgs e)
-        {
-        }
-
         #endregion
 
         private Panel PanelWaterTank;
