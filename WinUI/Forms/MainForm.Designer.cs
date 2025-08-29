@@ -165,26 +165,26 @@
             // 
             MailPageMenuStrip.Items.AddRange(new ToolStripItem[] { EventTriggersButton, MailUsersButton, MailSettingsButton });
             MailPageMenuStrip.Name = "contextMenuStrip1";
-            MailPageMenuStrip.Size = new Size(181, 92);
+            MailPageMenuStrip.Size = new Size(172, 70);
             // 
             // EventTriggersButton
             // 
             EventTriggersButton.Name = "EventTriggersButton";
-            EventTriggersButton.Size = new Size(180, 22);
+            EventTriggersButton.Size = new Size(171, 22);
             EventTriggersButton.Text = "Olay Tanımları";
             EventTriggersButton.Click += EventTriggersButton_Click;
             // 
             // MailUsersButton
             // 
             MailUsersButton.Name = "MailUsersButton";
-            MailUsersButton.Size = new Size(180, 22);
+            MailUsersButton.Size = new Size(171, 22);
             MailUsersButton.Text = "Kullanıcı Tanımları";
             MailUsersButton.Click += MailUsersButton_Click;
             // 
             // MailSettingsButton
             // 
             MailSettingsButton.Name = "MailSettingsButton";
-            MailSettingsButton.Size = new Size(180, 22);
+            MailSettingsButton.Size = new Size(171, 22);
             MailSettingsButton.Text = "Sunucu Ayarlarları";
             MailSettingsButton.Click += MailSettingsButton_Click;
             // 

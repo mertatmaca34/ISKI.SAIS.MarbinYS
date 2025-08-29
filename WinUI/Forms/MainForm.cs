@@ -73,6 +73,7 @@ public partial class MainForm : Form
     private void SettingsPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SettingsPageButton);
+        PageManager.ShowPage(MainContentPanel, new SettingsPage());
     }
 
     private void EventTriggersButton_Click(object sender, EventArgs e)
