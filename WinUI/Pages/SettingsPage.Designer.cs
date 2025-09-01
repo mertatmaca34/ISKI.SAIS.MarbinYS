@@ -34,7 +34,6 @@
             titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
             PanelContent = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            PlcButton = new Button();
             ChannelsButton = new Button();
             MailUsersButton = new Button();
             CalibrationButton = new Button();
@@ -105,12 +104,11 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.Controls.Add(PlcButton, 1, 0);
-            tableLayoutPanel2.Controls.Add(ChannelsButton, 0, 1);
-            tableLayoutPanel2.Controls.Add(MailUsersButton, 2, 1);
-            tableLayoutPanel2.Controls.Add(CalibrationButton, 1, 1);
-            tableLayoutPanel2.Controls.Add(ApiButton, 3, 0);
-            tableLayoutPanel2.Controls.Add(DatabaseButton, 2, 0);
+            tableLayoutPanel2.Controls.Add(ChannelsButton, 3, 0);
+            tableLayoutPanel2.Controls.Add(MailUsersButton, 1, 1);
+            tableLayoutPanel2.Controls.Add(CalibrationButton, 0, 1);
+            tableLayoutPanel2.Controls.Add(ApiButton, 2, 0);
+            tableLayoutPanel2.Controls.Add(DatabaseButton, 1, 0);
             tableLayoutPanel2.Controls.Add(StationButton, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(60, 30);
@@ -121,29 +119,14 @@
             tableLayoutPanel2.Size = new Size(1094, 533);
             tableLayoutPanel2.TabIndex = 2;
             // 
-            // PlcButton
-            // 
-            PlcButton.Dock = DockStyle.Fill;
-            PlcButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            PlcButton.Image = Properties.Resources.electronics_96px;
-            PlcButton.Location = new Point(276, 3);
-            PlcButton.Name = "PlcButton";
-            PlcButton.Size = new Size(267, 260);
-            PlcButton.TabIndex = 7;
-            PlcButton.Text = "PLC";
-            PlcButton.TextAlign = ContentAlignment.BottomCenter;
-            PlcButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            PlcButton.UseVisualStyleBackColor = true;
-            PlcButton.Click += PlcButton_Click;
-            // 
             // ChannelsButton
             // 
             ChannelsButton.Dock = DockStyle.Fill;
             ChannelsButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ChannelsButton.Image = Properties.Resources.proximity_sensor_96px;
-            ChannelsButton.Location = new Point(3, 269);
+            ChannelsButton.Location = new Point(822, 3);
             ChannelsButton.Name = "ChannelsButton";
-            ChannelsButton.Size = new Size(267, 261);
+            ChannelsButton.Size = new Size(269, 260);
             ChannelsButton.TabIndex = 6;
             ChannelsButton.Text = "Kanallar";
             ChannelsButton.TextAlign = ContentAlignment.BottomCenter;
@@ -156,7 +139,7 @@
             MailUsersButton.Dock = DockStyle.Fill;
             MailUsersButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             MailUsersButton.Image = Properties.Resources.shared_mail_96px;
-            MailUsersButton.Location = new Point(549, 269);
+            MailUsersButton.Location = new Point(276, 269);
             MailUsersButton.Name = "MailUsersButton";
             MailUsersButton.Size = new Size(267, 261);
             MailUsersButton.TabIndex = 4;
@@ -171,7 +154,7 @@
             CalibrationButton.Dock = DockStyle.Fill;
             CalibrationButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             CalibrationButton.Image = Properties.Resources.azimuth_96px;
-            CalibrationButton.Location = new Point(276, 269);
+            CalibrationButton.Location = new Point(3, 269);
             CalibrationButton.Name = "CalibrationButton";
             CalibrationButton.Size = new Size(267, 261);
             CalibrationButton.TabIndex = 3;
@@ -186,9 +169,9 @@
             ApiButton.Dock = DockStyle.Fill;
             ApiButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ApiButton.Image = Properties.Resources.api_96px;
-            ApiButton.Location = new Point(822, 3);
+            ApiButton.Location = new Point(549, 3);
             ApiButton.Name = "ApiButton";
-            ApiButton.Size = new Size(269, 260);
+            ApiButton.Size = new Size(267, 260);
             ApiButton.TabIndex = 2;
             ApiButton.Text = "API";
             ApiButton.TextAlign = ContentAlignment.BottomCenter;
@@ -201,7 +184,7 @@
             DatabaseButton.Dock = DockStyle.Fill;
             DatabaseButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             DatabaseButton.Image = Properties.Resources.database_96px;
-            DatabaseButton.Location = new Point(549, 3);
+            DatabaseButton.Location = new Point(276, 3);
             DatabaseButton.Name = "DatabaseButton";
             DatabaseButton.Size = new Size(267, 260);
             DatabaseButton.TabIndex = 1;
@@ -253,6 +236,5 @@
         private Button DatabaseButton;
         private Button StationButton;
         private Button ChannelsButton;
-        private Button PlcButton;
     }
 }

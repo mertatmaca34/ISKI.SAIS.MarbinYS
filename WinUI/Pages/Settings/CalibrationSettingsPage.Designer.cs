@@ -34,6 +34,8 @@
             AkmZeroLabel = new Label();
             KoiZeroLabel = new Label();
             KoiReferenceValuesLabel = new Label();
+            AkmZeroTextBox = new TextBox();
+            KoiZeroTextBox = new TextBox();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
             SaveCalibrationButton = new Button();
             CalibrationHeaderTableLayoutPanel = new TableLayoutPanel();
@@ -50,8 +52,14 @@
             PhZeroTextBox = new TextBox();
             ConductivityZeroTextBox = new TextBox();
             ConductivitySpanTextBox = new TextBox();
-            AkmZeroTextBox = new TextBox();
-            KoiZeroTextBox = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            comboBox1 = new ComboBox();
+            comboBox2 = new ComboBox();
+            label3 = new Label();
+            comboBox3 = new ComboBox();
+            label4 = new Label();
+            comboBox4 = new ComboBox();
             CalibrationValuesBgTableLayoutPanel.SuspendLayout();
             CalibrationValuesContentTableLayoutPanel.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
@@ -88,6 +96,10 @@
             CalibrationValuesContentTableLayoutPanel.Controls.Add(KoiReferenceValuesLabel, 0, 4);
             CalibrationValuesContentTableLayoutPanel.Controls.Add(AkmZeroTextBox, 1, 1);
             CalibrationValuesContentTableLayoutPanel.Controls.Add(KoiZeroTextBox, 1, 5);
+            CalibrationValuesContentTableLayoutPanel.Controls.Add(label3, 0, 2);
+            CalibrationValuesContentTableLayoutPanel.Controls.Add(comboBox3, 1, 2);
+            CalibrationValuesContentTableLayoutPanel.Controls.Add(label4, 0, 6);
+            CalibrationValuesContentTableLayoutPanel.Controls.Add(comboBox4, 1, 6);
             CalibrationValuesContentTableLayoutPanel.Dock = DockStyle.Fill;
             CalibrationValuesContentTableLayoutPanel.Location = new Point(1, 1);
             CalibrationValuesContentTableLayoutPanel.Margin = new Padding(1);
@@ -158,6 +170,28 @@
             KoiReferenceValuesLabel.Size = new Size(153, 16);
             KoiReferenceValuesLabel.TabIndex = 1;
             KoiReferenceValuesLabel.Text = "KOi Referans Değerleri";
+            // 
+            // AkmZeroTextBox
+            // 
+            AkmZeroTextBox.Anchor = AnchorStyles.Left;
+            AkmZeroTextBox.Enabled = false;
+            AkmZeroTextBox.Font = new Font("Arial", 9.75F);
+            AkmZeroTextBox.Location = new Point(234, 50);
+            AkmZeroTextBox.Name = "AkmZeroTextBox";
+            AkmZeroTextBox.Size = new Size(121, 22);
+            AkmZeroTextBox.TabIndex = 4;
+            AkmZeroTextBox.Text = "0";
+            // 
+            // KoiZeroTextBox
+            // 
+            KoiZeroTextBox.Anchor = AnchorStyles.Left;
+            KoiZeroTextBox.Enabled = false;
+            KoiZeroTextBox.Font = new Font("Arial", 9.75F);
+            KoiZeroTextBox.Location = new Point(234, 174);
+            KoiZeroTextBox.Name = "KoiZeroTextBox";
+            KoiZeroTextBox.Size = new Size(121, 22);
+            KoiZeroTextBox.TabIndex = 4;
+            KoiZeroTextBox.Text = "0";
             // 
             // StationSettingsBgTableLayoutPanel
             // 
@@ -240,12 +274,16 @@
             StationInfoContentTableLayoutPanel.Controls.Add(PhSpanLabel, 0, 2);
             StationInfoContentTableLayoutPanel.Controls.Add(PhReferenceValuesLabel, 0, 0);
             StationInfoContentTableLayoutPanel.Controls.Add(PhSpanComboBox, 1, 2);
-            StationInfoContentTableLayoutPanel.Controls.Add(ConductivityReferenceValuesLabel, 0, 4);
-            StationInfoContentTableLayoutPanel.Controls.Add(ConductivityZeroLabel, 0, 5);
-            StationInfoContentTableLayoutPanel.Controls.Add(ConductivitySpanLabel, 0, 6);
             StationInfoContentTableLayoutPanel.Controls.Add(PhZeroTextBox, 1, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(ConductivityZeroTextBox, 1, 5);
-            StationInfoContentTableLayoutPanel.Controls.Add(ConductivitySpanTextBox, 1, 6);
+            StationInfoContentTableLayoutPanel.Controls.Add(label1, 0, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(ConductivitySpanLabel, 0, 7);
+            StationInfoContentTableLayoutPanel.Controls.Add(ConductivitySpanTextBox, 1, 7);
+            StationInfoContentTableLayoutPanel.Controls.Add(ConductivityZeroTextBox, 1, 6);
+            StationInfoContentTableLayoutPanel.Controls.Add(ConductivityZeroLabel, 0, 6);
+            StationInfoContentTableLayoutPanel.Controls.Add(ConductivityReferenceValuesLabel, 0, 5);
+            StationInfoContentTableLayoutPanel.Controls.Add(label2, 0, 8);
+            StationInfoContentTableLayoutPanel.Controls.Add(comboBox1, 1, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(comboBox2, 1, 8);
             StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoContentTableLayoutPanel.Location = new Point(1, 1);
             StationInfoContentTableLayoutPanel.Margin = new Padding(1);
@@ -322,7 +360,7 @@
             ConductivityReferenceValuesLabel.AutoSize = true;
             ConductivityReferenceValuesLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ConductivityReferenceValuesLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ConductivityReferenceValuesLabel.Location = new Point(18, 146);
+            ConductivityReferenceValuesLabel.Location = new Point(18, 177);
             ConductivityReferenceValuesLabel.Name = "ConductivityReferenceValuesLabel";
             ConductivityReferenceValuesLabel.Size = new Size(188, 16);
             ConductivityReferenceValuesLabel.TabIndex = 1;
@@ -334,7 +372,7 @@
             ConductivityZeroLabel.AutoSize = true;
             ConductivityZeroLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ConductivityZeroLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ConductivityZeroLabel.Location = new Point(18, 177);
+            ConductivityZeroLabel.Location = new Point(18, 208);
             ConductivityZeroLabel.Name = "ConductivityZeroLabel";
             ConductivityZeroLabel.Size = new Size(97, 16);
             ConductivityZeroLabel.TabIndex = 1;
@@ -346,7 +384,7 @@
             ConductivitySpanLabel.AutoSize = true;
             ConductivitySpanLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ConductivitySpanLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ConductivitySpanLabel.Location = new Point(18, 208);
+            ConductivitySpanLabel.Location = new Point(18, 239);
             ConductivitySpanLabel.Name = "ConductivitySpanLabel";
             ConductivitySpanLabel.Size = new Size(102, 16);
             ConductivitySpanLabel.TabIndex = 1;
@@ -368,7 +406,7 @@
             ConductivityZeroTextBox.Anchor = AnchorStyles.Left;
             ConductivityZeroTextBox.Enabled = false;
             ConductivityZeroTextBox.Font = new Font("Arial", 9.75F);
-            ConductivityZeroTextBox.Location = new Point(234, 174);
+            ConductivityZeroTextBox.Location = new Point(234, 205);
             ConductivityZeroTextBox.Name = "ConductivityZeroTextBox";
             ConductivityZeroTextBox.Size = new Size(121, 22);
             ConductivityZeroTextBox.TabIndex = 4;
@@ -379,33 +417,103 @@
             ConductivitySpanTextBox.Anchor = AnchorStyles.Left;
             ConductivitySpanTextBox.Enabled = false;
             ConductivitySpanTextBox.Font = new Font("Arial", 9.75F);
-            ConductivitySpanTextBox.Location = new Point(234, 205);
+            ConductivitySpanTextBox.Location = new Point(234, 236);
             ConductivitySpanTextBox.Name = "ConductivitySpanTextBox";
             ConductivitySpanTextBox.Size = new Size(121, 22);
             ConductivitySpanTextBox.TabIndex = 4;
             ConductivitySpanTextBox.Text = "1413";
             // 
-            // AkmZeroTextBox
+            // label1
             // 
-            AkmZeroTextBox.Anchor = AnchorStyles.Left;
-            AkmZeroTextBox.Enabled = false;
-            AkmZeroTextBox.Font = new Font("Arial", 9.75F);
-            AkmZeroTextBox.Location = new Point(234, 50);
-            AkmZeroTextBox.Name = "AkmZeroTextBox";
-            AkmZeroTextBox.Size = new Size(121, 22);
-            AkmZeroTextBox.TabIndex = 4;
-            AkmZeroTextBox.Text = "0";
+            label1.Anchor = AnchorStyles.Left;
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label1.ForeColor = Color.FromArgb(64, 64, 64);
+            label1.Location = new Point(18, 115);
+            label1.Name = "label1";
+            label1.Size = new Size(37, 16);
+            label1.TabIndex = 1;
+            label1.Text = "Süre";
             // 
-            // KoiZeroTextBox
+            // label2
             // 
-            KoiZeroTextBox.Anchor = AnchorStyles.Left;
-            KoiZeroTextBox.Enabled = false;
-            KoiZeroTextBox.Font = new Font("Arial", 9.75F);
-            KoiZeroTextBox.Location = new Point(234, 174);
-            KoiZeroTextBox.Name = "KoiZeroTextBox";
-            KoiZeroTextBox.Size = new Size(121, 22);
-            KoiZeroTextBox.TabIndex = 4;
-            KoiZeroTextBox.Text = "0";
+            label2.Anchor = AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label2.ForeColor = Color.FromArgb(64, 64, 64);
+            label2.Location = new Point(18, 270);
+            label2.Name = "label2";
+            label2.Size = new Size(37, 16);
+            label2.TabIndex = 1;
+            label2.Text = "Süre";
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Font = new Font("Arial", 9.75F);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "15", "30", "60", "90" });
+            comboBox1.Location = new Point(234, 111);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 24);
+            comboBox1.TabIndex = 3;
+            // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.Font = new Font("Arial", 9.75F);
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "15", "30", "60", "90" });
+            comboBox2.Location = new Point(234, 266);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(121, 24);
+            comboBox2.TabIndex = 3;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Left;
+            label3.AutoSize = true;
+            label3.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label3.ForeColor = Color.FromArgb(64, 64, 64);
+            label3.Location = new Point(18, 84);
+            label3.Name = "label3";
+            label3.Size = new Size(37, 16);
+            label3.TabIndex = 1;
+            label3.Text = "Süre";
+            // 
+            // comboBox3
+            // 
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox3.Font = new Font("Arial", 9.75F);
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "15", "30", "60", "90" });
+            comboBox3.Location = new Point(234, 80);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(121, 24);
+            comboBox3.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Left;
+            label4.AutoSize = true;
+            label4.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label4.ForeColor = Color.FromArgb(64, 64, 64);
+            label4.Location = new Point(18, 208);
+            label4.Name = "label4";
+            label4.Size = new Size(37, 16);
+            label4.TabIndex = 1;
+            label4.Text = "Süre";
+            // 
+            // comboBox4
+            // 
+            comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox4.Font = new Font("Arial", 9.75F);
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Items.AddRange(new object[] { "15", "30", "60", "90" });
+            comboBox4.Location = new Point(234, 204);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(121, 24);
+            comboBox4.TabIndex = 3;
             // 
             // CalibrationSettingsPage
             // 
@@ -452,5 +560,13 @@
         private TextBox ConductivitySpanTextBox;
         private TextBox AkmZeroTextBox;
         private TextBox KoiZeroTextBox;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private ComboBox comboBox3;
+        private Label label4;
+        private ComboBox comboBox4;
+        private ComboBox comboBox1;
+        private ComboBox comboBox2;
     }
 }

@@ -34,22 +34,22 @@
             EditUserLabel = new Label();
             SaveUserButton = new Button();
             StationSettingsContentTableLayoutPanel = new TableLayoutPanel();
+            ResponseGroupBox = new GroupBox();
+            ResponseTextBox = new TextBox();
+            button1 = new Button();
             EditUserHeaderTableLayoutPanel = new TableLayoutPanel();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             label1 = new Label();
             textBox1 = new TextBox();
-            button1 = new Button();
-            ResponseGroupBox = new GroupBox();
-            ResponseTextBox = new TextBox();
             MailUsersHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsContentTableLayoutPanel.SuspendLayout();
+            ResponseGroupBox.SuspendLayout();
             EditUserHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
             StationInfoBgTableLayoutPanel.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            ResponseGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // MailUsersLabel
@@ -117,8 +117,8 @@
             // 
             StationSettingsContentTableLayoutPanel.BackColor = Color.White;
             StationSettingsContentTableLayoutPanel.ColumnCount = 2;
-            StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.35294F));
-            StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6470566F));
+            StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.3125F));
+            StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.6875F));
             StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             StationSettingsContentTableLayoutPanel.Controls.Add(ResponseGroupBox, 1, 0);
             StationSettingsContentTableLayoutPanel.Controls.Add(button1, 0, 0);
@@ -144,6 +144,40 @@
             StationSettingsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
             StationSettingsContentTableLayoutPanel.Size = new Size(542, 463);
             StationSettingsContentTableLayoutPanel.TabIndex = 6;
+            // 
+            // ResponseGroupBox
+            // 
+            ResponseGroupBox.Controls.Add(ResponseTextBox);
+            ResponseGroupBox.Dock = DockStyle.Fill;
+            ResponseGroupBox.Location = new Point(122, 18);
+            ResponseGroupBox.Name = "ResponseGroupBox";
+            ResponseGroupBox.Padding = new Padding(10);
+            StationSettingsContentTableLayoutPanel.SetRowSpan(ResponseGroupBox, 14);
+            ResponseGroupBox.Size = new Size(402, 428);
+            ResponseGroupBox.TabIndex = 4;
+            ResponseGroupBox.TabStop = false;
+            ResponseGroupBox.Text = "Cevap";
+            // 
+            // ResponseTextBox
+            // 
+            ResponseTextBox.BorderStyle = BorderStyle.None;
+            ResponseTextBox.Dock = DockStyle.Fill;
+            ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
+            ResponseTextBox.Location = new Point(10, 26);
+            ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
+            ResponseTextBox.Multiline = true;
+            ResponseTextBox.Name = "ResponseTextBox";
+            ResponseTextBox.Size = new Size(382, 392);
+            ResponseTextBox.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(18, 18);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 2;
+            button1.Text = "Ping At";
+            button1.UseVisualStyleBackColor = true;
             // 
             // EditUserHeaderTableLayoutPanel
             // 
@@ -248,40 +282,6 @@
             textBox1.Size = new Size(287, 23);
             textBox1.TabIndex = 2;
             // 
-            // button1
-            // 
-            button1.Location = new Point(18, 18);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Ping At";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // ResponseGroupBox
-            // 
-            ResponseGroupBox.Controls.Add(ResponseTextBox);
-            ResponseGroupBox.Dock = DockStyle.Fill;
-            ResponseGroupBox.Location = new Point(234, 18);
-            ResponseGroupBox.Name = "ResponseGroupBox";
-            ResponseGroupBox.Padding = new Padding(10);
-            StationSettingsContentTableLayoutPanel.SetRowSpan(ResponseGroupBox, 14);
-            ResponseGroupBox.Size = new Size(290, 428);
-            ResponseGroupBox.TabIndex = 4;
-            ResponseGroupBox.TabStop = false;
-            ResponseGroupBox.Text = "Cevap";
-            // 
-            // ResponseTextBox
-            // 
-            ResponseTextBox.BorderStyle = BorderStyle.None;
-            ResponseTextBox.Dock = DockStyle.Fill;
-            ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
-            ResponseTextBox.Location = new Point(10, 26);
-            ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
-            ResponseTextBox.Multiline = true;
-            ResponseTextBox.Name = "ResponseTextBox";
-            ResponseTextBox.Size = new Size(270, 392);
-            ResponseTextBox.TabIndex = 0;
-            // 
             // PlcSettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -292,14 +292,14 @@
             MailUsersHeaderTableLayoutPanel.ResumeLayout(false);
             MailUsersHeaderTableLayoutPanel.PerformLayout();
             StationSettingsContentTableLayoutPanel.ResumeLayout(false);
+            ResponseGroupBox.ResumeLayout(false);
+            ResponseGroupBox.PerformLayout();
             EditUserHeaderTableLayoutPanel.ResumeLayout(false);
             EditUserHeaderTableLayoutPanel.PerformLayout();
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
             StationInfoBgTableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            ResponseGroupBox.ResumeLayout(false);
-            ResponseGroupBox.PerformLayout();
             ResumeLayout(false);
         }
 
