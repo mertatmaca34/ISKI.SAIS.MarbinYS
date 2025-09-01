@@ -92,4 +92,9 @@ public partial class SettingsPage : UserControl
     {
         PageManager.ShowPage(this.PanelContent, new ChannelSettingsPage());
     }
+
+    private void PlcButton_Click(object sender, EventArgs e)
+    {
+        PageManager.ShowPage(this.PanelContent, new PlcSettingsPage());
+    }
 }

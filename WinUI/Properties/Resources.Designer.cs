@@ -63,6 +63,16 @@ namespace WinUI.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap _32_bit_96px {
+            get {
+                object obj = ResourceManager.GetObject("32-bit_96px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap alarm_24px {
             get {
                 object obj = ResourceManager.GetObject("alarm_24px", resourceCulture);
@@ -166,6 +176,16 @@ namespace WinUI.Properties {
         internal static System.Drawing.Bitmap electronics_48px {
             get {
                 object obj = ResourceManager.GetObject("electronics_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap electronics_96px {
+            get {
+                object obj = ResourceManager.GetObject("electronics_96px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -366,6 +386,16 @@ namespace WinUI.Properties {
         internal static System.Drawing.Bitmap male_user_256px {
             get {
                 object obj = ResourceManager.GetObject("male_user_256px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap memory_slot_96px {
+            get {
+                object obj = ResourceManager.GetObject("memory_slot_96px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
