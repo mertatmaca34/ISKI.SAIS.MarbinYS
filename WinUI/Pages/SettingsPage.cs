@@ -82,4 +82,14 @@ public partial class SettingsPage : UserControl
     {
         PageManager.ShowPage(this.PanelContent, new CalibrationSettingsPage());
     }
+
+    private void ButtonMailUsers_Click(object sender, EventArgs e)
+    {
+        PageManager.ShowPage(this.PanelContent, new MailUserSettingsPage());
+    }
+
+    private void ButtonChannels_Click(object sender, EventArgs e)
+    {
+        PageManager.ShowPage(this.PanelContent, new ChannelSettingsPage());
+    }
 }

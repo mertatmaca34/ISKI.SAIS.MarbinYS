@@ -34,9 +34,8 @@
             titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
             PanelContent = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            button1 = new Button();
-            button6 = new Button();
-            button5 = new Button();
+            ButtonChannels = new Button();
+            ButtonMailUsers = new Button();
             ButtonCalibration = new Button();
             ApiButton = new Button();
             DatabaseButton = new Button();
@@ -105,9 +104,8 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.Controls.Add(button1, 3, 0);
-            tableLayoutPanel2.Controls.Add(button6, 1, 1);
-            tableLayoutPanel2.Controls.Add(button5, 0, 1);
+            tableLayoutPanel2.Controls.Add(ButtonChannels, 3, 0);
+            tableLayoutPanel2.Controls.Add(ButtonMailUsers, 0, 1);
             tableLayoutPanel2.Controls.Add(ButtonCalibration, 0, 1);
             tableLayoutPanel2.Controls.Add(ApiButton, 2, 0);
             tableLayoutPanel2.Controls.Add(DatabaseButton, 1, 0);
@@ -121,47 +119,35 @@
             tableLayoutPanel2.Size = new Size(1094, 533);
             tableLayoutPanel2.TabIndex = 2;
             // 
-            // button1
+            // ButtonChannels
             // 
-            button1.Dock = DockStyle.Fill;
-            button1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            button1.Image = Properties.Resources.proximity_sensor_96px;
-            button1.Location = new Point(822, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(269, 260);
-            button1.TabIndex = 6;
-            button1.Text = "Kanallar";
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            button1.TextImageRelation = TextImageRelation.ImageAboveText;
-            button1.UseVisualStyleBackColor = true;
+            ButtonChannels.Dock = DockStyle.Fill;
+            ButtonChannels.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ButtonChannels.Image = Properties.Resources.proximity_sensor_96px;
+            ButtonChannels.Location = new Point(822, 3);
+            ButtonChannels.Name = "ButtonChannels";
+            ButtonChannels.Size = new Size(269, 260);
+            ButtonChannels.TabIndex = 6;
+            ButtonChannels.Text = "Kanallar";
+            ButtonChannels.TextAlign = ContentAlignment.BottomCenter;
+            ButtonChannels.TextImageRelation = TextImageRelation.ImageAboveText;
+            ButtonChannels.UseVisualStyleBackColor = true;
+            ButtonChannels.Click += ButtonChannels_Click;
             // 
-            // button6
+            // ButtonMailUsers
             // 
-            button6.Dock = DockStyle.Fill;
-            button6.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            button6.Image = Properties.Resources.test_96px;
-            button6.Location = new Point(549, 269);
-            button6.Name = "button6";
-            button6.Size = new Size(267, 261);
-            button6.TabIndex = 5;
-            button6.Text = "Test";
-            button6.TextAlign = ContentAlignment.BottomCenter;
-            button6.TextImageRelation = TextImageRelation.ImageAboveText;
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Dock = DockStyle.Fill;
-            button5.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            button5.Image = Properties.Resources.shared_mail_96px;
-            button5.Location = new Point(276, 269);
-            button5.Name = "button5";
-            button5.Size = new Size(267, 261);
-            button5.TabIndex = 4;
-            button5.Text = "Mail Kullanıcıları";
-            button5.TextAlign = ContentAlignment.BottomCenter;
-            button5.TextImageRelation = TextImageRelation.ImageAboveText;
-            button5.UseVisualStyleBackColor = true;
+            ButtonMailUsers.Dock = DockStyle.Fill;
+            ButtonMailUsers.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ButtonMailUsers.Image = Properties.Resources.shared_mail_96px;
+            ButtonMailUsers.Location = new Point(276, 269);
+            ButtonMailUsers.Name = "ButtonMailUsers";
+            ButtonMailUsers.Size = new Size(267, 261);
+            ButtonMailUsers.TabIndex = 4;
+            ButtonMailUsers.Text = "Mail Kullanıcıları";
+            ButtonMailUsers.TextAlign = ContentAlignment.BottomCenter;
+            ButtonMailUsers.TextImageRelation = TextImageRelation.ImageAboveText;
+            ButtonMailUsers.UseVisualStyleBackColor = true;
+            ButtonMailUsers.Click += ButtonMailUsers_Click;
             // 
             // ButtonCalibration
             // 
@@ -244,12 +230,11 @@
         private Controls.IBKS.TitleBarControl titleBarControl1;
         private Panel PanelContent;
         private TableLayoutPanel tableLayoutPanel2;
-        private Button button6;
-        private Button button5;
+        private Button ButtonMailUsers;
         private Button ButtonCalibration;
         private Button ApiButton;
         private Button DatabaseButton;
         private Button StationButton;
-        private Button button1;
+        private Button ButtonChannels;
     }
 }
