@@ -331,7 +331,6 @@
             StationInfoBgTableLayoutPanel.Controls.Add(StationInfoContentTableLayoutPanel, 0, 0);
             StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
-            StationInfoBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
             StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
             StationInfoBgTableLayoutPanel.RowCount = 1;
             StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -344,6 +343,7 @@
             StationInfoContentTableLayoutPanel.ColumnCount = 2;
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.35294F));
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6470566F));
+            StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             StationInfoContentTableLayoutPanel.Controls.Add(label4, 0, 0);
             StationInfoContentTableLayoutPanel.Controls.Add(label5, 0, 1);
             StationInfoContentTableLayoutPanel.Controls.Add(label6, 0, 2);
