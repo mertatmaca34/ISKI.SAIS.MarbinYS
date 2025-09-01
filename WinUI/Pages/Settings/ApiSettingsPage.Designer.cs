@@ -28,56 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label4 = new Label();
-            textBox1 = new TextBox();
+            ApiUrlLabel = new Label();
+            ApiUrlTextBox = new TextBox();
             StationInfoContentTableLayoutPanel = new TableLayoutPanel();
-            label5 = new Label();
-            label6 = new Label();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            ApiUsernameLabel = new Label();
+            ApiPasswordLabel = new Label();
+            ApiUsernameTextBox = new TextBox();
+            ApiPasswordTextBox = new TextBox();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
-            label1 = new Label();
-            FetchButton = new Button();
-            tableLayoutPanel4 = new TableLayoutPanel();
+            ApiSettingsLabel = new Label();
+            SaveApiSettingsButton = new Button();
+            ApiSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
-            label8 = new Label();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            groupBox1 = new GroupBox();
-            textBox4 = new TextBox();
+            ApiTestLabel = new Label();
+            ApiTestBgTableLayoutPanel = new TableLayoutPanel();
+            ApiTestContentTableLayoutPanel = new TableLayoutPanel();
+            SendServerRequestButton = new Button();
+            LoginButton = new Button();
+            RequestSampleButton = new Button();
+            SendDiagnosticButton = new Button();
+            ResponseGroupBox = new GroupBox();
+            ResponseTextBox = new TextBox();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             StationInfoBgTableLayoutPanel.SuspendLayout();
-            tableLayoutPanel4.SuspendLayout();
+            ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            ApiTestBgTableLayoutPanel.SuspendLayout();
+            ApiTestContentTableLayoutPanel.SuspendLayout();
+            ResponseGroupBox.SuspendLayout();
             SuspendLayout();
             // 
-            // label4
+            // ApiUrlLabel
             // 
-            label4.Anchor = AnchorStyles.Left;
-            label4.AutoSize = true;
-            label4.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label4.ForeColor = Color.FromArgb(64, 64, 64);
-            label4.Location = new Point(18, 22);
-            label4.Name = "label4";
-            label4.Size = new Size(59, 16);
-            label4.TabIndex = 1;
-            label4.Text = "API URL";
+            ApiUrlLabel.Anchor = AnchorStyles.Left;
+            ApiUrlLabel.AutoSize = true;
+            ApiUrlLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiUrlLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ApiUrlLabel.Location = new Point(18, 22);
+            ApiUrlLabel.Name = "ApiUrlLabel";
+            ApiUrlLabel.Size = new Size(59, 16);
+            ApiUrlLabel.TabIndex = 1;
+            ApiUrlLabel.Text = "API URL";
             // 
-            // textBox1
+            // ApiUrlTextBox
             // 
-            textBox1.Anchor = AnchorStyles.Left;
-            textBox1.Location = new Point(234, 19);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "localhost";
-            textBox1.Size = new Size(288, 23);
-            textBox1.TabIndex = 2;
+            ApiUrlTextBox.Anchor = AnchorStyles.Left;
+            ApiUrlTextBox.Location = new Point(234, 19);
+            ApiUrlTextBox.Name = "ApiUrlTextBox";
+            ApiUrlTextBox.PlaceholderText = "localhost";
+            ApiUrlTextBox.Size = new Size(288, 23);
+            ApiUrlTextBox.TabIndex = 2;
             // 
             // StationInfoContentTableLayoutPanel
             // 
@@ -86,12 +86,12 @@
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.35294F));
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6470566F));
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            StationInfoContentTableLayoutPanel.Controls.Add(label4, 0, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox1, 1, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(label5, 0, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(label6, 0, 2);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox2, 1, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox3, 1, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(ApiUrlLabel, 0, 0);
+            StationInfoContentTableLayoutPanel.Controls.Add(ApiUrlTextBox, 1, 0);
+            StationInfoContentTableLayoutPanel.Controls.Add(ApiUsernameLabel, 0, 1);
+            StationInfoContentTableLayoutPanel.Controls.Add(ApiPasswordLabel, 0, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(ApiUsernameTextBox, 1, 1);
+            StationInfoContentTableLayoutPanel.Controls.Add(ApiPasswordTextBox, 1, 2);
             StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoContentTableLayoutPanel.Location = new Point(1, 1);
             StationInfoContentTableLayoutPanel.Margin = new Padding(1);
@@ -115,47 +115,47 @@
             StationInfoContentTableLayoutPanel.Size = new Size(540, 461);
             StationInfoContentTableLayoutPanel.TabIndex = 2;
             // 
-            // label5
+            // ApiUsernameLabel
             // 
-            label5.Anchor = AnchorStyles.Left;
-            label5.AutoSize = true;
-            label5.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label5.ForeColor = Color.FromArgb(64, 64, 64);
-            label5.Location = new Point(18, 53);
-            label5.Name = "label5";
-            label5.Size = new Size(114, 16);
-            label5.TabIndex = 1;
-            label5.Text = "API Kullanıcı Adı";
+            ApiUsernameLabel.Anchor = AnchorStyles.Left;
+            ApiUsernameLabel.AutoSize = true;
+            ApiUsernameLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiUsernameLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ApiUsernameLabel.Location = new Point(18, 53);
+            ApiUsernameLabel.Name = "ApiUsernameLabel";
+            ApiUsernameLabel.Size = new Size(114, 16);
+            ApiUsernameLabel.TabIndex = 1;
+            ApiUsernameLabel.Text = "API Kullanıcı Adı";
             // 
-            // label6
+            // ApiPasswordLabel
             // 
-            label6.Anchor = AnchorStyles.Left;
-            label6.AutoSize = true;
-            label6.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label6.ForeColor = Color.FromArgb(64, 64, 64);
-            label6.Location = new Point(18, 84);
-            label6.Name = "label6";
-            label6.Size = new Size(133, 16);
-            label6.TabIndex = 1;
-            label6.Text = "API Kullanıcı Şifresi";
+            ApiPasswordLabel.Anchor = AnchorStyles.Left;
+            ApiPasswordLabel.AutoSize = true;
+            ApiPasswordLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiPasswordLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ApiPasswordLabel.Location = new Point(18, 84);
+            ApiPasswordLabel.Name = "ApiPasswordLabel";
+            ApiPasswordLabel.Size = new Size(133, 16);
+            ApiPasswordLabel.TabIndex = 1;
+            ApiPasswordLabel.Text = "API Kullanıcı Şifresi";
             // 
-            // textBox2
+            // ApiUsernameTextBox
             // 
-            textBox2.Anchor = AnchorStyles.Left;
-            textBox2.Location = new Point(234, 50);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "api_user";
-            textBox2.Size = new Size(288, 23);
-            textBox2.TabIndex = 2;
+            ApiUsernameTextBox.Anchor = AnchorStyles.Left;
+            ApiUsernameTextBox.Location = new Point(234, 50);
+            ApiUsernameTextBox.Name = "ApiUsernameTextBox";
+            ApiUsernameTextBox.PlaceholderText = "api_user";
+            ApiUsernameTextBox.Size = new Size(288, 23);
+            ApiUsernameTextBox.TabIndex = 2;
             // 
-            // textBox3
+            // ApiPasswordTextBox
             // 
-            textBox3.Anchor = AnchorStyles.Left;
-            textBox3.Location = new Point(234, 81);
-            textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "api_pass";
-            textBox3.Size = new Size(288, 23);
-            textBox3.TabIndex = 2;
+            ApiPasswordTextBox.Anchor = AnchorStyles.Left;
+            ApiPasswordTextBox.Location = new Point(234, 81);
+            ApiPasswordTextBox.Name = "ApiPasswordTextBox";
+            ApiPasswordTextBox.PlaceholderText = "api_pass";
+            ApiPasswordTextBox.Size = new Size(288, 23);
+            ApiPasswordTextBox.TabIndex = 2;
             // 
             // StationInfoBgTableLayoutPanel
             // 
@@ -172,52 +172,52 @@
             StationInfoBgTableLayoutPanel.Size = new Size(542, 463);
             StationInfoBgTableLayoutPanel.TabIndex = 5;
             // 
-            // label1
+            // ApiSettingsLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.FromArgb(64, 64, 64);
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(116, 22);
-            label1.TabIndex = 0;
-            label1.Text = "API Ayarları";
+            ApiSettingsLabel.AutoSize = true;
+            ApiSettingsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiSettingsLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ApiSettingsLabel.Location = new Point(3, 0);
+            ApiSettingsLabel.Name = "ApiSettingsLabel";
+            ApiSettingsLabel.Size = new Size(116, 22);
+            ApiSettingsLabel.TabIndex = 0;
+            ApiSettingsLabel.Text = "API Ayarları";
             // 
-            // FetchButton
+            // SaveApiSettingsButton
             // 
-            FetchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            FetchButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FetchButton.Location = new Point(452, 3);
-            FetchButton.Name = "FetchButton";
-            FetchButton.Size = new Size(92, 32);
-            FetchButton.TabIndex = 2;
-            FetchButton.Text = "Kaydet";
-            FetchButton.UseVisualStyleBackColor = true;
+            SaveApiSettingsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveApiSettingsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveApiSettingsButton.Location = new Point(452, 3);
+            SaveApiSettingsButton.Name = "SaveApiSettingsButton";
+            SaveApiSettingsButton.Size = new Size(92, 32);
+            SaveApiSettingsButton.TabIndex = 2;
+            SaveApiSettingsButton.Text = "Kaydet";
+            SaveApiSettingsButton.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel4
+            // ApiSettingsHeaderTableLayoutPanel
             // 
-            tableLayoutPanel4.ColumnCount = 2;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Controls.Add(label1, 0, 0);
-            tableLayoutPanel4.Controls.Add(FetchButton, 1, 0);
-            tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(0, 0);
-            tableLayoutPanel4.Margin = new Padding(0);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 1;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Size = new Size(547, 40);
-            tableLayoutPanel4.TabIndex = 3;
+            ApiSettingsHeaderTableLayoutPanel.ColumnCount = 2;
+            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiSettingsHeaderTableLayoutPanel.Controls.Add(ApiSettingsLabel, 0, 0);
+            ApiSettingsHeaderTableLayoutPanel.Controls.Add(SaveApiSettingsButton, 1, 0);
+            ApiSettingsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
+            ApiSettingsHeaderTableLayoutPanel.Location = new Point(0, 0);
+            ApiSettingsHeaderTableLayoutPanel.Margin = new Padding(0);
+            ApiSettingsHeaderTableLayoutPanel.Name = "ApiSettingsHeaderTableLayoutPanel";
+            ApiSettingsHeaderTableLayoutPanel.RowCount = 1;
+            ApiSettingsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            ApiSettingsHeaderTableLayoutPanel.Size = new Size(547, 40);
+            ApiSettingsHeaderTableLayoutPanel.TabIndex = 3;
             // 
             // StationSettingsBgTableLayoutPanel
             // 
             StationSettingsBgTableLayoutPanel.ColumnCount = 2;
             StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationSettingsBgTableLayoutPanel.Controls.Add(label8, 1, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel1, 1, 1);
-            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel4, 0, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(ApiTestLabel, 1, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(ApiTestBgTableLayoutPanel, 1, 1);
+            StationSettingsBgTableLayoutPanel.Controls.Add(ApiSettingsHeaderTableLayoutPanel, 0, 0);
             StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
             StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
             StationSettingsBgTableLayoutPanel.Location = new Point(0, 15);
@@ -228,139 +228,139 @@
             StationSettingsBgTableLayoutPanel.Size = new Size(1094, 503);
             StationSettingsBgTableLayoutPanel.TabIndex = 2;
             // 
-            // label8
+            // ApiTestLabel
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label8.ForeColor = Color.FromArgb(64, 64, 64);
-            label8.Location = new Point(550, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(91, 22);
-            label8.TabIndex = 0;
-            label8.Text = "API Testi";
+            ApiTestLabel.AutoSize = true;
+            ApiTestLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiTestLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ApiTestLabel.Location = new Point(550, 0);
+            ApiTestLabel.Name = "ApiTestLabel";
+            ApiTestLabel.Size = new Size(91, 22);
+            ApiTestLabel.TabIndex = 0;
+            ApiTestLabel.Text = "API Testi";
             // 
-            // tableLayoutPanel1
+            // ApiTestBgTableLayoutPanel
             // 
-            tableLayoutPanel1.BackColor = Color.FromArgb(235, 235, 235);
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(547, 40);
-            tableLayoutPanel1.Margin = new Padding(0, 0, 5, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(542, 463);
-            tableLayoutPanel1.TabIndex = 6;
+            ApiTestBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
+            ApiTestBgTableLayoutPanel.ColumnCount = 1;
+            ApiTestBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiTestBgTableLayoutPanel.Controls.Add(ApiTestContentTableLayoutPanel, 0, 0);
+            ApiTestBgTableLayoutPanel.Dock = DockStyle.Fill;
+            ApiTestBgTableLayoutPanel.Location = new Point(547, 40);
+            ApiTestBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
+            ApiTestBgTableLayoutPanel.Name = "ApiTestBgTableLayoutPanel";
+            ApiTestBgTableLayoutPanel.RowCount = 1;
+            ApiTestBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            ApiTestBgTableLayoutPanel.Size = new Size(542, 463);
+            ApiTestBgTableLayoutPanel.TabIndex = 6;
             // 
-            // tableLayoutPanel2
+            // ApiTestContentTableLayoutPanel
             // 
-            tableLayoutPanel2.BackColor = Color.White;
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.27451F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.72549F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Controls.Add(button1, 0, 0);
-            tableLayoutPanel2.Controls.Add(button2, 0, 1);
-            tableLayoutPanel2.Controls.Add(button3, 0, 2);
-            tableLayoutPanel2.Controls.Add(button4, 0, 3);
-            tableLayoutPanel2.Controls.Add(groupBox1, 1, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(1, 1);
-            tableLayoutPanel2.Margin = new Padding(1);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.Padding = new Padding(15);
-            tableLayoutPanel2.RowCount = 14;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel2.Size = new Size(540, 461);
-            tableLayoutPanel2.TabIndex = 2;
+            ApiTestContentTableLayoutPanel.BackColor = Color.White;
+            ApiTestContentTableLayoutPanel.ColumnCount = 2;
+            ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.27451F));
+            ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.72549F));
+            ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            ApiTestContentTableLayoutPanel.Controls.Add(SendServerRequestButton, 0, 0);
+            ApiTestContentTableLayoutPanel.Controls.Add(LoginButton, 0, 1);
+            ApiTestContentTableLayoutPanel.Controls.Add(RequestSampleButton, 0, 2);
+            ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 3);
+            ApiTestContentTableLayoutPanel.Controls.Add(ResponseGroupBox, 1, 0);
+            ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
+            ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
+            ApiTestContentTableLayoutPanel.Margin = new Padding(1);
+            ApiTestContentTableLayoutPanel.Name = "ApiTestContentTableLayoutPanel";
+            ApiTestContentTableLayoutPanel.Padding = new Padding(15);
+            ApiTestContentTableLayoutPanel.RowCount = 14;
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ApiTestContentTableLayoutPanel.Size = new Size(540, 461);
+            ApiTestContentTableLayoutPanel.TabIndex = 2;
             // 
-            // button1
+            // SendServerRequestButton
             // 
-            button1.Anchor = AnchorStyles.Left;
-            button1.AutoSize = true;
-            button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(18, 18);
-            button1.Name = "button1";
-            button1.Size = new Size(176, 25);
-            button1.TabIndex = 2;
-            button1.Text = "Sunucuya İstek At";
-            button1.UseVisualStyleBackColor = true;
+            SendServerRequestButton.Anchor = AnchorStyles.Left;
+            SendServerRequestButton.AutoSize = true;
+            SendServerRequestButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SendServerRequestButton.Location = new Point(18, 18);
+            SendServerRequestButton.Name = "SendServerRequestButton";
+            SendServerRequestButton.Size = new Size(176, 25);
+            SendServerRequestButton.TabIndex = 2;
+            SendServerRequestButton.Text = "Sunucuya İstek At";
+            SendServerRequestButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // LoginButton
             // 
-            button2.Anchor = AnchorStyles.Left;
-            button2.AutoSize = true;
-            button2.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(18, 49);
-            button2.Name = "button2";
-            button2.Size = new Size(176, 25);
-            button2.TabIndex = 2;
-            button2.Text = "Giriş Yap";
-            button2.UseVisualStyleBackColor = true;
+            LoginButton.Anchor = AnchorStyles.Left;
+            LoginButton.AutoSize = true;
+            LoginButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LoginButton.Location = new Point(18, 49);
+            LoginButton.Name = "LoginButton";
+            LoginButton.Size = new Size(176, 25);
+            LoginButton.TabIndex = 2;
+            LoginButton.Text = "Giriş Yap";
+            LoginButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // RequestSampleButton
             // 
-            button3.Anchor = AnchorStyles.Left;
-            button3.AutoSize = true;
-            button3.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Location = new Point(18, 80);
-            button3.Name = "button3";
-            button3.Size = new Size(176, 25);
-            button3.TabIndex = 2;
-            button3.Text = "Numune Aldır";
-            button3.UseVisualStyleBackColor = true;
+            RequestSampleButton.Anchor = AnchorStyles.Left;
+            RequestSampleButton.AutoSize = true;
+            RequestSampleButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RequestSampleButton.Location = new Point(18, 80);
+            RequestSampleButton.Name = "RequestSampleButton";
+            RequestSampleButton.Size = new Size(176, 25);
+            RequestSampleButton.TabIndex = 2;
+            RequestSampleButton.Text = "Numune Aldır";
+            RequestSampleButton.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // SendDiagnosticButton
             // 
-            button4.Anchor = AnchorStyles.Left;
-            button4.AutoSize = true;
-            button4.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.Location = new Point(18, 111);
-            button4.Name = "button4";
-            button4.Size = new Size(176, 25);
-            button4.TabIndex = 2;
-            button4.Text = "Deneme Diagnostik Gönder";
-            button4.UseVisualStyleBackColor = true;
+            SendDiagnosticButton.Anchor = AnchorStyles.Left;
+            SendDiagnosticButton.AutoSize = true;
+            SendDiagnosticButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SendDiagnosticButton.Location = new Point(18, 111);
+            SendDiagnosticButton.Name = "SendDiagnosticButton";
+            SendDiagnosticButton.Size = new Size(176, 25);
+            SendDiagnosticButton.TabIndex = 2;
+            SendDiagnosticButton.Text = "Deneme Diagnostik Gönder";
+            SendDiagnosticButton.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // ResponseGroupBox
             // 
-            groupBox1.Controls.Add(textBox4);
-            groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(203, 18);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(10);
-            tableLayoutPanel2.SetRowSpan(groupBox1, 14);
-            groupBox1.Size = new Size(319, 428);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Cevap";
+            ResponseGroupBox.Controls.Add(ResponseTextBox);
+            ResponseGroupBox.Dock = DockStyle.Fill;
+            ResponseGroupBox.Location = new Point(203, 18);
+            ResponseGroupBox.Name = "ResponseGroupBox";
+            ResponseGroupBox.Padding = new Padding(10);
+            ApiTestContentTableLayoutPanel.SetRowSpan(ResponseGroupBox, 14);
+            ResponseGroupBox.Size = new Size(319, 428);
+            ResponseGroupBox.TabIndex = 3;
+            ResponseGroupBox.TabStop = false;
+            ResponseGroupBox.Text = "Cevap";
             // 
-            // textBox4
+            // ResponseTextBox
             // 
-            textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Dock = DockStyle.Fill;
-            textBox4.ForeColor = Color.FromArgb(64, 64, 64);
-            textBox4.Location = new Point(10, 26);
-            textBox4.Margin = new Padding(15, 3, 3, 3);
-            textBox4.Multiline = true;
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(299, 392);
-            textBox4.TabIndex = 0;
+            ResponseTextBox.BorderStyle = BorderStyle.None;
+            ResponseTextBox.Dock = DockStyle.Fill;
+            ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
+            ResponseTextBox.Location = new Point(10, 26);
+            ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
+            ResponseTextBox.Multiline = true;
+            ResponseTextBox.Name = "ResponseTextBox";
+            ResponseTextBox.Size = new Size(299, 392);
+            ResponseTextBox.TabIndex = 0;
             // 
             // ApiSettingsPage
             // 
@@ -373,40 +373,40 @@
             StationInfoContentTableLayoutPanel.ResumeLayout(false);
             StationInfoContentTableLayoutPanel.PerformLayout();
             StationInfoBgTableLayoutPanel.ResumeLayout(false);
-            tableLayoutPanel4.ResumeLayout(false);
-            tableLayoutPanel4.PerformLayout();
+            ApiSettingsHeaderTableLayoutPanel.ResumeLayout(false);
+            ApiSettingsHeaderTableLayoutPanel.PerformLayout();
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
             StationSettingsBgTableLayoutPanel.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            ApiTestBgTableLayoutPanel.ResumeLayout(false);
+            ApiTestContentTableLayoutPanel.ResumeLayout(false);
+            ApiTestContentTableLayoutPanel.PerformLayout();
+            ResponseGroupBox.ResumeLayout(false);
+            ResponseGroupBox.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Label label4;
-        private TextBox textBox1;
+        private Label ApiUrlLabel;
+        private TextBox ApiUrlTextBox;
         private TableLayoutPanel StationInfoContentTableLayoutPanel;
-        private Label label5;
+        private Label ApiUsernameLabel;
         private TableLayoutPanel StationInfoBgTableLayoutPanel;
-        private Label label1;
-        private Button FetchButton;
-        private TableLayoutPanel tableLayoutPanel4;
+        private Label ApiSettingsLabel;
+        private Button SaveApiSettingsButton;
+        private TableLayoutPanel ApiSettingsHeaderTableLayoutPanel;
         private TableLayoutPanel StationSettingsBgTableLayoutPanel;
-        private Label label6;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Label label8;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private GroupBox groupBox1;
-        private TextBox textBox4;
+        private Label ApiPasswordLabel;
+        private TextBox ApiUsernameTextBox;
+        private TextBox ApiPasswordTextBox;
+        private TableLayoutPanel ApiTestBgTableLayoutPanel;
+        private TableLayoutPanel ApiTestContentTableLayoutPanel;
+        private Label ApiTestLabel;
+        private Button SendServerRequestButton;
+        private Button LoginButton;
+        private Button RequestSampleButton;
+        private Button SendDiagnosticButton;
+        private GroupBox ResponseGroupBox;
+        private TextBox ResponseTextBox;
     }
 }

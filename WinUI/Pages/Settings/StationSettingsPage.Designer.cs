@@ -30,56 +30,56 @@
         {
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
             StationSettingsContentTableLayoutPanel = new TableLayoutPanel();
-            label18 = new Label();
-            label19 = new Label();
-            label20 = new Label();
-            label21 = new Label();
-            textBox15 = new TextBox();
-            textBox16 = new TextBox();
-            textBox17 = new TextBox();
-            textBox20 = new TextBox();
-            label22 = new Label();
-            textBox18 = new TextBox();
-            tableLayoutPanel5 = new TableLayoutPanel();
-            label2 = new Label();
-            SaveButton = new Button();
-            tableLayoutPanel4 = new TableLayoutPanel();
-            label1 = new Label();
-            FetchButton = new Button();
+            StationIdSettingLabel = new Label();
+            ConnectionUserLabel = new Label();
+            ConnectionPasswordLabel = new Label();
+            ConnectionDomainAddressLabel = new Label();
+            StationIdSettingTextBox = new TextBox();
+            ConnectionPasswordTextBox = new TextBox();
+            ConnectionDomainAddressTextBox = new TextBox();
+            ConnectionUserTextBox = new TextBox();
+            ConnectionPortLabel = new Label();
+            ConnectionPortTextBox = new TextBox();
+            StationSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
+            StationSettingsLabel = new Label();
+            SaveStationSettingsButton = new Button();
+            StationInfoHeaderTableLayoutPanel = new TableLayoutPanel();
+            StationInfoLabel = new Label();
+            FetchStationButton = new Button();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
             StationInfoContentTableLayoutPanel = new TableLayoutPanel();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            label10 = new Label();
-            label11 = new Label();
-            label12 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            label15 = new Label();
-            label16 = new Label();
-            label17 = new Label();
-            textBox1 = new TextBox();
-            textBox5 = new TextBox();
-            textBox2 = new TextBox();
-            textBox6 = new TextBox();
-            textBox7 = new TextBox();
-            textBox8 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            textBox9 = new TextBox();
-            textBox10 = new TextBox();
-            textBox11 = new TextBox();
-            textBox12 = new TextBox();
-            textBox13 = new TextBox();
-            textBox14 = new TextBox();
+            StationIdLabel = new Label();
+            CodeLabel = new Label();
+            StationNameLabel = new Label();
+            DataPeriodLabel = new Label();
+            LastDataDateLabel = new Label();
+            CabinSoftwareAddressLabel = new Label();
+            CabinSoftwarePortLabel = new Label();
+            CabinSoftwareUsernameLabel = new Label();
+            CabinSoftwarePasswordLabel = new Label();
+            OrganizationLabel = new Label();
+            StationSetupDateLabel = new Label();
+            SoftwareSetupDateLabel = new Label();
+            StationAddressLabel = new Label();
+            SoftwareLabel = new Label();
+            StationIdTextBox = new TextBox();
+            StationNameTextBox = new TextBox();
+            DataPeriodTextBox = new TextBox();
+            LastDataDateTextBox = new TextBox();
+            CabinSoftwareAddressTextBox = new TextBox();
+            CodeTextBox = new TextBox();
+            CabinSoftwarePortTextBox = new TextBox();
+            CabinSoftwareUsernameTextBox = new TextBox();
+            CabinSoftwarePasswordTextBox = new TextBox();
+            OrganizationTextBox = new TextBox();
+            StationSetupDateTextBox = new TextBox();
+            SoftwareSetupDateTextBox = new TextBox();
+            StationAddressTextBox = new TextBox();
+            SoftwareTextBox = new TextBox();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
             StationSettingsContentTableLayoutPanel.SuspendLayout();
-            tableLayoutPanel5.SuspendLayout();
-            tableLayoutPanel4.SuspendLayout();
+            StationSettingsHeaderTableLayoutPanel.SuspendLayout();
+            StationInfoHeaderTableLayoutPanel.SuspendLayout();
             StationInfoBgTableLayoutPanel.SuspendLayout();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -90,8 +90,8 @@
             StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             StationSettingsBgTableLayoutPanel.Controls.Add(StationSettingsContentTableLayoutPanel, 1, 1);
-            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel5, 1, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel4, 0, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(StationSettingsHeaderTableLayoutPanel, 1, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoHeaderTableLayoutPanel, 0, 0);
             StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
             StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
             StationSettingsBgTableLayoutPanel.Location = new Point(0, 15);
@@ -109,16 +109,16 @@
             StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.35294F));
             StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6470566F));
             StationSettingsContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            StationSettingsContentTableLayoutPanel.Controls.Add(label18, 0, 0);
-            StationSettingsContentTableLayoutPanel.Controls.Add(label19, 0, 1);
-            StationSettingsContentTableLayoutPanel.Controls.Add(label20, 0, 2);
-            StationSettingsContentTableLayoutPanel.Controls.Add(label21, 0, 3);
-            StationSettingsContentTableLayoutPanel.Controls.Add(textBox15, 1, 0);
-            StationSettingsContentTableLayoutPanel.Controls.Add(textBox16, 1, 2);
-            StationSettingsContentTableLayoutPanel.Controls.Add(textBox17, 1, 3);
-            StationSettingsContentTableLayoutPanel.Controls.Add(textBox20, 1, 1);
-            StationSettingsContentTableLayoutPanel.Controls.Add(label22, 0, 4);
-            StationSettingsContentTableLayoutPanel.Controls.Add(textBox18, 1, 4);
+            StationSettingsContentTableLayoutPanel.Controls.Add(StationIdSettingLabel, 0, 0);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionUserLabel, 0, 1);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionPasswordLabel, 0, 2);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionDomainAddressLabel, 0, 3);
+            StationSettingsContentTableLayoutPanel.Controls.Add(StationIdSettingTextBox, 1, 0);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionPasswordTextBox, 1, 2);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionDomainAddressTextBox, 1, 3);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionUserTextBox, 1, 1);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionPortLabel, 0, 4);
+            StationSettingsContentTableLayoutPanel.Controls.Add(ConnectionPortTextBox, 1, 4);
             StationSettingsContentTableLayoutPanel.Dock = DockStyle.Fill;
             StationSettingsContentTableLayoutPanel.Location = new Point(548, 41);
             StationSettingsContentTableLayoutPanel.Margin = new Padding(1, 1, 5, 1);
@@ -142,186 +142,186 @@
             StationSettingsContentTableLayoutPanel.Size = new Size(541, 461);
             StationSettingsContentTableLayoutPanel.TabIndex = 6;
             // 
-            // label18
+            // StationIdSettingLabel
             // 
-            label18.Anchor = AnchorStyles.Left;
-            label18.AutoSize = true;
-            label18.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label18.ForeColor = Color.FromArgb(64, 64, 64);
-            label18.Location = new Point(18, 22);
-            label18.Name = "label18";
-            label18.Size = new Size(64, 16);
-            label18.TabIndex = 1;
-            label18.Text = "StationId";
+            StationIdSettingLabel.Anchor = AnchorStyles.Left;
+            StationIdSettingLabel.AutoSize = true;
+            StationIdSettingLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationIdSettingLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationIdSettingLabel.Location = new Point(18, 22);
+            StationIdSettingLabel.Name = "StationIdSettingLabel";
+            StationIdSettingLabel.Size = new Size(64, 16);
+            StationIdSettingLabel.TabIndex = 1;
+            StationIdSettingLabel.Text = "StationId";
             // 
-            // label19
+            // ConnectionUserLabel
             // 
-            label19.Anchor = AnchorStyles.Left;
-            label19.AutoSize = true;
-            label19.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label19.ForeColor = Color.FromArgb(64, 64, 64);
-            label19.Location = new Point(18, 53);
-            label19.Name = "label19";
-            label19.Size = new Size(107, 16);
-            label19.TabIndex = 1;
-            label19.Text = "ConnectionUser";
+            ConnectionUserLabel.Anchor = AnchorStyles.Left;
+            ConnectionUserLabel.AutoSize = true;
+            ConnectionUserLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ConnectionUserLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ConnectionUserLabel.Location = new Point(18, 53);
+            ConnectionUserLabel.Name = "ConnectionUserLabel";
+            ConnectionUserLabel.Size = new Size(107, 16);
+            ConnectionUserLabel.TabIndex = 1;
+            ConnectionUserLabel.Text = "ConnectionUser";
             // 
-            // label20
+            // ConnectionPasswordLabel
             // 
-            label20.Anchor = AnchorStyles.Left;
-            label20.AutoSize = true;
-            label20.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label20.ForeColor = Color.FromArgb(64, 64, 64);
-            label20.Location = new Point(18, 84);
-            label20.Name = "label20";
-            label20.Size = new Size(140, 16);
-            label20.TabIndex = 1;
-            label20.Text = "ConnectionPassword";
+            ConnectionPasswordLabel.Anchor = AnchorStyles.Left;
+            ConnectionPasswordLabel.AutoSize = true;
+            ConnectionPasswordLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ConnectionPasswordLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ConnectionPasswordLabel.Location = new Point(18, 84);
+            ConnectionPasswordLabel.Name = "ConnectionPasswordLabel";
+            ConnectionPasswordLabel.Size = new Size(140, 16);
+            ConnectionPasswordLabel.TabIndex = 1;
+            ConnectionPasswordLabel.Text = "ConnectionPassword";
             // 
-            // label21
+            // ConnectionDomainAddressLabel
             // 
-            label21.Anchor = AnchorStyles.Left;
-            label21.AutoSize = true;
-            label21.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label21.ForeColor = Color.FromArgb(64, 64, 64);
-            label21.Location = new Point(18, 115);
-            label21.Name = "label21";
-            label21.Size = new Size(178, 16);
-            label21.TabIndex = 1;
-            label21.Text = "ConnectionDomainAddress";
+            ConnectionDomainAddressLabel.Anchor = AnchorStyles.Left;
+            ConnectionDomainAddressLabel.AutoSize = true;
+            ConnectionDomainAddressLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ConnectionDomainAddressLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ConnectionDomainAddressLabel.Location = new Point(18, 115);
+            ConnectionDomainAddressLabel.Name = "ConnectionDomainAddressLabel";
+            ConnectionDomainAddressLabel.Size = new Size(178, 16);
+            ConnectionDomainAddressLabel.TabIndex = 1;
+            ConnectionDomainAddressLabel.Text = "ConnectionDomainAddress";
             // 
-            // textBox15
+            // StationIdSettingTextBox
             // 
-            textBox15.Anchor = AnchorStyles.None;
-            textBox15.Location = new Point(234, 19);
-            textBox15.Name = "textBox15";
-            textBox15.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
-            textBox15.Size = new Size(288, 23);
-            textBox15.TabIndex = 2;
+            StationIdSettingTextBox.Anchor = AnchorStyles.None;
+            StationIdSettingTextBox.Location = new Point(234, 19);
+            StationIdSettingTextBox.Name = "StationIdSettingTextBox";
+            StationIdSettingTextBox.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
+            StationIdSettingTextBox.Size = new Size(288, 23);
+            StationIdSettingTextBox.TabIndex = 2;
             // 
-            // textBox16
+            // ConnectionPasswordTextBox
             // 
-            textBox16.Anchor = AnchorStyles.None;
-            textBox16.Location = new Point(234, 81);
-            textBox16.Name = "textBox16";
-            textBox16.PlaceholderText = "Kabin Yazılımı Kullanıcı Şifresi";
-            textBox16.Size = new Size(288, 23);
-            textBox16.TabIndex = 2;
+            ConnectionPasswordTextBox.Anchor = AnchorStyles.None;
+            ConnectionPasswordTextBox.Location = new Point(234, 81);
+            ConnectionPasswordTextBox.Name = "ConnectionPasswordTextBox";
+            ConnectionPasswordTextBox.PlaceholderText = "Kabin Yazılımı Kullanıcı Şifresi";
+            ConnectionPasswordTextBox.Size = new Size(288, 23);
+            ConnectionPasswordTextBox.TabIndex = 2;
             // 
-            // textBox17
+            // ConnectionDomainAddressTextBox
             // 
-            textBox17.Anchor = AnchorStyles.None;
-            textBox17.Location = new Point(234, 112);
-            textBox17.Name = "textBox17";
-            textBox17.PlaceholderText = "Kabin Yazılımı Erişim Host veya IP Numarası";
-            textBox17.Size = new Size(288, 23);
-            textBox17.TabIndex = 2;
+            ConnectionDomainAddressTextBox.Anchor = AnchorStyles.None;
+            ConnectionDomainAddressTextBox.Location = new Point(234, 112);
+            ConnectionDomainAddressTextBox.Name = "ConnectionDomainAddressTextBox";
+            ConnectionDomainAddressTextBox.PlaceholderText = "Kabin Yazılımı Erişim Host veya IP Numarası";
+            ConnectionDomainAddressTextBox.Size = new Size(288, 23);
+            ConnectionDomainAddressTextBox.TabIndex = 2;
             // 
-            // textBox20
+            // ConnectionUserTextBox
             // 
-            textBox20.Anchor = AnchorStyles.None;
-            textBox20.Location = new Point(234, 50);
-            textBox20.Name = "textBox20";
-            textBox20.PlaceholderText = "Kabin Yazılımı Kullanıcı Adı";
-            textBox20.Size = new Size(288, 23);
-            textBox20.TabIndex = 2;
+            ConnectionUserTextBox.Anchor = AnchorStyles.None;
+            ConnectionUserTextBox.Location = new Point(234, 50);
+            ConnectionUserTextBox.Name = "ConnectionUserTextBox";
+            ConnectionUserTextBox.PlaceholderText = "Kabin Yazılımı Kullanıcı Adı";
+            ConnectionUserTextBox.Size = new Size(288, 23);
+            ConnectionUserTextBox.TabIndex = 2;
             // 
-            // label22
+            // ConnectionPortLabel
             // 
-            label22.Anchor = AnchorStyles.Left;
-            label22.AutoSize = true;
-            label22.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label22.ForeColor = Color.FromArgb(64, 64, 64);
-            label22.Location = new Point(18, 146);
-            label22.Name = "label22";
-            label22.Size = new Size(105, 16);
-            label22.TabIndex = 1;
-            label22.Text = "ConnectionPort";
+            ConnectionPortLabel.Anchor = AnchorStyles.Left;
+            ConnectionPortLabel.AutoSize = true;
+            ConnectionPortLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ConnectionPortLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ConnectionPortLabel.Location = new Point(18, 146);
+            ConnectionPortLabel.Name = "ConnectionPortLabel";
+            ConnectionPortLabel.Size = new Size(105, 16);
+            ConnectionPortLabel.TabIndex = 1;
+            ConnectionPortLabel.Text = "ConnectionPort";
             // 
-            // textBox18
+            // ConnectionPortTextBox
             // 
-            textBox18.Anchor = AnchorStyles.None;
-            textBox18.Location = new Point(234, 143);
-            textBox18.Name = "textBox18";
-            textBox18.PlaceholderText = "Kabin Yazılımı Erişim için kullanılan PORT bilgisi";
-            textBox18.Size = new Size(288, 23);
-            textBox18.TabIndex = 2;
+            ConnectionPortTextBox.Anchor = AnchorStyles.None;
+            ConnectionPortTextBox.Location = new Point(234, 143);
+            ConnectionPortTextBox.Name = "ConnectionPortTextBox";
+            ConnectionPortTextBox.PlaceholderText = "Kabin Yazılımı Erişim için kullanılan PORT bilgisi";
+            ConnectionPortTextBox.Size = new Size(288, 23);
+            ConnectionPortTextBox.TabIndex = 2;
             // 
-            // tableLayoutPanel5
+            // StationSettingsHeaderTableLayoutPanel
             // 
-            tableLayoutPanel5.ColumnCount = 2;
-            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Controls.Add(label2, 0, 0);
-            tableLayoutPanel5.Controls.Add(SaveButton, 1, 0);
-            tableLayoutPanel5.Dock = DockStyle.Fill;
-            tableLayoutPanel5.Location = new Point(547, 0);
-            tableLayoutPanel5.Margin = new Padding(0);
-            tableLayoutPanel5.Name = "tableLayoutPanel5";
-            tableLayoutPanel5.RowCount = 1;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(547, 40);
-            tableLayoutPanel5.TabIndex = 4;
+            StationSettingsHeaderTableLayoutPanel.ColumnCount = 2;
+            StationSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationSettingsHeaderTableLayoutPanel.Controls.Add(StationSettingsLabel, 0, 0);
+            StationSettingsHeaderTableLayoutPanel.Controls.Add(SaveStationSettingsButton, 1, 0);
+            StationSettingsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
+            StationSettingsHeaderTableLayoutPanel.Location = new Point(547, 0);
+            StationSettingsHeaderTableLayoutPanel.Margin = new Padding(0);
+            StationSettingsHeaderTableLayoutPanel.Name = "StationSettingsHeaderTableLayoutPanel";
+            StationSettingsHeaderTableLayoutPanel.RowCount = 1;
+            StationSettingsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            StationSettingsHeaderTableLayoutPanel.Size = new Size(547, 40);
+            StationSettingsHeaderTableLayoutPanel.TabIndex = 4;
             // 
-            // label2
+            // StationSettingsLabel
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label2.ForeColor = Color.FromArgb(64, 64, 64);
-            label2.Location = new Point(3, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(164, 22);
-            label2.TabIndex = 0;
-            label2.Text = "İstasyon Ayarları";
+            StationSettingsLabel.AutoSize = true;
+            StationSettingsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationSettingsLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationSettingsLabel.Location = new Point(3, 0);
+            StationSettingsLabel.Name = "StationSettingsLabel";
+            StationSettingsLabel.Size = new Size(164, 22);
+            StationSettingsLabel.TabIndex = 0;
+            StationSettingsLabel.Text = "İstasyon Ayarları";
             // 
-            // SaveButton
+            // SaveStationSettingsButton
             // 
-            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(452, 3);
-            SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(92, 32);
-            SaveButton.TabIndex = 2;
-            SaveButton.Text = "Kaydet";
-            SaveButton.UseVisualStyleBackColor = true;
+            SaveStationSettingsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveStationSettingsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveStationSettingsButton.Location = new Point(452, 3);
+            SaveStationSettingsButton.Name = "SaveStationSettingsButton";
+            SaveStationSettingsButton.Size = new Size(92, 32);
+            SaveStationSettingsButton.TabIndex = 2;
+            SaveStationSettingsButton.Text = "Kaydet";
+            SaveStationSettingsButton.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel4
+            // StationInfoHeaderTableLayoutPanel
             // 
-            tableLayoutPanel4.ColumnCount = 2;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Controls.Add(label1, 0, 0);
-            tableLayoutPanel4.Controls.Add(FetchButton, 1, 0);
-            tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(0, 0);
-            tableLayoutPanel4.Margin = new Padding(0);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 1;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Size = new Size(547, 40);
-            tableLayoutPanel4.TabIndex = 3;
+            StationInfoHeaderTableLayoutPanel.ColumnCount = 2;
+            StationInfoHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationInfoHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationInfoHeaderTableLayoutPanel.Controls.Add(StationInfoLabel, 0, 0);
+            StationInfoHeaderTableLayoutPanel.Controls.Add(FetchStationButton, 1, 0);
+            StationInfoHeaderTableLayoutPanel.Dock = DockStyle.Fill;
+            StationInfoHeaderTableLayoutPanel.Location = new Point(0, 0);
+            StationInfoHeaderTableLayoutPanel.Margin = new Padding(0);
+            StationInfoHeaderTableLayoutPanel.Name = "StationInfoHeaderTableLayoutPanel";
+            StationInfoHeaderTableLayoutPanel.RowCount = 1;
+            StationInfoHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            StationInfoHeaderTableLayoutPanel.Size = new Size(547, 40);
+            StationInfoHeaderTableLayoutPanel.TabIndex = 3;
             // 
-            // label1
+            // StationInfoLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.FromArgb(64, 64, 64);
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(164, 22);
-            label1.TabIndex = 0;
-            label1.Text = "İstasyon Bilgileri";
+            StationInfoLabel.AutoSize = true;
+            StationInfoLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationInfoLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationInfoLabel.Location = new Point(3, 0);
+            StationInfoLabel.Name = "StationInfoLabel";
+            StationInfoLabel.Size = new Size(164, 22);
+            StationInfoLabel.TabIndex = 0;
+            StationInfoLabel.Text = "İstasyon Bilgileri";
             // 
-            // FetchButton
+            // FetchStationButton
             // 
-            FetchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            FetchButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FetchButton.Location = new Point(452, 3);
-            FetchButton.Name = "FetchButton";
-            FetchButton.Size = new Size(92, 32);
-            FetchButton.TabIndex = 2;
-            FetchButton.Text = "Getir";
-            FetchButton.UseVisualStyleBackColor = true;
+            FetchStationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            FetchStationButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FetchStationButton.Location = new Point(452, 3);
+            FetchStationButton.Name = "FetchStationButton";
+            FetchStationButton.Size = new Size(92, 32);
+            FetchStationButton.TabIndex = 2;
+            FetchStationButton.Text = "Getir";
+            FetchStationButton.UseVisualStyleBackColor = true;
             // 
             // StationInfoBgTableLayoutPanel
             // 
@@ -346,34 +346,34 @@
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.35294F));
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6470566F));
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            StationInfoContentTableLayoutPanel.Controls.Add(label4, 0, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(label5, 0, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(label6, 0, 2);
-            StationInfoContentTableLayoutPanel.Controls.Add(label7, 0, 3);
-            StationInfoContentTableLayoutPanel.Controls.Add(label8, 0, 4);
-            StationInfoContentTableLayoutPanel.Controls.Add(label9, 0, 5);
-            StationInfoContentTableLayoutPanel.Controls.Add(label10, 0, 6);
-            StationInfoContentTableLayoutPanel.Controls.Add(label11, 0, 7);
-            StationInfoContentTableLayoutPanel.Controls.Add(label12, 0, 8);
-            StationInfoContentTableLayoutPanel.Controls.Add(label13, 0, 9);
-            StationInfoContentTableLayoutPanel.Controls.Add(label14, 0, 10);
-            StationInfoContentTableLayoutPanel.Controls.Add(label15, 0, 11);
-            StationInfoContentTableLayoutPanel.Controls.Add(label16, 0, 12);
-            StationInfoContentTableLayoutPanel.Controls.Add(label17, 0, 13);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox1, 1, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox5, 1, 2);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox2, 1, 3);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox6, 1, 4);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox7, 1, 5);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox8, 1, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox3, 1, 6);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox4, 1, 7);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox9, 1, 8);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox10, 1, 9);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox11, 1, 10);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox12, 1, 11);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox13, 1, 12);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox14, 1, 13);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationIdLabel, 0, 0);
+            StationInfoContentTableLayoutPanel.Controls.Add(CodeLabel, 0, 1);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationNameLabel, 0, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(DataPeriodLabel, 0, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(LastDataDateLabel, 0, 4);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwareAddressLabel, 0, 5);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwarePortLabel, 0, 6);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwareUsernameLabel, 0, 7);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwarePasswordLabel, 0, 8);
+            StationInfoContentTableLayoutPanel.Controls.Add(OrganizationLabel, 0, 9);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationSetupDateLabel, 0, 10);
+            StationInfoContentTableLayoutPanel.Controls.Add(SoftwareSetupDateLabel, 0, 11);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationAddressLabel, 0, 12);
+            StationInfoContentTableLayoutPanel.Controls.Add(SoftwareLabel, 0, 13);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationIdTextBox, 1, 0);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationNameTextBox, 1, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(DataPeriodTextBox, 1, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(LastDataDateTextBox, 1, 4);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwareAddressTextBox, 1, 5);
+            StationInfoContentTableLayoutPanel.Controls.Add(CodeTextBox, 1, 1);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwarePortTextBox, 1, 6);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwareUsernameTextBox, 1, 7);
+            StationInfoContentTableLayoutPanel.Controls.Add(CabinSoftwarePasswordTextBox, 1, 8);
+            StationInfoContentTableLayoutPanel.Controls.Add(OrganizationTextBox, 1, 9);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationSetupDateTextBox, 1, 10);
+            StationInfoContentTableLayoutPanel.Controls.Add(SoftwareSetupDateTextBox, 1, 11);
+            StationInfoContentTableLayoutPanel.Controls.Add(StationAddressTextBox, 1, 12);
+            StationInfoContentTableLayoutPanel.Controls.Add(SoftwareTextBox, 1, 13);
             StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoContentTableLayoutPanel.Location = new Point(1, 1);
             StationInfoContentTableLayoutPanel.Margin = new Padding(1);
@@ -398,327 +398,327 @@
             StationInfoContentTableLayoutPanel.Size = new Size(540, 461);
             StationInfoContentTableLayoutPanel.TabIndex = 2;
             // 
-            // label4
+            // StationIdLabel
             // 
-            label4.Anchor = AnchorStyles.Left;
-            label4.AutoSize = true;
-            label4.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label4.ForeColor = Color.FromArgb(64, 64, 64);
-            label4.Location = new Point(18, 22);
-            label4.Name = "label4";
-            label4.Size = new Size(75, 16);
-            label4.TabIndex = 1;
-            label4.Text = "İstasyon ID";
+            StationIdLabel.Anchor = AnchorStyles.Left;
+            StationIdLabel.AutoSize = true;
+            StationIdLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationIdLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationIdLabel.Location = new Point(18, 22);
+            StationIdLabel.Name = "StationIdLabel";
+            StationIdLabel.Size = new Size(75, 16);
+            StationIdLabel.TabIndex = 1;
+            StationIdLabel.Text = "İstasyon ID";
             // 
-            // label5
+            // CodeLabel
             // 
-            label5.Anchor = AnchorStyles.Left;
-            label5.AutoSize = true;
-            label5.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label5.ForeColor = Color.FromArgb(64, 64, 64);
-            label5.Location = new Point(18, 53);
-            label5.Name = "label5";
-            label5.Size = new Size(40, 16);
-            label5.TabIndex = 1;
-            label5.Text = "Code";
+            CodeLabel.Anchor = AnchorStyles.Left;
+            CodeLabel.AutoSize = true;
+            CodeLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            CodeLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            CodeLabel.Location = new Point(18, 53);
+            CodeLabel.Name = "CodeLabel";
+            CodeLabel.Size = new Size(40, 16);
+            CodeLabel.TabIndex = 1;
+            CodeLabel.Text = "Code";
             // 
-            // label6
+            // StationNameLabel
             // 
-            label6.Anchor = AnchorStyles.Left;
-            label6.AutoSize = true;
-            label6.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label6.ForeColor = Color.FromArgb(64, 64, 64);
-            label6.Location = new Point(18, 84);
-            label6.Name = "label6";
-            label6.Size = new Size(83, 16);
-            label6.TabIndex = 1;
-            label6.Text = "İstasyon Adı";
+            StationNameLabel.Anchor = AnchorStyles.Left;
+            StationNameLabel.AutoSize = true;
+            StationNameLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationNameLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationNameLabel.Location = new Point(18, 84);
+            StationNameLabel.Name = "StationNameLabel";
+            StationNameLabel.Size = new Size(83, 16);
+            StationNameLabel.TabIndex = 1;
+            StationNameLabel.Text = "İstasyon Adı";
             // 
-            // label7
+            // DataPeriodLabel
             // 
-            label7.Anchor = AnchorStyles.Left;
-            label7.AutoSize = true;
-            label7.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label7.ForeColor = Color.FromArgb(64, 64, 64);
-            label7.Location = new Point(18, 115);
-            label7.Name = "label7";
-            label7.Size = new Size(97, 16);
-            label7.TabIndex = 1;
-            label7.Text = "Veri Periyodu ";
+            DataPeriodLabel.Anchor = AnchorStyles.Left;
+            DataPeriodLabel.AutoSize = true;
+            DataPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            DataPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            DataPeriodLabel.Location = new Point(18, 115);
+            DataPeriodLabel.Name = "DataPeriodLabel";
+            DataPeriodLabel.Size = new Size(97, 16);
+            DataPeriodLabel.TabIndex = 1;
+            DataPeriodLabel.Text = "Veri Periyodu ";
             // 
-            // label8
+            // LastDataDateLabel
             // 
-            label8.Anchor = AnchorStyles.Left;
-            label8.AutoSize = true;
-            label8.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label8.ForeColor = Color.FromArgb(64, 64, 64);
-            label8.Location = new Point(18, 146);
-            label8.Name = "label8";
-            label8.Size = new Size(101, 16);
-            label8.TabIndex = 1;
-            label8.Text = "Son Veri Tarihi";
+            LastDataDateLabel.Anchor = AnchorStyles.Left;
+            LastDataDateLabel.AutoSize = true;
+            LastDataDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            LastDataDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            LastDataDateLabel.Location = new Point(18, 146);
+            LastDataDateLabel.Name = "LastDataDateLabel";
+            LastDataDateLabel.Size = new Size(101, 16);
+            LastDataDateLabel.TabIndex = 1;
+            LastDataDateLabel.Text = "Son Veri Tarihi";
             // 
-            // label9
+            // CabinSoftwareAddressLabel
             // 
-            label9.Anchor = AnchorStyles.Left;
-            label9.AutoSize = true;
-            label9.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label9.ForeColor = Color.FromArgb(64, 64, 64);
-            label9.Location = new Point(18, 177);
-            label9.Name = "label9";
-            label9.Size = new Size(199, 16);
-            label9.TabIndex = 1;
-            label9.Text = "Kabin Yazılımı Bağlantı Adresi";
+            CabinSoftwareAddressLabel.Anchor = AnchorStyles.Left;
+            CabinSoftwareAddressLabel.AutoSize = true;
+            CabinSoftwareAddressLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            CabinSoftwareAddressLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            CabinSoftwareAddressLabel.Location = new Point(18, 177);
+            CabinSoftwareAddressLabel.Name = "CabinSoftwareAddressLabel";
+            CabinSoftwareAddressLabel.Size = new Size(199, 16);
+            CabinSoftwareAddressLabel.TabIndex = 1;
+            CabinSoftwareAddressLabel.Text = "Kabin Yazılımı Bağlantı Adresi";
             // 
-            // label10
+            // CabinSoftwarePortLabel
             // 
-            label10.Anchor = AnchorStyles.Left;
-            label10.AutoSize = true;
-            label10.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label10.ForeColor = Color.FromArgb(64, 64, 64);
-            label10.Location = new Point(18, 208);
-            label10.Name = "label10";
-            label10.Size = new Size(193, 16);
-            label10.TabIndex = 1;
-            label10.Text = "Kabin Yazılımı Bağlantı Portu";
+            CabinSoftwarePortLabel.Anchor = AnchorStyles.Left;
+            CabinSoftwarePortLabel.AutoSize = true;
+            CabinSoftwarePortLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            CabinSoftwarePortLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            CabinSoftwarePortLabel.Location = new Point(18, 208);
+            CabinSoftwarePortLabel.Name = "CabinSoftwarePortLabel";
+            CabinSoftwarePortLabel.Size = new Size(193, 16);
+            CabinSoftwarePortLabel.TabIndex = 1;
+            CabinSoftwarePortLabel.Text = "Kabin Yazılımı Bağlantı Portu";
             // 
-            // label11
+            // CabinSoftwareUsernameLabel
             // 
-            label11.Anchor = AnchorStyles.Left;
-            label11.AutoSize = true;
-            label11.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label11.ForeColor = Color.FromArgb(64, 64, 64);
-            label11.Location = new Point(18, 239);
-            label11.Name = "label11";
-            label11.Size = new Size(183, 16);
-            label11.TabIndex = 1;
-            label11.Text = "Kabin Yazılımı Kullanıcı Adı";
+            CabinSoftwareUsernameLabel.Anchor = AnchorStyles.Left;
+            CabinSoftwareUsernameLabel.AutoSize = true;
+            CabinSoftwareUsernameLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            CabinSoftwareUsernameLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            CabinSoftwareUsernameLabel.Location = new Point(18, 239);
+            CabinSoftwareUsernameLabel.Name = "CabinSoftwareUsernameLabel";
+            CabinSoftwareUsernameLabel.Size = new Size(183, 16);
+            CabinSoftwareUsernameLabel.TabIndex = 1;
+            CabinSoftwareUsernameLabel.Text = "Kabin Yazılımı Kullanıcı Adı";
             // 
-            // label12
+            // CabinSoftwarePasswordLabel
             // 
-            label12.Anchor = AnchorStyles.Left;
-            label12.AutoSize = true;
-            label12.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label12.ForeColor = Color.FromArgb(64, 64, 64);
-            label12.Location = new Point(18, 270);
-            label12.Name = "label12";
-            label12.Size = new Size(202, 16);
-            label12.TabIndex = 1;
-            label12.Text = "Kabin Yazılımı Kullanıcı Şifresi";
+            CabinSoftwarePasswordLabel.Anchor = AnchorStyles.Left;
+            CabinSoftwarePasswordLabel.AutoSize = true;
+            CabinSoftwarePasswordLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            CabinSoftwarePasswordLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            CabinSoftwarePasswordLabel.Location = new Point(18, 270);
+            CabinSoftwarePasswordLabel.Name = "CabinSoftwarePasswordLabel";
+            CabinSoftwarePasswordLabel.Size = new Size(202, 16);
+            CabinSoftwarePasswordLabel.TabIndex = 1;
+            CabinSoftwarePasswordLabel.Text = "Kabin Yazılımı Kullanıcı Şifresi";
             // 
-            // label13
+            // OrganizationLabel
             // 
-            label13.Anchor = AnchorStyles.Left;
-            label13.AutoSize = true;
-            label13.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label13.ForeColor = Color.FromArgb(64, 64, 64);
-            label13.Location = new Point(18, 301);
-            label13.Name = "label13";
-            label13.Size = new Size(49, 16);
-            label13.TabIndex = 1;
-            label13.Text = "Kurum";
+            OrganizationLabel.Anchor = AnchorStyles.Left;
+            OrganizationLabel.AutoSize = true;
+            OrganizationLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            OrganizationLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            OrganizationLabel.Location = new Point(18, 301);
+            OrganizationLabel.Name = "OrganizationLabel";
+            OrganizationLabel.Size = new Size(49, 16);
+            OrganizationLabel.TabIndex = 1;
+            OrganizationLabel.Text = "Kurum";
             // 
-            // label14
+            // StationSetupDateLabel
             // 
-            label14.Anchor = AnchorStyles.Left;
-            label14.AutoSize = true;
-            label14.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label14.ForeColor = Color.FromArgb(64, 64, 64);
-            label14.Location = new Point(18, 332);
-            label14.Name = "label14";
-            label14.Size = new Size(156, 16);
-            label14.TabIndex = 1;
-            label14.Text = "İstasyon Kurulum Tarihi";
+            StationSetupDateLabel.Anchor = AnchorStyles.Left;
+            StationSetupDateLabel.AutoSize = true;
+            StationSetupDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationSetupDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationSetupDateLabel.Location = new Point(18, 332);
+            StationSetupDateLabel.Name = "StationSetupDateLabel";
+            StationSetupDateLabel.Size = new Size(156, 16);
+            StationSetupDateLabel.TabIndex = 1;
+            StationSetupDateLabel.Text = "İstasyon Kurulum Tarihi";
             // 
-            // label15
+            // SoftwareSetupDateLabel
             // 
-            label15.Anchor = AnchorStyles.Left;
-            label15.AutoSize = true;
-            label15.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label15.ForeColor = Color.FromArgb(64, 64, 64);
-            label15.Location = new Point(18, 363);
-            label15.Name = "label15";
-            label15.Size = new Size(151, 16);
-            label15.TabIndex = 1;
-            label15.Text = "Yazılım Kurulum Tarihi";
+            SoftwareSetupDateLabel.Anchor = AnchorStyles.Left;
+            SoftwareSetupDateLabel.AutoSize = true;
+            SoftwareSetupDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            SoftwareSetupDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            SoftwareSetupDateLabel.Location = new Point(18, 363);
+            SoftwareSetupDateLabel.Name = "SoftwareSetupDateLabel";
+            SoftwareSetupDateLabel.Size = new Size(151, 16);
+            SoftwareSetupDateLabel.TabIndex = 1;
+            SoftwareSetupDateLabel.Text = "Yazılım Kurulum Tarihi";
             // 
-            // label16
+            // StationAddressLabel
             // 
-            label16.Anchor = AnchorStyles.Left;
-            label16.AutoSize = true;
-            label16.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label16.ForeColor = Color.FromArgb(64, 64, 64);
-            label16.Location = new Point(18, 394);
-            label16.Name = "label16";
-            label16.Size = new Size(102, 16);
-            label16.TabIndex = 1;
-            label16.Text = "İstasyon Adresi";
+            StationAddressLabel.Anchor = AnchorStyles.Left;
+            StationAddressLabel.AutoSize = true;
+            StationAddressLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StationAddressLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StationAddressLabel.Location = new Point(18, 394);
+            StationAddressLabel.Name = "StationAddressLabel";
+            StationAddressLabel.Size = new Size(102, 16);
+            StationAddressLabel.TabIndex = 1;
+            StationAddressLabel.Text = "İstasyon Adresi";
             // 
-            // label17
+            // SoftwareLabel
             // 
-            label17.Anchor = AnchorStyles.Left;
-            label17.AutoSize = true;
-            label17.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label17.ForeColor = Color.FromArgb(64, 64, 64);
-            label17.Location = new Point(18, 425);
-            label17.Name = "label17";
-            label17.Size = new Size(53, 16);
-            label17.TabIndex = 1;
-            label17.Text = "Yazılım";
+            SoftwareLabel.Anchor = AnchorStyles.Left;
+            SoftwareLabel.AutoSize = true;
+            SoftwareLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            SoftwareLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            SoftwareLabel.Location = new Point(18, 425);
+            SoftwareLabel.Name = "SoftwareLabel";
+            SoftwareLabel.Size = new Size(53, 16);
+            SoftwareLabel.TabIndex = 1;
+            SoftwareLabel.Text = "Yazılım";
             // 
-            // textBox1
+            // StationIdTextBox
             // 
-            textBox1.Anchor = AnchorStyles.None;
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(235, 19);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
-            textBox1.Size = new Size(285, 23);
-            textBox1.TabIndex = 2;
-            textBox1.TextChanged += textBox1_TextChanged;
+            StationIdTextBox.Anchor = AnchorStyles.None;
+            StationIdTextBox.Enabled = false;
+            StationIdTextBox.Location = new Point(235, 19);
+            StationIdTextBox.Name = "StationIdTextBox";
+            StationIdTextBox.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
+            StationIdTextBox.Size = new Size(285, 23);
+            StationIdTextBox.TabIndex = 2;
+            StationIdTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox5
+            // StationNameTextBox
             // 
-            textBox5.Anchor = AnchorStyles.None;
-            textBox5.Enabled = false;
-            textBox5.Location = new Point(235, 81);
-            textBox5.Name = "textBox5";
-            textBox5.PlaceholderText = "Test Sais İstasyonu";
-            textBox5.Size = new Size(285, 23);
-            textBox5.TabIndex = 2;
-            textBox5.TextChanged += textBox1_TextChanged;
+            StationNameTextBox.Anchor = AnchorStyles.None;
+            StationNameTextBox.Enabled = false;
+            StationNameTextBox.Location = new Point(235, 81);
+            StationNameTextBox.Name = "StationNameTextBox";
+            StationNameTextBox.PlaceholderText = "Test Sais İstasyonu";
+            StationNameTextBox.Size = new Size(285, 23);
+            StationNameTextBox.TabIndex = 2;
+            StationNameTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox2
+            // DataPeriodTextBox
             // 
-            textBox2.Anchor = AnchorStyles.None;
-            textBox2.Enabled = false;
-            textBox2.Location = new Point(235, 112);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "1";
-            textBox2.Size = new Size(285, 23);
-            textBox2.TabIndex = 2;
-            textBox2.TextChanged += textBox1_TextChanged;
+            DataPeriodTextBox.Anchor = AnchorStyles.None;
+            DataPeriodTextBox.Enabled = false;
+            DataPeriodTextBox.Location = new Point(235, 112);
+            DataPeriodTextBox.Name = "DataPeriodTextBox";
+            DataPeriodTextBox.PlaceholderText = "1";
+            DataPeriodTextBox.Size = new Size(285, 23);
+            DataPeriodTextBox.TabIndex = 2;
+            DataPeriodTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox6
+            // LastDataDateTextBox
             // 
-            textBox6.Anchor = AnchorStyles.None;
-            textBox6.Enabled = false;
-            textBox6.Location = new Point(235, 143);
-            textBox6.Name = "textBox6";
-            textBox6.PlaceholderText = "2019-12-01T00:00:00";
-            textBox6.Size = new Size(285, 23);
-            textBox6.TabIndex = 2;
-            textBox6.TextChanged += textBox1_TextChanged;
+            LastDataDateTextBox.Anchor = AnchorStyles.None;
+            LastDataDateTextBox.Enabled = false;
+            LastDataDateTextBox.Location = new Point(235, 143);
+            LastDataDateTextBox.Name = "LastDataDateTextBox";
+            LastDataDateTextBox.PlaceholderText = "2019-12-01T00:00:00";
+            LastDataDateTextBox.Size = new Size(285, 23);
+            LastDataDateTextBox.TabIndex = 2;
+            LastDataDateTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox7
+            // CabinSoftwareAddressTextBox
             // 
-            textBox7.Anchor = AnchorStyles.None;
-            textBox7.Enabled = false;
-            textBox7.Location = new Point(235, 174);
-            textBox7.Name = "textBox7";
-            textBox7.PlaceholderText = "istanbul.ssl";
-            textBox7.Size = new Size(285, 23);
-            textBox7.TabIndex = 2;
-            textBox7.TextChanged += textBox1_TextChanged;
+            CabinSoftwareAddressTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwareAddressTextBox.Enabled = false;
+            CabinSoftwareAddressTextBox.Location = new Point(235, 174);
+            CabinSoftwareAddressTextBox.Name = "CabinSoftwareAddressTextBox";
+            CabinSoftwareAddressTextBox.PlaceholderText = "istanbul.ssl";
+            CabinSoftwareAddressTextBox.Size = new Size(285, 23);
+            CabinSoftwareAddressTextBox.TabIndex = 2;
+            CabinSoftwareAddressTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox8
+            // CodeTextBox
             // 
-            textBox8.Anchor = AnchorStyles.None;
-            textBox8.Enabled = false;
-            textBox8.Location = new Point(235, 50);
-            textBox8.Name = "textBox8";
-            textBox8.PlaceholderText = "0337000";
-            textBox8.Size = new Size(285, 23);
-            textBox8.TabIndex = 2;
-            textBox8.TextChanged += textBox1_TextChanged;
+            CodeTextBox.Anchor = AnchorStyles.None;
+            CodeTextBox.Enabled = false;
+            CodeTextBox.Location = new Point(235, 50);
+            CodeTextBox.Name = "CodeTextBox";
+            CodeTextBox.PlaceholderText = "0337000";
+            CodeTextBox.Size = new Size(285, 23);
+            CodeTextBox.TabIndex = 2;
+            CodeTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox3
+            // CabinSoftwarePortTextBox
             // 
-            textBox3.Anchor = AnchorStyles.None;
-            textBox3.Enabled = false;
-            textBox3.Location = new Point(235, 205);
-            textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "443";
-            textBox3.Size = new Size(285, 23);
-            textBox3.TabIndex = 2;
-            textBox3.TextChanged += textBox1_TextChanged;
+            CabinSoftwarePortTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwarePortTextBox.Enabled = false;
+            CabinSoftwarePortTextBox.Location = new Point(235, 205);
+            CabinSoftwarePortTextBox.Name = "CabinSoftwarePortTextBox";
+            CabinSoftwarePortTextBox.PlaceholderText = "443";
+            CabinSoftwarePortTextBox.Size = new Size(285, 23);
+            CabinSoftwarePortTextBox.TabIndex = 2;
+            CabinSoftwarePortTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox4
+            // CabinSoftwareUsernameTextBox
             // 
-            textBox4.Anchor = AnchorStyles.None;
-            textBox4.Enabled = false;
-            textBox4.Location = new Point(235, 236);
-            textBox4.Name = "textBox4";
-            textBox4.PlaceholderText = "iski";
-            textBox4.Size = new Size(285, 23);
-            textBox4.TabIndex = 2;
-            textBox4.TextChanged += textBox1_TextChanged;
+            CabinSoftwareUsernameTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwareUsernameTextBox.Enabled = false;
+            CabinSoftwareUsernameTextBox.Location = new Point(235, 236);
+            CabinSoftwareUsernameTextBox.Name = "CabinSoftwareUsernameTextBox";
+            CabinSoftwareUsernameTextBox.PlaceholderText = "iski";
+            CabinSoftwareUsernameTextBox.Size = new Size(285, 23);
+            CabinSoftwareUsernameTextBox.TabIndex = 2;
+            CabinSoftwareUsernameTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox9
+            // CabinSoftwarePasswordTextBox
             // 
-            textBox9.Anchor = AnchorStyles.None;
-            textBox9.Enabled = false;
-            textBox9.Location = new Point(235, 267);
-            textBox9.Name = "textBox9";
-            textBox9.PlaceholderText = "iski123";
-            textBox9.Size = new Size(285, 23);
-            textBox9.TabIndex = 2;
-            textBox9.TextChanged += textBox1_TextChanged;
+            CabinSoftwarePasswordTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwarePasswordTextBox.Enabled = false;
+            CabinSoftwarePasswordTextBox.Location = new Point(235, 267);
+            CabinSoftwarePasswordTextBox.Name = "CabinSoftwarePasswordTextBox";
+            CabinSoftwarePasswordTextBox.PlaceholderText = "iski123";
+            CabinSoftwarePasswordTextBox.Size = new Size(285, 23);
+            CabinSoftwarePasswordTextBox.TabIndex = 2;
+            CabinSoftwarePasswordTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox10
+            // OrganizationTextBox
             // 
-            textBox10.Anchor = AnchorStyles.None;
-            textBox10.Enabled = false;
-            textBox10.Location = new Point(235, 298);
-            textBox10.Name = "textBox10";
-            textBox10.PlaceholderText = "Test Tesisi";
-            textBox10.Size = new Size(285, 23);
-            textBox10.TabIndex = 2;
-            textBox10.TextChanged += textBox1_TextChanged;
+            OrganizationTextBox.Anchor = AnchorStyles.None;
+            OrganizationTextBox.Enabled = false;
+            OrganizationTextBox.Location = new Point(235, 298);
+            OrganizationTextBox.Name = "OrganizationTextBox";
+            OrganizationTextBox.PlaceholderText = "Test Tesisi";
+            OrganizationTextBox.Size = new Size(285, 23);
+            OrganizationTextBox.TabIndex = 2;
+            OrganizationTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox11
+            // StationSetupDateTextBox
             // 
-            textBox11.Anchor = AnchorStyles.None;
-            textBox11.Enabled = false;
-            textBox11.Location = new Point(235, 329);
-            textBox11.Name = "textBox11";
-            textBox11.PlaceholderText = "2019-12-01T00:00:00";
-            textBox11.Size = new Size(285, 23);
-            textBox11.TabIndex = 2;
-            textBox11.TextChanged += textBox1_TextChanged;
+            StationSetupDateTextBox.Anchor = AnchorStyles.None;
+            StationSetupDateTextBox.Enabled = false;
+            StationSetupDateTextBox.Location = new Point(235, 329);
+            StationSetupDateTextBox.Name = "StationSetupDateTextBox";
+            StationSetupDateTextBox.PlaceholderText = "2019-12-01T00:00:00";
+            StationSetupDateTextBox.Size = new Size(285, 23);
+            StationSetupDateTextBox.TabIndex = 2;
+            StationSetupDateTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox12
+            // SoftwareSetupDateTextBox
             // 
-            textBox12.Anchor = AnchorStyles.None;
-            textBox12.Enabled = false;
-            textBox12.Location = new Point(235, 360);
-            textBox12.Name = "textBox12";
-            textBox12.PlaceholderText = "2019-12-01T00:00:00";
-            textBox12.Size = new Size(285, 23);
-            textBox12.TabIndex = 2;
-            textBox12.TextChanged += textBox1_TextChanged;
+            SoftwareSetupDateTextBox.Anchor = AnchorStyles.None;
+            SoftwareSetupDateTextBox.Enabled = false;
+            SoftwareSetupDateTextBox.Location = new Point(235, 360);
+            SoftwareSetupDateTextBox.Name = "SoftwareSetupDateTextBox";
+            SoftwareSetupDateTextBox.PlaceholderText = "2019-12-01T00:00:00";
+            SoftwareSetupDateTextBox.Size = new Size(285, 23);
+            SoftwareSetupDateTextBox.TabIndex = 2;
+            SoftwareSetupDateTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox13
+            // StationAddressTextBox
             // 
-            textBox13.Anchor = AnchorStyles.None;
-            textBox13.Enabled = false;
-            textBox13.Location = new Point(235, 391);
-            textBox13.Name = "textBox13";
-            textBox13.PlaceholderText = "İstanbul";
-            textBox13.Size = new Size(285, 23);
-            textBox13.TabIndex = 2;
-            textBox13.TextChanged += textBox1_TextChanged;
+            StationAddressTextBox.Anchor = AnchorStyles.None;
+            StationAddressTextBox.Enabled = false;
+            StationAddressTextBox.Location = new Point(235, 391);
+            StationAddressTextBox.Name = "StationAddressTextBox";
+            StationAddressTextBox.PlaceholderText = "İstanbul";
+            StationAddressTextBox.Size = new Size(285, 23);
+            StationAddressTextBox.TabIndex = 2;
+            StationAddressTextBox.TextChanged += StationInfoTextChanged;
             // 
-            // textBox14
+            // SoftwareTextBox
             // 
-            textBox14.Anchor = AnchorStyles.None;
-            textBox14.Enabled = false;
-            textBox14.Location = new Point(235, 422);
-            textBox14.Name = "textBox14";
-            textBox14.PlaceholderText = "IBKS";
-            textBox14.Size = new Size(285, 23);
-            textBox14.TabIndex = 2;
-            textBox14.TextChanged += textBox1_TextChanged;
+            SoftwareTextBox.Anchor = AnchorStyles.None;
+            SoftwareTextBox.Enabled = false;
+            SoftwareTextBox.Location = new Point(235, 422);
+            SoftwareTextBox.Name = "SoftwareTextBox";
+            SoftwareTextBox.PlaceholderText = "IBKS";
+            SoftwareTextBox.Size = new Size(285, 23);
+            SoftwareTextBox.TabIndex = 2;
+            SoftwareTextBox.TextChanged += StationInfoTextChanged;
             // 
             // StationSettingsPage
             // 
@@ -731,10 +731,10 @@
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
             StationSettingsContentTableLayoutPanel.ResumeLayout(false);
             StationSettingsContentTableLayoutPanel.PerformLayout();
-            tableLayoutPanel5.ResumeLayout(false);
-            tableLayoutPanel5.PerformLayout();
-            tableLayoutPanel4.ResumeLayout(false);
-            tableLayoutPanel4.PerformLayout();
+            StationSettingsHeaderTableLayoutPanel.ResumeLayout(false);
+            StationSettingsHeaderTableLayoutPanel.PerformLayout();
+            StationInfoHeaderTableLayoutPanel.ResumeLayout(false);
+            StationInfoHeaderTableLayoutPanel.PerformLayout();
             StationInfoBgTableLayoutPanel.ResumeLayout(false);
             StationInfoContentTableLayoutPanel.ResumeLayout(false);
             StationInfoContentTableLayoutPanel.PerformLayout();
@@ -744,52 +744,52 @@
         #endregion
 
         private TableLayoutPanel StationSettingsBgTableLayoutPanel;
-        private Label label1;
-        private Button FetchButton;
-        private TableLayoutPanel tableLayoutPanel4;
-        private TableLayoutPanel tableLayoutPanel5;
-        private Label label2;
-        private Button SaveButton;
+        private Label StationInfoLabel;
+        private Button FetchStationButton;
+        private TableLayoutPanel StationInfoHeaderTableLayoutPanel;
+        private TableLayoutPanel StationSettingsHeaderTableLayoutPanel;
+        private Label StationSettingsLabel;
+        private Button SaveStationSettingsButton;
         private TableLayoutPanel StationInfoBgTableLayoutPanel;
         private TableLayoutPanel StationInfoContentTableLayoutPanel;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
-        private Label label10;
-        private Label label11;
-        private Label label12;
-        private Label label13;
-        private Label label14;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox7;
-        private TextBox textBox8;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private TextBox textBox9;
-        private TextBox textBox10;
-        private TextBox textBox11;
-        private TextBox textBox12;
-        private TextBox textBox13;
-        private TextBox textBox14;
+        private Label StationIdLabel;
+        private Label CodeLabel;
+        private Label StationNameLabel;
+        private Label DataPeriodLabel;
+        private Label LastDataDateLabel;
+        private Label CabinSoftwareAddressLabel;
+        private Label CabinSoftwarePortLabel;
+        private Label CabinSoftwareUsernameLabel;
+        private Label CabinSoftwarePasswordLabel;
+        private Label OrganizationLabel;
+        private Label StationSetupDateLabel;
+        private Label SoftwareSetupDateLabel;
+        private Label StationAddressLabel;
+        private Label SoftwareLabel;
+        private TextBox StationIdTextBox;
+        private TextBox DataPeriodTextBox;
+        private TextBox StationNameTextBox;
+        private TextBox LastDataDateTextBox;
+        private TextBox CabinSoftwareAddressTextBox;
+        private TextBox CodeTextBox;
+        private TextBox CabinSoftwarePortTextBox;
+        private TextBox CabinSoftwareUsernameTextBox;
+        private TextBox CabinSoftwarePasswordTextBox;
+        private TextBox OrganizationTextBox;
+        private TextBox StationSetupDateTextBox;
+        private TextBox SoftwareSetupDateTextBox;
+        private TextBox StationAddressTextBox;
+        private TextBox SoftwareTextBox;
         private TableLayoutPanel StationSettingsContentTableLayoutPanel;
-        private Label label18;
-        private Label label19;
-        private Label label20;
-        private Label label21;
-        private TextBox textBox15;
-        private TextBox textBox16;
-        private TextBox textBox17;
-        private TextBox textBox20;
-        private Label label22;
-        private TextBox textBox18;
+        private Label StationIdSettingLabel;
+        private Label ConnectionUserLabel;
+        private Label ConnectionPasswordLabel;
+        private Label ConnectionDomainAddressLabel;
+        private TextBox StationIdSettingTextBox;
+        private TextBox ConnectionPasswordTextBox;
+        private TextBox ConnectionDomainAddressTextBox;
+        private TextBox ConnectionUserTextBox;
+        private Label ConnectionPortLabel;
+        private TextBox ConnectionPortTextBox;
     }
 }

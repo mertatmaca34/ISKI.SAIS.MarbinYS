@@ -18,7 +18,7 @@ namespace WinUI.Pages.Settings
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void StationInfoTextChanged(object sender, EventArgs e)
         {
 
         }
