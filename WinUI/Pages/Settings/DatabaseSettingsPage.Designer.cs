@@ -31,7 +31,6 @@
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
             StationSettingsContentTableLayoutPanel = new TableLayoutPanel();
             label18 = new Label();
-            label19 = new Label();
             textBox15 = new TextBox();
             textBox16 = new TextBox();
             textBox20 = new TextBox();
@@ -44,10 +43,6 @@
             label1 = new Label();
             FetchButton = new Button();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
-            label3 = new Label();
-            SaveButton = new Button();
-            textBox1 = new TextBox();
-            label4 = new Label();
             StationInfoContentTableLayoutPanel = new TableLayoutPanel();
             label4 = new Label();
             textBox1 = new TextBox();
@@ -93,7 +88,8 @@
             StationSettingsContentTableLayoutPanel.Controls.Add(label19, 0, 2);
             StationSettingsContentTableLayoutPanel.Controls.Add(label3, 0, 1);
             StationSettingsContentTableLayoutPanel.Dock = DockStyle.Fill;
-            StationSettingsContentTableLayoutPanel.Location = new Point(548, 41);
+            StationSettingsContentTableLayoutPanel.Location = new Point(547, 40);
+            StationSettingsContentTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
             StationSettingsContentTableLayoutPanel.Name = "StationSettingsContentTableLayoutPanel";
             StationSettingsContentTableLayoutPanel.Padding = new Padding(15);
             StationSettingsContentTableLayoutPanel.RowCount = 14;
@@ -111,7 +107,7 @@
             StationSettingsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
             StationSettingsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
             StationSettingsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationSettingsContentTableLayoutPanel.Size = new Size(541, 461);
+            StationSettingsContentTableLayoutPanel.Size = new Size(542, 463);
             StationSettingsContentTableLayoutPanel.TabIndex = 6;
             // 
             // label18
@@ -125,18 +121,6 @@
             label18.Size = new Size(92, 16);
             label18.TabIndex = 1;
             label18.Text = "Bağlı Sunucu";
-            // 
-            // label19
-            // 
-            label19.Anchor = AnchorStyles.Left;
-            label19.AutoSize = true;
-            label19.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label19.ForeColor = Color.FromArgb(64, 64, 64);
-            label19.Location = new Point(18, 84);
-            label19.Name = "label19";
-            label19.Size = new Size(109, 16);
-            label19.TabIndex = 1;
-            label19.Text = "Depolama Alanı";
             // 
             // textBox15
             // 
@@ -221,9 +205,9 @@
             // 
             // SaveButton
             // 
-            SaveButton.Anchor = AnchorStyles.Right;
+            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(452, 4);
+            SaveButton.Location = new Point(452, 3);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(92, 32);
             SaveButton.TabIndex = 2;
@@ -259,9 +243,9 @@
             // 
             // FetchButton
             // 
-            FetchButton.Anchor = AnchorStyles.Right;
+            FetchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             FetchButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FetchButton.Location = new Point(452, 4);
+            FetchButton.Location = new Point(452, 3);
             FetchButton.Name = "FetchButton";
             FetchButton.Size = new Size(92, 32);
             FetchButton.TabIndex = 2;
@@ -282,50 +266,6 @@
             StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             StationInfoBgTableLayoutPanel.Size = new Size(542, 463);
             StationInfoBgTableLayoutPanel.TabIndex = 5;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Left;
-            label3.AutoSize = true;
-            label3.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label3.ForeColor = Color.FromArgb(64, 64, 64);
-            label3.Location = new Point(18, 53);
-            label3.Name = "label3";
-            label3.Size = new Size(97, 16);
-            label3.TabIndex = 1;
-            label3.Text = "Veritabanı Adı";
-            // 
-            // SaveButton
-            // 
-            SaveButton.Anchor = AnchorStyles.Right;
-            SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(452, 4);
-            SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(92, 32);
-            SaveButton.TabIndex = 2;
-            SaveButton.Text = "Yenile";
-            SaveButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(237, 19);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "localhost";
-            textBox1.Size = new Size(288, 23);
-            textBox1.TabIndex = 2;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Left;
-            label4.AutoSize = true;
-            label4.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label4.ForeColor = Color.FromArgb(64, 64, 64);
-            label4.Location = new Point(18, 22);
-            label4.Name = "label4";
-            label4.Size = new Size(99, 16);
-            label4.TabIndex = 1;
-            label4.Text = "Sunucu Adresi";
             // 
             // StationInfoContentTableLayoutPanel
             // 

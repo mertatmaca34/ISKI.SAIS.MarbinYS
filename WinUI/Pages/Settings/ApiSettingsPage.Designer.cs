@@ -32,18 +32,30 @@
             textBox1 = new TextBox();
             StationInfoContentTableLayoutPanel = new TableLayoutPanel();
             label5 = new Label();
+            label6 = new Label();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
             label1 = new Label();
             FetchButton = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
-            label6 = new Label();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            label8 = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
+            groupBox1 = new GroupBox();
+            textBox4 = new TextBox();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             StationInfoBgTableLayoutPanel.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label4
@@ -115,75 +127,6 @@
             label5.TabIndex = 1;
             label5.Text = "API Kullanıcı Adı";
             // 
-            // StationInfoBgTableLayoutPanel
-            // 
-            StationInfoBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            StationInfoBgTableLayoutPanel.ColumnCount = 1;
-            StationInfoBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Controls.Add(StationInfoContentTableLayoutPanel, 0, 0);
-            StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
-            StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
-            StationInfoBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
-            StationInfoBgTableLayoutPanel.RowCount = 1;
-            StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Size = new Size(542, 463);
-            StationInfoBgTableLayoutPanel.TabIndex = 5;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.FromArgb(64, 64, 64);
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(116, 22);
-            label1.TabIndex = 0;
-            label1.Text = "API Ayarları";
-            // 
-            // FetchButton
-            // 
-            FetchButton.Anchor = AnchorStyles.Right;
-            FetchButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FetchButton.Location = new Point(452, 4);
-            FetchButton.Name = "FetchButton";
-            FetchButton.Size = new Size(92, 32);
-            FetchButton.TabIndex = 2;
-            FetchButton.Text = "Kaydet";
-            FetchButton.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel4
-            // 
-            tableLayoutPanel4.ColumnCount = 2;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Controls.Add(label1, 0, 0);
-            tableLayoutPanel4.Controls.Add(FetchButton, 1, 0);
-            tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(0, 0);
-            tableLayoutPanel4.Margin = new Padding(0);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 1;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Size = new Size(547, 40);
-            tableLayoutPanel4.TabIndex = 3;
-            // 
-            // StationSettingsBgTableLayoutPanel
-            // 
-            StationSettingsBgTableLayoutPanel.ColumnCount = 2;
-            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel4, 0, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
-            StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
-            StationSettingsBgTableLayoutPanel.Location = new Point(0, 15);
-            StationSettingsBgTableLayoutPanel.Name = "StationSettingsBgTableLayoutPanel";
-            StationSettingsBgTableLayoutPanel.RowCount = 2;
-            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
-            StationSettingsBgTableLayoutPanel.Size = new Size(1094, 503);
-            StationSettingsBgTableLayoutPanel.TabIndex = 2;
-            // 
             // label6
             // 
             label6.Anchor = AnchorStyles.Left;
@@ -214,6 +157,211 @@
             textBox3.Size = new Size(288, 23);
             textBox3.TabIndex = 2;
             // 
+            // StationInfoBgTableLayoutPanel
+            // 
+            StationInfoBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
+            StationInfoBgTableLayoutPanel.ColumnCount = 1;
+            StationInfoBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationInfoBgTableLayoutPanel.Controls.Add(StationInfoContentTableLayoutPanel, 0, 0);
+            StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
+            StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
+            StationInfoBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
+            StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
+            StationInfoBgTableLayoutPanel.RowCount = 1;
+            StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            StationInfoBgTableLayoutPanel.Size = new Size(542, 463);
+            StationInfoBgTableLayoutPanel.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label1.ForeColor = Color.FromArgb(64, 64, 64);
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(116, 22);
+            label1.TabIndex = 0;
+            label1.Text = "API Ayarları";
+            // 
+            // FetchButton
+            // 
+            FetchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            FetchButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FetchButton.Location = new Point(452, 3);
+            FetchButton.Name = "FetchButton";
+            FetchButton.Size = new Size(92, 32);
+            FetchButton.TabIndex = 2;
+            FetchButton.Text = "Kaydet";
+            FetchButton.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 2;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Controls.Add(label1, 0, 0);
+            tableLayoutPanel4.Controls.Add(FetchButton, 1, 0);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(0, 0);
+            tableLayoutPanel4.Margin = new Padding(0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 1;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Size = new Size(547, 40);
+            tableLayoutPanel4.TabIndex = 3;
+            // 
+            // StationSettingsBgTableLayoutPanel
+            // 
+            StationSettingsBgTableLayoutPanel.ColumnCount = 2;
+            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationSettingsBgTableLayoutPanel.Controls.Add(label8, 1, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel1, 1, 1);
+            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel4, 0, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
+            StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
+            StationSettingsBgTableLayoutPanel.Location = new Point(0, 15);
+            StationSettingsBgTableLayoutPanel.Name = "StationSettingsBgTableLayoutPanel";
+            StationSettingsBgTableLayoutPanel.RowCount = 2;
+            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
+            StationSettingsBgTableLayoutPanel.Size = new Size(1094, 503);
+            StationSettingsBgTableLayoutPanel.TabIndex = 2;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label8.ForeColor = Color.FromArgb(64, 64, 64);
+            label8.Location = new Point(550, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(91, 22);
+            label8.TabIndex = 0;
+            label8.Text = "API Testi";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.BackColor = Color.FromArgb(235, 235, 235);
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(547, 40);
+            tableLayoutPanel1.Margin = new Padding(0, 0, 5, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(542, 463);
+            tableLayoutPanel1.TabIndex = 6;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.BackColor = Color.White;
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.27451F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.72549F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Controls.Add(button1, 0, 0);
+            tableLayoutPanel2.Controls.Add(button2, 0, 1);
+            tableLayoutPanel2.Controls.Add(button3, 0, 2);
+            tableLayoutPanel2.Controls.Add(button4, 0, 3);
+            tableLayoutPanel2.Controls.Add(groupBox1, 1, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(1, 1);
+            tableLayoutPanel2.Margin = new Padding(1);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.Padding = new Padding(15);
+            tableLayoutPanel2.RowCount = 14;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel2.Size = new Size(540, 461);
+            tableLayoutPanel2.TabIndex = 2;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Left;
+            button1.AutoSize = true;
+            button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Location = new Point(18, 18);
+            button1.Name = "button1";
+            button1.Size = new Size(176, 25);
+            button1.TabIndex = 2;
+            button1.Text = "Sunucuya İstek At";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Left;
+            button2.AutoSize = true;
+            button2.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.Location = new Point(18, 49);
+            button2.Name = "button2";
+            button2.Size = new Size(176, 25);
+            button2.TabIndex = 2;
+            button2.Text = "Giriş Yap";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Anchor = AnchorStyles.Left;
+            button3.AutoSize = true;
+            button3.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(18, 80);
+            button3.Name = "button3";
+            button3.Size = new Size(176, 25);
+            button3.TabIndex = 2;
+            button3.Text = "Numune Aldır";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Anchor = AnchorStyles.Left;
+            button4.AutoSize = true;
+            button4.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button4.Location = new Point(18, 111);
+            button4.Name = "button4";
+            button4.Size = new Size(176, 25);
+            button4.TabIndex = 2;
+            button4.Text = "Deneme Diagnostik Gönder";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(textBox4);
+            groupBox1.Dock = DockStyle.Fill;
+            groupBox1.Location = new Point(203, 18);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(10);
+            tableLayoutPanel2.SetRowSpan(groupBox1, 14);
+            groupBox1.Size = new Size(319, 428);
+            groupBox1.TabIndex = 3;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Cevap";
+            // 
+            // textBox4
+            // 
+            textBox4.BorderStyle = BorderStyle.None;
+            textBox4.Dock = DockStyle.Fill;
+            textBox4.ForeColor = Color.FromArgb(64, 64, 64);
+            textBox4.Location = new Point(10, 26);
+            textBox4.Margin = new Padding(15, 3, 3, 3);
+            textBox4.Multiline = true;
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(299, 392);
+            textBox4.TabIndex = 0;
+            // 
             // ApiSettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -228,6 +376,12 @@
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
+            StationSettingsBgTableLayoutPanel.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -245,5 +399,14 @@
         private Label label6;
         private TextBox textBox2;
         private TextBox textBox3;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label8;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
+        private GroupBox groupBox1;
+        private TextBox textBox4;
     }
 }

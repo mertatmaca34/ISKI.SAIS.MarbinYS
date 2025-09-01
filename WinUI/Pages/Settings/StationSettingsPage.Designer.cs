@@ -276,9 +276,9 @@
             // 
             // SaveButton
             // 
-            SaveButton.Anchor = AnchorStyles.Right;
+            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(452, 4);
+            SaveButton.Location = new Point(452, 3);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(92, 32);
             SaveButton.TabIndex = 2;
@@ -314,9 +314,9 @@
             // 
             // FetchButton
             // 
-            FetchButton.Anchor = AnchorStyles.Right;
+            FetchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             FetchButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FetchButton.Location = new Point(452, 4);
+            FetchButton.Location = new Point(452, 3);
             FetchButton.Name = "FetchButton";
             FetchButton.Size = new Size(92, 32);
             FetchButton.TabIndex = 2;
@@ -331,10 +331,12 @@
             StationInfoBgTableLayoutPanel.Controls.Add(StationInfoContentTableLayoutPanel, 0, 0);
             StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
+            StationInfoBgTableLayoutPanel.Margin = new Padding(0);
             StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
+            StationInfoBgTableLayoutPanel.Padding = new Padding(0, 0, 5, 0);
             StationInfoBgTableLayoutPanel.RowCount = 1;
             StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Size = new Size(542, 463);
+            StationInfoBgTableLayoutPanel.Size = new Size(547, 463);
             StationInfoBgTableLayoutPanel.TabIndex = 5;
             // 
             // StationInfoContentTableLayoutPanel
@@ -568,10 +570,10 @@
             // 
             textBox1.Anchor = AnchorStyles.None;
             textBox1.Enabled = false;
-            textBox1.Location = new Point(234, 19);
+            textBox1.Location = new Point(235, 19);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
-            textBox1.Size = new Size(288, 23);
+            textBox1.Size = new Size(285, 23);
             textBox1.TabIndex = 2;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -579,10 +581,10 @@
             // 
             textBox5.Anchor = AnchorStyles.None;
             textBox5.Enabled = false;
-            textBox5.Location = new Point(234, 81);
+            textBox5.Location = new Point(235, 81);
             textBox5.Name = "textBox5";
             textBox5.PlaceholderText = "Test Sais İstasyonu";
-            textBox5.Size = new Size(288, 23);
+            textBox5.Size = new Size(285, 23);
             textBox5.TabIndex = 2;
             textBox5.TextChanged += textBox1_TextChanged;
             // 
@@ -590,10 +592,10 @@
             // 
             textBox2.Anchor = AnchorStyles.None;
             textBox2.Enabled = false;
-            textBox2.Location = new Point(234, 112);
+            textBox2.Location = new Point(235, 112);
             textBox2.Name = "textBox2";
             textBox2.PlaceholderText = "1";
-            textBox2.Size = new Size(288, 23);
+            textBox2.Size = new Size(285, 23);
             textBox2.TabIndex = 2;
             textBox2.TextChanged += textBox1_TextChanged;
             // 
@@ -601,10 +603,10 @@
             // 
             textBox6.Anchor = AnchorStyles.None;
             textBox6.Enabled = false;
-            textBox6.Location = new Point(234, 143);
+            textBox6.Location = new Point(235, 143);
             textBox6.Name = "textBox6";
             textBox6.PlaceholderText = "2019-12-01T00:00:00";
-            textBox6.Size = new Size(288, 23);
+            textBox6.Size = new Size(285, 23);
             textBox6.TabIndex = 2;
             textBox6.TextChanged += textBox1_TextChanged;
             // 
@@ -612,10 +614,10 @@
             // 
             textBox7.Anchor = AnchorStyles.None;
             textBox7.Enabled = false;
-            textBox7.Location = new Point(234, 174);
+            textBox7.Location = new Point(235, 174);
             textBox7.Name = "textBox7";
             textBox7.PlaceholderText = "istanbul.ssl";
-            textBox7.Size = new Size(288, 23);
+            textBox7.Size = new Size(285, 23);
             textBox7.TabIndex = 2;
             textBox7.TextChanged += textBox1_TextChanged;
             // 
@@ -623,10 +625,10 @@
             // 
             textBox8.Anchor = AnchorStyles.None;
             textBox8.Enabled = false;
-            textBox8.Location = new Point(234, 50);
+            textBox8.Location = new Point(235, 50);
             textBox8.Name = "textBox8";
             textBox8.PlaceholderText = "0337000";
-            textBox8.Size = new Size(288, 23);
+            textBox8.Size = new Size(285, 23);
             textBox8.TabIndex = 2;
             textBox8.TextChanged += textBox1_TextChanged;
             // 
@@ -634,10 +636,10 @@
             // 
             textBox3.Anchor = AnchorStyles.None;
             textBox3.Enabled = false;
-            textBox3.Location = new Point(234, 205);
+            textBox3.Location = new Point(235, 205);
             textBox3.Name = "textBox3";
             textBox3.PlaceholderText = "443";
-            textBox3.Size = new Size(288, 23);
+            textBox3.Size = new Size(285, 23);
             textBox3.TabIndex = 2;
             textBox3.TextChanged += textBox1_TextChanged;
             // 
@@ -645,10 +647,10 @@
             // 
             textBox4.Anchor = AnchorStyles.None;
             textBox4.Enabled = false;
-            textBox4.Location = new Point(234, 236);
+            textBox4.Location = new Point(235, 236);
             textBox4.Name = "textBox4";
             textBox4.PlaceholderText = "iski";
-            textBox4.Size = new Size(288, 23);
+            textBox4.Size = new Size(285, 23);
             textBox4.TabIndex = 2;
             textBox4.TextChanged += textBox1_TextChanged;
             // 
@@ -656,10 +658,10 @@
             // 
             textBox9.Anchor = AnchorStyles.None;
             textBox9.Enabled = false;
-            textBox9.Location = new Point(234, 267);
+            textBox9.Location = new Point(235, 267);
             textBox9.Name = "textBox9";
             textBox9.PlaceholderText = "iski123";
-            textBox9.Size = new Size(288, 23);
+            textBox9.Size = new Size(285, 23);
             textBox9.TabIndex = 2;
             textBox9.TextChanged += textBox1_TextChanged;
             // 
@@ -667,10 +669,10 @@
             // 
             textBox10.Anchor = AnchorStyles.None;
             textBox10.Enabled = false;
-            textBox10.Location = new Point(234, 298);
+            textBox10.Location = new Point(235, 298);
             textBox10.Name = "textBox10";
             textBox10.PlaceholderText = "Test Tesisi";
-            textBox10.Size = new Size(288, 23);
+            textBox10.Size = new Size(285, 23);
             textBox10.TabIndex = 2;
             textBox10.TextChanged += textBox1_TextChanged;
             // 
@@ -678,10 +680,10 @@
             // 
             textBox11.Anchor = AnchorStyles.None;
             textBox11.Enabled = false;
-            textBox11.Location = new Point(234, 329);
+            textBox11.Location = new Point(235, 329);
             textBox11.Name = "textBox11";
             textBox11.PlaceholderText = "2019-12-01T00:00:00";
-            textBox11.Size = new Size(288, 23);
+            textBox11.Size = new Size(285, 23);
             textBox11.TabIndex = 2;
             textBox11.TextChanged += textBox1_TextChanged;
             // 
@@ -689,10 +691,10 @@
             // 
             textBox12.Anchor = AnchorStyles.None;
             textBox12.Enabled = false;
-            textBox12.Location = new Point(234, 360);
+            textBox12.Location = new Point(235, 360);
             textBox12.Name = "textBox12";
             textBox12.PlaceholderText = "2019-12-01T00:00:00";
-            textBox12.Size = new Size(288, 23);
+            textBox12.Size = new Size(285, 23);
             textBox12.TabIndex = 2;
             textBox12.TextChanged += textBox1_TextChanged;
             // 
@@ -700,10 +702,10 @@
             // 
             textBox13.Anchor = AnchorStyles.None;
             textBox13.Enabled = false;
-            textBox13.Location = new Point(234, 391);
+            textBox13.Location = new Point(235, 391);
             textBox13.Name = "textBox13";
             textBox13.PlaceholderText = "İstanbul";
-            textBox13.Size = new Size(288, 23);
+            textBox13.Size = new Size(285, 23);
             textBox13.TabIndex = 2;
             textBox13.TextChanged += textBox1_TextChanged;
             // 
@@ -711,10 +713,10 @@
             // 
             textBox14.Anchor = AnchorStyles.None;
             textBox14.Enabled = false;
-            textBox14.Location = new Point(234, 422);
+            textBox14.Location = new Point(235, 422);
             textBox14.Name = "textBox14";
             textBox14.PlaceholderText = "IBKS";
-            textBox14.Size = new Size(288, 23);
+            textBox14.Size = new Size(285, 23);
             textBox14.TabIndex = 2;
             textBox14.TextChanged += textBox1_TextChanged;
             // 

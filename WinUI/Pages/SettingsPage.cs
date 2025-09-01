@@ -72,4 +72,14 @@ public partial class SettingsPage : UserControl
     {
         PageManager.ShowPage(this.PanelContent, new DatabaseSettingsPage());
     }
+
+    private void ApiButton_Click(object sender, EventArgs e)
+    {
+        PageManager.ShowPage(this.PanelContent, new ApiSettingsPage());
+    }
+
+    private void ButtonCalibration_Click(object sender, EventArgs e)
+    {
+        PageManager.ShowPage(this.PanelContent, new CalibrationSettingsPage());
+    }
 }

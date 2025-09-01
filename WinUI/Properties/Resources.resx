@@ -121,6 +121,9 @@
   <data name="logout_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logout_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="monitor_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\monitor_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="place_marker_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\place_marker_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,9 +139,6 @@
   <data name="mail_statement_edit48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mail_statement_edit48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pump1_idle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pump1_idle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="alarm_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alarm_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,11 +148,14 @@
   <data name="database_96px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\database_96px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="filled_monitor_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\filled_monitor_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="microsoft_excel_2019_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\microsoft_excel_2019_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mail_configuration_256px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mail_configuration_256px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="filter_wash1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\filter_wash1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="door_opened" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\door_opened.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,20 +166,20 @@
   <data name="cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filter_wash1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\filter_wash1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="azimuth_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\azimuth_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mail_configuration_256px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mail_configuration_256px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="filled_azimuth_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\filled_azimuth_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="eye_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\eye_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pump2_idle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pump2_idle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="monitor_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\monitor_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="water_tank_full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\water_tank_full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\settings_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,20 +187,11 @@
   <data name="filled_save_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\filled_save_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="home_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\home_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wash2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wash2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="system_auto2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\system_auto2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mail_server48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mail_server48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Checkmark_12px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Checkmark_12px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="api_96px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\api_96px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="electronics_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\electronics_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,23 +211,26 @@
   <data name="pump2_animation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pump2_animation.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="water_tank_full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\water_tank_full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="eye_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\eye_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mail_user48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mail_user48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="azimuth_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\azimuth_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="system_auto2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\system_auto2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mail_server48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mail_server48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wash2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wash2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="proximity_sensor_96px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\proximity_sensor_96px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="filter_wash2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\filter_wash2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filled_home_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\filled_home_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="system_wait" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\system_wait.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="male_user_256px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\male_user_256px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,17 +244,14 @@
   <data name="mail_statements_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mail_statements_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filled_monitor_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\filled_monitor_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pump1_idle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pump1_idle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pdf_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pdf_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="home_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\home_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="shared_mail_96px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shared_mail_96px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="eye_hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\eye_hide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="eye_hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eye_hide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -268,8 +262,8 @@
   <data name="filled_settings_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\filled_settings_24px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="system_wait" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\system_wait.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pdf_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pdf_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="user_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -280,7 +274,7 @@
   <data name="test_96px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test_96px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="proximity_sensor_96px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\proximity_sensor_96px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="save_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save_24px2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

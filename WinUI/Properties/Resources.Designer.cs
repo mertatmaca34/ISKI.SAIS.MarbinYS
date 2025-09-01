@@ -93,16 +93,6 @@ namespace WinUI.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap azimuth_48px {
-            get {
-                object obj = ResourceManager.GetObject("azimuth_48px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
         internal static System.Drawing.Bitmap azimuth_96px {
             get {
                 object obj = ResourceManager.GetObject("azimuth_96px", resourceCulture);

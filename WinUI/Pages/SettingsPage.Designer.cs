@@ -34,13 +34,13 @@
             titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
             PanelContent = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            button1 = new Button();
             button6 = new Button();
             button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
+            ButtonCalibration = new Button();
+            ApiButton = new Button();
             DatabaseButton = new Button();
             StationButton = new Button();
-            button1 = new Button();
             tableLayoutPanel1.SuspendLayout();
             PanelContent.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -108,8 +108,8 @@
             tableLayoutPanel2.Controls.Add(button1, 3, 0);
             tableLayoutPanel2.Controls.Add(button6, 1, 1);
             tableLayoutPanel2.Controls.Add(button5, 0, 1);
-            tableLayoutPanel2.Controls.Add(button4, 0, 1);
-            tableLayoutPanel2.Controls.Add(button3, 2, 0);
+            tableLayoutPanel2.Controls.Add(ButtonCalibration, 0, 1);
+            tableLayoutPanel2.Controls.Add(ApiButton, 2, 0);
             tableLayoutPanel2.Controls.Add(DatabaseButton, 1, 0);
             tableLayoutPanel2.Controls.Add(StationButton, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
@@ -120,6 +120,20 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Size = new Size(1094, 533);
             tableLayoutPanel2.TabIndex = 2;
+            // 
+            // button1
+            // 
+            button1.Dock = DockStyle.Fill;
+            button1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            button1.Image = Properties.Resources.proximity_sensor_96px;
+            button1.Location = new Point(822, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(269, 260);
+            button1.TabIndex = 6;
+            button1.Text = "Kanallar";
+            button1.TextAlign = ContentAlignment.BottomCenter;
+            button1.TextImageRelation = TextImageRelation.ImageAboveText;
+            button1.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -149,33 +163,35 @@
             button5.TextImageRelation = TextImageRelation.ImageAboveText;
             button5.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // ButtonCalibration
             // 
-            button4.Dock = DockStyle.Fill;
-            button4.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            button4.Image = Properties.Resources.azimuth_96px;
-            button4.Location = new Point(3, 269);
-            button4.Name = "button4";
-            button4.Size = new Size(267, 261);
-            button4.TabIndex = 3;
-            button4.Text = "Kalibrasyon";
-            button4.TextAlign = ContentAlignment.BottomCenter;
-            button4.TextImageRelation = TextImageRelation.ImageAboveText;
-            button4.UseVisualStyleBackColor = true;
+            ButtonCalibration.Dock = DockStyle.Fill;
+            ButtonCalibration.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ButtonCalibration.Image = Properties.Resources.azimuth_96px;
+            ButtonCalibration.Location = new Point(3, 269);
+            ButtonCalibration.Name = "ButtonCalibration";
+            ButtonCalibration.Size = new Size(267, 261);
+            ButtonCalibration.TabIndex = 3;
+            ButtonCalibration.Text = "Kalibrasyon";
+            ButtonCalibration.TextAlign = ContentAlignment.BottomCenter;
+            ButtonCalibration.TextImageRelation = TextImageRelation.ImageAboveText;
+            ButtonCalibration.UseVisualStyleBackColor = true;
+            ButtonCalibration.Click += ButtonCalibration_Click;
             // 
-            // button3
+            // ApiButton
             // 
-            button3.Dock = DockStyle.Fill;
-            button3.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            button3.Image = Properties.Resources.api_96px;
-            button3.Location = new Point(549, 3);
-            button3.Name = "button3";
-            button3.Size = new Size(267, 260);
-            button3.TabIndex = 2;
-            button3.Text = "API";
-            button3.TextAlign = ContentAlignment.BottomCenter;
-            button3.TextImageRelation = TextImageRelation.ImageAboveText;
-            button3.UseVisualStyleBackColor = true;
+            ApiButton.Dock = DockStyle.Fill;
+            ApiButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiButton.Image = Properties.Resources.api_96px;
+            ApiButton.Location = new Point(549, 3);
+            ApiButton.Name = "ApiButton";
+            ApiButton.Size = new Size(267, 260);
+            ApiButton.TabIndex = 2;
+            ApiButton.Text = "API";
+            ApiButton.TextAlign = ContentAlignment.BottomCenter;
+            ApiButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            ApiButton.UseVisualStyleBackColor = true;
+            ApiButton.Click += ApiButton_Click;
             // 
             // DatabaseButton
             // 
@@ -207,20 +223,6 @@
             StationButton.UseVisualStyleBackColor = true;
             StationButton.Click += StationButton_Click;
             // 
-            // button1
-            // 
-            button1.Dock = DockStyle.Fill;
-            button1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            button1.Image = Properties.Resources.proximity_sensor_96px;
-            button1.Location = new Point(822, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(269, 260);
-            button1.TabIndex = 6;
-            button1.Text = "Kanallar";
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            button1.TextImageRelation = TextImageRelation.ImageAboveText;
-            button1.UseVisualStyleBackColor = true;
-            // 
             // SettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -244,8 +246,8 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Button button6;
         private Button button5;
-        private Button button4;
-        private Button button3;
+        private Button ButtonCalibration;
+        private Button ApiButton;
         private Button DatabaseButton;
         private Button StationButton;
         private Button button1;
