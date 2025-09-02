@@ -9,8 +9,8 @@ namespace Domain.Entities;
 
 public class SendData : BaseEntity<int>
 {
-    public Guid Stationid { get; set; }
-    public DateTime Readtime { get; set; }
+    public Guid StationId { get; set; }
+    public DateTime ReadTime { get; set; }
     public string SoftwareVersion { get; set; }
     public double AkisHizi { get; set; }
     public double AKM { get; set; }

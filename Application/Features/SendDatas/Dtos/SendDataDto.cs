@@ -3,8 +3,8 @@ namespace Application.Features.SendDatas.Dtos;
 public class SendDataDto
 {
     public int Id { get; set; }
-    public Guid Stationid { get; set; }
-    public DateTime Readtime { get; set; }
+    public Guid StationId { get; set; }
+    public DateTime ReadTime { get; set; }
     public string SoftwareVersion { get; set; }
     public double AkisHizi { get; set; }
     public double AKM { get; set; }

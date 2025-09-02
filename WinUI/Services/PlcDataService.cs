@@ -12,9 +12,6 @@ public class PlcDataService : IPlcDataService
     public PlcDataService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-
-        HttpClientHandler handler = new HttpClientHandler();
-        handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
     }
 
     public async Task<PlcDataDto?> ReadAndSaveAsync()
