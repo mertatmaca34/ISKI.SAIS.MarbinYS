@@ -6,6 +6,8 @@ public class CreateStationCommandValidator : AbstractValidator<CreateStationComm
 {
     public CreateStationCommandValidator()
     {
-        RuleFor(x => x.StationName).NotEmpty();
+        RuleFor(x => x.Code).NotEmpty();
+        RuleFor(x => x.Name).NotEmpty();
+        RuleFor(x => x.DataPeriodMinute).GreaterThan(0);
     }
 }
