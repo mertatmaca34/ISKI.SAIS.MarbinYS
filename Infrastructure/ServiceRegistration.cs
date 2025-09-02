@@ -18,6 +18,7 @@ public static class ServiceRegistration
         services.AddScoped<IMailSettingsRepository, MailSettingsRepository>();
         services.AddScoped<IMailUserRepository, MailUserRepository>();
         services.AddScoped<IMailLogRepository, MailLogRepository>();
+        services.AddScoped<IAppLogRepository, AppLogRepository>();
         services.AddScoped<IMailTriggerRecipientRepository, MailTriggerRecipientRepository>();
         services.AddScoped<ISendDataRepository, SendDataRepository>();
         services.AddScoped<IApiEndpointRepository, ApiEndpointRepository>();
