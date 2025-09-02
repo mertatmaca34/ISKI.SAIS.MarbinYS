@@ -284,6 +284,7 @@
             SaveStationSettingsButton.TabIndex = 2;
             SaveStationSettingsButton.Text = "Kaydet";
             SaveStationSettingsButton.UseVisualStyleBackColor = true;
+            SaveStationSettingsButton.Click += SaveStationSettingsButton_Click;
             // 
             // StationInfoHeaderTableLayoutPanel
             // 

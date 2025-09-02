@@ -44,6 +44,5 @@ namespace WinUI.Pages.Settings
             {
                 MessageBox.Show($"İstasyon '{result.StationName}' kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
     }
 }
