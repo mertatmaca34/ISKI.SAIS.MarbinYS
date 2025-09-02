@@ -1,4 +1,6 @@
-﻿namespace WinUI.Pages.Settings
+﻿using WinUI.Constants;
+
+namespace WinUI.Pages.Settings
 {
     partial class StationSettingsPage
     {
@@ -195,7 +197,7 @@
             StationIdSettingTextBox.Anchor = AnchorStyles.None;
             StationIdSettingTextBox.Location = new Point(234, 19);
             StationIdSettingTextBox.Name = "StationIdSettingTextBox";
-            StationIdSettingTextBox.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
+            StationIdSettingTextBox.PlaceholderText = StationConstants.StationIdPlaceholder;
             StationIdSettingTextBox.Size = new Size(288, 23);
             StationIdSettingTextBox.TabIndex = 2;
             // 
@@ -573,7 +575,7 @@
             StationIdTextBox.Enabled = false;
             StationIdTextBox.Location = new Point(235, 19);
             StationIdTextBox.Name = "StationIdTextBox";
-            StationIdTextBox.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
+            StationIdTextBox.PlaceholderText = StationConstants.StationIdPlaceholder;
             StationIdTextBox.Size = new Size(285, 23);
             StationIdTextBox.TabIndex = 2;
             StationIdTextBox.TextChanged += StationInfoTextChanged;

@@ -1,48 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
-using WinUI.Helpers;
-using WinUI.Services;
-using WinUI.Models;
 using Microsoft.Extensions.DependencyInjection;
+using WinUI.Constants;
+using WinUI.Services;
 
-namespace WinUI.Pages.Settings
+namespace WinUI.Pages.Settings;
+
+public partial class StationSettingsPage : UserControl
 {
-    public partial class StationSettingsPage : UserControl
+    private readonly IStationService _stationService;
+
+    public StationSettingsPage()
     {
-        private readonly IStationService _stationService;
+        InitializeComponent();
+        _stationService = Program.Services.GetRequiredService<IStationService>();
+    }
 
-        public StationSettingsPage()
+    private void StationInfoTextChanged(object sender, EventArgs e)
+    {
+    }
+
+    private async void SaveStationSettingsButton_Click(object? sender, EventArgs e)
+    {
+        if (!Guid.TryParse(StationIdTextBox.Text, out var stationId))
         {
-            InitializeComponent();
-            _stationService = Program.Services.GetRequiredService<IStationService>();
+            MessageBox.Show(StationConstants.InvalidStationIdMessage, StationConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
 
-        private void StationInfoTextChanged(object sender, EventArgs e)
+        if (!int.TryParse(DataPeriodTextBox.Text, out var dataPeriod))
         {
-
+            MessageBox.Show(StationConstants.InvalidDataPeriodMessage, StationConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
 
-        private async void SaveStationSettingsButton_Click(object? sender, EventArgs e)
+        if (!DateTime.TryParse(LastDataDateTextBox.Text, out var lastDataDate) ||
+            !DateTime.TryParse(StationSetupDateTextBox.Text, out var birthDate) ||
+            !DateTime.TryParse(SoftwareSetupDateTextBox.Text, out var setupDate))
         {
-            if (!Guid.TryParse(StationIdSettingTextBox.Text, out var stationId))
-            {
-                MessageBox.Show("Geçersiz istasyon Id", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            MessageBox.Show(StationConstants.InvalidDateMessage, StationConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
 
-            var command = new CreateStationCommand(StationNameTextBox.Text, stationId);
-            var result = await _stationService.CreateAsync(command);
-            if (result != null)
-            {
-                MessageBox.Show($"İstasyon '{result.StationName}' kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+        var command = new CreateStationCommand(
+            stationId,
+            CodeTextBox.Text,
+            StationNameTextBox.Text,
+            dataPeriod,
+            lastDataDate,
+            CabinSoftwareAddressTextBox.Text,
+            ConnectionPortTextBox.Text,
+            ConnectionUserTextBox.Text,
+            ConnectionPasswordTextBox.Text,
+            OrganizationTextBox.Text,
+            birthDate,
+            setupDate,
+            StationAddressTextBox.Text,
+            SoftwareTextBox.Text);
+
+        var result = await _stationService.CreateAsync(command);
+        if (result != null)
+        {
+            MessageBox.Show(string.Format(StationConstants.StationSavedMessage, result.Name), StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
