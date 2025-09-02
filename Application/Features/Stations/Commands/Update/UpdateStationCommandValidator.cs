@@ -7,6 +7,8 @@ public class UpdateStationCommandValidator : AbstractValidator<UpdateStationComm
     public UpdateStationCommandValidator()
     {
         RuleFor(x => x.Id).GreaterThan(0);
-        RuleFor(x => x.StationName).NotEmpty();
+        RuleFor(x => x.Code).NotEmpty();
+        RuleFor(x => x.Name).NotEmpty();
+        RuleFor(x => x.DataPeriodMinute).GreaterThan(0);
     }
 }
