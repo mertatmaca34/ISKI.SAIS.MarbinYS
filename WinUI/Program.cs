@@ -3,13 +3,12 @@ using Microsoft.Extensions.Hosting;
 using WinUI.Forms;
 using WinUI.Pages;
 using WinUI.Services;
-using System.Net.Http;
-using System.Net;
 
 namespace WinUI
 {
     internal static class Program
     {
+        internal static IServiceProvider? Services { get; private set; }
         [STAThread]
         static void Main(string[] args)
         {
@@ -24,7 +23,8 @@ namespace WinUI
             splashThread.Start();
 
             var host = CreateHostBuilder(args).Build();
-            using var scope = host.Services.CreateScope();
+            Services = host.Services;
+            using var scope = Services.CreateScope();
             var services = scope.ServiceProvider;
 
             var mainForm = services.GetRequiredService<MainForm>();
@@ -48,17 +48,32 @@ namespace WinUI
 
                     services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
                     {
-                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:443";
-
-                        baseUrl = baseUrl.TrimEnd('/');
-
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730"; baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
+                    })
+                        .ConfigurePrimaryHttpMessageHandler(() =>
+                        {
+                            var handler = new HttpClientHandler();
+                            if (context.HostingEnvironment.IsDevelopment())
+                            {
+                                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            }
+                            return handler;
+                        });
 
+                    services.AddHttpClient<IStationService, StationService>(client =>
+                    {
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
+                        baseUrl = baseUrl.TrimEnd('/');
+                        client.BaseAddress = new Uri(baseUrl);
                     })
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
-                        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                        if (context.HostingEnvironment.IsDevelopment())
+                        {
+                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                        }
                         return handler;
                     });
                 });
