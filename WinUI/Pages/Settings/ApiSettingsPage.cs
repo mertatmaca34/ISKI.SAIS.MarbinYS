@@ -85,11 +85,12 @@ public partial class ApiSettingsPage : UserControl
         {
             using var response = await _remoteClient.GetAsync(ApiUrlTextBox.Text.Trim());
             var content = await response.Content.ReadAsStringAsync();
+            content = FormatContent(content);
             ResponseTextBox.Text = $"Status: {(int)response.StatusCode}\r\n{content}";
         }
         catch (Exception ex)
         {
-            ResponseTextBox.Text = ex.Message;
+            ResponseTextBox.Text = FormatContent(ex.Message);
         }
     }
 
@@ -107,7 +108,7 @@ public partial class ApiSettingsPage : UserControl
 
             using var response = await _remoteClient.PostAsJsonAsync(url, loginRequest);
             var content = await response.Content.ReadAsStringAsync();
-            ResponseTextBox.Text = content;
+            ResponseTextBox.Text = FormatContent(content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -120,7 +121,7 @@ public partial class ApiSettingsPage : UserControl
         }
         catch (Exception ex)
         {
-            ResponseTextBox.Text = ex.Message;
+            ResponseTextBox.Text = FormatContent(ex.Message);
         }
     }
 
@@ -131,11 +132,11 @@ public partial class ApiSettingsPage : UserControl
             var body = new { ticket = Ticket };
             using var response = await _localClient.PostAsJsonAsync("api/sample/request-start", body);
             var content = await response.Content.ReadAsStringAsync();
-            ResponseTextBox.Text = content;
+            ResponseTextBox.Text = FormatContent(content);
         }
         catch (Exception ex)
         {
-            ResponseTextBox.Text = ex.Message;
+            ResponseTextBox.Text = FormatContent(ex.Message);
         }
     }
 
@@ -160,17 +161,30 @@ public partial class ApiSettingsPage : UserControl
             request.Content = JsonContent.Create(body);
             using var response = await _remoteClient.SendAsync(request);
             var content = await response.Content.ReadAsStringAsync();
-            ResponseTextBox.Text = content;
+            ResponseTextBox.Text = FormatContent(content);
         }
         catch (Exception ex)
         {
-            ResponseTextBox.Text = ex.Message;
+            ResponseTextBox.Text = FormatContent(ex.Message);
         }
     }
 
     private static string CombineUrl(string baseUrl, string relative)
     {
         return $"{baseUrl.TrimEnd('/')}/{relative}";
+    }
+
+    private static string FormatContent(string content)
+    {
+        try
+        {
+            using var json = JsonDocument.Parse(content);
+            return JsonSerializer.Serialize(json, new JsonSerializerOptions { WriteIndented = true });
+        }
+        catch (JsonException)
+        {
+            return content;
+        }
     }
 
     private record LoginResponse(bool result, string message, string token, int expiresIn);
