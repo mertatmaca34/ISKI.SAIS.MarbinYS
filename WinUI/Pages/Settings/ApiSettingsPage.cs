@@ -143,7 +143,7 @@ public partial class ApiSettingsPage : UserControl
     {
         try
         {
-            var url = CombineUrl(ApiUrlTextBox.Text, "SendDiagnostic");
+            var url = CombineUrl(ApiUrlTextBox.Text, "SAIS/SendDiagnostic");
             using var request = new HttpRequestMessage(HttpMethod.Post, url);
             if (!string.IsNullOrEmpty(_token))
             {
