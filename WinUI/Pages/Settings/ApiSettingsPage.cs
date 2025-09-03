@@ -39,7 +39,7 @@ public partial class ApiSettingsPage : UserControl
             var result = await _apiEndpointService.UpdateAsync(_apiEndpointId.Value, command);
             if (result != null)
             {
-                MessageBox.Show(ApiEndpointConstants.SavedMessage, ApiEndpointConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ApiEndpointConstants.UpdatedMessage, ApiEndpointConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         else

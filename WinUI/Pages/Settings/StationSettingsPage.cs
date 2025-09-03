@@ -22,7 +22,7 @@ public partial class StationSettingsPage : UserControl
 
     private async void SaveStationSettingsButton_Click(object? sender, EventArgs e)
     {
-        if (!Guid.TryParse(StationIdTextBox.Text, out var stationId))
+        if (!Guid.TryParse(StationIdSettingTextBox.Text, out var stationId))
         {
             MessageBox.Show(StationConstants.InvalidStationIdMessage, StationConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
