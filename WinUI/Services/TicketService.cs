@@ -10,7 +10,7 @@ namespace WinUI.Services;
 public interface ITicketService
 {
     Task EnsureTicketAsync();
-    Task<LoginResult?> RefreshTicketAsync();
+    Task<ResultStatus<LoginResult>?> RefreshTicketAsync();
 }
 
 public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpointService) : ITicketService
@@ -25,7 +25,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         await RefreshTicketAsync();
     }
 
-    public async Task<LoginResult?> RefreshTicketAsync()
+    public async Task<ResultStatus<LoginResult>?> RefreshTicketAsync()
     {
         var endpoint = await apiEndpointService.GetFirstAsync();
         if (endpoint == null)
@@ -38,13 +38,12 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         {
             username = endpoint.UserName,
             password = endpoint.Password,
-            ticket = StationConstants.Ticket
         };
 
         using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest);
         response.EnsureSuccessStatusCode();
-        var loginResult = await response.Content.ReadFromJsonAsync<LoginResult>();
-        StationConstants.Ticket = loginResult?.TicketId?.ToString();
+        var loginResult = await response.Content.ReadFromJsonAsync<ResultStatus<LoginResult>>();
+        StationConstants.Ticket = loginResult?.objects.TicketId?.ToString();
         StationConstants.TicketExpiry = DateTime.UtcNow.AddMinutes(30);
         return loginResult;
     }
