@@ -19,7 +19,6 @@ public partial class ApiSettingsPage : UserControl
     private int? _apiEndpointId;
     private string? _token;
 
-    private const string Ticket = "f9249e93-3093-4503-a913-09131c806f39";
 
     public ApiSettingsPage()
     {
@@ -103,7 +102,7 @@ public partial class ApiSettingsPage : UserControl
             {
                 username = ApiUsernameTextBox.Text,
                 password = ApiPasswordTextBox.Text,
-                ticket = Ticket
+                ticket = StationConstants.Ticket
             };
 
             using var response = await _remoteClient.PostAsJsonAsync(url, loginRequest);
@@ -129,7 +128,7 @@ public partial class ApiSettingsPage : UserControl
     {
         try
         {
-            var body = new { ticket = Ticket };
+            var body = new { ticket = StationConstants.Ticket };
             using var response = await _localClient.PostAsJsonAsync("api/sample/request-start", body);
             var content = await response.Content.ReadAsStringAsync();
             ResponseTextBox.Text = FormatContent(content);
@@ -153,7 +152,7 @@ public partial class ApiSettingsPage : UserControl
             var body = new
             {
                 stationId = "1",
-                ticket = Ticket,
+                ticket = StationConstants.Ticket,
                 desc = "Deneme",
                 stationAlarmId = "0",
                 diagnosticDate = DateTime.Now.ToString("s")
