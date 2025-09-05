@@ -42,40 +42,55 @@ public partial class StationSettingsPage : UserControl
             return;
         }
 
-        if (!int.TryParse(DataPeriodTextBox.Text, out var dataPeriod))
+        var existing = await _stationService.GetFirstAsync();
+        if (existing == null)
         {
-            MessageBox.Show(StationConstants.InvalidDataPeriodMessage, StationConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
+            var command = new CreateStationCommand(
+                stationId,
+                stationId.ToString(),
+                stationId.ToString(),
+                1,
+                DateTime.Now,
+                ConnectionDomainAddressTextBox.Text,
+                ConnectionPortTextBox.Text,
+                ConnectionUserTextBox.Text,
+                ConnectionPasswordTextBox.Text,
+                string.Empty,
+                DateTime.Now,
+                DateTime.Now,
+                string.Empty,
+                string.Empty);
+
+            var result = await _stationService.CreateAsync(command);
+            if (result != null)
+            {
+                MessageBox.Show("İstasyon ayarları kaydedildi.", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
-
-        if (!DateTime.TryParse(LastDataDateTextBox.Text, out var lastDataDate) ||
-            !DateTime.TryParse(StationSetupDateTextBox.Text, out var birthDate) ||
-            !DateTime.TryParse(SoftwareSetupDateTextBox.Text, out var setupDate))
+        else
         {
-            MessageBox.Show(StationConstants.InvalidDateMessage, StationConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
+            var command = new UpdateStationCommand(
+                existing.Id,
+                existing.StationId,
+                existing.Code,
+                existing.Name,
+                existing.DataPeriodMinute,
+                existing.LastDataDate,
+                ConnectionDomainAddressTextBox.Text,
+                ConnectionPortTextBox.Text,
+                ConnectionUserTextBox.Text,
+                ConnectionPasswordTextBox.Text,
+                existing.Company,
+                existing.BirtDate,
+                existing.SetupDate,
+                existing.Address,
+                existing.Software);
 
-        var command = new CreateStationCommand(
-            stationId,
-            CodeTextBox.Text,
-            StationNameTextBox.Text,
-            dataPeriod,
-            lastDataDate,
-            CabinSoftwareAddressTextBox.Text,
-            ConnectionPortTextBox.Text,
-            ConnectionUserTextBox.Text,
-            ConnectionPasswordTextBox.Text,
-            OrganizationTextBox.Text,
-            birthDate,
-            setupDate,
-            StationAddressTextBox.Text,
-            SoftwareTextBox.Text);
-
-        var result = await _stationService.CreateAsync(command);
-        if (result != null)
-        {
-            MessageBox.Show(string.Format(StationConstants.StationSavedMessage, result.Name), StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var result = await _stationService.UpdateAsync(command);
+            if (result != null)
+            {
+                MessageBox.Show("İstasyon ayarları kaydedildi.", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 
@@ -91,6 +106,23 @@ public partial class StationSettingsPage : UserControl
         var info = await _stationInformationService.GetAsync(station.StationId);
         if (info != null)
         {
+            var command = new UpdateStationCommand(
+                station.Id,
+                station.StationId,
+                info.Code,
+                info.Name,
+                info.DataPeriodMinute,
+                info.LastDataDate,
+                station.ConnectionDomainAddress,
+                station.ConnectionPort,
+                station.ConnectionUser,
+                station.ConnectionPassword,
+                info.Company,
+                info.BirtDate,
+                info.SetupDate,
+                info.Address,
+                info.Software);
+            await _stationService.UpdateAsync(command);
             PopulateStationInfo(info);
         }
     }
