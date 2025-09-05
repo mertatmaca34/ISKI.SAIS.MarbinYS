@@ -94,6 +94,8 @@ namespace WinUI
                         }
                         return handler;
                     });
+
+                    services.AddHttpClient<ITicketService, TicketService>();
                 });
     }
 }

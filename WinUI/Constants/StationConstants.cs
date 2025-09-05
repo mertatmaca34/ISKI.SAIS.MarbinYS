@@ -1,3 +1,5 @@
+using System;
+
 namespace WinUI.Constants;
 
 public static class StationConstants
@@ -12,5 +14,6 @@ public static class StationConstants
     public const string StationIdPlaceholder = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
     public const string StationSettingsRequiredMessage = "Bu servisi kullanabilmeniz için istasyon ayarlarını tanımlamanız gerekmektedir.";
     public const string StationInfoApiUrl = "https://entegrationsais.csb.gov.tr/SAIS/GetStationInformation";
-    public const string Ticket = "f9249e93-3093-4503-a913-09131c806f39";
+    public static string Ticket { get; set; } = "f9249e93-3093-4503-a913-09131c806f39";
+    public static DateTime TicketExpiry { get; set; } = DateTime.MinValue;
 }
