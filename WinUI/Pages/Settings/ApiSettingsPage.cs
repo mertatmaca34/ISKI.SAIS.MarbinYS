@@ -16,8 +16,8 @@ public partial class ApiSettingsPage : UserControl
     private readonly IConfiguration _configuration;
     private readonly HttpClient _remoteClient;
     private readonly HttpClient _localClient;
+    private readonly ITicketService _ticketService;
     private int? _apiEndpointId;
-    private string? _token;
 
 
     public ApiSettingsPage()
@@ -26,6 +26,7 @@ public partial class ApiSettingsPage : UserControl
 
         _apiEndpointService = Program.Services.GetRequiredService<IApiEndpointService>();
         _configuration = Program.Services.GetRequiredService<IConfiguration>();
+        _ticketService = Program.Services.GetRequiredService<ITicketService>();
 
         var handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
@@ -97,26 +98,9 @@ public partial class ApiSettingsPage : UserControl
     {
         try
         {
-            var url = CombineUrl(ApiUrlTextBox.Text, "Security/login");
-            var loginRequest = new
-            {
-                username = ApiUsernameTextBox.Text,
-                password = ApiPasswordTextBox.Text,
-                ticket = StationConstants.Ticket
-            };
-
-            using var response = await _remoteClient.PostAsJsonAsync(url, loginRequest);
-            var content = await response.Content.ReadAsStringAsync();
-            ResponseTextBox.Text = FormatContent(content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var loginResponse = JsonSerializer.Deserialize<LoginResponse>(content, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-                _token = loginResponse?.token;
-            }
+            var loginResult = await _ticketService.RefreshTicketAsync();
+            var content = JsonSerializer.Serialize(loginResult, new JsonSerializerOptions { WriteIndented = true });
+            ResponseTextBox.Text = content;
         }
         catch (Exception ex)
         {
@@ -145,10 +129,6 @@ public partial class ApiSettingsPage : UserControl
         {
             var url = CombineUrl(ApiUrlTextBox.Text, "SAIS/SendDiagnostic");
             using var request = new HttpRequestMessage(HttpMethod.Post, url);
-            if (!string.IsNullOrEmpty(_token))
-            {
-                request.Headers.Add("token", _token);
-            }
             var body = new
             {
                 stationId = "1",
@@ -185,6 +165,4 @@ public partial class ApiSettingsPage : UserControl
             return content;
         }
     }
-
-    private record LoginResponse(bool result, string message, string token, int expiresIn);
 }

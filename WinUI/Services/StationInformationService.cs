@@ -11,46 +11,18 @@ public interface IStationInformationService
     Task<StationDto?> GetAsync(Guid stationId);
 }
 
-public class StationInformationService : IStationInformationService
+public class StationInformationService(HttpClient httpClient, ITicketService ticketService) : IStationInformationService
 {
-    private readonly HttpClient _httpClient;
-    private readonly IApiEndpointService _apiEndpointService;
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly ITicketService _ticketService = ticketService;
 
     private record StationInfoResponse(StationDto? Data);
-    private record LoginResponse(bool result, string message, string token, int expiresIn);
-
-    public StationInformationService(HttpClient httpClient, IApiEndpointService apiEndpointService)
-    {
-        _httpClient = httpClient;
-        _apiEndpointService = apiEndpointService;
-    }
 
     public async Task<StationDto?> GetAsync(Guid stationId)
     {
-        var endpoint = await _apiEndpointService.GetFirstAsync();
-        if (endpoint == null)
-        {
-            return null;
-        }
-
-        var loginUrl = $"{endpoint.ApiAddress.TrimEnd('/')}/Security/login";
-        var loginRequest = new
-        {
-            username = endpoint.UserName,
-            password = endpoint.Password,
-            ticket = StationConstants.Ticket
-        };
-
-        using var loginResponse = await _httpClient.PostAsJsonAsync(loginUrl, loginRequest);
-        loginResponse.EnsureSuccessStatusCode();
-        var loginResult = await loginResponse.Content.ReadFromJsonAsync<LoginResponse>();
+        await _ticketService.EnsureTicketAsync();
 
         using var request = new HttpRequestMessage(HttpMethod.Post, StationConstants.StationInfoApiUrl);
-        if (!string.IsNullOrEmpty(loginResult?.token))
-        {
-            request.Headers.Add("token", loginResult.token);
-        }
-
         var body = new { stationId, ticket = StationConstants.Ticket };
         request.Content = JsonContent.Create(body);
 
