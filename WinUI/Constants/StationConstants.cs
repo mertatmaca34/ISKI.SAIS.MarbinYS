@@ -11,5 +11,5 @@ public static class StationConstants
     public const string InfoTitle = "Bilgi";
     public const string StationIdPlaceholder = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
     public const string StationSettingsRequiredMessage = "Bu servisi kullanabilmeniz için istasyon ayarlarını tanımlamanız gerekmektedir.";
-    public const string StationInfoApiUrl = "https://enetgrations.csb.gov.tr/SAIS/GetStationInformation";
+    public const string StationInfoApiUrl = "https://entegrationsais.csb.gov.tr/SAIS/GetStationInformation";
 }
