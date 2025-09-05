@@ -77,6 +77,8 @@ namespace WinUI
                         return handler;
                     });
 
+                    services.AddHttpClient<IStationInformationService, StationInformationService>();
+
                     services.AddHttpClient<IApiEndpointService, ApiEndpointService>(client =>
                     {
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
