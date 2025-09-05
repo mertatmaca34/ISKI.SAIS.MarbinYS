@@ -325,6 +325,7 @@ namespace WinUI.Pages.Settings
             FetchStationButton.TabIndex = 2;
             FetchStationButton.Text = "Getir";
             FetchStationButton.UseVisualStyleBackColor = true;
+            FetchStationButton.Click += FetchStationButton_Click;
             // 
             // StationInfoBgTableLayoutPanel
             // 

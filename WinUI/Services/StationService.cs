@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Linq;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -22,11 +23,18 @@ public record CreateStationCommand(
 
 public interface IStationService
 {
+    Task<StationDto?> GetFirstAsync();
     Task<StationDto?> CreateAsync(CreateStationCommand command);
 }
 
 public class StationService(HttpClient httpClient) : IStationService
 {
+    public async Task<StationDto?> GetFirstAsync()
+    {
+        var list = await httpClient.GetFromJsonAsync<List<StationDto>>(StationConstants.ApiUrl);
+        return list?.FirstOrDefault();
+    }
+
     public async Task<StationDto?> CreateAsync(CreateStationCommand command)
     {
         using var response = await httpClient.PostAsJsonAsync(StationConstants.ApiUrl, command);
