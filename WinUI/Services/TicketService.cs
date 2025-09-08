@@ -43,8 +43,13 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest);
         response.EnsureSuccessStatusCode();
         var loginResult = await response.Content.ReadFromJsonAsync<ResultStatus<LoginResult>>();
-        StationConstants.Ticket = loginResult?.objects.TicketId?.ToString();
-        StationConstants.TicketExpiry = DateTime.UtcNow.AddMinutes(30);
+        if (loginResult?.objects?.TicketId is not { } ticketId)
+        {
+            return null;
+        }
+
+        StationConstants.Ticket = loginResult.objects.TicketId.ToString()!;
+        StationConstants.TicketExpiry = DateTime.Now.AddMinutes(30);
         return loginResult;
     }
 }

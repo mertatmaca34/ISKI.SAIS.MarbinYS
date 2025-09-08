@@ -1,6 +1,9 @@
 using System;
+using System.Linq.Dynamic.Core.Tokenizer;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -23,6 +26,9 @@ public class StationInformationService(HttpClient httpClient, ITicketService tic
         await _ticketService.EnsureTicketAsync();
 
         using var request = new HttpRequestMessage(HttpMethod.Post, StationConstants.StationInfoApiUrl);
+
+        _httpClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket }));
+
         var body = new { stationId, ticket = StationConstants.Ticket };
         request.Content = JsonContent.Create(body);
 
