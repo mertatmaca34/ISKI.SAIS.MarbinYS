@@ -13,6 +13,7 @@ using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using QContainer = QuestPDF.Infrastructure.IContainer;
 
 namespace WinUI.Pages
 {
@@ -160,7 +161,7 @@ namespace WinUI.Pages
             }
         }
 
-        private static IContainer CellStyle(IContainer container)
+        private static QContainer CellStyle(QContainer container)
             => container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(2);
     }
 }
