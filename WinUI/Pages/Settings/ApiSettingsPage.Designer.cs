@@ -35,6 +35,10 @@
             ApiPasswordLabel = new Label();
             ApiUsernameTextBox = new TextBox();
             ApiPasswordTextBox = new TextBox();
+            SendPeriodLabel = new Label();
+            DataSendPeriodNumericUpDown = new NumericUpDown();
+            ResendPeriodLabel = new Label();
+            ResendPeriodComboBox = new ComboBox();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
             ApiSettingsLabel = new Label();
             SaveApiSettingsButton = new Button();
@@ -49,6 +53,7 @@
             SendDiagnosticButton = new Button();
             ResponseGroupBox = new GroupBox();
             ResponseTextBox = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             StationInfoBgTableLayoutPanel.SuspendLayout();
             ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
@@ -92,6 +97,10 @@
             StationInfoContentTableLayoutPanel.Controls.Add(ApiPasswordLabel, 0, 2);
             StationInfoContentTableLayoutPanel.Controls.Add(ApiUsernameTextBox, 1, 1);
             StationInfoContentTableLayoutPanel.Controls.Add(ApiPasswordTextBox, 1, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(SendPeriodLabel, 0, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(DataSendPeriodNumericUpDown, 1, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(ResendPeriodLabel, 0, 4);
+            StationInfoContentTableLayoutPanel.Controls.Add(ResendPeriodComboBox, 1, 4);
             StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoContentTableLayoutPanel.Location = new Point(1, 1);
             StationInfoContentTableLayoutPanel.Margin = new Padding(1);
@@ -156,6 +165,51 @@
             ApiPasswordTextBox.PlaceholderText = "api_pass";
             ApiPasswordTextBox.Size = new Size(288, 23);
             ApiPasswordTextBox.TabIndex = 2;
+            //
+            // SendPeriodLabel
+            //
+            SendPeriodLabel.Anchor = AnchorStyles.Left;
+            SendPeriodLabel.AutoSize = true;
+            SendPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            SendPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            SendPeriodLabel.Location = new Point(18, 115);
+            SendPeriodLabel.Name = "SendPeriodLabel";
+            SendPeriodLabel.Size = new Size(165, 16);
+            SendPeriodLabel.TabIndex = 1;
+            SendPeriodLabel.Text = "Gönderim Periyodu (dk)";
+            //
+            // DataSendPeriodNumericUpDown
+            //
+            DataSendPeriodNumericUpDown.Anchor = AnchorStyles.Left;
+            DataSendPeriodNumericUpDown.Location = new Point(234, 112);
+            DataSendPeriodNumericUpDown.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
+            DataSendPeriodNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            DataSendPeriodNumericUpDown.Name = "DataSendPeriodNumericUpDown";
+            DataSendPeriodNumericUpDown.Size = new Size(288, 23);
+            DataSendPeriodNumericUpDown.TabIndex = 3;
+            DataSendPeriodNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            //
+            // ResendPeriodLabel
+            //
+            ResendPeriodLabel.Anchor = AnchorStyles.Left;
+            ResendPeriodLabel.AutoSize = true;
+            ResendPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ResendPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ResendPeriodLabel.Location = new Point(18, 146);
+            ResendPeriodLabel.Name = "ResendPeriodLabel";
+            ResendPeriodLabel.Size = new Size(174, 16);
+            ResendPeriodLabel.TabIndex = 1;
+            ResendPeriodLabel.Text = "Geriye Dönük Veri Aralığı";
+            //
+            // ResendPeriodComboBox
+            //
+            ResendPeriodComboBox.Anchor = AnchorStyles.Left;
+            ResendPeriodComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            ResendPeriodComboBox.FormattingEnabled = true;
+            ResendPeriodComboBox.Location = new Point(234, 142);
+            ResendPeriodComboBox.Name = "ResendPeriodComboBox";
+            ResendPeriodComboBox.Size = new Size(288, 23);
+            ResendPeriodComboBox.TabIndex = 4;
             // 
             // StationInfoBgTableLayoutPanel
             // 
@@ -382,6 +436,7 @@
             ApiTestContentTableLayoutPanel.PerformLayout();
             ResponseGroupBox.ResumeLayout(false);
             ResponseGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).EndInit();
             ResumeLayout(false);
         }
 
@@ -399,6 +454,10 @@
         private Label ApiPasswordLabel;
         private TextBox ApiUsernameTextBox;
         private TextBox ApiPasswordTextBox;
+        private Label SendPeriodLabel;
+        private NumericUpDown DataSendPeriodNumericUpDown;
+        private Label ResendPeriodLabel;
+        private ComboBox ResendPeriodComboBox;
         private TableLayoutPanel ApiTestBgTableLayoutPanel;
         private TableLayoutPanel ApiTestContentTableLayoutPanel;
         private Label ApiTestLabel;

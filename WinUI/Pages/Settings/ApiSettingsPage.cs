@@ -20,6 +20,7 @@ public partial class ApiSettingsPage : UserControl
     private readonly ITicketService _ticketService;
     private readonly IStationService _stationService;
     private int? _apiEndpointId;
+    private readonly int[] _resendPeriodOptions = new[] { 24*60, 48*60, 7*24*60, 30*24*60, 90*24*60, 180*24*60, 365*24*60 };
 
 
     public ApiSettingsPage()
@@ -45,6 +46,18 @@ public partial class ApiSettingsPage : UserControl
         LoginButton.Click += LoginButton_Click;
         RequestSampleButton.Click += RequestSampleButton_Click;
         SendDiagnosticButton.Click += SendDiagnosticButton_Click;
+
+        ResendPeriodComboBox.Items.AddRange(new object[]
+        {
+            "Son 24 Saat",
+            "Son 48 Saat",
+            "Son 1 Hafta",
+            "Son 1 Ay",
+            "Son 3 Ay",
+            "Son 6 Ay",
+            "Son 1 Yıl"
+        });
+        ResendPeriodComboBox.SelectedIndex = 0;
     }
 
     private async void ApiSettingsPage_Load(object? sender, EventArgs e)
@@ -56,6 +69,14 @@ public partial class ApiSettingsPage : UserControl
             ApiUrlTextBox.Text = endpoint.ApiAddress;
             ApiUsernameTextBox.Text = endpoint.UserName;
             ApiPasswordTextBox.Text = endpoint.Password;
+            if (endpoint.DataSendPeriodMinute.HasValue)
+                DataSendPeriodNumericUpDown.Value = endpoint.DataSendPeriodMinute.Value;
+            if (endpoint.ResendDataPeriodMinute.HasValue)
+            {
+                var idx = Array.IndexOf(_resendPeriodOptions, endpoint.ResendDataPeriodMinute.Value);
+                if (idx >= 0)
+                    ResendPeriodComboBox.SelectedIndex = idx;
+            }
         }
     }
 
@@ -63,7 +84,13 @@ public partial class ApiSettingsPage : UserControl
     {
         if (_apiEndpointId.HasValue)
         {
-            var command = new UpdateApiEndpointCommand(_apiEndpointId.Value, ApiUrlTextBox.Text, ApiUsernameTextBox.Text, ApiPasswordTextBox.Text);
+            var command = new UpdateApiEndpointCommand(
+                _apiEndpointId.Value,
+                ApiUrlTextBox.Text,
+                ApiUsernameTextBox.Text,
+                ApiPasswordTextBox.Text,
+                (int)DataSendPeriodNumericUpDown.Value,
+                _resendPeriodOptions[ResendPeriodComboBox.SelectedIndex]);
             var result = await _apiEndpointService.UpdateAsync(_apiEndpointId.Value, command);
             if (result != null)
             {
@@ -72,7 +99,12 @@ public partial class ApiSettingsPage : UserControl
         }
         else
         {
-            var command = new CreateApiEndpointCommand(ApiUrlTextBox.Text, ApiUsernameTextBox.Text, ApiPasswordTextBox.Text);
+            var command = new CreateApiEndpointCommand(
+                ApiUrlTextBox.Text,
+                ApiUsernameTextBox.Text,
+                ApiPasswordTextBox.Text,
+                (int)DataSendPeriodNumericUpDown.Value,
+                _resendPeriodOptions[ResendPeriodComboBox.SelectedIndex]);
             var result = await _apiEndpointService.CreateAsync(command);
             if (result != null)
             {

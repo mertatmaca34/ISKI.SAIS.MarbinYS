@@ -5,9 +5,9 @@ using WinUI.Models;
 
 namespace WinUI.Services;
 
-public record CreateApiEndpointCommand(string ApiAddress, string UserName, string Password);
+public record CreateApiEndpointCommand(string ApiAddress, string UserName, string Password, int? DataSendPeriodMinute, int? ResendDataPeriodMinute);
 
-public record UpdateApiEndpointCommand(int Id, string ApiAddress, string UserName, string Password);
+public record UpdateApiEndpointCommand(int Id, string ApiAddress, string UserName, string Password, int? DataSendPeriodMinute, int? ResendDataPeriodMinute);
 
 public interface IApiEndpointService
 {

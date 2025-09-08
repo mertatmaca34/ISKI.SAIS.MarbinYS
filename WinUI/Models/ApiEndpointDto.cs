@@ -6,4 +6,6 @@ public class ApiEndpointDto
     public string ApiAddress { get; set; } = string.Empty;
     public string UserName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+    public int? DataSendPeriodMinute { get; set; }
+    public int? ResendDataPeriodMinute { get; set; }
 }

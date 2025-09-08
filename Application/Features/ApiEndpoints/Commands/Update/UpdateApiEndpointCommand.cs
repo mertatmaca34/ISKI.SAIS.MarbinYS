@@ -7,4 +7,6 @@ public record UpdateApiEndpointCommand(
     int Id,
     string ApiAddress,
     string UserName,
-    string Password) : IRequest<ApiEndpointDto>;
+    string Password,
+    int? DataSendPeriodMinute,
+    int? ResendDataPeriodMinute) : IRequest<ApiEndpointDto>;
