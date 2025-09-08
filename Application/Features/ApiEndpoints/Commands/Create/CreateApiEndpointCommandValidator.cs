@@ -9,5 +9,7 @@ public class CreateApiEndpointCommandValidator : AbstractValidator<CreateApiEndp
         RuleFor(x => x.ApiAddress).NotEmpty();
         RuleFor(x => x.UserName).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
+        RuleFor(x => x.DataSendPeriodMinute).GreaterThan(0);
+        RuleFor(x => x.ResendDataPeriodMinute).GreaterThan(0);
     }
 }

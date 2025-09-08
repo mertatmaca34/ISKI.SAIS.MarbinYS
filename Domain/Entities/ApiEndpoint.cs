@@ -12,4 +12,6 @@ public class ApiEndpoint : BaseEntity<int>
     public string ApiAddress { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
+    public int? DataSendPeriodMinute { get; set; }
+    public int? ResendDataPeriodMinute { get; set; }
 }
