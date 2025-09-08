@@ -1,5 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
+using System.Text.Json.Nodes;
 using WinUI.Forms;
 using WinUI.Pages;
 using WinUI.Services;
@@ -23,6 +27,7 @@ namespace WinUI
             splashThread.Start();
 
             var host = CreateHostBuilder(args).Build();
+            Log.Information("WinUI started");
             Services = host.Services;
             using var scope = Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -35,8 +40,21 @@ namespace WinUI
             Application.Run(mainForm);
         }
 
-        static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var apiSettingsPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Api", "appsettings.json"));
+            var json = File.Exists(apiSettingsPath) ? File.ReadAllText(apiSettingsPath) : "{}";
+            JsonNode? root = JsonNode.Parse(json);
+            string conn = root?["ConnectionStrings"]?["Default"]?.ToString() ?? string.Empty;
+            string levelStr = root?["Serilog"]?["MinimumLevel"]?["Default"]?.ToString() ?? "Information";
+            var level = Enum.TryParse<LogEventLevel>(levelStr, true, out var lvl) ? lvl : LogEventLevel.Information;
+
+            return Host.CreateDefaultBuilder(args)
+                .UseSerilog((ctx, services, lc) =>
+                {
+                    lc.MinimumLevel.Is(level)
+                      .WriteTo.MSSqlServer(conn, new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true });
+                })
                 .ConfigureServices((context, services) =>
                 {
                     services.AddScoped<MainForm>();

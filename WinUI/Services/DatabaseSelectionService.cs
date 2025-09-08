@@ -2,6 +2,8 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Serilog;
+using WinUI.Models;
 
 namespace WinUI.Services;
 
@@ -10,43 +12,89 @@ public class DatabaseSelectionService : IDatabaseSelectionService
     private readonly string _filePath;
     private readonly string _apiSettingsPath;
 
+    public DatabaseSettings? Settings { get; private set; }
+
     public DatabaseSelectionService()
     {
         _filePath = Path.Combine(AppContext.BaseDirectory, "database.config");
         if (File.Exists(_filePath))
         {
-            SelectedServer = File.ReadAllText(_filePath).Trim();
+            try
+            {
+                var json = File.ReadAllText(_filePath);
+                Settings = JsonSerializer.Deserialize<DatabaseSettings>(json);
+            }
+            catch
+            {
+                // ignore parse errors
+            }
         }
 
         _apiSettingsPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
             "..", "..", "..", "..", "Api", "appsettings.json"));
     }
 
-    public string? SelectedServer { get; private set; }
-
-    public async Task SaveSelectedServerAsync(string server)
+    public async Task SaveDatabaseSettingsAsync(DatabaseSettings settings)
     {
-        SelectedServer = server;
-        await File.WriteAllTextAsync(_filePath, server);
+        Settings = settings;
+        var json = JsonSerializer.Serialize(settings);
+        await File.WriteAllTextAsync(_filePath, json);
 
         try
         {
             if (File.Exists(_apiSettingsPath))
             {
-                var json = await File.ReadAllTextAsync(_apiSettingsPath);
-                JsonNode? root = JsonNode.Parse(json);
-                if (root?["ConnectionStrings"] is JsonObject connStrings)
+                var apiJson = await File.ReadAllTextAsync(_apiSettingsPath);
+                JsonNode root = JsonNode.Parse(apiJson) ?? new JsonObject();
+
+                if (root["ConnectionStrings"] is not JsonObject connStrings)
                 {
-                    connStrings["Default"] =
-                        $"Server={server};Database=IBKSContext;User Id=sa;Password=atmaca123;TrustServerCertificate=True;";
-                    await File.WriteAllTextAsync(_apiSettingsPath,
-                        root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                    connStrings = new JsonObject();
+                    root["ConnectionStrings"] = connStrings;
                 }
+
+                string connectionString = BuildConnectionString(settings);
+                connStrings["Default"] = connectionString;
+
+                JsonObject serilog = root["Serilog"] as JsonObject ?? new JsonObject();
+                root["Serilog"] = serilog;
+
+                JsonObject minLevel = serilog["MinimumLevel"] as JsonObject ?? new JsonObject();
+                serilog["MinimumLevel"] = minLevel;
+                minLevel["Default"] = settings.LogLevel;
+
+                JsonArray writeTo = serilog["WriteTo"] as JsonArray ?? new JsonArray();
+                serilog["WriteTo"] = writeTo;
+                writeTo.Clear();
+                JsonObject sink = new JsonObject
+                {
+                    ["Name"] = "MSSqlServer",
+                    ["Args"] = new JsonObject
+                    {
+                        ["connectionString"] = connectionString,
+                        ["tableName"] = "Logs",
+                        ["autoCreateSqlTable"] = true
+                    }
+                };
+                writeTo.Add(sink);
+
+                await File.WriteAllTextAsync(_apiSettingsPath,
+                    root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
+            Log.Information("Database settings saved for server {Server}", settings.Server);
         }
-        catch
+        catch (Exception ex)
         {
-            // ignore errors updating API configuration
+            Log.Error(ex, "Failed to update API configuration");
         }
+    }
+
+    private static string BuildConnectionString(DatabaseSettings settings)
+    {
+        if (settings.Authentication == "SQL Server Authentication")
+        {
+            return $"Server={settings.Server};Database=IBKSContext;User Id={settings.Username};Password={settings.Password};TrustServerCertificate=True;";
+        }
+        return $"Server={settings.Server};Database=IBKSContext;Integrated Security=True;TrustServerCertificate=True;";
     }
 }

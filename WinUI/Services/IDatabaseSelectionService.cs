@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using WinUI.Models;
 
 namespace WinUI.Services;
 
 public interface IDatabaseSelectionService
 {
-    string? SelectedServer { get; }
-    Task SaveSelectedServerAsync(string server);
+    DatabaseSettings? Settings { get; }
+    Task SaveDatabaseSettingsAsync(DatabaseSettings settings);
 }

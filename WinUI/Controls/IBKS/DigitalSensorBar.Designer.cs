@@ -99,7 +99,7 @@
             LabelSystemStateTitle.Name = "LabelSystemStateTitle";
             LabelSystemStateTitle.Size = new Size(89, 14);
             LabelSystemStateTitle.TabIndex = 0;
-            LabelSystemStateTitle.Text = "SİSTEM DURUMU";
+            LabelSystemStateTitle.Text = "PLC DURUMU";
             // 
             // LabelSystemStateDescription
             // 
