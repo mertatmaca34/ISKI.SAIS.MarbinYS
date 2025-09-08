@@ -1,4 +1,4 @@
-namespace Application.Features.Logs.Dtos;
+namespace Api.Dtos;
 
 public class LogDto
 {
