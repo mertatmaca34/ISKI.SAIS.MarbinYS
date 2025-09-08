@@ -20,6 +20,8 @@ namespace WinUI.Pages
     public partial class ReportingPage : UserControl
     {
         private readonly ILogService _logService;
+        private DateTime _lastStart;
+        private DateTime _lastEnd;
 
         public ReportingPage(ILogService logService)
         {
@@ -86,6 +88,8 @@ namespace WinUI.Pages
             if (ComboBoxReportType.SelectedItem?.ToString() == "Kayıt")
             {
                 var logs = await _logService.GetLogsAsync(start, end, desc) ?? new List<LogDto>();
+                _lastStart = start;
+                _lastEnd = end;
                 DataGridViewDatas.AutoGenerateColumns = false;
                 DataGridViewDatas.Columns.Clear();
                 DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Seviye", DataPropertyName = nameof(LogDto.Level) });
@@ -101,7 +105,7 @@ namespace WinUI.Pages
                 return;
             using SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Excel Files|*.xlsx";
-            dialog.FileName = $"logs_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+            dialog.FileName = $"logs_{_lastStart:yyyyMMddHHmm}_{_lastEnd:yyyyMMddHHmm}.xlsx";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 using var workbook = new XLWorkbook();
@@ -116,6 +120,7 @@ namespace WinUI.Pages
                     ws.Cell(i + 2, 3).Value = logs[i].LoggedAt;
                 }
                 workbook.SaveAs(dialog.FileName);
+                MessageBox.Show("Excel raporu kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -125,7 +130,7 @@ namespace WinUI.Pages
                 return;
             using SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "PDF Files|*.pdf";
-            dialog.FileName = $"logs_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            dialog.FileName = $"logs_{_lastStart:yyyyMMddHHmm}_{_lastEnd:yyyyMMddHHmm}.pdf";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 QuestPDF.Settings.License = LicenseType.Community;
@@ -158,6 +163,7 @@ namespace WinUI.Pages
                         });
                     });
                 }).GeneratePdf(dialog.FileName);
+                MessageBox.Show("PDF raporu kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
