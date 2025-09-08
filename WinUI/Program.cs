@@ -96,6 +96,9 @@ namespace WinUI
                     });
 
                     services.AddHttpClient<ITicketService, TicketService>();
+
+                    services.AddSingleton<IDatabaseSearchEngine, SqlDatabaseSearchEngine>();
+                    services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                 });
     }
 }
