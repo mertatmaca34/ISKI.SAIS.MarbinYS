@@ -1,6 +1,8 @@
 using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WinUI.Models;
 
@@ -27,6 +29,11 @@ public class SqlDatabaseSearchEngine : IDatabaseSearchEngine
 
                 string full = string.IsNullOrEmpty(instance) ? server! : $"{server}\\{instance}";
                 servers.Add(full);
+            }
+
+            foreach (var localDb in GetLocalDbInstances())
+            {
+                servers.Add($"(localdb)\\{localDb}");
             }
 
             return (IEnumerable<string>)servers;
@@ -61,6 +68,34 @@ public class SqlDatabaseSearchEngine : IDatabaseSearchEngine
         catch
         {
             return null;
+        }
+    }
+
+    private static IEnumerable<string> GetLocalDbInstances()
+    {
+        try
+        {
+            var psi = new ProcessStartInfo("SqlLocalDB", "i")
+            {
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                return Array.Empty<string>();
+
+            var output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            var lines = output.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            return lines.Length > 0 ? lines : Array.Empty<string>();
+        }
+        catch
+        {
+            return Array.Empty<string>();
         }
     }
 }
