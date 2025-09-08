@@ -115,6 +115,23 @@ namespace WinUI
 
                     services.AddHttpClient<ITicketService, TicketService>();
 
+                    services.AddHttpClient<IAppLogService, AppLogService>(client =>
+                    {
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
+                        baseUrl = baseUrl.TrimEnd('/');
+                        client.BaseAddress = new Uri(baseUrl);
+                    })
+                    .ConfigurePrimaryHttpMessageHandler(() =>
+                    {
+                        var handler = new HttpClientHandler();
+                        if (context.HostingEnvironment.IsDevelopment())
+                        {
+                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                        }
+                        return handler;
+                    });
+
+
                     services.AddSingleton<IDatabaseSearchEngine, SqlDatabaseSearchEngine>();
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                     services.AddHostedService<TicketRefreshService>();

@@ -37,10 +37,7 @@ namespace WinUI.Pages
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel3 = new TableLayoutPanel();
             GroupBoxReportTypes = new GroupBox();
-            RadioButtonLogData = new RadioButton();
-            RadioButtonSampleData = new RadioButton();
-            RadioButtonCalibrationData = new RadioButton();
-            RadioButtonInstantData = new RadioButton();
+            ComboBoxReportType = new ComboBox();
             groupBox3 = new GroupBox();
             RadioButtonSortByLast = new RadioButton();
             RadioButtonSortByFirst = new RadioButton();
@@ -152,10 +149,7 @@ namespace WinUI.Pages
             // 
             // GroupBoxReportTypes
             // 
-            GroupBoxReportTypes.Controls.Add(RadioButtonLogData);
-            GroupBoxReportTypes.Controls.Add(RadioButtonSampleData);
-            GroupBoxReportTypes.Controls.Add(RadioButtonCalibrationData);
-            GroupBoxReportTypes.Controls.Add(RadioButtonInstantData);
+            GroupBoxReportTypes.Controls.Add(ComboBoxReportType);
             GroupBoxReportTypes.Dock = DockStyle.Fill;
             GroupBoxReportTypes.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
             GroupBoxReportTypes.Location = new Point(6, 6);
@@ -165,49 +159,15 @@ namespace WinUI.Pages
             GroupBoxReportTypes.TabStop = false;
             GroupBoxReportTypes.Text = "RAPOR TİPİ";
             // 
-            // RadioButtonLogData
-            // 
-            RadioButtonLogData.AutoSize = true;
-            RadioButtonLogData.Location = new Point(6, 47);
-            RadioButtonLogData.Name = "RadioButtonLogData";
-            RadioButtonLogData.Size = new Size(53, 19);
-            RadioButtonLogData.TabIndex = 2;
-            RadioButtonLogData.TabStop = true;
-            RadioButtonLogData.Text = "Kayıt";
-            RadioButtonLogData.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonSampleData
-            // 
-            RadioButtonSampleData.AutoSize = true;
-            RadioButtonSampleData.Location = new Point(88, 47);
-            RadioButtonSampleData.Name = "RadioButtonSampleData";
-            RadioButtonSampleData.Size = new Size(72, 19);
-            RadioButtonSampleData.TabIndex = 2;
-            RadioButtonSampleData.TabStop = true;
-            RadioButtonSampleData.Text = "Numune";
-            RadioButtonSampleData.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonCalibrationData
-            // 
-            RadioButtonCalibrationData.AutoSize = true;
-            RadioButtonCalibrationData.Location = new Point(88, 22);
-            RadioButtonCalibrationData.Name = "RadioButtonCalibrationData";
-            RadioButtonCalibrationData.Size = new Size(92, 19);
-            RadioButtonCalibrationData.TabIndex = 2;
-            RadioButtonCalibrationData.TabStop = true;
-            RadioButtonCalibrationData.Text = "Kalibrasyon";
-            RadioButtonCalibrationData.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonInstantData
-            // 
-            RadioButtonInstantData.AutoSize = true;
-            RadioButtonInstantData.Location = new Point(6, 22);
-            RadioButtonInstantData.Name = "RadioButtonInstantData";
-            RadioButtonInstantData.Size = new Size(62, 19);
-            RadioButtonInstantData.TabIndex = 2;
-            RadioButtonInstantData.TabStop = true;
-            RadioButtonInstantData.Text = "Ölçüm";
-            RadioButtonInstantData.UseVisualStyleBackColor = true;
+            // ComboBoxReportType
+            //
+            ComboBoxReportType.Dock = DockStyle.Top;
+            ComboBoxReportType.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxReportType.FormattingEnabled = true;
+            ComboBoxReportType.Location = new Point(6, 22);
+            ComboBoxReportType.Name = "ComboBoxReportType";
+            ComboBoxReportType.Size = new Size(188, 23);
+            ComboBoxReportType.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -521,37 +481,6 @@ namespace WinUI.Pages
             ResumeLayout(false);
         }
 
-        private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void RadioButtonMonthly_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void RadioButtonWeekly_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void RadioButtonDaily_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonGenerate_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonSaveAsExcel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonSaveAsPdf_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ReportingPage_Load(object sender, EventArgs e)
-        {
-        }
 
         #endregion
 
@@ -576,15 +505,12 @@ namespace WinUI.Pages
         private RadioButton RadioButtonSortByFirst;
         private RadioButton RadioButtonSortByLast;
         private GroupBox GroupBoxReportTypes;
-        private RadioButton RadioButtonLogData;
-        private RadioButton RadioButtonCalibrationData;
-        private RadioButton RadioButtonInstantData;
+        private ComboBox ComboBoxReportType;
         private TableLayoutPanel tableLayoutPanel4;
         private DataGridView DataGridViewDatas;
         private TableLayoutPanel tableLayoutPanel5;
         private TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Button ButtonSaveAsPdf;
         private System.Windows.Forms.Button ButtonSaveAsExcel;
-        private RadioButton RadioButtonSampleData;
     }
 }
