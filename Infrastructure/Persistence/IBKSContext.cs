@@ -23,7 +23,6 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
     public DbSet<AnalogSensorData> AnalogSensorData => Set<AnalogSensorData>();
     public DbSet<PlcInformation> PlcInformations => Set<PlcInformation>();
     public DbSet<Station> Stations => Set<Station>();
-    public DbSet<Log> Logs => Set<Log>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
