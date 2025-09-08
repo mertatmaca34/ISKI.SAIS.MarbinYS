@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Windows.Forms;
 using WinUI.Constants;
+using WinUI.Models;
 using WinUI.Services;
 
 namespace WinUI.Pages.Settings;
@@ -17,6 +18,7 @@ public partial class ApiSettingsPage : UserControl
     private readonly HttpClient _remoteClient;
     private readonly HttpClient _localClient;
     private readonly ITicketService _ticketService;
+    private readonly IStationService _stationService;
     private int? _apiEndpointId;
 
 
@@ -27,6 +29,7 @@ public partial class ApiSettingsPage : UserControl
         _apiEndpointService = Program.Services.GetRequiredService<IApiEndpointService>();
         _configuration = Program.Services.GetRequiredService<IConfiguration>();
         _ticketService = Program.Services.GetRequiredService<ITicketService>();
+        _stationService = Program.Services.GetRequiredService<IStationService>();
 
         var handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
@@ -127,16 +130,30 @@ public partial class ApiSettingsPage : UserControl
     {
         try
         {
+            await _ticketService.EnsureTicketAsync();
+
+            var station = await _stationService.GetFirstAsync();
+            if (station == null)
+            {
+                ResponseTextBox.Text = FormatContent("İstasyon bilgisi bulunamadı.");
+                return;
+            }
+
+            _remoteClient.DefaultRequestHeaders.Remove("AToken");
+            _remoteClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket }));
+
             var url = CombineUrl(ApiUrlTextBox.Text, "SAIS/SendDiagnostic");
             using var request = new HttpRequestMessage(HttpMethod.Post, url);
-            var body = new
+
+            var body = new ApiDiagnosticDto
             {
-                stationId = "1",
-                ticket = StationConstants.Ticket,
-                desc = "Deneme",
-                stationAlarmId = "0",
-                diagnosticDate = DateTime.Now.ToString("s")
+                startDate = DateTime.Now,
+                endDate = DateTime.Now,
+                stationId = station.StationId,
+                details = "Deneme",
+                diagnosticTypeNo = 0
             };
+
             request.Content = JsonContent.Create(body);
             using var response = await _remoteClient.SendAsync(request);
             var content = await response.Content.ReadAsStringAsync();
