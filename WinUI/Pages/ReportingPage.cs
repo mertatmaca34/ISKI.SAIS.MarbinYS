@@ -92,8 +92,10 @@ namespace WinUI.Pages
                 _lastEnd = end;
                 DataGridViewDatas.AutoGenerateColumns = false;
                 DataGridViewDatas.Columns.Clear();
+                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Id", DataPropertyName = nameof(LogDto.Id) });
                 DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Seviye", DataPropertyName = nameof(LogDto.Level) });
                 DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Mesaj", DataPropertyName = nameof(LogDto.Message) });
+                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Hata", DataPropertyName = nameof(LogDto.Exception) });
                 DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Tarih", DataPropertyName = nameof(LogDto.LoggedAt) });
                 DataGridViewDatas.DataSource = logs;
             }
@@ -110,14 +112,18 @@ namespace WinUI.Pages
             {
                 using var workbook = new XLWorkbook();
                 var ws = workbook.Worksheets.Add("Logs");
-                ws.Cell(1, 1).Value = "Seviye";
-                ws.Cell(1, 2).Value = "Mesaj";
-                ws.Cell(1, 3).Value = "Tarih";
+                ws.Cell(1, 1).Value = "Id";
+                ws.Cell(1, 2).Value = "Seviye";
+                ws.Cell(1, 3).Value = "Mesaj";
+                ws.Cell(1, 4).Value = "Hata";
+                ws.Cell(1, 5).Value = "Tarih";
                 for (int i = 0; i < logs.Count; i++)
                 {
-                    ws.Cell(i + 2, 1).Value = logs[i].Level;
-                    ws.Cell(i + 2, 2).Value = logs[i].Message;
-                    ws.Cell(i + 2, 3).Value = logs[i].LoggedAt;
+                    ws.Cell(i + 2, 1).Value = logs[i].Id;
+                    ws.Cell(i + 2, 2).Value = logs[i].Level;
+                    ws.Cell(i + 2, 3).Value = logs[i].Message;
+                    ws.Cell(i + 2, 4).Value = logs[i].Exception;
+                    ws.Cell(i + 2, 5).Value = logs[i].LoggedAt;
                 }
                 workbook.SaveAs(dialog.FileName);
                 MessageBox.Show("Excel raporu kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -144,20 +150,26 @@ namespace WinUI.Pages
                         {
                             table.ColumnsDefinition(columns =>
                             {
+                                columns.ConstantColumn(50);
                                 columns.ConstantColumn(80);
+                                columns.RelativeColumn();
                                 columns.RelativeColumn();
                                 columns.ConstantColumn(150);
                             });
                             table.Header(header =>
                             {
+                                header.Cell().Element(CellStyle).Text("Id");
                                 header.Cell().Element(CellStyle).Text("Seviye");
                                 header.Cell().Element(CellStyle).Text("Mesaj");
+                                header.Cell().Element(CellStyle).Text("Hata");
                                 header.Cell().Element(CellStyle).Text("Tarih");
                             });
                             foreach (var log in logs)
                             {
+                                table.Cell().Element(CellStyle).Text(log.Id.ToString());
                                 table.Cell().Element(CellStyle).Text(log.Level);
                                 table.Cell().Element(CellStyle).Text(log.Message);
+                                table.Cell().Element(CellStyle).Text(log.Exception);
                                 table.Cell().Element(CellStyle).Text(log.LoggedAt.ToString("g"));
                             }
                         });
