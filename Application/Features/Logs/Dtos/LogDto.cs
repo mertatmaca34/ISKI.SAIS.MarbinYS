@@ -1,11 +1,9 @@
-using Domain.Enums;
+namespace Application.Features.Logs.Dtos;
 
-namespace Application.Features.AppLogs.Dtos;
-
-public class AppLogDto
+public class LogDto
 {
     public int Id { get; set; }
-    public LogLevel Level { get; set; }
+    public string Level { get; set; } = string.Empty;
     public string Message { get; set; } = string.Empty;
     public string? Exception { get; set; }
     public DateTime LoggedAt { get; set; }

@@ -115,7 +115,7 @@ namespace WinUI
 
                     services.AddHttpClient<ITicketService, TicketService>();
 
-                    services.AddHttpClient<IAppLogService, AppLogService>(client =>
+                    services.AddHttpClient<ILogService, LogService>(client =>
                     {
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
                         baseUrl = baseUrl.TrimEnd('/');

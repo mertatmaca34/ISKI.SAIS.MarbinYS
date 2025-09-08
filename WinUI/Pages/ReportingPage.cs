@@ -18,11 +18,11 @@ namespace WinUI.Pages
 {
     public partial class ReportingPage : UserControl
     {
-        private readonly IAppLogService _appLogService;
+        private readonly ILogService _logService;
 
-        public ReportingPage(IAppLogService appLogService)
+        public ReportingPage(ILogService logService)
         {
-            _appLogService = appLogService;
+            _logService = logService;
             InitializeComponent();
         }
 
@@ -84,19 +84,19 @@ namespace WinUI.Pages
 
             if (ComboBoxReportType.SelectedItem?.ToString() == "Kayıt")
             {
-                var logs = await _appLogService.GetLogsAsync(start, end, desc) ?? new List<AppLogDto>();
+                var logs = await _logService.GetLogsAsync(start, end, desc) ?? new List<LogDto>();
                 DataGridViewDatas.AutoGenerateColumns = false;
                 DataGridViewDatas.Columns.Clear();
-                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Seviye", DataPropertyName = nameof(AppLogDto.Level) });
-                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Mesaj", DataPropertyName = nameof(AppLogDto.Message) });
-                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Tarih", DataPropertyName = nameof(AppLogDto.LoggedAt) });
+                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Seviye", DataPropertyName = nameof(LogDto.Level) });
+                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Mesaj", DataPropertyName = nameof(LogDto.Message) });
+                DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Tarih", DataPropertyName = nameof(LogDto.LoggedAt) });
                 DataGridViewDatas.DataSource = logs;
             }
         }
 
         private void ButtonSaveAsExcel_Click(object sender, EventArgs e)
         {
-            if (DataGridViewDatas.DataSource is not List<AppLogDto> logs || logs.Count == 0)
+            if (DataGridViewDatas.DataSource is not List<LogDto> logs || logs.Count == 0)
                 return;
             using SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Excel Files|*.xlsx";
@@ -110,7 +110,7 @@ namespace WinUI.Pages
                 ws.Cell(1, 3).Value = "Tarih";
                 for (int i = 0; i < logs.Count; i++)
                 {
-                    ws.Cell(i + 2, 1).Value = logs[i].Level.ToString();
+                    ws.Cell(i + 2, 1).Value = logs[i].Level;
                     ws.Cell(i + 2, 2).Value = logs[i].Message;
                     ws.Cell(i + 2, 3).Value = logs[i].LoggedAt;
                 }
@@ -120,7 +120,7 @@ namespace WinUI.Pages
 
         private void ButtonSaveAsPdf_Click(object sender, EventArgs e)
         {
-            if (DataGridViewDatas.DataSource is not List<AppLogDto> logs || logs.Count == 0)
+            if (DataGridViewDatas.DataSource is not List<LogDto> logs || logs.Count == 0)
                 return;
             using SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "PDF Files|*.pdf";
@@ -150,7 +150,7 @@ namespace WinUI.Pages
                             });
                             foreach (var log in logs)
                             {
-                                table.Cell().Element(CellStyle).Text(log.Level.ToString());
+                                table.Cell().Element(CellStyle).Text(log.Level);
                                 table.Cell().Element(CellStyle).Text(log.Message);
                                 table.Cell().Element(CellStyle).Text(log.LoggedAt.ToString("g"));
                             }

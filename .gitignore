@@ -32,6 +32,8 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+!Application/Features/Logs/
+!Application/Features/Logs/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
