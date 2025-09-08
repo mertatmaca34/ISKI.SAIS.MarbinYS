@@ -10,6 +10,7 @@ namespace Infrastructure.Persistence;
 
 public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(options)
 {
+    public DbSet<Log> Logs => Set<Log>();
     public DbSet<MailLog> MailLogs => Set<MailLog>();
     public DbSet<MailSetting> MailSettings => Set<MailSetting>();
     public DbSet<MailTrigger> MailTriggers  => Set<MailTrigger>();
