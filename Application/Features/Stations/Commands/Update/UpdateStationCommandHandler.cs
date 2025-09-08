@@ -5,6 +5,7 @@ using Domain.Entities;
 using Infrastructure.Persistence.Abstract;
 using Serilog;
 using MediatR;
+using Log = Serilog.Log;
 
 namespace Application.Features.Stations.Commands.Update;
 
