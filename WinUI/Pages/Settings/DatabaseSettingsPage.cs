@@ -26,14 +26,31 @@ namespace WinUI.Pages.Settings
         {
             await LoadSqlInstancesAsync();
 
-            if (_selectionService.SelectedServer != null)
+            var settings = _selectionService.Settings;
+            if (settings != null)
             {
-                int index = ServerAddressComboBox.Items.IndexOf(_selectionService.SelectedServer);
+                int index = ServerAddressComboBox.Items.IndexOf(settings.Server);
                 if (index >= 0)
                 {
                     ServerAddressComboBox.SelectedIndex = index;
                 }
+                AuthMethodComboBox.SelectedItem = settings.Authentication;
+                UsernameTextBox.Text = settings.Username ?? string.Empty;
+                PasswordTextBox.Text = settings.Password ?? string.Empty;
+                LogLevelComboBox.SelectedItem = settings.LogLevel switch
+                {
+                    "Warning" => "Uyarı",
+                    "Error" => "Hata",
+                    _ => "Bilgi"
+                };
             }
+            else
+            {
+                AuthMethodComboBox.SelectedIndex = 0;
+                LogLevelComboBox.SelectedIndex = 0;
+            }
+
+            UpdateAuthFields();
         }
 
         private async Task LoadSqlInstancesAsync()
@@ -99,11 +116,36 @@ namespace WinUI.Pages.Settings
             }
         }
 
+        private void AuthMethodComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            UpdateAuthFields();
+        }
+
+        private void UpdateAuthFields()
+        {
+            bool sqlAuth = AuthMethodComboBox.SelectedItem?.ToString() == "SQL Server Authentication";
+            UsernameTextBox.Enabled = sqlAuth;
+            PasswordTextBox.Enabled = sqlAuth;
+        }
+
         private async void SaveDatabaseButton_Click(object? sender, EventArgs e)
         {
             if (ServerAddressComboBox.SelectedItem is string server)
             {
-                await _selectionService.SaveSelectedServerAsync(server);
+                var settings = new DatabaseSettings
+                {
+                    Server = server,
+                    Authentication = AuthMethodComboBox.SelectedItem?.ToString() ?? "Windows Authentication",
+                    Username = UsernameTextBox.Text,
+                    Password = PasswordTextBox.Text,
+                    LogLevel = LogLevelComboBox.SelectedItem?.ToString() switch
+                    {
+                        "Uyarı" => "Warning",
+                        "Hata" => "Error",
+                        _ => "Information"
+                    }
+                };
+                await _selectionService.SaveDatabaseSettingsAsync(settings);
                 MessageBox.Show("Veritabanı ayarları kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

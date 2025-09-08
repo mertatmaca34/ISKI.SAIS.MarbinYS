@@ -48,6 +48,12 @@
             ServerAddressComboBox = new ComboBox();
             LogLevelLabel = new Label();
             LogLevelComboBox = new ComboBox();
+            AuthMethodLabel = new Label();
+            AuthMethodComboBox = new ComboBox();
+            UsernameLabel = new Label();
+            UsernameTextBox = new TextBox();
+            PasswordLabel = new Label();
+            PasswordTextBox = new TextBox();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
             StationSettingsContentTableLayoutPanel.SuspendLayout();
             DatabaseInfoHeaderTableLayoutPanel.SuspendLayout();
@@ -279,6 +285,12 @@
             StationInfoContentTableLayoutPanel.Controls.Add(ServerAddressComboBox, 1, 0);
             StationInfoContentTableLayoutPanel.Controls.Add(LogLevelLabel, 0, 1);
             StationInfoContentTableLayoutPanel.Controls.Add(LogLevelComboBox, 1, 1);
+            StationInfoContentTableLayoutPanel.Controls.Add(AuthMethodLabel, 0, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(AuthMethodComboBox, 1, 2);
+            StationInfoContentTableLayoutPanel.Controls.Add(UsernameLabel, 0, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(UsernameTextBox, 1, 3);
+            StationInfoContentTableLayoutPanel.Controls.Add(PasswordLabel, 0, 4);
+            StationInfoContentTableLayoutPanel.Controls.Add(PasswordTextBox, 1, 4);
             StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
             StationInfoContentTableLayoutPanel.Location = new Point(1, 1);
             StationInfoContentTableLayoutPanel.Margin = new Padding(1);
@@ -337,7 +349,7 @@
             LogLevelLabel.Text = "Log Seviyesi";
             // 
             // LogLevelComboBox
-            // 
+            //
             LogLevelComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             LogLevelComboBox.FormattingEnabled = true;
             LogLevelComboBox.Items.AddRange(new object[] { "Bilgi", "Uyarı", "Hata" });
@@ -345,6 +357,70 @@
             LogLevelComboBox.Name = "LogLevelComboBox";
             LogLevelComboBox.Size = new Size(288, 23);
             LogLevelComboBox.TabIndex = 3;
+            //
+            // AuthMethodLabel
+            //
+            AuthMethodLabel.Anchor = AnchorStyles.Left;
+            AuthMethodLabel.AutoSize = true;
+            AuthMethodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            AuthMethodLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            AuthMethodLabel.Location = new Point(18, 84);
+            AuthMethodLabel.Name = "AuthMethodLabel";
+            AuthMethodLabel.Size = new Size(119, 16);
+            AuthMethodLabel.TabIndex = 4;
+            AuthMethodLabel.Text = "Oturum Açma";
+            //
+            // AuthMethodComboBox
+            //
+            AuthMethodComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            AuthMethodComboBox.FormattingEnabled = true;
+            AuthMethodComboBox.Items.AddRange(new object[] { "Windows Authentication", "SQL Server Authentication" });
+            AuthMethodComboBox.Location = new Point(234, 80);
+            AuthMethodComboBox.Name = "AuthMethodComboBox";
+            AuthMethodComboBox.Size = new Size(288, 23);
+            AuthMethodComboBox.TabIndex = 5;
+            AuthMethodComboBox.SelectedIndexChanged += AuthMethodComboBox_SelectedIndexChanged;
+            //
+            // UsernameLabel
+            //
+            UsernameLabel.Anchor = AnchorStyles.Left;
+            UsernameLabel.AutoSize = true;
+            UsernameLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            UsernameLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            UsernameLabel.Location = new Point(18, 115);
+            UsernameLabel.Name = "UsernameLabel";
+            UsernameLabel.Size = new Size(86, 16);
+            UsernameLabel.TabIndex = 6;
+            UsernameLabel.Text = "Kullanıcı Adı";
+            //
+            // UsernameTextBox
+            //
+            UsernameTextBox.Enabled = false;
+            UsernameTextBox.Location = new Point(234, 112);
+            UsernameTextBox.Name = "UsernameTextBox";
+            UsernameTextBox.Size = new Size(288, 23);
+            UsernameTextBox.TabIndex = 7;
+            //
+            // PasswordLabel
+            //
+            PasswordLabel.Anchor = AnchorStyles.Left;
+            PasswordLabel.AutoSize = true;
+            PasswordLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            PasswordLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            PasswordLabel.Location = new Point(18, 146);
+            PasswordLabel.Name = "PasswordLabel";
+            PasswordLabel.Size = new Size(44, 16);
+            PasswordLabel.TabIndex = 8;
+            PasswordLabel.Text = "Şifre";
+            //
+            // PasswordTextBox
+            //
+            PasswordTextBox.Enabled = false;
+            PasswordTextBox.Location = new Point(234, 143);
+            PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.PasswordChar = '*';
+            PasswordTextBox.Size = new Size(288, 23);
+            PasswordTextBox.TabIndex = 9;
             // 
             // DatabaseSettingsPage
             // 
@@ -388,5 +464,11 @@
         private ComboBox ServerAddressComboBox;
         private Label LogLevelLabel;
         private ComboBox LogLevelComboBox;
+        private Label AuthMethodLabel;
+        private ComboBox AuthMethodComboBox;
+        private Label UsernameLabel;
+        private TextBox UsernameTextBox;
+        private Label PasswordLabel;
+        private TextBox PasswordTextBox;
     }
 }
