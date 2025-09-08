@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using WinUI.Helpers;
 using WinUI.Pages.Settings;
+using Microsoft.Extensions.DependencyInjection;
+using WinUI.Services;
 
 namespace WinUI.Pages;
 
@@ -70,7 +72,9 @@ public partial class SettingsPage : UserControl
 
     private void DatabaseButton_Click(object sender, EventArgs e)
     {
-        PageManager.ShowPage(this.PanelContent, new DatabaseSettingsPage());
+        var searchEngine = Program.Services!.GetRequiredService<IDatabaseSearchEngine>();
+        var selectionService = Program.Services!.GetRequiredService<IDatabaseSelectionService>();
+        PageManager.ShowPage(this.PanelContent, new DatabaseSettingsPage(searchEngine, selectionService));
     }
 
     private void ApiButton_Click(object sender, EventArgs e)

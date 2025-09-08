@@ -1,34 +1,53 @@
-﻿using System;
-using System.Data;
-using System.Data.Sql;
-using System.Data.SqlClient;
+using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinUI.Models;
+using WinUI.Services;
 
 namespace WinUI.Pages.Settings
 {
     public partial class DatabaseSettingsPage : UserControl
     {
-        public DatabaseSettingsPage()
+        private readonly IDatabaseSearchEngine _searchEngine;
+        private readonly IDatabaseSelectionService _selectionService;
+
+        public DatabaseSettingsPage(IDatabaseSearchEngine searchEngine, IDatabaseSelectionService selectionService)
         {
+            _searchEngine = searchEngine;
+            _selectionService = selectionService;
+
             InitializeComponent();
-            LoadSqlInstances();
+            this.Load += DatabaseSettingsPage_Load;
             RefreshDatabaseInfoButton.Click += RefreshDatabaseInfoButton_Click;
+            SaveDatabaseButton.Click += SaveDatabaseButton_Click;
         }
 
-        private void LoadSqlInstances()
+        private async void DatabaseSettingsPage_Load(object? sender, EventArgs e)
         {
+            await LoadSqlInstancesAsync();
+
+            if (_selectionService.SelectedServer != null)
+            {
+                int index = ServerAddressComboBox.Items.IndexOf(_selectionService.SelectedServer);
+                if (index >= 0)
+                {
+                    ServerAddressComboBox.SelectedIndex = index;
+                }
+            }
+        }
+
+        private async Task LoadSqlInstancesAsync()
+        {
+            ServerAddressComboBox.Items.Clear();
             try
             {
-                DataTable servers = SqlDataSourceEnumerator.Instance.GetDataSources();
-                foreach (DataRow row in servers.Rows)
+                var servers = await _searchEngine.SearchServersAsync();
+                foreach (var server in servers)
                 {
-                    string server = row["ServerName"].ToString();
-                    string instance = row["InstanceName"].ToString();
-                    string fullName = string.IsNullOrEmpty(instance) ? server : $"{server}\\{instance}";
-                    ServerAddressComboBox.Items.Add(fullName);
+                    ServerAddressComboBox.Items.Add(server);
                 }
 
-                if (ServerAddressComboBox.Items.Count > 0)
+                if (ServerAddressComboBox.Items.Count > 0 && ServerAddressComboBox.SelectedIndex == -1)
                 {
                     ServerAddressComboBox.SelectedIndex = 0;
                 }
@@ -39,47 +58,43 @@ namespace WinUI.Pages.Settings
             }
         }
 
-        private void ServerAddressComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+        private async void ServerAddressComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            LoadDatabaseInfo();
+            await LoadDatabaseInfoAsync();
         }
 
-        private void RefreshDatabaseInfoButton_Click(object? sender, EventArgs e)
+        private async void RefreshDatabaseInfoButton_Click(object? sender, EventArgs e)
         {
-            LoadDatabaseInfo();
+            await LoadDatabaseInfoAsync();
         }
 
-        private void LoadDatabaseInfo()
+        private async Task LoadDatabaseInfoAsync()
         {
             if (ServerAddressComboBox.SelectedItem == null)
                 return;
 
             string server = ServerAddressComboBox.SelectedItem.ToString()!;
 
-            try
+            DatabaseInfo? info = await _searchEngine.GetDatabaseInfoAsync(server);
+            if (info != null)
             {
-                using SqlConnection connection = new($"Server={server};Integrated Security=true;");
-                connection.Open();
-                ConnectedServerTextBox.Text = server;
-
-                using SqlCommand command = new("SELECT DB_NAME(); SELECT SUM(size)*8/1024 FROM sys.database_files", connection);
-                using SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    DatabaseNameTextBox.Text = reader.GetString(0);
-                }
-
-                if (reader.NextResult() && reader.Read())
-                {
-                    StorageUsageTextBox.Text = reader.GetInt32(0) + " MB";
-                }
+                ConnectedServerTextBox.Text = info.Server;
+                DatabaseNameTextBox.Text = info.DatabaseName ?? string.Empty;
+                StorageUsageTextBox.Text = info.StorageUsageMb.HasValue ? $"{info.StorageUsageMb} MB" : string.Empty;
             }
-            catch
+            else
             {
                 ConnectedServerTextBox.Text = string.Empty;
                 DatabaseNameTextBox.Text = string.Empty;
                 StorageUsageTextBox.Text = string.Empty;
+            }
+        }
+
+        private async void SaveDatabaseButton_Click(object? sender, EventArgs e)
+        {
+            if (ServerAddressComboBox.SelectedItem is string server)
+            {
+                await _selectionService.SaveSelectedServerAsync(server);
             }
         }
     }
