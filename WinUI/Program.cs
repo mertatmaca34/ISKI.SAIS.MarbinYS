@@ -119,5 +119,6 @@ namespace WinUI
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                     services.AddHostedService<TicketRefreshService>();
                 });
+        }
     }
 }
