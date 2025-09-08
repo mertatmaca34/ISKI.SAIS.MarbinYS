@@ -24,16 +24,10 @@ namespace WinUI.Pages.Settings
 
         private async void DatabaseSettingsPage_Load(object? sender, EventArgs e)
         {
-            await LoadSqlInstancesAsync();
-
             var settings = _selectionService.Settings;
             if (settings != null)
             {
-                int index = ServerAddressComboBox.Items.IndexOf(settings.Server);
-                if (index >= 0)
-                {
-                    ServerAddressComboBox.SelectedIndex = index;
-                }
+                ServerAddressComboBox.Text = settings.Server;
                 AuthMethodComboBox.SelectedItem = settings.Authentication;
                 UsernameTextBox.Text = settings.Username ?? string.Empty;
                 PasswordTextBox.Text = settings.Password ?? string.Empty;
@@ -43,6 +37,8 @@ namespace WinUI.Pages.Settings
                     "Error" => "Hata",
                     _ => "Bilgi"
                 };
+
+                await LoadDatabaseInfoAsync(settings.Server);
             }
             else
             {
@@ -51,13 +47,23 @@ namespace WinUI.Pages.Settings
             }
 
             UpdateAuthFields();
+            await LoadSqlInstancesAsync(settings?.Server);
         }
 
-        private async Task LoadSqlInstancesAsync()
+        private async Task LoadSqlInstancesAsync(string? selectedServer)
         {
+            string? currentText = selectedServer ?? ServerAddressComboBox.Text;
             ServerAddressComboBox.Items.Clear();
+            if (string.IsNullOrEmpty(currentText))
+            {
+                ServerAddressComboBox.Items.Add("Veritabanları aranıyor...");
+                ServerAddressComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                ServerAddressComboBox.Text = currentText;
+            }
             ServerAddressComboBox.Enabled = false;
-            ServerAddressComboBox.Items.Add("Veritabanları aranıyor...");
 
             try
             {
@@ -69,9 +75,17 @@ namespace WinUI.Pages.Settings
                     ServerAddressComboBox.Items.Add(server);
                 }
 
-                if (ServerAddressComboBox.Items.Count > 0)
+                if (!string.IsNullOrEmpty(currentText))
                 {
-                    ServerAddressComboBox.SelectedIndex = 0;
+                    int index = ServerAddressComboBox.Items.IndexOf(currentText);
+                    if (index >= 0)
+                    {
+                        ServerAddressComboBox.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        ServerAddressComboBox.Text = currentText;
+                    }
                 }
             }
             catch
@@ -94,12 +108,11 @@ namespace WinUI.Pages.Settings
             await LoadDatabaseInfoAsync();
         }
 
-        private async Task LoadDatabaseInfoAsync()
+        private async Task LoadDatabaseInfoAsync(string? server = null)
         {
-            if (ServerAddressComboBox.SelectedItem == null)
+            server ??= ServerAddressComboBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(server))
                 return;
-
-            string server = ServerAddressComboBox.SelectedItem.ToString()!;
 
             DatabaseInfo? info = await _searchEngine.GetDatabaseInfoAsync(server);
             if (info != null)
