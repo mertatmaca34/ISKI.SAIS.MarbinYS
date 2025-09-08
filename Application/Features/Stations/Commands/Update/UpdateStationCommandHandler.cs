@@ -1,3 +1,4 @@
+using System;
 using Application.Features.Stations.Dtos;
 using AutoMapper;
 using Domain.Entities;
@@ -16,9 +17,9 @@ public class UpdateStationCommandHandler(
     {
         try
         {
-            var entity = await repository.GetByIdAsync(request.Id);
+            var entity = await repository.GetAsync(x => x.StationId == request.StationId);
             if (entity is null)
-                throw new KeyNotFoundException($"Station {request.Id} not found");
+                throw new KeyNotFoundException($"Station {request.StationId} not found");
 
             mapper.Map(request, entity);
             entity = await repository.UpdateAsync(entity);

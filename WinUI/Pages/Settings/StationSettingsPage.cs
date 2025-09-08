@@ -43,16 +43,19 @@ public partial class StationSettingsPage : UserControl
         }
 
         var existing = await _stationService.GetFirstAsync();
+
+        int? connectionPort = int.TryParse(ConnectionPortTextBox.Text, out var cp) ? cp : null;
+
         if (existing == null)
         {
             var command = new CreateStationCommand(
                 stationId,
                 stationId.ToString(),
                 stationId.ToString(),
-                1,
+                (short)1,
                 DateTime.Now,
                 ConnectionDomainAddressTextBox.Text,
-                ConnectionPortTextBox.Text,
+                connectionPort,
                 ConnectionUserTextBox.Text,
                 ConnectionPasswordTextBox.Text,
                 string.Empty,
@@ -70,14 +73,13 @@ public partial class StationSettingsPage : UserControl
         else
         {
             var command = new UpdateStationCommand(
-                existing.Id,
                 existing.StationId,
                 existing.Code,
                 existing.Name,
                 existing.DataPeriodMinute,
                 existing.LastDataDate,
                 ConnectionDomainAddressTextBox.Text,
-                ConnectionPortTextBox.Text,
+                connectionPort,
                 ConnectionUserTextBox.Text,
                 ConnectionPasswordTextBox.Text,
                 existing.Company,
@@ -107,7 +109,6 @@ public partial class StationSettingsPage : UserControl
         if (info != null)
         {
             var command = new UpdateStationCommand(
-                station.Id,
                 station.StationId,
                 info.Code,
                 info.Name,
@@ -132,15 +133,15 @@ public partial class StationSettingsPage : UserControl
         StationIdTextBox.Text = station.StationId.ToString();
         CodeTextBox.Text = station.Code;
         StationNameTextBox.Text = station.Name;
-        DataPeriodTextBox.Text = station.DataPeriodMinute.ToString();
-        LastDataDateTextBox.Text = station.LastDataDate.ToString("s");
+        DataPeriodTextBox.Text = station.DataPeriodMinute?.ToString() ?? string.Empty;
+        LastDataDateTextBox.Text = station.LastDataDate?.ToString("s") ?? string.Empty;
         CabinSoftwareAddressTextBox.Text = station.ConnectionDomainAddress;
-        CabinSoftwarePortTextBox.Text = station.ConnectionPort;
+        CabinSoftwarePortTextBox.Text = station.ConnectionPort?.ToString() ?? string.Empty;
         CabinSoftwareUsernameTextBox.Text = station.ConnectionUser;
         CabinSoftwarePasswordTextBox.Text = station.ConnectionPassword;
         OrganizationTextBox.Text = station.Company;
-        StationSetupDateTextBox.Text = station.BirtDate.ToString("d");
-        SoftwareSetupDateTextBox.Text = station.SetupDate.ToString("d");
+        StationSetupDateTextBox.Text = station.BirtDate?.ToString("d") ?? string.Empty;
+        SoftwareSetupDateTextBox.Text = station.SetupDate?.ToString("d") ?? string.Empty;
         StationAddressTextBox.Text = station.Address;
         SoftwareTextBox.Text = station.Software;
     }
@@ -149,7 +150,7 @@ public partial class StationSettingsPage : UserControl
     {
         StationIdSettingTextBox.Text = station.StationId.ToString();
         ConnectionDomainAddressTextBox.Text = station.ConnectionDomainAddress;
-        ConnectionPortTextBox.Text = station.ConnectionPort;
+        ConnectionPortTextBox.Text = station.ConnectionPort?.ToString() ?? string.Empty;
         ConnectionUserTextBox.Text = station.ConnectionUser;
         ConnectionPasswordTextBox.Text = station.ConnectionPassword;
     }

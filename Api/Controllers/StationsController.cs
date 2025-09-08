@@ -1,5 +1,6 @@
 using Application.Features.Stations.Commands.Create;
 using Application.Features.Stations.Commands.Delete;
+using System;
 using Application.Features.Stations.Commands.Update;
 using Application.Features.Stations.Queries.GetList;
 using Application.Features.Stations.Queries.GetById;
@@ -35,10 +36,10 @@ public class StationsController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateStationCommand command)
+    [HttpPut("{stationId}")]
+    public async Task<IActionResult> Update(Guid stationId, UpdateStationCommand command)
     {
-        if (id != command.Id)
+        if (stationId != command.StationId)
             return BadRequest();
         var result = await mediator.Send(command);
         return Ok(result);
