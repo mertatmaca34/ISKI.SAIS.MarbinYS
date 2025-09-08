@@ -64,6 +64,8 @@ namespace WinUI.Pages.Settings
                 ServerAddressComboBox.Text = currentText;
             }
             ServerAddressComboBox.Enabled = false;
+            SaveDatabaseButton.Enabled = false;
+            SaveDatabaseButton.Text = "Lütfen bekleyin";
 
             try
             {
@@ -95,6 +97,8 @@ namespace WinUI.Pages.Settings
             finally
             {
                 ServerAddressComboBox.Enabled = true;
+                SaveDatabaseButton.Text = "Kaydet";
+                SaveDatabaseButton.Enabled = true;
             }
         }
 
