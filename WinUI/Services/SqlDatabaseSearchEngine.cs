@@ -1,7 +1,6 @@
+using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Sql;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 using WinUI.Models;
 
@@ -14,14 +13,22 @@ public class SqlDatabaseSearchEngine : IDatabaseSearchEngine
         return await Task.Run(() =>
         {
             var servers = new List<string>();
-            DataTable table = SqlDataSourceEnumerator.Instance.GetDataSources();
+
+            // Microsoft.Data.Sql: SqlDataSourceEnumerator
+            DataTable table = Microsoft.Data.Sql.SqlDataSourceEnumerator.Instance.GetDataSources();
+
             foreach (DataRow row in table.Rows)
             {
-                string server = row["ServerName"].ToString()!;
-                string instance = row["InstanceName"].ToString();
-                string full = string.IsNullOrEmpty(instance) ? server : $"{server}\\{instance}";
+                var server = row["ServerName"]?.ToString();
+                var instance = row.IsNull("InstanceName") ? null : row["InstanceName"]?.ToString();
+
+                if (string.IsNullOrWhiteSpace(server))
+                    continue;
+
+                string full = string.IsNullOrEmpty(instance) ? server! : $"{server}\\{instance}";
                 servers.Add(full);
             }
+
             return (IEnumerable<string>)servers;
         });
     }
@@ -30,26 +37,26 @@ public class SqlDatabaseSearchEngine : IDatabaseSearchEngine
     {
         try
         {
-            using SqlConnection connection = new($"Server={server};Integrated Security=true;");
+            await using var connection = new SqlConnection(
+                $"Server={server};Integrated Security=True;TrustServerCertificate=True;");
+
             await connection.OpenAsync();
 
-            using SqlCommand command = new("SELECT DB_NAME(); SELECT SUM(size)*8/1024 FROM sys.database_files", connection);
-            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            await using var command = new SqlCommand(
+                "SELECT DB_NAME(); SELECT SUM(size)*8/1024 FROM sys.database_files;", connection);
+
+            await using var reader = await command.ExecuteReaderAsync();
 
             string? databaseName = null;
-            int? size = null;
+            int? sizeMb = null;
 
-            if (await reader.ReadAsync())
-            {
+            if (await reader.ReadAsync() && !reader.IsDBNull(0))
                 databaseName = reader.GetString(0);
-            }
 
-            if (await reader.NextResultAsync() && await reader.ReadAsync())
-            {
-                size = reader.GetInt32(0);
-            }
+            if (await reader.NextResultAsync() && await reader.ReadAsync() && !reader.IsDBNull(0))
+                sizeMb = reader.GetInt32(0); // toplam boyut (MB)
 
-            return new DatabaseInfo(server, databaseName, size);
+            return new DatabaseInfo(server, databaseName, sizeMb);
         }
         catch
         {
