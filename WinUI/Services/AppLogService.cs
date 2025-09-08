@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http.Json;
 using WinUI.Models;
 
@@ -13,7 +14,9 @@ public class AppLogService(HttpClient httpClient) : IAppLogService
     public async Task<List<AppLogDto>?> GetLogsAsync(DateTime start, DateTime end, bool descending)
     {
         string orderParam = descending ? "true" : "false";
-        string url = $"api/applogs?startDate={start:o}&endDate={end:o}&descending={orderParam}";
+        string startParam = Uri.EscapeDataString(start.ToString("o"));
+        string endParam = Uri.EscapeDataString(end.ToString("o"));
+        string url = $"api/applogs?startDate={startParam}&endDate={endParam}&descending={orderParam}";
         return await httpClient.GetFromJsonAsync<List<AppLogDto>>(url);
     }
 }
