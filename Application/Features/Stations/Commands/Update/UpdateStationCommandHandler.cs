@@ -2,15 +2,14 @@ using System;
 using Application.Features.Stations.Dtos;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Enums;
 using Infrastructure.Persistence.Abstract;
+using Serilog;
 using MediatR;
 
 namespace Application.Features.Stations.Commands.Update;
 
 public class UpdateStationCommandHandler(
     IStationRepository repository,
-    IAppLogRepository logRepository,
     IMapper mapper) : IRequestHandler<UpdateStationCommand, StationDto>
 {
     public async Task<StationDto> Handle(UpdateStationCommand request, CancellationToken cancellationToken)
@@ -24,24 +23,13 @@ public class UpdateStationCommandHandler(
             mapper.Map(request, entity);
             entity = await repository.UpdateAsync(entity);
 
-            await logRepository.AddAsync(new AppLog
-            {
-                Level = LogLevel.Information,
-                Message = $"Station {entity.StationId} updated successfully",
-                LoggedAt = DateTime.UtcNow
-            });
+            Log.Information("Station {StationId} updated successfully", entity.StationId);
 
             return mapper.Map<StationDto>(entity);
         }
         catch (Exception ex)
         {
-            await logRepository.AddAsync(new AppLog
-            {
-                Level = LogLevel.Error,
-                Message = $"Error updating station {request.StationId}: {ex.Message}",
-                Exception = ex.ToString(),
-                LoggedAt = DateTime.UtcNow
-            });
+            Log.Error(ex, "Error updating station {StationId}", request.StationId);
 
             throw;
         }
