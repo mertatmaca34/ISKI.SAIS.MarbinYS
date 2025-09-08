@@ -39,15 +39,20 @@ namespace WinUI.Pages.Settings
         private async Task LoadSqlInstancesAsync()
         {
             ServerAddressComboBox.Items.Clear();
+            ServerAddressComboBox.Enabled = false;
+            ServerAddressComboBox.Items.Add("Veritabanları aranıyor...");
+
             try
             {
                 var servers = await _searchEngine.SearchServersAsync();
+                ServerAddressComboBox.Items.Clear();
+
                 foreach (var server in servers)
                 {
                     ServerAddressComboBox.Items.Add(server);
                 }
 
-                if (ServerAddressComboBox.Items.Count > 0 && ServerAddressComboBox.SelectedIndex == -1)
+                if (ServerAddressComboBox.Items.Count > 0)
                 {
                     ServerAddressComboBox.SelectedIndex = 0;
                 }
@@ -55,6 +60,10 @@ namespace WinUI.Pages.Settings
             catch
             {
                 // ignore enumerator errors
+            }
+            finally
+            {
+                ServerAddressComboBox.Enabled = true;
             }
         }
 
