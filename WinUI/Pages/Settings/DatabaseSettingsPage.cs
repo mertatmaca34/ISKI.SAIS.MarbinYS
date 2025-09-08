@@ -104,6 +104,7 @@ namespace WinUI.Pages.Settings
             if (ServerAddressComboBox.SelectedItem is string server)
             {
                 await _selectionService.SaveSelectedServerAsync(server);
+                MessageBox.Show("Veritabanı ayarları kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
