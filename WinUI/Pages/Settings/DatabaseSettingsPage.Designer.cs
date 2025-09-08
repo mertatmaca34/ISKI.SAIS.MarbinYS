@@ -45,7 +45,7 @@
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
             StationInfoContentTableLayoutPanel = new TableLayoutPanel();
             ServerAddressLabel = new Label();
-            ServerAddressTextBox = new TextBox();
+            ServerAddressComboBox = new ComboBox();
             LogLevelLabel = new Label();
             LogLevelComboBox = new ComboBox();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
@@ -213,6 +213,7 @@
             RefreshDatabaseInfoButton.TabIndex = 2;
             RefreshDatabaseInfoButton.Text = "Yenile";
             RefreshDatabaseInfoButton.UseVisualStyleBackColor = true;
+            RefreshDatabaseInfoButton.Click += RefreshDatabaseInfoButton_Click;
             // 
             // DatabaseSettingsHeaderTableLayoutPanel
             // 
@@ -275,7 +276,7 @@
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6470566F));
             StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             StationInfoContentTableLayoutPanel.Controls.Add(ServerAddressLabel, 0, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(ServerAddressTextBox, 1, 0);
+            StationInfoContentTableLayoutPanel.Controls.Add(ServerAddressComboBox, 1, 0);
             StationInfoContentTableLayoutPanel.Controls.Add(LogLevelLabel, 0, 1);
             StationInfoContentTableLayoutPanel.Controls.Add(LogLevelComboBox, 1, 1);
             StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
@@ -313,14 +314,15 @@
             ServerAddressLabel.TabIndex = 1;
             ServerAddressLabel.Text = "Sunucu Adresi";
             // 
-            // ServerAddressTextBox
-            // 
-            ServerAddressTextBox.Anchor = AnchorStyles.Left;
-            ServerAddressTextBox.Location = new Point(234, 19);
-            ServerAddressTextBox.Name = "ServerAddressTextBox";
-            ServerAddressTextBox.PlaceholderText = "localhost";
-            ServerAddressTextBox.Size = new Size(288, 23);
-            ServerAddressTextBox.TabIndex = 2;
+            // ServerAddressComboBox
+            //
+            ServerAddressComboBox.Anchor = AnchorStyles.Left;
+            ServerAddressComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            ServerAddressComboBox.Location = new Point(234, 19);
+            ServerAddressComboBox.Name = "ServerAddressComboBox";
+            ServerAddressComboBox.Size = new Size(288, 23);
+            ServerAddressComboBox.TabIndex = 2;
+            ServerAddressComboBox.SelectedIndexChanged += ServerAddressComboBox_SelectedIndexChanged;
             // 
             // LogLevelLabel
             // 
@@ -383,7 +385,7 @@
         private Button RefreshDatabaseInfoButton;
         private TableLayoutPanel StationInfoContentTableLayoutPanel;
         private Label ServerAddressLabel;
-        private TextBox ServerAddressTextBox;
+        private ComboBox ServerAddressComboBox;
         private Label LogLevelLabel;
         private ComboBox LogLevelComboBox;
     }
