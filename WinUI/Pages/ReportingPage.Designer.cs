@@ -133,13 +133,13 @@ namespace WinUI.Pages
             tableLayoutPanel3.Controls.Add(groupBox1, 0, 1);
             tableLayoutPanel3.Controls.Add(ButtonGenerate, 0, 4);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            tableLayoutPanel3.Font = new Font("Arial", 9F, FontStyle.Bold);
             tableLayoutPanel3.Location = new Point(1, 1);
             tableLayoutPanel3.Margin = new Padding(1);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.Padding = new Padding(3);
             tableLayoutPanel3.RowCount = 5;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 176F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
@@ -151,22 +151,22 @@ namespace WinUI.Pages
             // 
             GroupBoxReportTypes.Controls.Add(ComboBoxReportType);
             GroupBoxReportTypes.Dock = DockStyle.Fill;
-            GroupBoxReportTypes.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            GroupBoxReportTypes.Font = new Font("Arial", 9F, FontStyle.Bold);
             GroupBoxReportTypes.Location = new Point(6, 6);
             GroupBoxReportTypes.Name = "GroupBoxReportTypes";
-            GroupBoxReportTypes.Size = new Size(200, 74);
+            GroupBoxReportTypes.Size = new Size(200, 44);
             GroupBoxReportTypes.TabIndex = 5;
             GroupBoxReportTypes.TabStop = false;
             GroupBoxReportTypes.Text = "RAPOR TİPİ";
             // 
             // ComboBoxReportType
-            //
+            // 
             ComboBoxReportType.Dock = DockStyle.Top;
             ComboBoxReportType.DropDownStyle = ComboBoxStyle.DropDownList;
             ComboBoxReportType.FormattingEnabled = true;
-            ComboBoxReportType.Location = new Point(6, 22);
+            ComboBoxReportType.Location = new Point(3, 17);
             ComboBoxReportType.Name = "ComboBoxReportType";
-            ComboBoxReportType.Size = new Size(188, 23);
+            ComboBoxReportType.Size = new Size(194, 23);
             ComboBoxReportType.TabIndex = 0;
             // 
             // groupBox3
@@ -174,8 +174,8 @@ namespace WinUI.Pages
             groupBox3.Controls.Add(RadioButtonSortByLast);
             groupBox3.Controls.Add(RadioButtonSortByFirst);
             groupBox3.Dock = DockStyle.Fill;
-            groupBox3.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupBox3.Location = new Point(6, 342);
+            groupBox3.Font = new Font("Arial", 9F, FontStyle.Bold);
+            groupBox3.Location = new Point(6, 312);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(200, 74);
             groupBox3.TabIndex = 4;
@@ -210,8 +210,8 @@ namespace WinUI.Pages
             GroupBoxDate.Controls.Add(groupBox4);
             GroupBoxDate.Dock = DockStyle.Fill;
             GroupBoxDate.Enabled = false;
-            GroupBoxDate.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            GroupBoxDate.Location = new Point(6, 166);
+            GroupBoxDate.Font = new Font("Arial", 9F, FontStyle.Bold);
+            GroupBoxDate.Location = new Point(6, 136);
             GroupBoxDate.Name = "GroupBoxDate";
             GroupBoxDate.Size = new Size(200, 170);
             GroupBoxDate.TabIndex = 3;
@@ -285,8 +285,8 @@ namespace WinUI.Pages
             groupBox1.Controls.Add(RadioButtonWeekly);
             groupBox1.Controls.Add(RadioButtonDaily);
             groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupBox1.Location = new Point(6, 86);
+            groupBox1.Font = new Font("Arial", 9F, FontStyle.Bold);
+            groupBox1.Location = new Point(6, 56);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(200, 74);
             groupBox1.TabIndex = 2;
@@ -346,7 +346,7 @@ namespace WinUI.Pages
             ButtonGenerate.BackColor = Color.FromArgb(0, 131, 200);
             ButtonGenerate.Dock = DockStyle.Top;
             ButtonGenerate.ForeColor = Color.White;
-            ButtonGenerate.Location = new Point(6, 422);
+            ButtonGenerate.Location = new Point(6, 392);
             ButtonGenerate.Name = "ButtonGenerate";
             ButtonGenerate.Size = new Size(200, 40);
             ButtonGenerate.TabIndex = 2;
@@ -377,7 +377,7 @@ namespace WinUI.Pages
             DataGridViewDatas.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 131, 200);
-            dataGridViewCellStyle1.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("Arial", 9F, FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = Color.White;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -391,7 +391,6 @@ namespace WinUI.Pages
             DataGridViewDatas.RowHeadersVisible = false;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DataGridViewDatas.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            DataGridViewDatas.RowTemplate.Height = 25;
             DataGridViewDatas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridViewDatas.Size = new Size(926, 575);
             DataGridViewDatas.TabIndex = 0;
@@ -457,16 +456,14 @@ namespace WinUI.Pages
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1170, 677);
             Controls.Add(tableLayoutPanel1);
             Name = "ReportingPage";
-            Text = "ReportingPage";
+            Size = new Size(1170, 677);
             Load += ReportingPage_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             GroupBoxReportTypes.ResumeLayout(false);
-            GroupBoxReportTypes.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             GroupBoxDate.ResumeLayout(false);
