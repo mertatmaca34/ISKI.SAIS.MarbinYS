@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.WebUtilities;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -13,10 +15,13 @@ public class LogService(HttpClient httpClient) : ILogService
 {
     public async Task<List<LogDto>?> GetLogsAsync(DateTime start, DateTime end, bool descending)
     {
-        string orderParam = descending ? "true" : "false";
-        string startParam = Uri.EscapeDataString(start.ToString("o"));
-        string endParam = Uri.EscapeDataString(end.ToString("o"));
-        string url = $"api/logs?startDate={startParam}&endDate={endParam}&descending={orderParam}";
+        var query = new Dictionary<string, string?>
+        {
+            ["startDate"] = start.ToString("o"),
+            ["endDate"] = end.ToString("o"),
+            ["descending"] = descending.ToString().ToLower()
+        };
+        string url = QueryHelpers.AddQueryString("api/logs", query);
         return await httpClient.GetFromJsonAsync<List<LogDto>>(url);
     }
 }
