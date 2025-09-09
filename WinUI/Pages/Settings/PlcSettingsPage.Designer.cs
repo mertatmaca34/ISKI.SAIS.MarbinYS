@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             MailUsersLabel = new Label();
-            RefreshUsersButton = new Button();
             MailUsersHeaderTableLayoutPanel = new TableLayoutPanel();
             EditUserLabel = new Label();
-            SaveUserButton = new Button();
             StationSettingsContentTableLayoutPanel = new TableLayoutPanel();
             ResponseGroupBox = new GroupBox();
             ResponseTextBox = new TextBox();
@@ -43,6 +41,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             label1 = new Label();
             textBox1 = new TextBox();
+            SaveButton = new Button();
             MailUsersHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsContentTableLayoutPanel.SuspendLayout();
             ResponseGroupBox.SuspendLayout();
@@ -63,25 +62,13 @@
             MailUsersLabel.TabIndex = 0;
             MailUsersLabel.Text = "PLC Ayarları";
             // 
-            // RefreshUsersButton
-            // 
-            RefreshUsersButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            RefreshUsersButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            RefreshUsersButton.Location = new Point(452, 3);
-            RefreshUsersButton.Name = "RefreshUsersButton";
-            RefreshUsersButton.Size = new Size(92, 32);
-            RefreshUsersButton.TabIndex = 2;
-            RefreshUsersButton.Text = "Yenile";
-            RefreshUsersButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            RefreshUsersButton.UseVisualStyleBackColor = true;
-            // 
             // MailUsersHeaderTableLayoutPanel
             // 
             MailUsersHeaderTableLayoutPanel.ColumnCount = 2;
             MailUsersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             MailUsersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            MailUsersHeaderTableLayoutPanel.Controls.Add(SaveButton, 1, 0);
             MailUsersHeaderTableLayoutPanel.Controls.Add(MailUsersLabel, 0, 0);
-            MailUsersHeaderTableLayoutPanel.Controls.Add(RefreshUsersButton, 1, 0);
             MailUsersHeaderTableLayoutPanel.Dock = DockStyle.Fill;
             MailUsersHeaderTableLayoutPanel.Location = new Point(0, 15);
             MailUsersHeaderTableLayoutPanel.Margin = new Padding(0);
@@ -101,17 +88,6 @@
             EditUserLabel.Size = new Size(99, 22);
             EditUserLabel.TabIndex = 0;
             EditUserLabel.Text = "PLC Test ";
-            // 
-            // SaveUserButton
-            // 
-            SaveUserButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveUserButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveUserButton.Location = new Point(452, 3);
-            SaveUserButton.Name = "SaveUserButton";
-            SaveUserButton.Size = new Size(92, 32);
-            SaveUserButton.TabIndex = 2;
-            SaveUserButton.Text = "Kaydet";
-            SaveUserButton.UseVisualStyleBackColor = true;
             // 
             // StationSettingsContentTableLayoutPanel
             // 
@@ -185,7 +161,6 @@
             EditUserHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             EditUserHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             EditUserHeaderTableLayoutPanel.Controls.Add(EditUserLabel, 0, 0);
-            EditUserHeaderTableLayoutPanel.Controls.Add(SaveUserButton, 1, 0);
             EditUserHeaderTableLayoutPanel.Dock = DockStyle.Fill;
             EditUserHeaderTableLayoutPanel.Location = new Point(547, 15);
             EditUserHeaderTableLayoutPanel.Margin = new Padding(0);
@@ -282,6 +257,17 @@
             textBox1.Size = new Size(287, 23);
             textBox1.TabIndex = 2;
             // 
+            // SaveButton
+            // 
+            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveButton.Location = new Point(452, 3);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(92, 32);
+            SaveButton.TabIndex = 3;
+            SaveButton.Text = "Kaydet";
+            SaveButton.UseVisualStyleBackColor = true;
+            // 
             // PlcSettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -305,10 +291,8 @@
 
         #endregion
         private Label MailUsersLabel;
-        private Button RefreshUsersButton;
         private TableLayoutPanel MailUsersHeaderTableLayoutPanel;
         private Label EditUserLabel;
-        private Button SaveUserButton;
         private TableLayoutPanel StationSettingsContentTableLayoutPanel;
         private TableLayoutPanel EditUserHeaderTableLayoutPanel;
         private TableLayoutPanel StationSettingsBgTableLayoutPanel;
@@ -319,5 +303,6 @@
         private Button button1;
         private GroupBox ResponseGroupBox;
         private TextBox ResponseTextBox;
+        private Button SaveButton;
     }
 }

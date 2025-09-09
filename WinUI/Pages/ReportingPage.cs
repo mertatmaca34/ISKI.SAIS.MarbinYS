@@ -119,9 +119,9 @@ namespace WinUI.Pages
 
         private string GenerateFileName(string extension)
         {
-            string start = _lastStartDate.ToString("yyyyMMddHHmmss");
-            string end = _lastEndDate.ToString("yyyyMMddHHmmss");
-            return $"logs_{start}_{end}.{extension}";
+            string start = _lastStartDate.ToString("d");
+            string end = _lastEndDate.ToString("d");
+            return $"logs_{start}-{end}.{extension}";
         }
     }
 }

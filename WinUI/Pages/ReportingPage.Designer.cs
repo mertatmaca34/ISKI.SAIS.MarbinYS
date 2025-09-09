@@ -59,7 +59,6 @@ namespace WinUI.Pages
             tableLayoutPanel5 = new TableLayoutPanel();
             tableLayoutPanel6 = new TableLayoutPanel();
             ButtonSaveAsExcel = new System.Windows.Forms.Button();
-            ButtonSaveAsPdf = new System.Windows.Forms.Button();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -416,8 +415,7 @@ namespace WinUI.Pages
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 32F));
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel6.Controls.Add(ButtonSaveAsExcel, 1, 0);
-            tableLayoutPanel6.Controls.Add(ButtonSaveAsPdf, 2, 0);
+            tableLayoutPanel6.Controls.Add(ButtonSaveAsExcel, 2, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
             tableLayoutPanel6.Location = new Point(1, 1);
             tableLayoutPanel6.Margin = new Padding(1);
@@ -432,24 +430,12 @@ namespace WinUI.Pages
             ButtonSaveAsExcel.BackgroundImage = Properties.Resources.microsoft_excel_2019_32px;
             ButtonSaveAsExcel.BackgroundImageLayout = ImageLayout.Zoom;
             ButtonSaveAsExcel.Dock = DockStyle.Fill;
-            ButtonSaveAsExcel.Location = new Point(865, 3);
+            ButtonSaveAsExcel.Location = new Point(897, 3);
             ButtonSaveAsExcel.Name = "ButtonSaveAsExcel";
             ButtonSaveAsExcel.Size = new Size(26, 26);
             ButtonSaveAsExcel.TabIndex = 2;
             ButtonSaveAsExcel.UseVisualStyleBackColor = true;
             ButtonSaveAsExcel.Click += ButtonSaveAsExcel_Click;
-            // 
-            // ButtonSaveAsPdf
-            // 
-            ButtonSaveAsPdf.BackgroundImage = Properties.Resources.pdf_32px;
-            ButtonSaveAsPdf.BackgroundImageLayout = ImageLayout.Zoom;
-            ButtonSaveAsPdf.Dock = DockStyle.Fill;
-            ButtonSaveAsPdf.Location = new Point(897, 3);
-            ButtonSaveAsPdf.Name = "ButtonSaveAsPdf";
-            ButtonSaveAsPdf.Size = new Size(26, 26);
-            ButtonSaveAsPdf.TabIndex = 1;
-            ButtonSaveAsPdf.UseVisualStyleBackColor = true;
-            ButtonSaveAsPdf.Click += ButtonSaveAsPdf_Click;
             // 
             // ReportingPage
             // 
@@ -507,7 +493,6 @@ namespace WinUI.Pages
         private DataGridView DataGridViewDatas;
         private TableLayoutPanel tableLayoutPanel5;
         private TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Button ButtonSaveAsPdf;
         private System.Windows.Forms.Button ButtonSaveAsExcel;
     }
 }
