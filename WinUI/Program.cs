@@ -136,6 +136,7 @@ namespace WinUI
                     services.AddSingleton<IDatabaseSearchEngine, SqlDatabaseSearchEngine>();
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                     services.AddHostedService<TicketRefreshService>();
+                    services.AddHostedService<PlcDataSendService>();
                 });
         }
     }
