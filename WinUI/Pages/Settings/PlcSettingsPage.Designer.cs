@@ -154,6 +154,7 @@
             button1.TabIndex = 2;
             button1.Text = "Ping At";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += PingButton_Click;
             // 
             // EditUserHeaderTableLayoutPanel
             // 
@@ -267,6 +268,7 @@
             SaveButton.TabIndex = 3;
             SaveButton.Text = "Kaydet";
             SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
             // 
             // PlcSettingsPage
             // 
