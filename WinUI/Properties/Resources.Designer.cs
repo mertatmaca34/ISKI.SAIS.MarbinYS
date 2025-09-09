@@ -423,6 +423,16 @@ namespace WinUI.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap motherboard_96px {
+            get {
+                object obj = ResourceManager.GetObject("motherboard_96px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap pdf_32px {
             get {
                 object obj = ResourceManager.GetObject("pdf_32px", resourceCulture);
@@ -436,6 +446,16 @@ namespace WinUI.Properties {
         internal static System.Drawing.Bitmap place_marker_48px {
             get {
                 object obj = ResourceManager.GetObject("place_marker_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap plc {
+            get {
+                object obj = ResourceManager.GetObject("plc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

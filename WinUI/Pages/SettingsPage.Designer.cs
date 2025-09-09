@@ -40,6 +40,7 @@
             ApiButton = new Button();
             DatabaseButton = new Button();
             StationButton = new Button();
+            PlcButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             PanelContent.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -104,10 +105,11 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel2.Controls.Add(ChannelsButton, 3, 0);
-            tableLayoutPanel2.Controls.Add(MailUsersButton, 1, 1);
+            tableLayoutPanel2.Controls.Add(PlcButton, 2, 0);
+            tableLayoutPanel2.Controls.Add(ChannelsButton, 1, 1);
+            tableLayoutPanel2.Controls.Add(MailUsersButton, 2, 1);
             tableLayoutPanel2.Controls.Add(CalibrationButton, 0, 1);
-            tableLayoutPanel2.Controls.Add(ApiButton, 2, 0);
+            tableLayoutPanel2.Controls.Add(ApiButton, 3, 0);
             tableLayoutPanel2.Controls.Add(DatabaseButton, 1, 0);
             tableLayoutPanel2.Controls.Add(StationButton, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
@@ -124,9 +126,9 @@
             ChannelsButton.Dock = DockStyle.Fill;
             ChannelsButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ChannelsButton.Image = Properties.Resources.proximity_sensor_96px;
-            ChannelsButton.Location = new Point(822, 3);
+            ChannelsButton.Location = new Point(276, 269);
             ChannelsButton.Name = "ChannelsButton";
-            ChannelsButton.Size = new Size(269, 260);
+            ChannelsButton.Size = new Size(267, 261);
             ChannelsButton.TabIndex = 6;
             ChannelsButton.Text = "Kanallar";
             ChannelsButton.TextAlign = ContentAlignment.BottomCenter;
@@ -139,7 +141,7 @@
             MailUsersButton.Dock = DockStyle.Fill;
             MailUsersButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             MailUsersButton.Image = Properties.Resources.shared_mail_96px;
-            MailUsersButton.Location = new Point(276, 269);
+            MailUsersButton.Location = new Point(549, 269);
             MailUsersButton.Name = "MailUsersButton";
             MailUsersButton.Size = new Size(267, 261);
             MailUsersButton.TabIndex = 4;
@@ -169,9 +171,9 @@
             ApiButton.Dock = DockStyle.Fill;
             ApiButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ApiButton.Image = Properties.Resources.api_96px;
-            ApiButton.Location = new Point(549, 3);
+            ApiButton.Location = new Point(822, 3);
             ApiButton.Name = "ApiButton";
-            ApiButton.Size = new Size(267, 260);
+            ApiButton.Size = new Size(269, 260);
             ApiButton.TabIndex = 2;
             ApiButton.Text = "API";
             ApiButton.TextAlign = ContentAlignment.BottomCenter;
@@ -209,6 +211,21 @@
             StationButton.UseVisualStyleBackColor = true;
             StationButton.Click += StationButton_Click;
             // 
+            // PlcButton
+            // 
+            PlcButton.Dock = DockStyle.Fill;
+            PlcButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            PlcButton.Image = Properties.Resources.plc;
+            PlcButton.Location = new Point(549, 3);
+            PlcButton.Name = "PlcButton";
+            PlcButton.Size = new Size(267, 260);
+            PlcButton.TabIndex = 7;
+            PlcButton.Text = "PLC";
+            PlcButton.TextAlign = ContentAlignment.BottomCenter;
+            PlcButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            PlcButton.UseVisualStyleBackColor = true;
+            PlcButton.Click += PlcButton_Click;
+            // 
             // SettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -236,5 +253,6 @@
         private Button DatabaseButton;
         private Button StationButton;
         private Button ChannelsButton;
+        private Button PlcButton;
     }
 }
