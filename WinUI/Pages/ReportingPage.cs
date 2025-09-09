@@ -65,8 +65,8 @@ namespace WinUI.Pages
             }
             else
             {
-                start = DateTimePickerFirstDate.Value.Date + DateTimePickerFirstTime.Value.TimeOfDay;
-                end = DateTimePickerLastDate.Value.Date + DateTimePickerLastTime.Value.TimeOfDay;
+                start = DateTimePickerFirstDate.Value.Date;
+                end = DateTimePickerLastDate.Value.Date;
             }
 
             bool descending = RadioButtonSortByLast.Checked;
