@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Application.Features.PlcData.Commands.ReadAndSavePlcData;
@@ -10,13 +11,19 @@ namespace Api.BackgroundServices;
 /// Periodically executes <see cref="ReadAndSavePlcDataCommand"/> to retrieve
 /// measurements from the PLC.
 /// </summary>
-public class PlcDataWorker(ILogger<PlcDataWorker> logger, IMediator mediator, IConfiguration configuration) : BackgroundService
+public class PlcDataWorker(
+    ILogger<PlcDataWorker> logger,
+    IServiceProvider serviceProvider,
+    IConfiguration configuration) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         int interval = configuration.GetValue<int>("PlcSettings:IntervalSeconds", 30);
         while (!stoppingToken.IsCancellationRequested)
         {
+            using IServiceScope scope = serviceProvider.CreateScope();
+            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
             var cmd = new ReadAndSavePlcDataCommand(
                 configuration["PlcSettings:IpAddress"] ?? "10.33.3.253",
                 configuration.GetValue<int>("PlcSettings:AnalogDb"),
