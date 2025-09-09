@@ -23,6 +23,7 @@ namespace WinUI.Pages
             ComboBoxReportType.Items.AddRange(new object[] { "Analog", "Dijital", "Kayıt" });
             ComboBoxReportType.SelectedIndex = 0;
             RadioButtonDaily.Checked = true;
+            ConfigureDataGridView();
         }
 
         private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
@@ -79,7 +80,6 @@ namespace WinUI.Pages
 
             bool descending = RadioButtonSortByLast.Checked;
             _currentLogs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
-            DataGridViewDatas.AutoGenerateColumns = true;
             DataGridViewDatas.DataSource = _currentLogs;
         }
 
@@ -122,6 +122,36 @@ namespace WinUI.Pages
             string start = _lastStartDate.ToString("d");
             string end = _lastEndDate.ToString("d");
             return $"logs_{start}-{end}.{extension}";
+        }
+
+        private void ConfigureDataGridView()
+        {
+            DataGridViewDatas.AutoGenerateColumns = false;
+            DataGridViewDatas.Columns.Clear();
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(LogDto.LoggedAt),
+                HeaderText = "Log Tarihi"
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(LogDto.Level),
+                HeaderText = "Level"
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(LogDto.Message),
+                HeaderText = "Mesaj"
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(LogDto.Exception),
+                HeaderText = "Exception"
+            });
         }
     }
 }
