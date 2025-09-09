@@ -131,6 +131,8 @@ namespace WinUI
 
                     services.AddHttpClient<ITicketService, TicketService>();
 
+                    services.AddSingleton<IReportExportService, ReportExportService>();
+
                     services.AddSingleton<IDatabaseSearchEngine, SqlDatabaseSearchEngine>();
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                     services.AddHostedService<TicketRefreshService>();

@@ -6,10 +6,15 @@ namespace WinUI.Pages
     public partial class ReportingPage : UserControl
     {
         private readonly ILogService _logService;
+        private readonly IReportExportService _exportService;
+        private List<LogDto> _currentLogs = new();
+        private DateTime _lastStartDate;
+        private DateTime _lastEndDate;
 
-        public ReportingPage(ILogService logService)
+        public ReportingPage(ILogService logService, IReportExportService exportService)
         {
             _logService = logService;
+            _exportService = exportService;
             InitializeComponent();
         }
 
@@ -51,7 +56,7 @@ namespace WinUI.Pages
             if (RadioButtonDaily.Checked)
             {
                 end = DateTime.Now;
-                start = end.Date;
+                start = end.AddDays(-1);
             }
             else if (RadioButtonWeekly.Checked)
             {
@@ -65,22 +70,58 @@ namespace WinUI.Pages
             }
             else
             {
-                start = DateTimePickerFirstDate.Value.Date;
-                end = DateTimePickerLastDate.Value.Date;
+                start = DateTimePickerFirstDate.Value.Date + DateTimePickerFirstTime.Value.TimeOfDay;
+                end = DateTimePickerLastDate.Value.Date + DateTimePickerLastTime.Value.TimeOfDay;
             }
 
+            _lastStartDate = start;
+            _lastEndDate = end;
+
             bool descending = RadioButtonSortByLast.Checked;
-            var logs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
+            _currentLogs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
             DataGridViewDatas.AutoGenerateColumns = true;
-            DataGridViewDatas.DataSource = logs;
+            DataGridViewDatas.DataSource = _currentLogs;
         }
 
         private void ButtonSaveAsExcel_Click(object sender, EventArgs e)
         {
+            if (_currentLogs.Count == 0)
+                return;
+
+            using SaveFileDialog dialog = new()
+            {
+                Filter = "Excel Files|*.xlsx",
+                FileName = GenerateFileName("xlsx")
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _exportService.ExportLogsToExcel(_currentLogs, dialog.FileName);
+            }
         }
 
         private void ButtonSaveAsPdf_Click(object sender, EventArgs e)
         {
+            if (_currentLogs.Count == 0)
+                return;
+
+            using SaveFileDialog dialog = new()
+            {
+                Filter = "PDF Files|*.pdf",
+                FileName = GenerateFileName("pdf")
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _exportService.ExportLogsToPdf(_currentLogs, dialog.FileName);
+            }
+        }
+
+        private string GenerateFileName(string extension)
+        {
+            string start = _lastStartDate.ToString("yyyyMMddHHmmss");
+            string end = _lastEndDate.ToString("yyyyMMddHHmmss");
+            return $"logs_{start}_{end}.{extension}";
         }
     }
 }
