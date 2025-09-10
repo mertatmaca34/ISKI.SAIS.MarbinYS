@@ -86,7 +86,8 @@ namespace WinUI.Pages
         {
             try
             {
-                if (DateTime.Now >= StationConstants.TicketExpiry)
+                if (StationConstants.TicketExpiry != DateTime.MinValue &&
+                    DateTime.Now >= StationConstants.TicketExpiry)
                 {
                     digitalSensorBar1.DataStateDescription = "HATA";
                     digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
