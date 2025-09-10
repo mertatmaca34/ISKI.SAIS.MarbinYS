@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -13,7 +14,7 @@ public interface ITicketService
     Task<ResultStatus<LoginResult>?> RefreshTicketAsync();
 }
 
-public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpointService) : ITicketService
+public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpointService, ILogger<TicketService> logger) : ITicketService
 {
     public async Task EnsureTicketAsync()
     {
@@ -22,6 +23,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
             return;
         }
 
+        logger.LogWarning("SAIS ticket missing or expired. Refreshing ticket.");
         await RefreshTicketAsync();
     }
 

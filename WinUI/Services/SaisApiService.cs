@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -40,12 +42,14 @@ public class SaisApiService : ISaisApiService
     private readonly HttpClient _httpClient;
     private readonly ITicketService _ticketService;
     private readonly IApiEndpointService _apiEndpointService;
+    private readonly ILogger<SaisApiService> _logger;
 
-    public SaisApiService(HttpClient httpClient, ITicketService ticketService, IApiEndpointService apiEndpointService)
+    public SaisApiService(HttpClient httpClient, ITicketService ticketService, IApiEndpointService apiEndpointService, ILogger<SaisApiService> logger)
     {
         _httpClient = httpClient;
         _ticketService = ticketService;
         _apiEndpointService = apiEndpointService;
+        _logger = logger;
     }
 
     private async Task<string?> PrepareAsync()
@@ -61,205 +65,125 @@ public class SaisApiService : ISaisApiService
         return endpoint.ApiAddress.TrimEnd('/');
     }
 
-    public async Task<ResultStatus<DateTime>?> GetServerDateTimeAsync()
+    private async Task<T?> SendAsync<T>(Func<string, Task<HttpResponseMessage>> sendRequest)
     {
         var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetServerDateTime", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<DateTime>>();
+        if (baseUrl == null) return default;
+
+        HttpResponseMessage response = await sendRequest(baseUrl);
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            _logger.LogWarning("SAIS session not found or expired. Refreshing ticket and retrying.");
+            response.Dispose();
+            await _ticketService.RefreshTicketAsync();
+            baseUrl = await PrepareAsync();
+            if (baseUrl == null) return default;
+            response = await sendRequest(baseUrl);
+        }
+
+        try
+        {
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<T>();
+        }
+        finally
+        {
+            response.Dispose();
+        }
     }
 
-    public async Task<ResultStatus<StationDto>?> GetStationInformationAsync(Guid stationId)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetStationInformation?stationId={stationId}", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<StationDto>>();
-    }
+    public Task<ResultStatus<DateTime>?> GetServerDateTimeAsync() =>
+        SendAsync<ResultStatus<DateTime>>(baseUrl => _httpClient.PostAsync($"{baseUrl}/SAIS/GetServerDateTime", null));
 
-    public async Task<ResultStatus?> SendHostChangedAsync(SendHostChangedRequest request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendHostChanged", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus<StationDto>?> GetStationInformationAsync(Guid stationId) =>
+        SendAsync<ResultStatus<StationDto>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetStationInformation?stationId={stationId}", null));
 
-    public async Task<ResultStatus<List<ChannelInfoDto>>?> GetChannelInformationByStationIdAsync(Guid stationId)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetChannelInformationByStationId?stationId={stationId}", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<ChannelInfoDto>>>();
-    }
+    public Task<ResultStatus?> SendHostChangedAsync(SendHostChangedRequest request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendHostChanged", request));
 
-    public async Task<ResultStatus?> UpdateChannelInformationAsync(UpdateChannelInformationRequest request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/UpdateChannelInformation", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus<List<ChannelInfoDto>>?> GetChannelInformationByStationIdAsync(Guid stationId) =>
+        SendAsync<ResultStatus<List<ChannelInfoDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetChannelInformationByStationId?stationId={stationId}", null));
 
-    public async Task<ResultStatus<List<ParameterDto>>?> GetParametersAsync()
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetParameters", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<ParameterDto>>>();
-    }
+    public Task<ResultStatus?> UpdateChannelInformationAsync(UpdateChannelInformationRequest request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/UpdateChannelInformation", request));
 
-    public async Task<ResultStatus<List<UnitDto>>?> GetUnitsAsync()
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetUnits", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<UnitDto>>>();
-    }
+    public Task<ResultStatus<List<ParameterDto>>?> GetParametersAsync() =>
+        SendAsync<ResultStatus<List<ParameterDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetParameters", null));
 
-    public async Task<ResultStatus?> SendDataAsync(ApiSendDataDto body)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendData", body);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus<List<UnitDto>>?> GetUnitsAsync() =>
+        SendAsync<ResultStatus<List<UnitDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetUnits", null));
 
-    public async Task<ResultStatus<ApiDataResultDto>?> GetLastDataAsync(Guid stationId, int period)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetLastData?stationId={stationId}&period={period}", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<ApiDataResultDto>>();
-    }
+    public Task<ResultStatus?> SendDataAsync(ApiSendDataDto body) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendData", body));
 
-    public async Task<ResultStatus<MissingDatesDto>?> GetMissingDatesAsync(Guid stationId)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetMissingDates?stationId={stationId}", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<MissingDatesDto>>();
-    }
+    public Task<ResultStatus<ApiDataResultDto>?> GetLastDataAsync(Guid stationId, int period) =>
+        SendAsync<ResultStatus<ApiDataResultDto>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetLastData?stationId={stationId}&period={period}", null));
 
-    public async Task<ResultStatus<List<ApiDataResultDto>>?> GetDataByBetweenTwoDateAsync(Guid stationId, int period, DateTime startDate, DateTime endDate)
+    public Task<ResultStatus<MissingDatesDto>?> GetMissingDatesAsync(Guid stationId) =>
+        SendAsync<ResultStatus<MissingDatesDto>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetMissingDates?stationId={stationId}", null));
+
+    public Task<ResultStatus<List<ApiDataResultDto>>?> GetDataByBetweenTwoDateAsync(Guid stationId, int period, DateTime startDate, DateTime endDate)
     {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
         string start = Uri.EscapeDataString(startDate.ToString("yyyy-MM-dd HH:mm:ss"));
         string end = Uri.EscapeDataString(endDate.ToString("yyyy-MM-dd HH:mm:ss"));
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetDataByBetweenTwoDate?stationId={stationId}&period={period}&startDate={start}&endDate={end}", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<ApiDataResultDto>>>();
+        return SendAsync<ResultStatus<List<ApiDataResultDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetDataByBetweenTwoDate?stationId={stationId}&period={period}&startDate={start}&endDate={end}", null));
     }
 
-    public async Task<ResultStatus<List<DataStatusDto>>?> GetDataStatusDescriptionAsync()
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetDataStatusDescription", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<DataStatusDto>>>();
-    }
+    public Task<ResultStatus<List<DataStatusDto>>?> GetDataStatusDescriptionAsync() =>
+        SendAsync<ResultStatus<List<DataStatusDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetDataStatusDescription", null));
 
-    public async Task<ResultStatus<List<DiagnosticTypeDto>>?> GetDiagnosticTypesAsync()
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetDiagnosticTypes", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<DiagnosticTypeDto>>>();
-    }
+    public Task<ResultStatus<List<DiagnosticTypeDto>>?> GetDiagnosticTypesAsync() =>
+        SendAsync<ResultStatus<List<DiagnosticTypeDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetDiagnosticTypes", null));
 
-    public async Task<ResultStatus?> SendDiagnosticAsync(DiagnosticRequest request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnostic", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SendDiagnosticAsync(DiagnosticRequest request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnostic", request));
 
-    public async Task<ResultStatus?> SendPowerOffTimeAsync(PowerOffTimeRequest request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendPowerOffTime", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SendPowerOffTimeAsync(PowerOffTimeRequest request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendPowerOffTime", request));
 
-    public async Task<ResultStatus?> SendDiagnosticWithTypeNoAsync(DiagnosticWithTypeRequest request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnosticWithTypeNo", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SendDiagnosticWithTypeNoAsync(DiagnosticWithTypeRequest request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnosticWithTypeNo", request));
 
-    public async Task<ResultStatus?> SendCalibrationAsync(CalibrationRequest request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendCalibration", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SendCalibrationAsync(CalibrationRequest request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendCalibration", request));
 
-    public async Task<ResultStatus<List<CalibrationRecordDto>>?> GetCalibrationAsync(Guid stationId, DateTime startDate, DateTime endDate)
+    public Task<ResultStatus<List<CalibrationRecordDto>>?> GetCalibrationAsync(Guid stationId, DateTime startDate, DateTime endDate)
     {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
         string start = Uri.EscapeDataString(startDate.ToString("yyyy-MM-dd"));
         string end = Uri.EscapeDataString(endDate.ToString("yyyy-MM-dd"));
-        using var response = await _httpClient.PostAsync($"{baseUrl}/SAIS/GetCalibration?stationId={stationId}&startDate={start}&endDate={end}", null);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<List<CalibrationRecordDto>>>();
+        return SendAsync<ResultStatus<List<CalibrationRecordDto>>>(baseUrl =>
+            _httpClient.PostAsync($"{baseUrl}/SAIS/GetCalibration?stationId={stationId}&startDate={start}&endDate={end}", null));
     }
 
-    public async Task<ResultStatus?> SampleRequestStartAsync(SampleRequestStart request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestStart", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SampleRequestStartAsync(SampleRequestStart request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestStart", request));
 
-    public async Task<ResultStatus<string>?> SampleRequestLimitOverAsync(SampleRequestLimitOver request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestLimitOver", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus<string>>();
-    }
+    public Task<ResultStatus<string>?> SampleRequestLimitOverAsync(SampleRequestLimitOver request) =>
+        SendAsync<ResultStatus<string>>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestLimitOver", request));
 
-    public async Task<ResultStatus?> SampleRequestCompleteAsync(SampleRequestComplete request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestComplete", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SampleRequestCompleteAsync(SampleRequestComplete request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestComplete", request));
 
-    public async Task<ResultStatus?> SampleRequestErrorAsync(SampleRequestError request)
-    {
-        var baseUrl = await PrepareAsync();
-        if (baseUrl == null) return null;
-        using var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestError", request);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<ResultStatus>();
-    }
+    public Task<ResultStatus?> SampleRequestErrorAsync(SampleRequestError request) =>
+        SendAsync<ResultStatus>(baseUrl =>
+            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestError", request));
 }
