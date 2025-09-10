@@ -27,7 +27,14 @@ public class PlcDataService : IPlcDataService
             Log.Warning("PLC bilgileri bulunamadı");
             throw new InvalidOperationException("PLC_NOT_CONFIGURED");
         }
-        response.EnsureSuccessStatusCode();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            Log.Error("PLC API hatası {StatusCode}: {Error}", response.StatusCode, error);
+            throw new HttpRequestException("PLC API request failed");
+        }
+
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         return await response.Content.ReadFromJsonAsync<PlcDataDto>(options);
     }
