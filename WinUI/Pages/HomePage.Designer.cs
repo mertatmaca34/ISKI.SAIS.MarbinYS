@@ -509,9 +509,8 @@ namespace WinUI.Pages
                     digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                     digitalSensorBar1.SystemStateDescription = "KOPUK";
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-                    digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
                     StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
-                    StatusBarControl.ConnectionTime = "-";
+                    StatusBarControl.ConnectionTime = "Bağlantı Zamanı: 00:00:00";
                     _connectedSince = null;
                     Log.Warning("Ticket süresi doldu");
                     return;

@@ -44,7 +44,6 @@ public class PlcDataWorker(
             {
                 logger.LogError(ex, "Error while reading PLC data");
             }
-
             await Task.Delay(TimeSpan.FromSeconds(interval), stoppingToken);
         }
     }

@@ -30,6 +30,7 @@
         {
             MailUsersLabel = new Label();
             MailUsersHeaderTableLayoutPanel = new TableLayoutPanel();
+            SaveButton = new Button();
             EditUserLabel = new Label();
             StationSettingsContentTableLayoutPanel = new TableLayoutPanel();
             ResponseGroupBox = new GroupBox();
@@ -41,7 +42,6 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             label1 = new Label();
             textBox1 = new TextBox();
-            SaveButton = new Button();
             MailUsersHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsContentTableLayoutPanel.SuspendLayout();
             ResponseGroupBox.SuspendLayout();
@@ -77,6 +77,18 @@
             MailUsersHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             MailUsersHeaderTableLayoutPanel.Size = new Size(547, 40);
             MailUsersHeaderTableLayoutPanel.TabIndex = 3;
+            // 
+            // SaveButton
+            // 
+            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveButton.Location = new Point(452, 3);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(92, 32);
+            SaveButton.TabIndex = 3;
+            SaveButton.Text = "Kaydet";
+            SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
             // 
             // EditUserLabel
             // 
@@ -136,8 +148,10 @@
             // 
             // ResponseTextBox
             // 
+            ResponseTextBox.BackColor = SystemColors.ButtonHighlight;
             ResponseTextBox.BorderStyle = BorderStyle.None;
             ResponseTextBox.Dock = DockStyle.Fill;
+            ResponseTextBox.Enabled = false;
             ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
             ResponseTextBox.Location = new Point(10, 26);
             ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
@@ -257,18 +271,6 @@
             textBox1.PlaceholderText = "0.0.0.0";
             textBox1.Size = new Size(287, 23);
             textBox1.TabIndex = 2;
-            // 
-            // SaveButton
-            // 
-            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(452, 3);
-            SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(92, 32);
-            SaveButton.TabIndex = 3;
-            SaveButton.Text = "Kaydet";
-            SaveButton.UseVisualStyleBackColor = true;
-            SaveButton.Click += SaveButton_Click;
             // 
             // PlcSettingsPage
             // 
