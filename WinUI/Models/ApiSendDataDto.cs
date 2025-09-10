@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace WinUI.Models;
 
@@ -21,4 +22,6 @@ public class ApiSendDataDto
     public double Debi { get; set; }
     public string Debi_Status { get; set; } = string.Empty;
     public double Sicaklik { get; set; }
+    [JsonIgnore]
+    public bool IsSent { get; set; }
 }

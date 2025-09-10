@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -17,6 +19,7 @@ public class PlcDataSendService : BackgroundService
     private readonly ITicketService _ticketService;
     private readonly IStationService _stationService;
     private readonly HttpClient _httpClient;
+    private readonly string _pendingFilePath = Path.Combine(AppContext.BaseDirectory, "unsent-data.json");
 
     public PlcDataSendService(
         IPlcDataService plcService,
@@ -49,13 +52,15 @@ public class PlcDataSendService : BackgroundService
 
                 if (endpoint != null && station != null)
                 {
+                    ApiSendDataDto? body = null;
                     try
                     {
                         await _ticketService.EnsureTicketAsync();
+                        await SendPendingDataAsync(endpoint, stoppingToken);
                         var plcData = await _plcService.ReadAndSaveAsync();
                         if (plcData != null)
                         {
-                            var body = new ApiSendDataDto
+                            body = new ApiSendDataDto
                             {
                                 StationId = station.StationId,
                                 StartTime = DateTime.Now,
@@ -75,12 +80,16 @@ public class PlcDataSendService : BackgroundService
 
                             var url = $"{endpoint.ApiAddress.TrimEnd('/')}/SAIS/SendData";
                             using var response = await _httpClient.PostAsJsonAsync(url, body, stoppingToken);
-                            // ignore non-success for now
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                await AddPendingAsync(body);
+                            }
                         }
                     }
                     catch
                     {
-                        // ignore send errors
+                        if (body != null)
+                            await AddPendingAsync(body);
                     }
                 }
             }
@@ -98,5 +107,55 @@ public class PlcDataSendService : BackgroundService
                 // ignore cancellation
             }
         }
+    }
+
+    private async Task<List<ApiSendDataDto>> LoadPendingAsync()
+    {
+        if (!File.Exists(_pendingFilePath))
+            return new List<ApiSendDataDto>();
+        await using var stream = File.OpenRead(_pendingFilePath);
+        return await JsonSerializer.DeserializeAsync<List<ApiSendDataDto>>(stream) ?? new List<ApiSendDataDto>();
+    }
+
+    private async Task SavePendingAsync(List<ApiSendDataDto> items)
+    {
+        await using var stream = File.Create(_pendingFilePath);
+        await JsonSerializer.SerializeAsync(stream, items);
+    }
+
+    private async Task AddPendingAsync(ApiSendDataDto dto)
+    {
+        var items = await LoadPendingAsync();
+        items.Add(dto);
+        await SavePendingAsync(items);
+    }
+
+    private async Task SendPendingDataAsync(ApiEndpointDto endpoint, CancellationToken token)
+    {
+        var items = await LoadPendingAsync();
+        if (items.Count == 0) return;
+
+        var remaining = new List<ApiSendDataDto>();
+        foreach (var item in items)
+        {
+            if (DateTime.Now - item.StartTime > TimeSpan.FromHours(48))
+                continue;
+            try
+            {
+                _httpClient.DefaultRequestHeaders.Remove("AToken");
+                _httpClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket }));
+                var url = $"{endpoint.ApiAddress.TrimEnd('/')}/SAIS/SendData";
+                using var response = await _httpClient.PostAsJsonAsync(url, item, token);
+                if (!response.IsSuccessStatusCode)
+                {
+                    remaining.Add(item);
+                }
+            }
+            catch
+            {
+                remaining.Add(item);
+            }
+        }
+        await SavePendingAsync(remaining);
     }
 }
