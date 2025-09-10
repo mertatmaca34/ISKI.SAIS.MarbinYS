@@ -133,6 +133,7 @@ namespace WinUI
                     services.AddHttpClient<ITicketService, TicketService>();
 
                     services.AddSingleton<IReportExportService, ReportExportService>();
+                    services.AddSingleton<IMeasurementReportService, MeasurementReportService>();
 
                     services.AddSingleton<IDatabaseSearchEngine, SqlDatabaseSearchEngine>();
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();

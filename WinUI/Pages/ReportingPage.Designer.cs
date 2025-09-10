@@ -391,9 +391,10 @@ namespace WinUI.Pages
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DataGridViewDatas.RowsDefaultCellStyle = dataGridViewCellStyle2;
             DataGridViewDatas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridViewDatas.CellFormatting += DataGridViewDatas_CellFormatting;
             DataGridViewDatas.Size = new Size(926, 575);
             DataGridViewDatas.TabIndex = 0;
-            // 
+            //
             // tableLayoutPanel5
             // 
             tableLayoutPanel5.BackColor = Color.FromArgb(235, 235, 235);
