@@ -43,7 +43,6 @@ public partial class ApiSettingsPage : UserControl
         Load += ApiSettingsPage_Load;
         SaveApiSettingsButton.Click += SaveApiSettingsButton_Click;
         SendServerRequestButton.Click += SendServerRequestButton_Click;
-        LoginButton.Click += LoginButton_Click;
         RequestSampleButton.Click += RequestSampleButton_Click;
         SendDiagnosticButton.Click += SendDiagnosticButton_Click;
 

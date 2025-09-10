@@ -48,13 +48,12 @@
             ApiTestBgTableLayoutPanel = new TableLayoutPanel();
             ApiTestContentTableLayoutPanel = new TableLayoutPanel();
             SendServerRequestButton = new Button();
-            LoginButton = new Button();
             RequestSampleButton = new Button();
             SendDiagnosticButton = new Button();
             ResponseGroupBox = new GroupBox();
             ResponseTextBox = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoContentTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoBgTableLayoutPanel.SuspendLayout();
             ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
@@ -165,21 +164,21 @@
             ApiPasswordTextBox.PlaceholderText = "api_pass";
             ApiPasswordTextBox.Size = new Size(288, 23);
             ApiPasswordTextBox.TabIndex = 2;
-            //
+            // 
             // SendPeriodLabel
-            //
+            // 
             SendPeriodLabel.Anchor = AnchorStyles.Left;
             SendPeriodLabel.AutoSize = true;
             SendPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             SendPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
             SendPeriodLabel.Location = new Point(18, 115);
             SendPeriodLabel.Name = "SendPeriodLabel";
-            SendPeriodLabel.Size = new Size(165, 16);
+            SendPeriodLabel.Size = new Size(158, 16);
             SendPeriodLabel.TabIndex = 1;
             SendPeriodLabel.Text = "Gönderim Periyodu (dk)";
-            //
+            // 
             // DataSendPeriodNumericUpDown
-            //
+            // 
             DataSendPeriodNumericUpDown.Anchor = AnchorStyles.Left;
             DataSendPeriodNumericUpDown.Location = new Point(234, 112);
             DataSendPeriodNumericUpDown.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
@@ -188,25 +187,25 @@
             DataSendPeriodNumericUpDown.Size = new Size(288, 23);
             DataSendPeriodNumericUpDown.TabIndex = 3;
             DataSendPeriodNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            //
+            // 
             // ResendPeriodLabel
-            //
+            // 
             ResendPeriodLabel.Anchor = AnchorStyles.Left;
             ResendPeriodLabel.AutoSize = true;
             ResendPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             ResendPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
             ResendPeriodLabel.Location = new Point(18, 146);
             ResendPeriodLabel.Name = "ResendPeriodLabel";
-            ResendPeriodLabel.Size = new Size(174, 16);
+            ResendPeriodLabel.Size = new Size(168, 16);
             ResendPeriodLabel.TabIndex = 1;
             ResendPeriodLabel.Text = "Geriye Dönük Veri Aralığı";
-            //
+            // 
             // ResendPeriodComboBox
-            //
+            // 
             ResendPeriodComboBox.Anchor = AnchorStyles.Left;
             ResendPeriodComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             ResendPeriodComboBox.FormattingEnabled = true;
-            ResendPeriodComboBox.Location = new Point(234, 142);
+            ResendPeriodComboBox.Location = new Point(234, 143);
             ResendPeriodComboBox.Name = "ResendPeriodComboBox";
             ResendPeriodComboBox.Size = new Size(288, 23);
             ResendPeriodComboBox.TabIndex = 4;
@@ -316,10 +315,9 @@
             ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.72549F));
             ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             ApiTestContentTableLayoutPanel.Controls.Add(SendServerRequestButton, 0, 0);
-            ApiTestContentTableLayoutPanel.Controls.Add(LoginButton, 0, 1);
-            ApiTestContentTableLayoutPanel.Controls.Add(RequestSampleButton, 0, 2);
-            ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 3);
             ApiTestContentTableLayoutPanel.Controls.Add(ResponseGroupBox, 1, 0);
+            ApiTestContentTableLayoutPanel.Controls.Add(RequestSampleButton, 0, 1);
+            ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 2);
             ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
             ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
             ApiTestContentTableLayoutPanel.Margin = new Padding(1);
@@ -355,24 +353,12 @@
             SendServerRequestButton.Text = "Sunucuya İstek At";
             SendServerRequestButton.UseVisualStyleBackColor = true;
             // 
-            // LoginButton
-            // 
-            LoginButton.Anchor = AnchorStyles.Left;
-            LoginButton.AutoSize = true;
-            LoginButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LoginButton.Location = new Point(18, 49);
-            LoginButton.Name = "LoginButton";
-            LoginButton.Size = new Size(176, 25);
-            LoginButton.TabIndex = 2;
-            LoginButton.Text = "Giriş Yap";
-            LoginButton.UseVisualStyleBackColor = true;
-            // 
             // RequestSampleButton
             // 
             RequestSampleButton.Anchor = AnchorStyles.Left;
             RequestSampleButton.AutoSize = true;
             RequestSampleButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            RequestSampleButton.Location = new Point(18, 80);
+            RequestSampleButton.Location = new Point(18, 49);
             RequestSampleButton.Name = "RequestSampleButton";
             RequestSampleButton.Size = new Size(176, 25);
             RequestSampleButton.TabIndex = 2;
@@ -384,7 +370,7 @@
             SendDiagnosticButton.Anchor = AnchorStyles.Left;
             SendDiagnosticButton.AutoSize = true;
             SendDiagnosticButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SendDiagnosticButton.Location = new Point(18, 111);
+            SendDiagnosticButton.Location = new Point(18, 80);
             SendDiagnosticButton.Name = "SendDiagnosticButton";
             SendDiagnosticButton.Size = new Size(176, 25);
             SendDiagnosticButton.TabIndex = 2;
@@ -426,6 +412,7 @@
             Size = new Size(1094, 533);
             StationInfoContentTableLayoutPanel.ResumeLayout(false);
             StationInfoContentTableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).EndInit();
             StationInfoBgTableLayoutPanel.ResumeLayout(false);
             ApiSettingsHeaderTableLayoutPanel.ResumeLayout(false);
             ApiSettingsHeaderTableLayoutPanel.PerformLayout();
@@ -436,7 +423,6 @@
             ApiTestContentTableLayoutPanel.PerformLayout();
             ResponseGroupBox.ResumeLayout(false);
             ResponseGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).EndInit();
             ResumeLayout(false);
         }
 
@@ -462,7 +448,6 @@
         private TableLayoutPanel ApiTestContentTableLayoutPanel;
         private Label ApiTestLabel;
         private Button SendServerRequestButton;
-        private Button LoginButton;
         private Button RequestSampleButton;
         private Button SendDiagnosticButton;
         private GroupBox ResponseGroupBox;
