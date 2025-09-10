@@ -9,6 +9,7 @@ public interface IReportExportService
 {
     void ExportLogsToExcel(IEnumerable<LogDto> logs, string filePath);
     void ExportLogsToPdf(IEnumerable<LogDto> logs, string filePath);
+    void ExportMeasurementsToExcel(IEnumerable<ApiDataResultDto> measurements, string filePath);
 }
 
 public class ReportExportService : IReportExportService
@@ -85,6 +86,38 @@ public class ReportExportService : IReportExportService
         });
 
         document.GeneratePdf(filePath);
+    }
+
+    public void ExportMeasurementsToExcel(IEnumerable<ApiDataResultDto> measurements, string filePath)
+    {
+        using var workbook = new XLWorkbook();
+        var worksheet = workbook.Worksheets.Add("Measurements");
+
+        worksheet.Cell(1, 1).Value = "Read Time";
+        worksheet.Cell(1, 2).Value = "AKM";
+        worksheet.Cell(1, 3).Value = "Debi";
+        worksheet.Cell(1, 4).Value = "KOi";
+        worksheet.Cell(1, 5).Value = "pH";
+        worksheet.Cell(1, 6).Value = "Cozunmus Oksijen";
+        worksheet.Cell(1, 7).Value = "Akis Hizi";
+        worksheet.Cell(1, 8).Value = "Sicaklik";
+
+        int row = 2;
+        foreach (var m in measurements)
+        {
+            worksheet.Cell(row, 1).Value = m.ReadTime;
+            worksheet.Cell(row, 2).Value = m.AKM;
+            worksheet.Cell(row, 3).Value = m.Debi;
+            worksheet.Cell(row, 4).Value = m.KOi;
+            worksheet.Cell(row, 5).Value = m.pH;
+            worksheet.Cell(row, 6).Value = m.CozunmusOksijen;
+            worksheet.Cell(row, 7).Value = m.AkisHizi;
+            worksheet.Cell(row, 8).Value = m.Sicaklik;
+            row++;
+        }
+
+        worksheet.Columns().AdjustToContents();
+        workbook.SaveAs(filePath);
     }
 }
 

@@ -1,5 +1,6 @@
 using WinUI.Models;
 using WinUI.Services;
+using System.Drawing;
 
 namespace WinUI.Pages
 {
@@ -7,23 +8,26 @@ namespace WinUI.Pages
     {
         private readonly ILogService _logService;
         private readonly IReportExportService _exportService;
+        private readonly IMeasurementReportService _measurementService;
         private List<LogDto> _currentLogs = new();
+        private List<ApiDataResultDto> _currentMeasurements = new();
         private DateTime _lastStartDate;
         private DateTime _lastEndDate;
 
-        public ReportingPage(ILogService logService, IReportExportService exportService)
+        public ReportingPage(ILogService logService, IReportExportService exportService, IMeasurementReportService measurementService)
         {
             _logService = logService;
             _exportService = exportService;
+            _measurementService = measurementService;
             InitializeComponent();
         }
 
         private void ReportingPage_Load(object sender, EventArgs e)
         {
-            ComboBoxReportType.Items.AddRange(new object[] { "Analog", "Dijital", "Kayıt" });
-            ComboBoxReportType.SelectedIndex = 0;
+            ComboBoxReportType.Items.AddRange(new object[] { "Ölçüm Verileri", "Kalibrasyon Verileri", "Numune Verileri", "Log Kayıtları" });
+            ComboBoxReportType.SelectedIndex = 3;
             RadioButtonDaily.Checked = true;
-            ConfigureDataGridView();
+            ConfigureLogColumns();
         }
 
         private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
@@ -48,8 +52,7 @@ namespace WinUI.Pages
 
         private async void ButtonGenerate_Click(object sender, EventArgs e)
         {
-            if (ComboBoxReportType.SelectedItem?.ToString() != "Kayıt")
-                return;
+            string? reportType = ComboBoxReportType.SelectedItem?.ToString();
 
             DateTime start;
             DateTime end;
@@ -78,37 +81,68 @@ namespace WinUI.Pages
             _lastStartDate = start;
             _lastEndDate = end;
 
-            bool descending = RadioButtonSortByLast.Checked;
-            _currentLogs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
-            DataGridViewDatas.DataSource = _currentLogs;
+            if (reportType == "Log Kayıtları")
+            {
+                bool descending = RadioButtonSortByLast.Checked;
+                _currentLogs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
+                DataGridViewDatas.DataSource = _currentLogs;
+                ConfigureLogColumns();
+            }
+            else if (reportType == "Ölçüm Verileri")
+            {
+                _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end);
+                DataGridViewDatas.DataSource = _currentMeasurements;
+                ConfigureMeasurementColumns();
+            }
         }
 
         private void ButtonSaveAsExcel_Click(object sender, EventArgs e)
         {
-            if (_currentLogs.Count == 0)
-                return;
-
-            using SaveFileDialog dialog = new()
+            string? reportType = ComboBoxReportType.SelectedItem?.ToString();
+            if (reportType == "Log Kayıtları")
             {
-                Filter = "Excel Files|*.xlsx",
-                FileName = GenerateFileName("xlsx")
-            };
+                if (_currentLogs.Count == 0)
+                    return;
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+                using SaveFileDialog dialog = new()
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    FileName = GenerateFileName("logs", "xlsx")
+                };
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _exportService.ExportLogsToExcel(_currentLogs, dialog.FileName);
+                }
+            }
+            else if (reportType == "Ölçüm Verileri")
             {
-                _exportService.ExportLogsToExcel(_currentLogs, dialog.FileName);
+                if (_currentMeasurements.Count == 0)
+                    return;
+
+                using SaveFileDialog dialog = new()
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    FileName = GenerateFileName("measurements", "xlsx")
+                };
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _exportService.ExportMeasurementsToExcel(_currentMeasurements, dialog.FileName);
+                }
             }
         }
 
         private void ButtonSaveAsPdf_Click(object sender, EventArgs e)
         {
-            if (_currentLogs.Count == 0)
+            string? reportType = ComboBoxReportType.SelectedItem?.ToString();
+            if (reportType != "Log Kayıtları" || _currentLogs.Count == 0)
                 return;
 
             using SaveFileDialog dialog = new()
             {
                 Filter = "PDF Files|*.pdf",
-                FileName = GenerateFileName("pdf")
+                FileName = GenerateFileName("logs", "pdf")
             };
 
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -117,14 +151,14 @@ namespace WinUI.Pages
             }
         }
 
-        private string GenerateFileName(string extension)
+        private string GenerateFileName(string prefix, string extension)
         {
             string start = _lastStartDate.ToString("d");
             string end = _lastEndDate.ToString("d");
-            return $"logs_{start}-{end}.{extension}";
+            return $"{prefix}_{start}-{end}.{extension}";
         }
 
-        private void ConfigureDataGridView()
+        private void ConfigureLogColumns()
         {
             DataGridViewDatas.AutoGenerateColumns = false;
             DataGridViewDatas.Columns.Clear();
@@ -152,6 +186,89 @@ namespace WinUI.Pages
                 DataPropertyName = nameof(LogDto.Exception),
                 HeaderText = "Exception"
             });
+        }
+
+        private void ConfigureMeasurementColumns()
+        {
+            DataGridViewDatas.AutoGenerateColumns = false;
+            DataGridViewDatas.Columns.Clear();
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.ReadTime),
+                HeaderText = "Tarih",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.AKM),
+                HeaderText = "AKM",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.Debi),
+                HeaderText = "Debi",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.KOi),
+                HeaderText = "KOi",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.pH),
+                HeaderText = "pH",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.CozunmusOksijen),
+                HeaderText = "Çözünmüş Oksijen",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.AkisHizi),
+                HeaderText = "Akış Hızı",
+            });
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(ApiDataResultDto.Sicaklik),
+                HeaderText = "Sıcaklık",
+            });
+        }
+
+        private void DataGridViewDatas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            var row = DataGridViewDatas.Rows[e.RowIndex];
+            switch (row.DataBoundItem)
+            {
+                case LogDto log:
+                    if (log.Level == "Warning")
+                        row.DefaultCellStyle.BackColor = Color.Yellow;
+                    else if (log.Level == "Error")
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                    else
+                        row.DefaultCellStyle.BackColor = Color.White;
+                    break;
+                case ApiDataResultDto data:
+                    int? status = data.AKM_Status ?? data.Debi_Status ?? data.KOi_Status ?? data.pH_Status ??
+                                  data.CozunmusOksijen_Status ?? data.AkisHizi_Status ?? data.Sicaklik_Status;
+                    if (status == 3)
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    else if (status.HasValue && status.Value != 0)
+                        row.DefaultCellStyle.BackColor = Color.LightCoral;
+                    else
+                        row.DefaultCellStyle.BackColor = Color.White;
+                    break;
+            }
         }
     }
 }
