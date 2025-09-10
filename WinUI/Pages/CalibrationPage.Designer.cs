@@ -1448,34 +1448,6 @@ namespace WinUI.Pages
             ResumeLayout(false);
         }
 
-        private void CalibrationPage_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonAkmZero_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonPhZero_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonPhSpan_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonIletkenlikZero_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonIletkenlikSpan_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonKoiZero_Click(object sender, EventArgs e)
-        {
-        }
-
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
