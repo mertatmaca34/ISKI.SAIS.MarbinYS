@@ -28,6 +28,7 @@ public static class ServiceRegistration
         services.AddScoped<IPlcInformationRepository, PlcInformationRepository>();
         services.AddScoped<IStationRepository, StationRepository>();
         services.AddSingleton<IPlcClient, SiemensPlcClient>();
+        services.AddSingleton<IPlcDataCache, PlcDataCache>();
 
         return services;
     }

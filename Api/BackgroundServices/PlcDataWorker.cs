@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,7 @@ public class PlcDataWorker(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        int interval = configuration.GetValue<int>("PlcSettings:IntervalSeconds", 30);
+        int interval = configuration.GetValue<int>("PlcSettings:IntervalSeconds", 5);
         while (!stoppingToken.IsCancellationRequested)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
