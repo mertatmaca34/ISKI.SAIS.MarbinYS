@@ -10,26 +10,43 @@ namespace Infrastructure.Services.PLC;
 /// </summary>
 public class SiemensPlcClient : IPlcClient
 {
+    // Many Siemens PLCs, including S7-1200/1500 families, expose the CPU on
+    // rack 0 and slot 1. Using the wrong slot often causes "TCP: Error receiving
+    // Data" when attempting to read from the device.
     private const short DefaultRack = 0;
-    private const short DefaultSlot = 0;
+    private const short DefaultSlot = 1;
 
-    public Task<byte[]> ReadBytesAsync(string ipAddress, int dbNumber, int startAddress, int length)
+    public async Task<byte[]> ReadBytesAsync(string ipAddress, int dbNumber, int startAddress, int length)
     {
         var client = new S7Client();
-        int connectResult = client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
-        if (connectResult != 0)
+        try
         {
-            throw new Exception(client.ErrorText(connectResult));
-        }
+            int connectResult = client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
+            if (connectResult != 0)
+            {
+                throw new Exception(client.ErrorText(connectResult));
+            }
 
-        byte[] buffer = new byte[length];
-        int readResult = client.DBRead(dbNumber, startAddress, length, buffer);
-        client.Disconnect();
-        if (readResult != 0)
-        {
+            byte[] buffer = new byte[length];
+            const int maxRetries = 3;
+            int readResult = -1;
+            for (int attempt = 0; attempt < maxRetries; attempt++)
+            {
+                readResult = client.DBRead(dbNumber, startAddress, length, buffer);
+                if (readResult == 0)
+                {
+                    return buffer;
+                }
+
+                // Transient network errors can occur; wait briefly and retry.
+                await Task.Delay(100);
+            }
+
             throw new Exception(client.ErrorText(readResult));
         }
-
-        return Task.FromResult(buffer);
+        finally
+        {
+            client.Disconnect();
+        }
     }
 }
