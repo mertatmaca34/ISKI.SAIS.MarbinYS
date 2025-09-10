@@ -295,7 +295,7 @@ namespace WinUI.Pages
             ButtonKoiZero.TabIndex = 4;
             ButtonKoiZero.Text = "ZERO";
             ButtonKoiZero.UseVisualStyleBackColor = false;
-            ButtonKoiZero.Click += ButtonKoiZero_Click;
+            //ButtonKoiZero.Click += ButtonKoiZero_Click;
             // 
             // panel19
             // 
@@ -833,7 +833,7 @@ namespace WinUI.Pages
             ButtonAkmZero.TabIndex = 4;
             ButtonAkmZero.Text = "ZERO";
             ButtonAkmZero.UseVisualStyleBackColor = false;
-            ButtonAkmZero.Click += ButtonAkmZero_Click;
+            //ButtonAkmZero.Click += ButtonAkmZero_Click;
             // 
             // panel2
             // 

@@ -5,6 +5,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Models;
 using WinUI.Services;
+using Timer = System.Windows.Forms.Timer;
 
 namespace WinUI.Pages
 {

@@ -32,7 +32,7 @@ public class MeasurementReportService : IMeasurementReportService
             station.DataPeriodMinute.Value,
             startDate,
             endDate);
-        return result?.Objects ?? new List<ApiDataResultDto>();
+        return result?.objects?? new List<ApiDataResultDto>();
     }
 }
 
