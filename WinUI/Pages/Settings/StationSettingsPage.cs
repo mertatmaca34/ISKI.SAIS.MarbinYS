@@ -11,12 +11,14 @@ public partial class StationSettingsPage : UserControl
 {
     private readonly IStationService _stationService;
     private readonly IStationInformationService _stationInformationService;
+    private readonly ISaisApiService _saisApiService;
 
     public StationSettingsPage()
     {
         InitializeComponent();
         _stationService = Program.Services.GetRequiredService<IStationService>();
         _stationInformationService = Program.Services.GetRequiredService<IStationInformationService>();
+        _saisApiService = Program.Services.GetRequiredService<ISaisApiService>();
     }
 
     protected override async void OnLoad(EventArgs e)
@@ -46,6 +48,7 @@ public partial class StationSettingsPage : UserControl
 
         int? connectionPort = int.TryParse(ConnectionPortTextBox.Text, out var cp) ? cp : null;
 
+        StationDto? result;
         if (existing == null)
         {
             var command = new CreateStationCommand(
@@ -64,11 +67,7 @@ public partial class StationSettingsPage : UserControl
                 string.Empty,
                 string.Empty);
 
-            var result = await _stationService.CreateAsync(command);
-            if (result != null)
-            {
-                MessageBox.Show("İstasyon ayarları kaydedildi.", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            result = await _stationService.CreateAsync(command);
         }
         else
         {
@@ -88,10 +87,28 @@ public partial class StationSettingsPage : UserControl
                 existing.Address,
                 existing.Software);
 
-            var result = await _stationService.UpdateAsync(command);
-            if (result != null)
+            result = await _stationService.UpdateAsync(command);
+        }
+
+        if (result != null)
+        {
+            var request = new SendHostChangedRequest
             {
-                MessageBox.Show("İstasyon ayarları kaydedildi.", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                StationId = stationId,
+                ConnectionUser = ConnectionUserTextBox.Text,
+                ConnectionPassword = ConnectionPasswordTextBox.Text,
+                ConnectionDomainAddress = ConnectionDomainAddressTextBox.Text,
+                ConnectionPort = ConnectionPortTextBox.Text
+            };
+
+            try
+            {
+                await _saisApiService.SendHostChangedAsync(request);
+                MessageBox.Show("İstasyon ayarları kaydedildi ve SAİS'e gönderildi.", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"İstasyon ayarları kaydedildi ancak SAİS'e gönderilemedi: {ex.Message}", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
