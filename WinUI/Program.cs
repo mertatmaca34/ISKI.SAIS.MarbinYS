@@ -96,6 +96,7 @@ namespace WinUI
                     });
 
                     services.AddHttpClient<IStationInformationService, StationInformationService>();
+                    services.AddHttpClient<ISaisApiService, SaisApiService>();
 
                     services.AddHttpClient<IApiEndpointService, ApiEndpointService>(client =>
                     {
