@@ -142,7 +142,7 @@ namespace WinUI
                     }).AddStandardResilienceHandler(options =>
                     {
                         options.Retry.MaxRetryAttempts = 3;
-                        options.AttemptTimeout.Timeout = TimeSpan.FromSeconds(60);
+                        options.AttemptTimeout.Timeout = TimeSpan.FromSeconds(15);
                     });
 
                     services.AddHttpClient<ICalibrationMeasurementService, CalibrationMeasurementService>(client =>

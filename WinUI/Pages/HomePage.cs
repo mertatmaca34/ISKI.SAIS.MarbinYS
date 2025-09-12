@@ -89,7 +89,7 @@ namespace WinUI.Pages
                 if (string.IsNullOrEmpty(StationConstants.Ticket) ||
                     DateTime.Now >= StationConstants.TicketExpiry)
                 {
-                    digitalSensorBar1.DataStateDescription = "BAĞLI DEĞİL";
+                    digitalSensorBar1.DataStateDescription = "GÖNDERMİYOR";
                     digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                     digitalSensorBar1.SystemStateDescription = "KOPUK";
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
@@ -97,10 +97,13 @@ namespace WinUI.Pages
                     StatusBarControl.ConnectionTime = "Bağlantı Zamanı: 00:00:00";
                     _connectedSince = null;
                     Log.Warning("Ticket yok veya süresi doldu");
-                    return;
+                }else
+                {
+                    digitalSensorBar1.DataStateDescription = "GÖNDERİYOR";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
                 }
 
-                var value = await ReadPlcDataAsync();
+                    var value = await ReadPlcDataAsync();
                 if (value == null)
                     return;
 
@@ -134,8 +137,6 @@ namespace WinUI.Pages
                 digitalSensorBar1.SystemStateDescription = "BAĞLI";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Ok;
                 digitalSensorBar1.SystemStateTitleColor = StateColors.Ok;
-                digitalSensorBar1.DataStateDescription = "BAĞLI";
-                digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı";
 
                 _connectedSince ??= DateTime.Now;
@@ -153,8 +154,6 @@ namespace WinUI.Pages
                 digitalSensorBar1.SystemStateDescription = "KURULMADI";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                 digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
-                digitalSensorBar1.DataStateDescription = "BAĞLI";
-                digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 StatusBarControl.ConnectionTime = "-";
                 _connectedSince = null;
