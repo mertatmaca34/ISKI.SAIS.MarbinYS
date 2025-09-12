@@ -785,7 +785,7 @@ namespace WinUI.Pages
         {
             try
             {
-                var value = await _plcService.ReadAndSaveAsync();
+                var value = await _plcService.GetLatestAsync();
                 if (value == null)
                     return;
 

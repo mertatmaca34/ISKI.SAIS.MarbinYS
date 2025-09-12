@@ -19,9 +19,9 @@ public class PlcDataService : IPlcDataService
         handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
     }
 
-    public async Task<PlcDataDto?> ReadAndSaveAsync()
+    public async Task<PlcDataDto?> GetLatestAsync()
     {
-        using var response = await _httpClient.PostAsync("api/plcdata/read", null);
+        using var response = await _httpClient.GetAsync("api/plcdata");
         if (response.StatusCode == HttpStatusCode.NotFound)
         {
             Log.Warning("PLC bilgileri bulunamadı");

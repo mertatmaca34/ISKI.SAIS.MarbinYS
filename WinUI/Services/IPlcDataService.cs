@@ -4,5 +4,5 @@ namespace WinUI.Services;
 
 public interface IPlcDataService
 {
-    Task<PlcDataDto?> ReadAndSaveAsync();
+    Task<PlcDataDto?> GetLatestAsync();
 }
