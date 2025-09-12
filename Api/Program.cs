@@ -46,7 +46,7 @@ app.MapGet("/", context =>
     return Task.CompletedTask;
 });
 
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseGlobalExceptionHandling();
 
 app.MapControllers();
 
