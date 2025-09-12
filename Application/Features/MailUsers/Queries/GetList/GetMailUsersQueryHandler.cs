@@ -1,7 +1,7 @@
 using MediatR;
 using Application.Features.MailUsers.Dtos;
 using AutoMapper;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 
 namespace Application.Features.MailUsers.Queries.GetList;
 

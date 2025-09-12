@@ -1,5 +1,5 @@
 using Domain.Entities;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using ISKI.Core.Infrastructure;
 
 namespace Infrastructure.Persistence.Repositories;

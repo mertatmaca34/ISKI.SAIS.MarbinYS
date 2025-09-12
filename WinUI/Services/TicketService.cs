@@ -51,7 +51,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         }
 
         StationConstants.Ticket = loginResult.objects.TicketId.ToString()!;
-        StationConstants.TicketExpiry = DateTime.Now.AddMinutes(30);
+        StationConstants.TicketExpiry = loginResult.objects.ExpireDate;
         return loginResult;
     }
 }

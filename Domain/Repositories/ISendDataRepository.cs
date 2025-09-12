@@ -1,7 +1,7 @@
 using Domain.Entities;
 using ISKI.Core.Infrastructure;
 
-namespace Infrastructure.Persistence.Abstract;
+namespace Domain.Repositories;
 
 public interface ISendDataRepository : IAsyncRepository<SendData, int>
 {

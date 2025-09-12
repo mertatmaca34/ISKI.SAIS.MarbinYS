@@ -1,4 +1,4 @@
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using MediatR;
 
 namespace Application.Features.CalibrationMeasurements.Commands.Delete;

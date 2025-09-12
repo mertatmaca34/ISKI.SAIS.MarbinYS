@@ -1,7 +1,7 @@
 using Application.Features.MailSettings.Dtos;
 using AutoMapper;
 using Domain.Entities;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using MediatR;
 
 namespace Application.Features.MailSettings.Commands.Create;

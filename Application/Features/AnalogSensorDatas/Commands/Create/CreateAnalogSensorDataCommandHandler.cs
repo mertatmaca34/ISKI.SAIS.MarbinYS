@@ -1,7 +1,7 @@
 using Application.Features.AnalogSensorDatas.Dtos;
 using AutoMapper;
 using Domain.Entities;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using MediatR;
 
 namespace Application.Features.AnalogSensorDatas.Commands.Create;
