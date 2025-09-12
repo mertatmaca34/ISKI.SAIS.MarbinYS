@@ -25,9 +25,9 @@ namespace WinUI.Pages
         private void ReportingPage_Load(object sender, EventArgs e)
         {
             ComboBoxReportType.Items.AddRange(new object[] { "Ölçüm Verileri", "Kalibrasyon Verileri", "Numune Verileri", "Log Kayıtları" });
-            ComboBoxReportType.SelectedIndex = 3;
+            ComboBoxReportType.SelectedIndex = 0;
             RadioButtonDaily.Checked = true;
-            ConfigureLogColumns();
+            ConfigureMeasurementColumns();
         }
 
         private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
@@ -37,17 +37,38 @@ namespace WinUI.Pages
 
         private void RadioButtonMonthly_CheckedChanged(object sender, EventArgs e)
         {
+            if (!RadioButtonMonthly.Checked) return;
             GroupBoxDate.Enabled = false;
+            DateTime start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            DateTime end = start.AddMonths(1);
+            SetDateTimePickers(start, end);
         }
 
         private void RadioButtonWeekly_CheckedChanged(object sender, EventArgs e)
         {
+            if (!RadioButtonWeekly.Checked) return;
             GroupBoxDate.Enabled = false;
+            int diff = (7 + (int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Monday) % 7;
+            DateTime start = DateTime.Today.AddDays(-diff);
+            DateTime end = start.AddDays(7);
+            SetDateTimePickers(start, end);
         }
 
         private void RadioButtonDaily_CheckedChanged(object sender, EventArgs e)
         {
+            if (!RadioButtonDaily.Checked) return;
             GroupBoxDate.Enabled = false;
+            DateTime start = DateTime.Today;
+            DateTime end = start.AddDays(1);
+            SetDateTimePickers(start, end);
+        }
+
+        private void SetDateTimePickers(DateTime start, DateTime end)
+        {
+            DateTimePickerFirstDate.Value = start;
+            DateTimePickerFirstTime.Value = start;
+            DateTimePickerLastDate.Value = end;
+            DateTimePickerLastTime.Value = end;
         }
 
         private async void ButtonGenerate_Click(object sender, EventArgs e)
@@ -59,18 +80,19 @@ namespace WinUI.Pages
 
             if (RadioButtonDaily.Checked)
             {
-                end = DateTime.Now;
-                start = end.AddDays(-1);
+                start = DateTime.Today;
+                end = start.AddDays(1);
             }
             else if (RadioButtonWeekly.Checked)
             {
-                end = DateTime.Now;
-                start = end.AddDays(-7);
+                int diff = (7 + (int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Monday) % 7;
+                start = DateTime.Today.AddDays(-diff);
+                end = start.AddDays(7);
             }
             else if (RadioButtonMonthly.Checked)
             {
-                end = DateTime.Now;
-                start = end.AddMonths(-1);
+                start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                end = start.AddMonths(1);
             }
             else
             {

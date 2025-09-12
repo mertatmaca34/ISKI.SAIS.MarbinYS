@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using WinUI.Constants;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -10,29 +14,16 @@ public interface IMeasurementReportService
     Task<List<ApiDataResultDto>> GetMeasurementsAsync(DateTime startDate, DateTime endDate);
 }
 
-public class MeasurementReportService : IMeasurementReportService
+public class MeasurementReportService(HttpClient httpClient) : IMeasurementReportService
 {
-    private readonly ISaisApiService _saisApiService;
-    private readonly IStationService _stationService;
-
-    public MeasurementReportService(ISaisApiService saisApiService, IStationService stationService)
-    {
-        _saisApiService = saisApiService;
-        _stationService = stationService;
-    }
-
     public async Task<List<ApiDataResultDto>> GetMeasurementsAsync(DateTime startDate, DateTime endDate)
     {
-        var station = await _stationService.GetFirstAsync();
-        if (station == null || station.DataPeriodMinute == null)
+        var items = await httpClient.GetFromJsonAsync<List<ApiDataResultDto>>(SendDataConstants.ApiUrl);
+        if (items == null)
             return new List<ApiDataResultDto>();
 
-        var result = await _saisApiService.GetDataByBetweenTwoDateAsync(
-            station.StationId,
-            station.DataPeriodMinute.Value,
-            startDate,
-            endDate);
-        return result?.objects?? new List<ApiDataResultDto>();
+        return items
+            .Where(x => x.ReadTime >= startDate && x.ReadTime < endDate)
+            .ToList();
     }
 }
-
