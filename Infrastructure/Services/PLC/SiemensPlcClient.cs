@@ -21,6 +21,24 @@ public class SiemensPlcClient : IPlcClient, IDisposable
     private readonly S7Client _client = new();
     private readonly SemaphoreSlim _sync = new(1, 1);
 
+    private async Task ConnectWithRetryAsync(string ipAddress)
+    {
+        const int maxConnectRetries = 3;
+        int result = -1;
+        for (int attempt = 0; attempt < maxConnectRetries; attempt++)
+        {
+            result = _client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
+            if (result == 0)
+            {
+                return;
+            }
+
+            await Task.Delay(100);
+        }
+
+        throw new Exception(_client.ErrorText(result));
+    }
+
     public async Task<byte[]> ReadBytesAsync(string ipAddress, int dbNumber, int startAddress, int length)
     {
         await _sync.WaitAsync();
@@ -28,11 +46,7 @@ public class SiemensPlcClient : IPlcClient, IDisposable
         {
             if (!_client.Connected)
             {
-                int connectResult = _client.ConnectTo(ipAddress, DefaultRack, DefaultSlot);
-                if (connectResult != 0)
-                {
-                    throw new Exception(_client.ErrorText(connectResult));
-                }
+                await ConnectWithRetryAsync(ipAddress);
             }
 
             byte[] buffer = new byte[length];
@@ -46,11 +60,14 @@ public class SiemensPlcClient : IPlcClient, IDisposable
                     return buffer;
                 }
 
-                // Transient network errors can occur; wait briefly and retry.
+                // If the read fails, assume the connection may have dropped;
+                // reset and attempt to reconnect before retrying.
+                _client.Disconnect();
                 await Task.Delay(100);
+                await ConnectWithRetryAsync(ipAddress);
             }
 
-            // If we reach here, the read failed; reset the connection for next time.
+            // All retries failed; bubble up the last error.
             _client.Disconnect();
             throw new Exception(_client.ErrorText(readResult));
         }
