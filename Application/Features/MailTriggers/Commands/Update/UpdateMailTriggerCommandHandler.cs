@@ -2,7 +2,7 @@ using MediatR;
 using Application.Features.MailTriggers.Dtos;
 using AutoMapper;
 using Domain.Entities;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 
 namespace Application.Features.MailTriggers.Commands.Update;
 

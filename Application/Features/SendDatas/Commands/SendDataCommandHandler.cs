@@ -2,7 +2,7 @@ using Application.Features.SendDatas.Dtos;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

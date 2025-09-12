@@ -1,7 +1,7 @@
 using MediatR;
 using Application.Features.MailLogs.Dtos;
 using AutoMapper;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 
 namespace Application.Features.MailLogs.Queries.GetList;
 

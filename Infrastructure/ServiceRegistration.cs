@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Services.PLC;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 
 namespace Infrastructure;
 

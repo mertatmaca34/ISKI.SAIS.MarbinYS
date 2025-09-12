@@ -1,6 +1,6 @@
 using Application.Features.MailTriggerRecipients.Dtos;
 using AutoMapper;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using MediatR;
 
 namespace Application.Features.MailTriggerRecipients.Queries.GetList;

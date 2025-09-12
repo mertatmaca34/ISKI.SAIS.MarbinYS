@@ -2,7 +2,7 @@ using System;
 using Application.Features.Stations.Dtos;
 using AutoMapper;
 using Domain.Entities;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using Serilog;
 using MediatR;
 using Log = Serilog.Log;

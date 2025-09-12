@@ -1,6 +1,6 @@
 using System;
 using Application.Services.Parsing;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using Infrastructure.Services.PLC;
 using MediatR;
 using AutoMapper;

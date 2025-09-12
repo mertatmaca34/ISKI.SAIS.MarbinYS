@@ -6,6 +6,7 @@ public class LoginResult
 {
     public Guid? TicketId { get; set; }
     public Guid? DeviceId { get; set; }
+    public DateTime ExpireDate { get; set; }
     public SH_User? User { get; set; }
 }
 
@@ -28,7 +29,6 @@ public class SH_User
     public string? town { get; set; }
     public string? tckimlikno { get; set; }
     public object? DutyCity { get; set; }
-    public DateTime ExpireDate { get; set; }
     public string? City_Title { get; set; }
     public string? Town_Title { get; set; }
     public object? DutyCity_Title { get; set; }

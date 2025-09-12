@@ -28,11 +28,10 @@ public class TicketRefreshService : BackgroundService
                 // ignore refresh errors
             }
 
-            var delay = TimeSpan.FromMinutes(30);
-            var expiry = StationConstants.TicketExpiry - DateTime.Now;
-            if (expiry > TimeSpan.Zero && expiry < delay)
+            var delay = StationConstants.TicketExpiry - DateTime.Now - TimeSpan.FromMinutes(1);
+            if (delay < TimeSpan.FromMinutes(1))
             {
-                delay = expiry;
+                delay = TimeSpan.FromMinutes(1);
             }
 
             try

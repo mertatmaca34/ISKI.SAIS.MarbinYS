@@ -1,6 +1,6 @@
 using MediatR;
 using AutoMapper;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 using Application.Features.SendDatas.Dtos;
 
 namespace Application.Features.SendDatas.Queries.GetList;

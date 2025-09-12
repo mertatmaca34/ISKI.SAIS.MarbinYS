@@ -1,5 +1,5 @@
 using MediatR;
-using Infrastructure.Persistence.Abstract;
+using Domain.Repositories;
 
 namespace Application.Features.MailTriggers.Commands.Delete;
 
