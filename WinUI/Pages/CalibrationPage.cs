@@ -72,7 +72,22 @@ namespace WinUI.Pages
             var series = new Series(zero ? "Zero" : "Span") { ChartType = SeriesChartType.Line };
             ChartCalibration.Series.Add(series);
 
-            var plcData = await _plcService.GetLatestAsync();
+            PlcDataDto? plcData;
+            try
+            {
+                plcData = await _plcService.GetLatestAsync();
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "PLC_NOT_CONFIGURED")
+            {
+                MessageBox.Show("PLC konfigüre edilmemiş.", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"PLC verileri alınırken hata oluştu: {ex.Message}", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (plcData == null)
                 return;
 
@@ -121,7 +136,24 @@ namespace WinUI.Pages
         private async Task TimerTickAsync(CalibrationLimitDto limit)
         {
             _elapsed++;
-            var plcData = await _plcService.GetLatestAsync();
+            PlcDataDto? plcData;
+            try
+            {
+                plcData = await _plcService.GetLatestAsync();
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "PLC_NOT_CONFIGURED")
+            {
+                _timer?.Stop();
+                MessageBox.Show("PLC konfigüre edilmemiş.", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                _timer?.Stop();
+                MessageBox.Show($"PLC verileri alınırken hata oluştu: {ex.Message}", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (plcData == null)
                 return;
 
