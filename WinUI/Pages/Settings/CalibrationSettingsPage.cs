@@ -33,12 +33,22 @@ namespace WinUI.Pages.Settings
             {
                 PhZeroTextBox.Text = _phLimit.ZeroRef.ToString();
                 PhSpanComboBox.Text = _phLimit.SpanRef.ToString();
+
+                var phTime = _phLimit.ZeroTimeStamp.ToString();
+                if (!comboBox1.Items.Contains(phTime))
+                    comboBox1.Items.Add(phTime);
+                comboBox1.SelectedItem = phTime;
             }
 
             if (_conductivityLimit != null)
             {
                 ConductivityZeroTextBox.Text = _conductivityLimit.ZeroRef.ToString();
                 ConductivitySpanTextBox.Text = _conductivityLimit.SpanRef.ToString();
+
+                var conductivityTime = _conductivityLimit.ZeroTimeStamp.ToString();
+                if (!comboBox2.Items.Contains(conductivityTime))
+                    comboBox2.Items.Add(conductivityTime);
+                comboBox2.SelectedItem = conductivityTime;
             }
         }
 
@@ -48,11 +58,15 @@ namespace WinUI.Pages.Settings
             {
                 _phLimit.ZeroRef = int.Parse(PhZeroTextBox.Text);
                 _phLimit.SpanRef = int.Parse(PhSpanComboBox.Text);
+                var phTime = int.Parse(comboBox1.SelectedItem?.ToString() ?? "0");
+                _phLimit.ZeroTimeStamp = phTime;
+                _phLimit.SpanTimeStamp = phTime;
                 await _calibrationLimitService.UpdateAsync(new UpdateCalibrationLimitCommand(_phLimit.Id, _phLimit.Parameter, _phLimit.ZeroRef, _phLimit.ZeroTimeStamp, _phLimit.SpanRef, _phLimit.SpanTimeStamp));
             }
             else
             {
-                var cmd = new CreateCalibrationLimitCommand("pH", int.Parse(PhZeroTextBox.Text), 60, int.Parse(PhSpanComboBox.Text), 60);
+                var phTime = int.Parse(comboBox1.SelectedItem?.ToString() ?? "0");
+                var cmd = new CreateCalibrationLimitCommand("pH", int.Parse(PhZeroTextBox.Text), phTime, int.Parse(PhSpanComboBox.Text), phTime);
                 _phLimit = await _calibrationLimitService.CreateAsync(cmd);
             }
 
@@ -60,11 +74,15 @@ namespace WinUI.Pages.Settings
             {
                 _conductivityLimit.ZeroRef = int.Parse(ConductivityZeroTextBox.Text);
                 _conductivityLimit.SpanRef = int.Parse(ConductivitySpanTextBox.Text);
+                var conductivityTime = int.Parse(comboBox2.SelectedItem?.ToString() ?? "0");
+                _conductivityLimit.ZeroTimeStamp = conductivityTime;
+                _conductivityLimit.SpanTimeStamp = conductivityTime;
                 await _calibrationLimitService.UpdateAsync(new UpdateCalibrationLimitCommand(_conductivityLimit.Id, _conductivityLimit.Parameter, _conductivityLimit.ZeroRef, _conductivityLimit.ZeroTimeStamp, _conductivityLimit.SpanRef, _conductivityLimit.SpanTimeStamp));
             }
             else
             {
-                var cmd2 = new CreateCalibrationLimitCommand("Iletkenlik", int.Parse(ConductivityZeroTextBox.Text), 60, int.Parse(ConductivitySpanTextBox.Text), 60);
+                var conductivityTime = int.Parse(comboBox2.SelectedItem?.ToString() ?? "0");
+                var cmd2 = new CreateCalibrationLimitCommand("Iletkenlik", int.Parse(ConductivityZeroTextBox.Text), conductivityTime, int.Parse(ConductivitySpanTextBox.Text), conductivityTime);
                 _conductivityLimit = await _calibrationLimitService.CreateAsync(cmd2);
             }
 
