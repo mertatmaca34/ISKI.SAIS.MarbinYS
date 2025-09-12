@@ -80,7 +80,6 @@ public class SiemensPlcClient : IPlcClient, IDisposable
     public void Dispose()
     {
         _client.Disconnect();
-        _client.Dispose();
         _sync.Dispose();
     }
 }

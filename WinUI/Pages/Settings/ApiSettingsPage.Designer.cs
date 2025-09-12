@@ -48,10 +48,10 @@
             ApiTestBgTableLayoutPanel = new TableLayoutPanel();
             ApiTestContentTableLayoutPanel = new TableLayoutPanel();
             SendServerRequestButton = new Button();
-            RequestSampleButton = new Button();
-            SendDiagnosticButton = new Button();
             ResponseGroupBox = new GroupBox();
             ResponseTextBox = new TextBox();
+            RequestSampleButton = new Button();
+            SendDiagnosticButton = new Button();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoBgTableLayoutPanel.SuspendLayout();
@@ -353,6 +353,33 @@
             SendServerRequestButton.Text = "Sunucuya İstek At";
             SendServerRequestButton.UseVisualStyleBackColor = true;
             // 
+            // ResponseGroupBox
+            // 
+            ResponseGroupBox.Controls.Add(ResponseTextBox);
+            ResponseGroupBox.Dock = DockStyle.Fill;
+            ResponseGroupBox.Location = new Point(203, 18);
+            ResponseGroupBox.Name = "ResponseGroupBox";
+            ResponseGroupBox.Padding = new Padding(10);
+            ApiTestContentTableLayoutPanel.SetRowSpan(ResponseGroupBox, 14);
+            ResponseGroupBox.Size = new Size(319, 428);
+            ResponseGroupBox.TabIndex = 3;
+            ResponseGroupBox.TabStop = false;
+            ResponseGroupBox.Text = "Cevap";
+            // 
+            // ResponseTextBox
+            // 
+            ResponseTextBox.BackColor = Color.White;
+            ResponseTextBox.BorderStyle = BorderStyle.None;
+            ResponseTextBox.Dock = DockStyle.Fill;
+            ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
+            ResponseTextBox.Location = new Point(10, 26);
+            ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
+            ResponseTextBox.Multiline = true;
+            ResponseTextBox.Name = "ResponseTextBox";
+            ResponseTextBox.ReadOnly = true;
+            ResponseTextBox.Size = new Size(299, 392);
+            ResponseTextBox.TabIndex = 0;
+            // 
             // RequestSampleButton
             // 
             RequestSampleButton.Anchor = AnchorStyles.Left;
@@ -376,31 +403,6 @@
             SendDiagnosticButton.TabIndex = 2;
             SendDiagnosticButton.Text = "Deneme Diagnostik Gönder";
             SendDiagnosticButton.UseVisualStyleBackColor = true;
-            // 
-            // ResponseGroupBox
-            // 
-            ResponseGroupBox.Controls.Add(ResponseTextBox);
-            ResponseGroupBox.Dock = DockStyle.Fill;
-            ResponseGroupBox.Location = new Point(203, 18);
-            ResponseGroupBox.Name = "ResponseGroupBox";
-            ResponseGroupBox.Padding = new Padding(10);
-            ApiTestContentTableLayoutPanel.SetRowSpan(ResponseGroupBox, 14);
-            ResponseGroupBox.Size = new Size(319, 428);
-            ResponseGroupBox.TabIndex = 3;
-            ResponseGroupBox.TabStop = false;
-            ResponseGroupBox.Text = "Cevap";
-            // 
-            // ResponseTextBox
-            // 
-            ResponseTextBox.BorderStyle = BorderStyle.None;
-            ResponseTextBox.Dock = DockStyle.Fill;
-            ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
-            ResponseTextBox.Location = new Point(10, 26);
-            ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
-            ResponseTextBox.Multiline = true;
-            ResponseTextBox.Name = "ResponseTextBox";
-            ResponseTextBox.Size = new Size(299, 392);
-            ResponseTextBox.TabIndex = 0;
             // 
             // ApiSettingsPage
             // 

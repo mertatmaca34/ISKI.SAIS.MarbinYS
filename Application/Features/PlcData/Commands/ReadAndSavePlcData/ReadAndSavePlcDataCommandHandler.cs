@@ -1,12 +1,12 @@
 using System;
 using Application.Services.Parsing;
-using Domain.Entities;
 using Infrastructure.Persistence.Abstract;
 using Infrastructure.Services.PLC;
 using MediatR;
 using AutoMapper;
 using Application.Features.PlcData.Dtos;
 using Microsoft.Extensions.Logging;
+using Domain.Entities;
 
 namespace Application.Features.PlcData.Commands.ReadAndSavePlcData;
 
@@ -52,7 +52,7 @@ public class ReadAndSavePlcDataCommandHandler(
             }
             var timeParameterEntity = parser.ParseTimeParameter(timeParameterBytes);
 
-            var plcData = new PlcData
+            var plcData = new Domain.Entities.PlcData
             {
                 Analog = analogEntity,
                 Digital = digitalEntity,
