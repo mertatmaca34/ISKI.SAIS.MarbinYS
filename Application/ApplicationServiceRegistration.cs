@@ -3,6 +3,7 @@ using MediatR;
 using FluentValidation;
 using AutoMapper;
 using Application.Services.Parsing;
+using Application.Services.PlcData;
 
 namespace Application;
 
@@ -14,6 +15,7 @@ public static class ApplicationServiceRegistration
         services.AddAutoMapper(typeof(ApplicationServiceRegistration).Assembly);
         services.AddValidatorsFromAssembly(typeof(ApplicationServiceRegistration).Assembly);
         services.AddSingleton<IPlcDataParser, PlcDataParser>();
+        services.AddTransient<IPlcDataReader, PlcDataReader>();
         return services;
     }
 }

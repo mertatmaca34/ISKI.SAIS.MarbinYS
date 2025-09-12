@@ -23,6 +23,7 @@
     <Folder Include="Features\SendDatas\Rules\" />
     <Folder Include="Services\Parsing\" />
     <Folder Include="Features\PlcData\Commands\" />
+    <Folder Include="Services\PlcData\" />
   </ItemGroup>
 
 </Project>
