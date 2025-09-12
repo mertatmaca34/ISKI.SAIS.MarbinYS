@@ -6,8 +6,8 @@ using Serilog.Sinks.MSSqlServer;
 using System.Text.Json.Nodes;
 using WinUI.Forms;
 using WinUI.Pages;
-using WinUI.Policies;
 using WinUI.Services;
+using Microsoft.Extensions.Http.Resilience;
 
 namespace WinUI
 {
@@ -70,7 +70,8 @@ namespace WinUI
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730"; baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
+                        .AddStandardResilienceHandler(options =>
+                            options.Retry.MaxRetryAttempts = 3)
                         .ConfigurePrimaryHttpMessageHandler(() =>
                         {
                             var handler = new HttpClientHandler();
@@ -87,7 +88,8 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -99,9 +101,11 @@ namespace WinUI
                     });
 
                     services.AddHttpClient<IStationInformationService, StationInformationService>()
-                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
+                        .AddStandardResilienceHandler(options =>
+                            options.Retry.MaxRetryAttempts = 3);
                     services.AddHttpClient<ISaisApiService, SaisApiService>()
-                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
+                        .AddStandardResilienceHandler(options =>
+                            options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<IApiEndpointService, ApiEndpointService>(client =>
                     {
@@ -109,7 +113,8 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -126,7 +131,8 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -143,7 +149,8 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -160,7 +167,8 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -172,7 +180,8 @@ namespace WinUI
                     });
 
                     services.AddHttpClient<ITicketService, TicketService>()
-                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
+                        .AddStandardResilienceHandler(options =>
+                            options.Retry.MaxRetryAttempts = 3);
 
                     services.AddSingleton<IReportExportService, ReportExportService>();
                     services.AddHttpClient<IMeasurementReportService, MeasurementReportService>(client =>
