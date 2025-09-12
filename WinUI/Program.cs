@@ -6,6 +6,7 @@ using Serilog.Sinks.MSSqlServer;
 using System.Text.Json.Nodes;
 using WinUI.Forms;
 using WinUI.Pages;
+using WinUI.Policies;
 using WinUI.Services;
 
 namespace WinUI
@@ -69,6 +70,7 @@ namespace WinUI
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730"; baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
+                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
                         .ConfigurePrimaryHttpMessageHandler(() =>
                         {
                             var handler = new HttpClientHandler();
@@ -85,6 +87,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
+                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -95,8 +98,10 @@ namespace WinUI
                         return handler;
                     });
 
-                    services.AddHttpClient<IStationInformationService, StationInformationService>();
-                    services.AddHttpClient<ISaisApiService, SaisApiService>();
+                    services.AddHttpClient<IStationInformationService, StationInformationService>()
+                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
+                    services.AddHttpClient<ISaisApiService, SaisApiService>()
+                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
 
                     services.AddHttpClient<IApiEndpointService, ApiEndpointService>(client =>
                     {
@@ -104,6 +109,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
+                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -120,6 +126,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
+                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -136,6 +143,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
+                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -152,6 +160,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
+                    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy())
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -162,7 +171,8 @@ namespace WinUI
                         return handler;
                     });
 
-                    services.AddHttpClient<ITicketService, TicketService>();
+                    services.AddHttpClient<ITicketService, TicketService>()
+                        .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
 
                     services.AddSingleton<IReportExportService, ReportExportService>();
                     services.AddSingleton<IMeasurementReportService, MeasurementReportService>();
