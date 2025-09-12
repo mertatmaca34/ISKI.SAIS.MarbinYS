@@ -7,8 +7,6 @@ using System.Text.Json.Nodes;
 using WinUI.Forms;
 using WinUI.Pages;
 using WinUI.Services;
-using Microsoft.Extensions.Http.Resilience;
-using System.Net.Http;
 
 namespace WinUI
 {
@@ -71,8 +69,7 @@ namespace WinUI
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730"; baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                        .AddStandardResilienceHandler(options =>
-                            options.Retry.MaxRetryAttempts = 3)
+
                         .ConfigurePrimaryHttpMessageHandler(() =>
                         {
                             var handler = new HttpClientHandler();
@@ -81,7 +78,8 @@ namespace WinUI
                                 handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                             }
                             return handler;
-                        });
+                        }).AddStandardResilienceHandler(options =>
+                            options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<IStationService, StationService>(client =>
                     {
@@ -89,8 +87,6 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddStandardResilienceHandler(options =>
-                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -99,7 +95,9 @@ namespace WinUI
                             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
-                    });
+                    })
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<IStationInformationService, StationInformationService>()
                         .AddStandardResilienceHandler(options =>
@@ -114,8 +112,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddStandardResilienceHandler(options =>
-                        options.Retry.MaxRetryAttempts = 3)
+
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -124,7 +121,8 @@ namespace WinUI
                             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
-                    });
+                    }).AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<ILogService, LogService>(client =>
                     {
@@ -132,8 +130,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddStandardResilienceHandler(options =>
-                        options.Retry.MaxRetryAttempts = 3)
+
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -142,7 +139,8 @@ namespace WinUI
                             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
-                    });
+                    }).AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<ICalibrationMeasurementService, CalibrationMeasurementService>(client =>
                     {
@@ -150,8 +148,7 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddStandardResilienceHandler(options =>
-                        options.Retry.MaxRetryAttempts = 3)
+
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -160,7 +157,8 @@ namespace WinUI
                             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
-                    });
+                    }).AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<ICalibrationLimitService, CalibrationLimitService>(client =>
                     {
@@ -168,8 +166,6 @@ namespace WinUI
                         baseUrl = baseUrl.TrimEnd('/');
                         client.BaseAddress = new Uri(baseUrl);
                     })
-                    .AddStandardResilienceHandler(options =>
-                        options.Retry.MaxRetryAttempts = 3)
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
                         var handler = new HttpClientHandler();
@@ -178,7 +174,9 @@ namespace WinUI
                             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
-                    });
+                    })
+                    .AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<ITicketService, TicketService>()
                         .AddStandardResilienceHandler(options =>

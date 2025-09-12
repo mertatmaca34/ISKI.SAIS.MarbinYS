@@ -6,6 +6,7 @@ using AutoMapper;
 using Application.Features.PlcData.Dtos;
 using Microsoft.Extensions.Logging;
 using Domain.Entities;
+using Infrastructure.Services.PLC;
 
 namespace Application.Features.PlcData.Commands.ReadAndSavePlcData;
 
@@ -24,7 +25,7 @@ public class ReadAndSavePlcDataCommandHandler(
     {
         try
         {
-            PlcData plcData = await plcDataReader.ReadAsync(request, cancellationToken);
+            Domain.Entities.PlcData plcData = await plcDataReader.ReadAsync(request, cancellationToken);
 
             context.AnalogSensorData.Add(plcData.Analog);
             context.DigitalSensorData.Add(plcData.Digital);

@@ -12,7 +12,7 @@ public class PlcDataReader(IPlcClient plcClient, IPlcDataParser parser) : IPlcDa
     private readonly IPlcClient _plcClient = plcClient;
     private readonly IPlcDataParser _parser = parser;
 
-    public async Task<PlcData> ReadAsync(ReadAndSavePlcDataCommand request, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.PlcData> ReadAsync(ReadAndSavePlcDataCommand request, CancellationToken cancellationToken)
     {
         var analogTask = _plcClient.ReadBytesAsync(request.IpAddress, request.AnalogDbNumber, request.AnalogStart, request.AnalogLength);
         var digitalTask = _plcClient.ReadBytesAsync(request.IpAddress, request.DigitalDbNumber, request.DigitalStart, request.DigitalLength);
@@ -28,7 +28,7 @@ public class PlcDataReader(IPlcClient plcClient, IPlcDataParser parser) : IPlcDa
         var digitalEntity = _parser.ParseDigital(digitalBytes);
         var timeEntity = _parser.ParseTimeParameter(timeBytes);
 
-        return new PlcData
+        return new Domain.Entities.PlcData
         {
             Analog = analogEntity,
             Digital = digitalEntity,

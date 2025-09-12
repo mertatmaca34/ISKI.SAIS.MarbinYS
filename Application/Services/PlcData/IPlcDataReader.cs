@@ -6,5 +6,5 @@ namespace Application.Services.PlcData;
 
 public interface IPlcDataReader
 {
-    Task<PlcData> ReadAsync(ReadAndSavePlcDataCommand request, CancellationToken cancellationToken);
+    Task<Domain.Entities.PlcData> ReadAsync(ReadAndSavePlcDataCommand request, CancellationToken cancellationToken);
 }
