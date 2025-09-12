@@ -34,7 +34,7 @@ The API exposes endpoints for all domain entities. Currently implemented:
 - `/api/mailusers` - list registered users
 - `/api/maillogs` - list mail send logs
 - `/api/analogsensordata` - CRUD operations for analog sensor measurements
-- `/api/plcdata/read` - reads the latest measurements from the PLC
+- `/api/plcdata` - returns the latest measurements cached from the PLC
 
 ### PLC background service
 
@@ -60,9 +60,10 @@ The polling interval and connection parameters are configured under the
 }
 ```
 
-Adjust `IntervalSeconds` to change how often data is retrieved. The
-`/api/plcdata/read` endpoint can be called to fetch the latest data
-manually.
+Adjust `IntervalSeconds` to change how often data is retrieved. Results are
+stored in an in-memory cache and exposed through the `/api/plcdata`
+endpoint, allowing multiple clients to read the same snapshot without
+hitting the PLC repeatedly.
 
 ## Running the WinForms app
 
