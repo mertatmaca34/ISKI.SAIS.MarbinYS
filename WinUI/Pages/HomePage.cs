@@ -59,7 +59,7 @@ namespace WinUI.Pages
 
         public Task<PlcDataDto?> ReadPlcDataAsync()
         {
-            return _plcService.ReadAndSaveAsync();
+            return _plcService.GetLatestAsync();
         }
 
         private static bool IsPlcConfigured()

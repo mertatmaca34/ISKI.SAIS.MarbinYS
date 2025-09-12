@@ -52,7 +52,7 @@ public class PlcDataSendService : BackgroundService
                     try
                     {
                         await _ticketService.EnsureTicketAsync();
-                        var plcData = await _plcService.ReadAndSaveAsync();
+                        var plcData = await _plcService.GetLatestAsync();
                         if (plcData != null)
                         {
                             var body = new ApiSendDataDto
