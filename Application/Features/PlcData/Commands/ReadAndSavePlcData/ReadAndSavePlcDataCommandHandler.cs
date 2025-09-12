@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Application.Services.PlcData;
 using Infrastructure.Persistence;
 using MediatR;
 using AutoMapper;
 using Application.Features.PlcData.Dtos;
+using Application.Features.SendDatas.Commands;
 using Microsoft.Extensions.Logging;
-using Domain.Entities;
 using Infrastructure.Services.PLC;
 
 namespace Application.Features.PlcData.Commands.ReadAndSavePlcData;
@@ -19,6 +20,7 @@ public class ReadAndSavePlcDataCommandHandler(
     IBKSContext context,
     IMapper mapper,
     IPlcDataCache plcDataCache,
+    IMediator mediator,
     ILogger<ReadAndSavePlcDataCommandHandler> logger) : IRequestHandler<ReadAndSavePlcDataCommand, PlcDataDto>
 {
     public async Task<PlcDataDto> Handle(ReadAndSavePlcDataCommand request, CancellationToken cancellationToken)
@@ -32,6 +34,28 @@ public class ReadAndSavePlcDataCommandHandler(
             await context.SaveChangesAsync(cancellationToken);
 
             plcDataCache.Update(plcData);
+
+            var analog = plcData.Analog;
+            var measurements = new Dictionary<string, double>
+            {
+                [nameof(analog.AkisHizi)] = analog.AkisHizi,
+                [nameof(analog.Akm)] = analog.Akm,
+                [nameof(analog.CozunmusOksijen)] = analog.CozunmusOksijen,
+                [nameof(analog.Debi)] = analog.Debi,
+                [nameof(analog.DesarjDebi)] = analog.DesarjDebi ?? 0,
+                [nameof(analog.HariciDebi)] = analog.HariciDebi ?? 0,
+                [nameof(analog.HariciDebi2)] = analog.HariciDebi2 ?? 0,
+                [nameof(analog.Koi)] = analog.Koi,
+                [nameof(analog.Ph)] = analog.Ph,
+                [nameof(analog.Sicaklik)] = analog.Sicaklik,
+                [nameof(analog.Iletkenlik)] = analog.Iletkenlik
+            };
+
+            foreach (var kvp in measurements)
+            {
+                await mediator.Send(new SendDataCommand(kvp.Key, kvp.Value), cancellationToken);
+            }
+
             return mapper.Map<PlcDataDto>(plcData);
         }
         catch (Exception ex)
