@@ -18,7 +18,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
 {
     public async Task EnsureTicketAsync()
     {
-        if (!string.IsNullOrEmpty(StationConstants.Ticket) && DateTime.UtcNow < StationConstants.TicketExpiry)
+        if (!string.IsNullOrEmpty(StationConstants.Ticket) && DateTime.Now < StationConstants.TicketExpiry)
         {
             return;
         }

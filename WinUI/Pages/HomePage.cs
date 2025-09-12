@@ -86,17 +86,18 @@ namespace WinUI.Pages
         {
             try
             {
-                if (StationConstants.TicketExpiry != DateTime.MinValue &&
+                if (string.IsNullOrEmpty(StationConstants.Ticket) ||
                     DateTime.Now >= StationConstants.TicketExpiry)
                 {
-                    digitalSensorBar1.DataStateDescription = "HATA";
+                    digitalSensorBar1.DataStateDescription = "BAĞLI DEĞİL";
                     digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                     digitalSensorBar1.SystemStateDescription = "KOPUK";
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
+                    digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
                     StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                     StatusBarControl.ConnectionTime = "Bağlantı Zamanı: 00:00:00";
                     _connectedSince = null;
-                    Log.Warning("Ticket süresi doldu");
+                    Log.Warning("Ticket yok veya süresi doldu");
                     return;
                 }
 
