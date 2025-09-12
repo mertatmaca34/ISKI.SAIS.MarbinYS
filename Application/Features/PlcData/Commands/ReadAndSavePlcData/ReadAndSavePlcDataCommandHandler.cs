@@ -1,12 +1,11 @@
 using System;
 using Application.Services.Parsing;
+using Domain.Entities;
 using Infrastructure.Persistence.Abstract;
 using Infrastructure.Services.PLC;
 using MediatR;
 using AutoMapper;
 using Application.Features.PlcData.Dtos;
-using Application.Features.AnalogSensorDatas.Dtos;
-using Application.Features.DigitalSensorDatas.Dtos;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Features.PlcData.Commands.ReadAndSavePlcData;
@@ -53,20 +52,15 @@ public class ReadAndSavePlcDataCommandHandler(
             }
             var timeParameterEntity = parser.ParseTimeParameter(timeParameterBytes);
 
-            // Map to DTOs
-            var analogDto = mapper.Map<AnalogSensorDataDto>(analogEntity);
-            var digitalDto = mapper.Map<DigitalSensorDataDto>(digitalEntity);
-            var timeParameterDto = mapper.Map<PlcTimeParametersDto>(timeParameterEntity);
-
-            var dto = new PlcDataDto
+            var plcData = new PlcData
             {
-                Analog = analogDto,
-                Digital = digitalDto,
-                TimeParameter = timeParameterDto
+                Analog = analogEntity,
+                Digital = digitalEntity,
+                TimeParameter = timeParameterEntity
             };
 
-            plcDataCache.Update(dto);
-            return dto;
+            plcDataCache.Update(plcData);
+            return mapper.Map<PlcDataDto>(plcData);
         }
         catch (Exception ex)
         {

@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Infrastructure.Services.PLC;
+using Application.Features.PlcData.Dtos;
+using AutoMapper;
 using Microsoft.Extensions.Logging;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PlcDataController(IPlcDataCache dataCache, ILogger<PlcDataController> logger) : ControllerBase
+public class PlcDataController(IPlcDataCache dataCache, IMapper mapper, ILogger<PlcDataController> logger) : ControllerBase
 {
     [HttpGet]
     public IActionResult GetLatest()
@@ -18,6 +20,7 @@ public class PlcDataController(IPlcDataCache dataCache, ILogger<PlcDataControlle
             return NotFound();
         }
 
-        return Ok(data);
+        var dto = mapper.Map<PlcDataDto>(data);
+        return Ok(dto);
     }
 }

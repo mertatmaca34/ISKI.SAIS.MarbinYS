@@ -1,5 +1,5 @@
 using System;
-using Application.Features.PlcData.Dtos;
+using Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services.PLC;
@@ -10,7 +10,7 @@ namespace Infrastructure.Services.PLC;
 public class PlcDataCache : IPlcDataCache
 {
     private readonly object _lock = new();
-    private PlcDataDto? _current;
+    private PlcData? _current;
     private readonly ILogger<PlcDataCache> _logger;
 
     public PlcDataCache(ILogger<PlcDataCache> logger)
@@ -18,7 +18,7 @@ public class PlcDataCache : IPlcDataCache
         _logger = logger;
     }
 
-    public PlcDataDto? GetLatest()
+    public PlcData? GetLatest()
     {
         lock (_lock)
         {
@@ -26,7 +26,7 @@ public class PlcDataCache : IPlcDataCache
         }
     }
 
-    public void Update(PlcDataDto data)
+    public void Update(PlcData data)
     {
         if (data == null)
         {

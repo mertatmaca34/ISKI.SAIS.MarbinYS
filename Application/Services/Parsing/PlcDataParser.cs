@@ -1,4 +1,3 @@
-using Application.Features.PlcData.Dtos;
 using Domain.Entities;
 using Sharp7;
 
@@ -50,9 +49,9 @@ public class PlcDataParser : IPlcDataParser
         };
     }
 
-    public PlcTimeParametersDto ParseTimeParameter(byte[] data)
+    public PlcTimeParameters ParseTimeParameter(byte[] data)
     {
-        return new PlcTimeParametersDto
+        return new PlcTimeParameters
         {
             SystemTime = ReadTime(data, 0),
             WeeklyWashDay = ReadByte(data, 14),
