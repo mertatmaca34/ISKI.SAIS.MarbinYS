@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace WinUI.Pages
         private readonly ICalibrationMeasurementService _calibrationMeasurementService;
         private readonly ICalibrationLimitService _calibrationLimitService;
         private readonly IStationService _stationService;
+        private readonly IPlcDataService _plcService;
         private CalibrationLimitDto? _phLimit;
         private CalibrationLimitDto? _conductivityLimit;
         private CalibrationRequest? _currentRequest;
@@ -31,6 +33,7 @@ namespace WinUI.Pages
             _calibrationMeasurementService = Program.Services.GetRequiredService<ICalibrationMeasurementService>();
             _calibrationLimitService = Program.Services.GetRequiredService<ICalibrationLimitService>();
             _stationService = Program.Services.GetRequiredService<IStationService>();
+            _plcService = Program.Services.GetRequiredService<IPlcDataService>();
 
             Load += CalibrationPage_Load;
             ButtonPhZero.Click += ButtonPhZero_Click;
@@ -51,14 +54,13 @@ namespace WinUI.Pages
         private void ButtonIletkenlikZero_Click(object? sender, EventArgs e) => StartCalibration("Iletkenlik", true, _conductivityLimit);
         private void ButtonIletkenlikSpan_Click(object? sender, EventArgs e) => StartCalibration("Iletkenlik", false, _conductivityLimit);
 
-        private void StartCalibration(string parameter, bool zero, CalibrationLimitDto? limit)
+        private async void StartCalibration(string parameter, bool zero, CalibrationLimitDto? limit)
         {
             if (limit == null)
                 return;
 
             _activeParameter = parameter;
             _isZero = zero;
-            _elapsed = 0;
             _currentRequest ??= new CalibrationRequest
             {
                 CalibrationDate = DateTime.Now,
@@ -70,18 +72,63 @@ namespace WinUI.Pages
             var series = new Series(zero ? "Zero" : "Span") { ChartType = SeriesChartType.Line };
             ChartCalibration.Series.Add(series);
 
+            var plcData = await _plcService.GetLatestAsync();
+            if (plcData == null)
+                return;
+
+            double reference = zero ? limit.ZeroRef : limit.SpanRef;
+            double measurement = parameter.Equals("pH", StringComparison.OrdinalIgnoreCase)
+                ? plcData.Analog.Ph
+                : plcData.Analog.Iletkenlik;
+            double diff = measurement - reference;
+            double percent = Math.Abs(diff) / reference * 100.0;
+
+            series.Color = percent <= 10 ? System.Drawing.Color.Green : System.Drawing.Color.Red;
+            series.Points.AddY(measurement);
+
+            if (_isZero)
+            {
+                CalibrationStatusBarZero.ZeroRef = reference.ToString("F2");
+                CalibrationStatusBarZero.ZeroMeas = measurement.ToString("F2");
+                CalibrationStatusBarZero.ZeroDiff = diff.ToString("F2");
+                CalibrationStatusBarZero.ZeroStd = "0";
+
+                _currentRequest!.ZeroRef = reference;
+                _currentRequest.ZeroMeas = measurement;
+                _currentRequest.ZeroDiff = diff;
+                _currentRequest.ZeroSTD = 0;
+            }
+            else
+            {
+                CalibrationStatusBarSpan.SpanRef = reference.ToString("F2");
+                CalibrationStatusBarSpan.SpanMeas = measurement.ToString("F2");
+                CalibrationStatusBarSpan.SpanDiff = diff.ToString("F2");
+                CalibrationStatusBarSpan.SpanStd = "0";
+
+                _currentRequest!.SpanRef = reference;
+                _currentRequest.SpanMeas = measurement;
+                _currentRequest.SpanDiff = diff;
+                _currentRequest.SpanSTD = 0;
+            }
+
+            _elapsed = 0;
             _timer?.Stop();
             _timer = new Timer { Interval = 1000 };
-            _timer.Tick += (s, e) => TimerTick(limit);
+            _timer.Tick += async (s, e) => await TimerTickAsync(limit);
             _timer.Start();
         }
 
-        private void TimerTick(CalibrationLimitDto limit)
+        private async Task TimerTickAsync(CalibrationLimitDto limit)
         {
             _elapsed++;
+            var plcData = await _plcService.GetLatestAsync();
+            if (plcData == null)
+                return;
+
             double reference = _isZero ? limit.ZeroRef : limit.SpanRef;
-            var rnd = new Random();
-            double measurement = reference + rnd.NextDouble() * reference * 0.2 - reference * 0.1;
+            double measurement = _activeParameter.Equals("pH", StringComparison.OrdinalIgnoreCase)
+                ? plcData.Analog.Ph
+                : plcData.Analog.Iletkenlik;
             double diff = measurement - reference;
             double percent = Math.Abs(diff) / reference * 100.0;
 
