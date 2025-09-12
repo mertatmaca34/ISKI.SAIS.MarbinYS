@@ -8,6 +8,7 @@ using WinUI.Forms;
 using WinUI.Pages;
 using WinUI.Services;
 using Microsoft.Extensions.Http.Resilience;
+using System.Net.Http;
 
 namespace WinUI
 {
@@ -77,7 +78,7 @@ namespace WinUI
                             var handler = new HttpClientHandler();
                             if (context.HostingEnvironment.IsDevelopment())
                             {
-                                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                             }
                             return handler;
                         });
@@ -95,7 +96,7 @@ namespace WinUI
                         var handler = new HttpClientHandler();
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
                     });
@@ -120,7 +121,7 @@ namespace WinUI
                         var handler = new HttpClientHandler();
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
                     });
@@ -138,7 +139,7 @@ namespace WinUI
                         var handler = new HttpClientHandler();
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
                     });
@@ -156,7 +157,7 @@ namespace WinUI
                         var handler = new HttpClientHandler();
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
                     });
@@ -174,7 +175,7 @@ namespace WinUI
                         var handler = new HttpClientHandler();
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
                     });
@@ -195,7 +196,7 @@ namespace WinUI
                         var handler = new HttpClientHandler();
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
                         }
                         return handler;
                     });
