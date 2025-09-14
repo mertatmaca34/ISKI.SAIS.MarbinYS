@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             SideBarTableLayoutPanel = new TableLayoutPanel();
             HomePageButton = new Button();
@@ -36,14 +35,10 @@
             CalibrationPageButton = new Button();
             ReportingPageButton = new Button();
             MailPageButton = new Button();
-            MailPageMenuStrip = new ContextMenuStrip(components);
-            EventTriggersButton = new ToolStripMenuItem();
-            MailSettingsButton = new ToolStripMenuItem();
             SettingsPageButton = new Button();
             LoginButton = new Button();
             MainContentPanel = new Panel();
             SideBarTableLayoutPanel.SuspendLayout();
-            MailPageMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // SideBarTableLayoutPanel
@@ -145,7 +140,6 @@
             // MailPageButton
             // 
             MailPageButton.Anchor = AnchorStyles.None;
-            MailPageButton.ContextMenuStrip = MailPageMenuStrip;
             MailPageButton.FlatAppearance.BorderSize = 0;
             MailPageButton.FlatStyle = FlatStyle.Flat;
             MailPageButton.Font = new Font("Calibri", 8.25F);
@@ -158,27 +152,6 @@
             MailPageButton.Text = "Mail";
             MailPageButton.TextAlign = ContentAlignment.BottomCenter;
             MailPageButton.UseVisualStyleBackColor = false;
-            MailPageButton.MouseClick += MailPageButton_MouseClick;
-            // 
-            // MailPageMenuStrip
-            // 
-            MailPageMenuStrip.Items.AddRange(new ToolStripItem[] { EventTriggersButton, MailSettingsButton });
-            MailPageMenuStrip.Name = "contextMenuStrip1";
-            MailPageMenuStrip.Size = new Size(172, 70);
-            // 
-            // EventTriggersButton
-            // 
-            EventTriggersButton.Name = "EventTriggersButton";
-            EventTriggersButton.Size = new Size(171, 22);
-            EventTriggersButton.Text = "Olay Tanımları";
-            EventTriggersButton.Click += EventTriggersButton_Click;
-            // 
-            // MailSettingsButton
-            // 
-            MailSettingsButton.Name = "MailSettingsButton";
-            MailSettingsButton.Size = new Size(171, 22);
-            MailSettingsButton.Text = "Sunucu Ayarlarları";
-            MailSettingsButton.Click += MailSettingsButton_Click;
             // 
             // SettingsPageButton
             // 
@@ -235,7 +208,6 @@
             Text = "İSKİ Marbin Yönetim Sistemi";
             Load += MainForm_Load;
             SideBarTableLayoutPanel.ResumeLayout(false);
-            MailPageMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -249,9 +221,6 @@
         private Button MailPageButton;
         private Button ReportingPageButton;
         private Button SettingsPageButton;
-        private ContextMenuStrip MailPageMenuStrip;
-        private ToolStripMenuItem EventTriggersButton;
-        private ToolStripMenuItem MailSettingsButton;
         private Button LoginButton;
     }
 }

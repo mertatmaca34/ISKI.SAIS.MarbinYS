@@ -32,27 +32,28 @@ namespace WinUI.Pages
             tableLayoutPanel1 = new TableLayoutPanel();
             titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
             PanelContent = new Panel();
-            nameColumn = new DataGridViewTextBoxColumn();
-            valueColumn = new DataGridViewTextBoxColumn();
-            ApiTestBgTableLayoutPanel = new TableLayoutPanel();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            label1 = new Label();
+            ApiTestBgTableLayoutPanel = new TableLayoutPanel();
+            dataGridView2 = new DataGridView();
             ApiSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
             ApiSettingsLabel = new Label();
             SaveApiSettingsButton = new Button();
             StationInfoBgTableLayoutPanel = new TableLayoutPanel();
-            dataGridView2 = new DataGridView();
             dataGridView1 = new DataGridView();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            label1 = new Label();
+            nameColumn = new DataGridViewTextBoxColumn();
+            valueColumn = new DataGridViewTextBoxColumn();
+            SaveCalibrationButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             PanelContent.SuspendLayout();
-            ApiTestBgTableLayoutPanel.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            ApiTestBgTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
             StationInfoBgTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -99,29 +100,6 @@ namespace WinUI.Pages
             PanelContent.Size = new Size(1154, 623);
             PanelContent.TabIndex = 1;
             // 
-            // nameColumn
-            // 
-            nameColumn.Name = "nameColumn";
-            // 
-            // valueColumn
-            // 
-            valueColumn.Name = "valueColumn";
-            // 
-            // ApiTestBgTableLayoutPanel
-            // 
-            ApiTestBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            ApiTestBgTableLayoutPanel.ColumnCount = 1;
-            ApiTestBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            ApiTestBgTableLayoutPanel.Controls.Add(dataGridView2, 0, 0);
-            ApiTestBgTableLayoutPanel.Dock = DockStyle.Fill;
-            ApiTestBgTableLayoutPanel.Location = new Point(547, 40);
-            ApiTestBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            ApiTestBgTableLayoutPanel.Name = "ApiTestBgTableLayoutPanel";
-            ApiTestBgTableLayoutPanel.RowCount = 1;
-            ApiTestBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            ApiTestBgTableLayoutPanel.Size = new Size(542, 493);
-            ApiTestBgTableLayoutPanel.TabIndex = 6;
-            // 
             // StationSettingsBgTableLayoutPanel
             // 
             StationSettingsBgTableLayoutPanel.ColumnCount = 2;
@@ -139,6 +117,57 @@ namespace WinUI.Pages
             StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
             StationSettingsBgTableLayoutPanel.Size = new Size(1094, 533);
             StationSettingsBgTableLayoutPanel.TabIndex = 3;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(SaveCalibrationButton, 1, 0);
+            tableLayoutPanel2.Controls.Add(label1, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(547, 0);
+            tableLayoutPanel2.Margin = new Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new Size(547, 40);
+            tableLayoutPanel2.TabIndex = 7;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label1.ForeColor = Color.FromArgb(64, 64, 64);
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(88, 22);
+            label1.TabIndex = 0;
+            label1.Text = "Alarmlar";
+            // 
+            // ApiTestBgTableLayoutPanel
+            // 
+            ApiTestBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
+            ApiTestBgTableLayoutPanel.ColumnCount = 1;
+            ApiTestBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiTestBgTableLayoutPanel.Controls.Add(dataGridView2, 0, 0);
+            ApiTestBgTableLayoutPanel.Dock = DockStyle.Fill;
+            ApiTestBgTableLayoutPanel.Location = new Point(547, 40);
+            ApiTestBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
+            ApiTestBgTableLayoutPanel.Name = "ApiTestBgTableLayoutPanel";
+            ApiTestBgTableLayoutPanel.RowCount = 1;
+            ApiTestBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            ApiTestBgTableLayoutPanel.Size = new Size(542, 493);
+            ApiTestBgTableLayoutPanel.TabIndex = 6;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(3, 3);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.Size = new Size(536, 487);
+            dataGridView2.TabIndex = 1;
             // 
             // ApiSettingsHeaderTableLayoutPanel
             // 
@@ -193,15 +222,6 @@ namespace WinUI.Pages
             StationInfoBgTableLayoutPanel.Size = new Size(542, 493);
             StationInfoBgTableLayoutPanel.TabIndex = 5;
             // 
-            // dataGridView2
-            // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 3);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.Size = new Size(536, 487);
-            dataGridView2.TabIndex = 1;
-            // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -211,31 +231,24 @@ namespace WinUI.Pages
             dataGridView1.Size = new Size(536, 487);
             dataGridView1.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // nameColumn
             // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(label1, 0, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(547, 0);
-            tableLayoutPanel2.Margin = new Padding(0);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(547, 40);
-            tableLayoutPanel2.TabIndex = 7;
+            nameColumn.Name = "nameColumn";
             // 
-            // label1
+            // valueColumn
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.FromArgb(64, 64, 64);
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(88, 22);
-            label1.TabIndex = 0;
-            label1.Text = "Alarmlar";
+            valueColumn.Name = "valueColumn";
+            // 
+            // SaveCalibrationButton
+            // 
+            SaveCalibrationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveCalibrationButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveCalibrationButton.Location = new Point(452, 3);
+            SaveCalibrationButton.Name = "SaveCalibrationButton";
+            SaveCalibrationButton.Size = new Size(92, 32);
+            SaveCalibrationButton.TabIndex = 3;
+            SaveCalibrationButton.Text = "Kaydet";
+            SaveCalibrationButton.UseVisualStyleBackColor = true;
             // 
             // MailPage
             // 
@@ -248,15 +261,15 @@ namespace WinUI.Pages
             SizeChanged += MailPage_SizeChanged;
             tableLayoutPanel1.ResumeLayout(false);
             PanelContent.ResumeLayout(false);
-            ApiTestBgTableLayoutPanel.ResumeLayout(false);
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            ApiTestBgTableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ApiSettingsHeaderTableLayoutPanel.ResumeLayout(false);
             ApiSettingsHeaderTableLayoutPanel.PerformLayout();
             StationInfoBgTableLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -293,5 +306,6 @@ namespace WinUI.Pages
         private TableLayoutPanel tableLayoutPanel2;
         private Label label1;
         private DataGridView dataGridView1;
+        private Button SaveCalibrationButton;
     }
 }
