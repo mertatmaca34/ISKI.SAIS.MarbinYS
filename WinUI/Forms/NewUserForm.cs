@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinUI.Pages.Settings
+namespace WinUI.Forms
 {
-    public partial class MailUserSettingsPage : UserControl
+    public partial class NewUserForm : Form
     {
-        public MailUserSettingsPage()
+        public NewUserForm()
         {
             InitializeComponent();
         }
