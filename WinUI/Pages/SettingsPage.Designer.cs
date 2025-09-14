@@ -134,21 +134,6 @@
             PlcButton.UseVisualStyleBackColor = true;
             PlcButton.Click += PlcButton_Click;
             // 
-            // MailUsersButton
-            // 
-            MailUsersButton.Dock = DockStyle.Fill;
-            MailUsersButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            MailUsersButton.Image = Properties.Resources.shared_mail_96px;
-            MailUsersButton.Location = new Point(276, 269);
-            MailUsersButton.Name = "MailUsersButton";
-            MailUsersButton.Size = new Size(267, 261);
-            MailUsersButton.TabIndex = 4;
-            MailUsersButton.Text = "Mail Kullanıcıları";
-            MailUsersButton.TextAlign = ContentAlignment.BottomCenter;
-            MailUsersButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            MailUsersButton.UseVisualStyleBackColor = true;
-            MailUsersButton.Click += ButtonMailUsers_Click;
-            // 
             // CalibrationButton
             // 
             CalibrationButton.Dock = DockStyle.Fill;

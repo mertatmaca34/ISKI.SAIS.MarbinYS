@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinUI.Helpers;
 using WinUI.Pages;
-using WinUI.Pages.Mail;
 
 namespace WinUI.Forms;
 
@@ -59,11 +58,6 @@ public partial class MainForm : Form
         PageManager.ShowPage(MainContentPanel, _calibrationPage);
     }
 
-    private void MailPageButton_MouseClick(object sender, MouseEventArgs e)
-    {
-        MailPageButton.ContextMenuStrip!.Show(MailPageButton, new Point(e.X, e.Y));
-    }
-
     private void ReportingPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, ReportingPageButton);
@@ -76,11 +70,10 @@ public partial class MainForm : Form
         PageManager.ShowPage(MainContentPanel, new SettingsPage());
     }
 
-    private void EventTriggersButton_Click(object sender, EventArgs e)
+    private void MailPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
-
-        PageManager.ShowPage(MainContentPanel, new EventTriggersPage());
+        PageManager.ShowPage(MainContentPanel, new MailPage());
     }
 
     private void LoginButton_Click(object sender, EventArgs e)
@@ -90,17 +83,4 @@ public partial class MainForm : Form
         loginForm.ShowDialog();
     }
 
-    private void MailUsersButton_Click(object sender, EventArgs e)
-    {
-        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
-
-        PageManager.ShowPage(MainContentPanel, new MailUsersPage());
-    }
-
-    private void MailSettingsButton_Click(object sender, EventArgs e)
-    {
-        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
-
-        PageManager.ShowPage(MainContentPanel, new MailSettingsPage());
-    }
 }
