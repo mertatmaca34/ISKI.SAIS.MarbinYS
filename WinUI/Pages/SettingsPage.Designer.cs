@@ -35,7 +35,6 @@
             PanelContent = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             PlcButton = new Button();
-            MailUsersButton = new Button();
             CalibrationButton = new Button();
             ApiButton = new Button();
             DatabaseButton = new Button();
@@ -105,7 +104,6 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.Controls.Add(PlcButton, 2, 0);
-            tableLayoutPanel2.Controls.Add(MailUsersButton, 1, 1);
             tableLayoutPanel2.Controls.Add(CalibrationButton, 0, 1);
             tableLayoutPanel2.Controls.Add(ApiButton, 3, 0);
             tableLayoutPanel2.Controls.Add(DatabaseButton, 1, 0);
@@ -215,7 +213,6 @@
         private Controls.IBKS.TitleBarControl titleBarControl1;
         private Panel PanelContent;
         private TableLayoutPanel tableLayoutPanel2;
-        private Button MailUsersButton;
         private Button CalibrationButton;
         private Button ApiButton;
         private Button DatabaseButton;
