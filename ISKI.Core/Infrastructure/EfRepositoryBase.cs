@@ -67,7 +67,9 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext>(TContext context) : 
         if (include is not null)
             query = include(query);
 
-        return await query.Where(predicate).ToListAsync();
+        query = query.Where(x => x.DeletedAt == null).Where(predicate);
+
+        return await query.ToListAsync();
     }
 
     public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
