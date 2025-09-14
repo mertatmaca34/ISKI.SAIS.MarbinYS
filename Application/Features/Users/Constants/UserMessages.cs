@@ -7,5 +7,6 @@ public static class UserMessages
     public const string Updated = "Kullanıcı başarıyla güncellendi.";
     public const string Deleted = "Kullanıcı başarıyla silindi.";
     public const string NotFound = "Kayıt bulunamadı.";
+    public const string InvalidEmail = "Geçerli bir e-posta adresi giriniz.";
 }
 
