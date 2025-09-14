@@ -37,11 +37,11 @@ namespace WinUI.Pages
             label1 = new Label();
             ApiTestBgTableLayoutPanel = new TableLayoutPanel();
             dataGridView2 = new DataGridView();
-            ApiSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
-            ApiSettingsLabel = new Label();
-            SaveApiSettingsButton = new Button();
-            StationInfoBgTableLayoutPanel = new TableLayoutPanel();
-            dataGridView1 = new DataGridView();
+            usersHeaderTableLayoutPanel = new TableLayoutPanel();
+            usersLabel = new Label();
+            newUserButton = new Button();
+            usersTableLayoutPanel = new TableLayoutPanel();
+            usersDataGridView = new DataGridView();
             nameColumn = new DataGridViewTextBoxColumn();
             valueColumn = new DataGridViewTextBoxColumn();
             SaveCalibrationButton = new Button();
@@ -51,9 +51,9 @@ namespace WinUI.Pages
             tableLayoutPanel2.SuspendLayout();
             ApiTestBgTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
-            ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
-            StationInfoBgTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            usersHeaderTableLayoutPanel.SuspendLayout();
+            usersTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)usersDataGridView).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -107,8 +107,8 @@ namespace WinUI.Pages
             StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel2, 1, 0);
             StationSettingsBgTableLayoutPanel.Controls.Add(ApiTestBgTableLayoutPanel, 1, 1);
-            StationSettingsBgTableLayoutPanel.Controls.Add(ApiSettingsHeaderTableLayoutPanel, 0, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
+            StationSettingsBgTableLayoutPanel.Controls.Add(usersHeaderTableLayoutPanel, 0, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(usersTableLayoutPanel, 0, 1);
             StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
             StationSettingsBgTableLayoutPanel.Location = new Point(60, 30);
             StationSettingsBgTableLayoutPanel.Name = "StationSettingsBgTableLayoutPanel";
@@ -169,67 +169,67 @@ namespace WinUI.Pages
             dataGridView2.Size = new Size(536, 487);
             dataGridView2.TabIndex = 1;
             // 
-            // ApiSettingsHeaderTableLayoutPanel
+            // usersHeaderTableLayoutPanel
             // 
-            ApiSettingsHeaderTableLayoutPanel.ColumnCount = 2;
-            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            ApiSettingsHeaderTableLayoutPanel.Controls.Add(ApiSettingsLabel, 0, 0);
-            ApiSettingsHeaderTableLayoutPanel.Controls.Add(SaveApiSettingsButton, 1, 0);
-            ApiSettingsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
-            ApiSettingsHeaderTableLayoutPanel.Location = new Point(0, 0);
-            ApiSettingsHeaderTableLayoutPanel.Margin = new Padding(0);
-            ApiSettingsHeaderTableLayoutPanel.Name = "ApiSettingsHeaderTableLayoutPanel";
-            ApiSettingsHeaderTableLayoutPanel.RowCount = 1;
-            ApiSettingsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            ApiSettingsHeaderTableLayoutPanel.Size = new Size(547, 40);
-            ApiSettingsHeaderTableLayoutPanel.TabIndex = 3;
+            usersHeaderTableLayoutPanel.ColumnCount = 2;
+            usersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            usersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            usersHeaderTableLayoutPanel.Controls.Add(usersLabel, 0, 0);
+            usersHeaderTableLayoutPanel.Controls.Add(newUserButton, 1, 0);
+            usersHeaderTableLayoutPanel.Dock = DockStyle.Fill;
+            usersHeaderTableLayoutPanel.Location = new Point(0, 0);
+            usersHeaderTableLayoutPanel.Margin = new Padding(0);
+            usersHeaderTableLayoutPanel.Name = "usersHeaderTableLayoutPanel";
+            usersHeaderTableLayoutPanel.RowCount = 1;
+            usersHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            usersHeaderTableLayoutPanel.Size = new Size(547, 40);
+            usersHeaderTableLayoutPanel.TabIndex = 3;
+            //
+            // usersLabel
+            //
+            usersLabel.AutoSize = true;
+            usersLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            usersLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            usersLabel.Location = new Point(3, 0);
+            usersLabel.Name = "usersLabel";
+            usersLabel.Size = new Size(114, 22);
+            usersLabel.TabIndex = 0;
+            usersLabel.Text = "Kullanıcılar";
+            //
+            // newUserButton
+            //
+            newUserButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            newUserButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            newUserButton.Location = new Point(405, 3);
+            newUserButton.Name = "newUserButton";
+            newUserButton.Size = new Size(139, 32);
+            newUserButton.TabIndex = 2;
+            newUserButton.Text = "Yeni Kullanıcı";
+            newUserButton.UseVisualStyleBackColor = true;
             // 
-            // ApiSettingsLabel
+            // usersTableLayoutPanel
             // 
-            ApiSettingsLabel.AutoSize = true;
-            ApiSettingsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ApiSettingsLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ApiSettingsLabel.Location = new Point(3, 0);
-            ApiSettingsLabel.Name = "ApiSettingsLabel";
-            ApiSettingsLabel.Size = new Size(114, 22);
-            ApiSettingsLabel.TabIndex = 0;
-            ApiSettingsLabel.Text = "Kullanıcılar";
-            // 
-            // SaveApiSettingsButton
-            // 
-            SaveApiSettingsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveApiSettingsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveApiSettingsButton.Location = new Point(405, 3);
-            SaveApiSettingsButton.Name = "SaveApiSettingsButton";
-            SaveApiSettingsButton.Size = new Size(139, 32);
-            SaveApiSettingsButton.TabIndex = 2;
-            SaveApiSettingsButton.Text = "Yeni Kullanıcı";
-            SaveApiSettingsButton.UseVisualStyleBackColor = true;
-            // 
-            // StationInfoBgTableLayoutPanel
-            // 
-            StationInfoBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            StationInfoBgTableLayoutPanel.ColumnCount = 1;
-            StationInfoBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Controls.Add(dataGridView1, 0, 0);
-            StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
-            StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
-            StationInfoBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
-            StationInfoBgTableLayoutPanel.RowCount = 1;
-            StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Size = new Size(542, 493);
-            StationInfoBgTableLayoutPanel.TabIndex = 5;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(536, 487);
-            dataGridView1.TabIndex = 0;
+            usersTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
+            usersTableLayoutPanel.ColumnCount = 1;
+            usersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            usersTableLayoutPanel.Controls.Add(usersDataGridView, 0, 0);
+            usersTableLayoutPanel.Dock = DockStyle.Fill;
+            usersTableLayoutPanel.Location = new Point(0, 40);
+            usersTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
+            usersTableLayoutPanel.Name = "usersTableLayoutPanel";
+            usersTableLayoutPanel.RowCount = 1;
+            usersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            usersTableLayoutPanel.Size = new Size(542, 493);
+            usersTableLayoutPanel.TabIndex = 5;
+            //
+            // usersDataGridView
+            //
+            usersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            usersDataGridView.Dock = DockStyle.Fill;
+            usersDataGridView.Location = new Point(3, 3);
+            usersDataGridView.Name = "usersDataGridView";
+            usersDataGridView.Size = new Size(536, 487);
+            usersDataGridView.TabIndex = 0;
             // 
             // nameColumn
             // 
@@ -266,10 +266,10 @@ namespace WinUI.Pages
             tableLayoutPanel2.PerformLayout();
             ApiTestBgTableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-            ApiSettingsHeaderTableLayoutPanel.ResumeLayout(false);
-            ApiSettingsHeaderTableLayoutPanel.PerformLayout();
-            StationInfoBgTableLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            usersHeaderTableLayoutPanel.ResumeLayout(false);
+            usersHeaderTableLayoutPanel.PerformLayout();
+            usersTableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)usersDataGridView).EndInit();
             ResumeLayout(false);
         }
 
@@ -298,14 +298,14 @@ namespace WinUI.Pages
         private DataGridViewTextBoxColumn valueColumn;
         private TableLayoutPanel StationSettingsBgTableLayoutPanel;
         private TableLayoutPanel ApiTestBgTableLayoutPanel;
-        private TableLayoutPanel ApiSettingsHeaderTableLayoutPanel;
-        private Label ApiSettingsLabel;
-        private Button SaveApiSettingsButton;
-        private TableLayoutPanel StationInfoBgTableLayoutPanel;
+        private TableLayoutPanel usersHeaderTableLayoutPanel;
+        private Label usersLabel;
+        private Button newUserButton;
+        private TableLayoutPanel usersTableLayoutPanel;
         private DataGridView dataGridView2;
         private TableLayoutPanel tableLayoutPanel2;
         private Label label1;
-        private DataGridView dataGridView1;
+        private DataGridView usersDataGridView;
         private Button SaveCalibrationButton;
     }
 }

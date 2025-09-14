@@ -23,6 +23,7 @@ public static class ServiceRegistration
         services.AddScoped<IAnalogSensorDataRepository, AnalogSensorDataRepository>();
         services.AddScoped<IPlcInformationRepository, PlcInformationRepository>();
         services.AddScoped<IStationRepository, StationRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddSingleton<IPlcClient, SiemensPlcClient>();
         services.AddSingleton<IPlcDataCache, PlcDataCache>();
 

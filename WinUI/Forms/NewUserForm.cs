@@ -19,23 +19,23 @@ namespace WinUI.Forms
 
         private async void SaveButton_Click(object? sender, EventArgs e)
         {
-            var fullName = fullNameTextBox.Text.Trim();
+            var userName = userNameTextBox.Text.Trim();
             var email = emailTextBox.Text.Trim();
-            var role = roleTextBox.Text.Trim();
+            var password = passwordTextBox.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Ad ve e-posta alanları zorunludur.", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Kullanıcı adı, e-posta ve şifre alanları zorunludur.", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             try
             {
-                var command = new CreateUserCommand(fullName, email, role, true);
+                var command = new CreateUserCommand(userName, email, password);
                 var user = await _userService.CreateAsync(command);
                 if (user != null)
                 {
-                    MessageBox.Show(string.Format(UserConstants.UserSavedMessage, user.FullName), UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(string.Format(UserConstants.UserSavedMessage, user.UserName), UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                     Close();
                 }
