@@ -29,188 +29,172 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewUserForm));
-            tableLayoutPanel1 = new TableLayoutPanel();
-            label1 = new Label();
-            label2 = new Label();
-            PasswordTextBox = new TextBox();
-            labelTitle = new Label();
-            LoginButton = new WinUI.Controls.IBKS.Button();
-            EyeButton = new Button();
-            textBox1 = new TextBox();
-            label3 = new Label();
-            textBox2 = new TextBox();
-            tableLayoutPanel1.SuspendLayout();
+            mainLayoutPanel = new TableLayoutPanel();
+            fullNameLabel = new Label();
+            roleLabel = new Label();
+            roleTextBox = new TextBox();
+            titleLabel = new Label();
+            saveButton = new WinUI.Controls.IBKS.Button();
+            fullNameTextBox = new TextBox();
+            emailLabel = new Label();
+            emailTextBox = new TextBox();
+            mainLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.BackColor = Color.White;
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999962F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            tableLayoutPanel1.Controls.Add(label1, 0, 2);
-            tableLayoutPanel1.Controls.Add(label2, 0, 6);
-            tableLayoutPanel1.Controls.Add(PasswordTextBox, 0, 7);
-            tableLayoutPanel1.Controls.Add(labelTitle, 0, 1);
-            tableLayoutPanel1.Controls.Add(LoginButton, 0, 8);
-            tableLayoutPanel1.Controls.Add(EyeButton, 2, 7);
-            tableLayoutPanel1.Controls.Add(textBox1, 0, 3);
-            tableLayoutPanel1.Controls.Add(label3, 0, 4);
-            tableLayoutPanel1.Controls.Add(textBox2, 0, 5);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(100, 50, 100, 100);
-            tableLayoutPanel1.RowCount = 10;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
-            tableLayoutPanel1.Size = new Size(579, 521);
-            tableLayoutPanel1.TabIndex = 3;
+            mainLayoutPanel.BackColor = Color.White;
+            mainLayoutPanel.ColumnCount = 3;
+            mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999962F));
+            mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
+            mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+            mainLayoutPanel.Controls.Add(fullNameLabel, 0, 2);
+            mainLayoutPanel.Controls.Add(roleLabel, 0, 6);
+            mainLayoutPanel.Controls.Add(roleTextBox, 0, 7);
+            mainLayoutPanel.Controls.Add(titleLabel, 0, 1);
+            mainLayoutPanel.Controls.Add(saveButton, 0, 8);
+            mainLayoutPanel.Controls.Add(fullNameTextBox, 0, 3);
+            mainLayoutPanel.Controls.Add(emailLabel, 0, 4);
+            mainLayoutPanel.Controls.Add(emailTextBox, 0, 5);
+            mainLayoutPanel.Dock = DockStyle.Fill;
+            mainLayoutPanel.Location = new Point(0, 0);
+            mainLayoutPanel.Name = "mainLayoutPanel";
+            mainLayoutPanel.Padding = new Padding(100, 50, 100, 100);
+            mainLayoutPanel.RowCount = 10;
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
+            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
+            mainLayoutPanel.Size = new Size(579, 521);
+            mainLayoutPanel.TabIndex = 3;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.Location = new Point(130, 158);
-            label1.Margin = new Padding(30, 0, 30, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(72, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Kullanıcı Adı";
+            fullNameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            fullNameLabel.AutoSize = true;
+            fullNameLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            fullNameLabel.Location = new Point(130, 158);
+            fullNameLabel.Margin = new Padding(30, 0, 30, 0);
+            fullNameLabel.Name = "fullNameLabel";
+            fullNameLabel.Size = new Size(72, 15);
+            fullNameLabel.TabIndex = 1;
+            fullNameLabel.Text = "Ad Soyad";
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
-            label2.Location = new Point(130, 322);
-            label2.Margin = new Padding(30, 0, 30, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(32, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Şifre";
+            roleLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            roleLabel.AutoSize = true;
+            roleLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
+            roleLabel.Location = new Point(130, 322);
+            roleLabel.Margin = new Padding(30, 0, 30, 0);
+            roleLabel.Name = "roleLabel";
+            roleLabel.Size = new Size(27, 15);
+            roleLabel.TabIndex = 3;
+            roleLabel.Text = "Rol";
             // 
             // PasswordTextBox
             // 
-            tableLayoutPanel1.SetColumnSpan(PasswordTextBox, 2);
-            PasswordTextBox.Dock = DockStyle.Fill;
-            PasswordTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            PasswordTextBox.Location = new Point(130, 340);
-            PasswordTextBox.Margin = new Padding(30, 3, 3, 3);
-            PasswordTextBox.Name = "PasswordTextBox";
-            PasswordTextBox.PlaceholderText = "sifre";
-            PasswordTextBox.Size = new Size(285, 27);
-            PasswordTextBox.TabIndex = 4;
+            mainLayoutPanel.SetColumnSpan(roleTextBox, 2);
+            roleTextBox.Dock = DockStyle.Fill;
+            roleTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            roleTextBox.Location = new Point(130, 340);
+            roleTextBox.Margin = new Padding(30, 3, 3, 3);
+            roleTextBox.Name = "roleTextBox";
+            roleTextBox.PlaceholderText = "rol";
+            roleTextBox.Size = new Size(285, 27);
+            roleTextBox.TabIndex = 4;
             // 
             // labelTitle
             // 
-            labelTitle.Anchor = AnchorStyles.None;
-            labelTitle.AutoSize = true;
-            tableLayoutPanel1.SetColumnSpan(labelTitle, 3);
-            labelTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTitle.ForeColor = Color.FromArgb(47, 47, 47);
-            labelTitle.Location = new Point(225, 99);
-            labelTitle.Margin = new Padding(3);
-            labelTitle.Name = "labelTitle";
-            labelTitle.Size = new Size(129, 25);
-            labelTitle.TabIndex = 0;
-            labelTitle.Text = "Yeni Kullanıcı";
+            titleLabel.Anchor = AnchorStyles.None;
+            titleLabel.AutoSize = true;
+            mainLayoutPanel.SetColumnSpan(titleLabel, 3);
+            titleLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            titleLabel.ForeColor = Color.FromArgb(47, 47, 47);
+            titleLabel.Location = new Point(225, 99);
+            titleLabel.Margin = new Padding(3);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(129, 25);
+            titleLabel.TabIndex = 0;
+            titleLabel.Text = "Yeni Kullanıcı";
             // 
             // LoginButton
             // 
-            LoginButton.BaseColor = Color.FromArgb(0, 130, 201);
-            LoginButton.BorderRadius = 12;
-            LoginButton.ButtonText = "Kaydet";
-            tableLayoutPanel1.SetColumnSpan(LoginButton, 3);
-            LoginButton.Dock = DockStyle.Fill;
-            LoginButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            LoginButton.Location = new Point(130, 401);
-            LoginButton.Margin = new Padding(30, 23, 30, 13);
-            LoginButton.Name = "LoginButton";
-            LoginButton.Size = new Size(319, 36);
-            LoginButton.TabIndex = 6;
-            LoginButton.TextColor = Color.White;
+            saveButton.BaseColor = Color.FromArgb(0, 130, 201);
+            saveButton.BorderRadius = 12;
+            saveButton.ButtonText = "Kaydet";
+            mainLayoutPanel.SetColumnSpan(saveButton, 3);
+            saveButton.Dock = DockStyle.Fill;
+            saveButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            saveButton.Location = new Point(130, 401);
+            saveButton.Margin = new Padding(30, 23, 30, 13);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(319, 36);
+            saveButton.TabIndex = 6;
+            saveButton.TextColor = Color.White;
             // 
-            // EyeButton
-            // 
-            EyeButton.FlatAppearance.BorderSize = 0;
-            EyeButton.FlatStyle = FlatStyle.Flat;
-            EyeButton.Image = Properties.Resources.eye_show;
-            EyeButton.Location = new Point(421, 340);
-            EyeButton.Name = "EyeButton";
-            EyeButton.Size = new Size(24, 23);
-            EyeButton.TabIndex = 7;
-            EyeButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            tableLayoutPanel1.SetColumnSpan(textBox1, 2);
-            textBox1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            textBox1.Location = new Point(130, 176);
-            textBox1.Margin = new Padding(30, 3, 3, 3);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "kullanıcı adı";
-            textBox1.Size = new Size(285, 27);
-            textBox1.TabIndex = 9;
+            mainLayoutPanel.SetColumnSpan(fullNameTextBox, 2);
+            fullNameTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            fullNameTextBox.Location = new Point(130, 176);
+            fullNameTextBox.Margin = new Padding(30, 3, 3, 3);
+            fullNameTextBox.Name = "fullNameTextBox";
+            fullNameTextBox.PlaceholderText = "ad soyad";
+            fullNameTextBox.Size = new Size(285, 27);
+            fullNameTextBox.TabIndex = 9;
             // 
             // label3
             // 
-            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label3.AutoSize = true;
-            label3.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label3.Location = new Point(130, 240);
-            label3.Margin = new Padding(30, 0, 30, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(30, 15);
-            label3.TabIndex = 1;
-            label3.Text = "Mail";
+            emailLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            emailLabel.AutoSize = true;
+            emailLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            emailLabel.Location = new Point(130, 240);
+            emailLabel.Margin = new Padding(30, 0, 30, 0);
+            emailLabel.Name = "emailLabel";
+            emailLabel.Size = new Size(30, 15);
+            emailLabel.TabIndex = 1;
+            emailLabel.Text = "Mail";
             // 
             // textBox2
             // 
-            tableLayoutPanel1.SetColumnSpan(textBox2, 2);
-            textBox2.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            textBox2.Location = new Point(130, 258);
-            textBox2.Margin = new Padding(30, 3, 3, 3);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "sample@sample.com";
-            textBox2.Size = new Size(285, 27);
-            textBox2.TabIndex = 9;
+            mainLayoutPanel.SetColumnSpan(emailTextBox, 2);
+            emailTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            emailTextBox.Location = new Point(130, 258);
+            emailTextBox.Margin = new Padding(30, 3, 3, 3);
+            emailTextBox.Name = "emailTextBox";
+            emailTextBox.PlaceholderText = "sample@sample.com";
+            emailTextBox.Size = new Size(285, 27);
+            emailTextBox.TabIndex = 9;
             // 
             // NewUserForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(579, 521);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(mainLayoutPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "NewUserForm";
             Text = " Yeni Kullanıcı";
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            mainLayoutPanel.ResumeLayout(false);
+            mainLayoutPanel.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
-        private Label label1;
-        private Label label2;
-        private TextBox PasswordTextBox;
-        private Label labelTitle;
-        private Controls.IBKS.Button LoginButton;
-        private Button EyeButton;
-        private TextBox textBox1;
-        private Label label3;
-        private TextBox textBox2;
+        private TableLayoutPanel mainLayoutPanel;
+        private Label fullNameLabel;
+        private Label roleLabel;
+        private TextBox roleTextBox;
+        private Label titleLabel;
+        private Controls.IBKS.Button saveButton;
+        private TextBox fullNameTextBox;
+        private Label emailLabel;
+        private TextBox emailTextBox;
     }
 }

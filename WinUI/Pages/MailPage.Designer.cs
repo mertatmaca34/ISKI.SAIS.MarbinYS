@@ -1,4 +1,4 @@
-﻿
+
 namespace WinUI.Pages
 {
     partial class MailPage
