@@ -5,10 +5,9 @@ using WinUI.Models;
 namespace WinUI.Services;
 
 public record CreateUserCommand(
-    string FullName,
+    string UserName,
     string Email,
-    string Role,
-    bool IsActive);
+    string Password);
 
 public interface IUserService
 {

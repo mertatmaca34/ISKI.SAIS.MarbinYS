@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewUserForm));
             mainLayoutPanel = new TableLayoutPanel();
-            fullNameLabel = new Label();
-            roleLabel = new Label();
-            roleTextBox = new TextBox();
+            userNameLabel = new Label();
+            passwordLabel = new Label();
+            passwordTextBox = new TextBox();
             titleLabel = new Label();
             saveButton = new WinUI.Controls.IBKS.Button();
-            fullNameTextBox = new TextBox();
+            userNameTextBox = new TextBox();
             emailLabel = new Label();
             emailTextBox = new TextBox();
             mainLayoutPanel.SuspendLayout();
@@ -48,12 +48,12 @@
             mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999962F));
             mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
             mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            mainLayoutPanel.Controls.Add(fullNameLabel, 0, 2);
-            mainLayoutPanel.Controls.Add(roleLabel, 0, 6);
-            mainLayoutPanel.Controls.Add(roleTextBox, 0, 7);
+            mainLayoutPanel.Controls.Add(userNameLabel, 0, 2);
+            mainLayoutPanel.Controls.Add(passwordLabel, 0, 6);
+            mainLayoutPanel.Controls.Add(passwordTextBox, 0, 7);
             mainLayoutPanel.Controls.Add(titleLabel, 0, 1);
             mainLayoutPanel.Controls.Add(saveButton, 0, 8);
-            mainLayoutPanel.Controls.Add(fullNameTextBox, 0, 3);
+            mainLayoutPanel.Controls.Add(userNameTextBox, 0, 3);
             mainLayoutPanel.Controls.Add(emailLabel, 0, 4);
             mainLayoutPanel.Controls.Add(emailTextBox, 0, 5);
             mainLayoutPanel.Dock = DockStyle.Fill;
@@ -76,39 +76,39 @@
             // 
             // label1
             // 
-            fullNameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            fullNameLabel.AutoSize = true;
-            fullNameLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            fullNameLabel.Location = new Point(130, 158);
-            fullNameLabel.Margin = new Padding(30, 0, 30, 0);
-            fullNameLabel.Name = "fullNameLabel";
-            fullNameLabel.Size = new Size(72, 15);
-            fullNameLabel.TabIndex = 1;
-            fullNameLabel.Text = "Ad Soyad";
+            userNameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            userNameLabel.AutoSize = true;
+            userNameLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            userNameLabel.Location = new Point(130, 158);
+            userNameLabel.Margin = new Padding(30, 0, 30, 0);
+            userNameLabel.Name = "userNameLabel";
+            userNameLabel.Size = new Size(72, 15);
+            userNameLabel.TabIndex = 1;
+            userNameLabel.Text = "Kullanıcı Adı";
             // 
             // label2
             // 
-            roleLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            roleLabel.AutoSize = true;
-            roleLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
-            roleLabel.Location = new Point(130, 322);
-            roleLabel.Margin = new Padding(30, 0, 30, 0);
-            roleLabel.Name = "roleLabel";
-            roleLabel.Size = new Size(27, 15);
-            roleLabel.TabIndex = 3;
-            roleLabel.Text = "Rol";
+            passwordLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            passwordLabel.AutoSize = true;
+            passwordLabel.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
+            passwordLabel.Location = new Point(130, 322);
+            passwordLabel.Margin = new Padding(30, 0, 30, 0);
+            passwordLabel.Name = "passwordLabel";
+            passwordLabel.Size = new Size(27, 15);
+            passwordLabel.TabIndex = 3;
+            passwordLabel.Text = "Şifre";
             // 
             // PasswordTextBox
             // 
-            mainLayoutPanel.SetColumnSpan(roleTextBox, 2);
-            roleTextBox.Dock = DockStyle.Fill;
-            roleTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            roleTextBox.Location = new Point(130, 340);
-            roleTextBox.Margin = new Padding(30, 3, 3, 3);
-            roleTextBox.Name = "roleTextBox";
-            roleTextBox.PlaceholderText = "rol";
-            roleTextBox.Size = new Size(285, 27);
-            roleTextBox.TabIndex = 4;
+            mainLayoutPanel.SetColumnSpan(passwordTextBox, 2);
+            passwordTextBox.Dock = DockStyle.Fill;
+            passwordTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            passwordTextBox.Location = new Point(130, 340);
+            passwordTextBox.Margin = new Padding(30, 3, 3, 3);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.PlaceholderText = "şifre";
+            passwordTextBox.Size = new Size(285, 27);
+            passwordTextBox.TabIndex = 4;
             // 
             // labelTitle
             // 
@@ -139,14 +139,14 @@
             saveButton.TabIndex = 6;
             saveButton.TextColor = Color.White;
             // 
-            mainLayoutPanel.SetColumnSpan(fullNameTextBox, 2);
-            fullNameTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            fullNameTextBox.Location = new Point(130, 176);
-            fullNameTextBox.Margin = new Padding(30, 3, 3, 3);
-            fullNameTextBox.Name = "fullNameTextBox";
-            fullNameTextBox.PlaceholderText = "ad soyad";
-            fullNameTextBox.Size = new Size(285, 27);
-            fullNameTextBox.TabIndex = 9;
+            mainLayoutPanel.SetColumnSpan(userNameTextBox, 2);
+            userNameTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            userNameTextBox.Location = new Point(130, 176);
+            userNameTextBox.Margin = new Padding(30, 3, 3, 3);
+            userNameTextBox.Name = "userNameTextBox";
+            userNameTextBox.PlaceholderText = "kullanıcı adı";
+            userNameTextBox.Size = new Size(285, 27);
+            userNameTextBox.TabIndex = 9;
             // 
             // label3
             // 
@@ -188,12 +188,12 @@
         #endregion
 
         private TableLayoutPanel mainLayoutPanel;
-        private Label fullNameLabel;
-        private Label roleLabel;
-        private TextBox roleTextBox;
+        private Label userNameLabel;
+        private Label passwordLabel;
+        private TextBox passwordTextBox;
         private Label titleLabel;
         private Controls.IBKS.Button saveButton;
-        private TextBox fullNameTextBox;
+        private TextBox userNameTextBox;
         private Label emailLabel;
         private TextBox emailTextBox;
     }
