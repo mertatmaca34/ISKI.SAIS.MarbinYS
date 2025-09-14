@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Constants;
 using WinUI.Forms;
+using WinUI.Models;
 using WinUI.Services;
 
 namespace WinUI.Pages
@@ -21,6 +22,7 @@ namespace WinUI.Pages
             newUserButton.Click += NewUserButton_Click;
             ConfigureDataGridView(usersDataGridView);
             ConfigureDataGridView(dataGridView2);
+            usersDataGridView.CellContentClick += UsersDataGridView_CellContentClick;
         }
 
         private async void MailPage_Load(object? sender, EventArgs e)
@@ -34,6 +36,7 @@ namespace WinUI.Pages
             {
                 var users = await _userService.GetListAsync();
                 usersDataGridView.DataSource = users;
+                ConfigureUserColumns();
             }
             catch (Exception ex)
             {
@@ -70,6 +73,81 @@ namespace WinUI.Pages
             grid.AllowUserToDeleteRows = false;
             grid.AllowUserToResizeRows = false;
             grid.ReadOnly = true;
+        }
+
+        private void ConfigureUserColumns()
+        {
+            if (usersDataGridView.Columns["Id"] != null)
+                usersDataGridView.Columns["Id"].Visible = false;
+
+            if (usersDataGridView.Columns["UserName"] != null)
+                usersDataGridView.Columns["UserName"].HeaderText = "Kullanıcı Adı";
+
+            if (usersDataGridView.Columns["Email"] != null)
+                usersDataGridView.Columns["Email"].HeaderText = "Mail";
+
+            if (usersDataGridView.Columns["Edit"] == null)
+            {
+                var editColumn = new DataGridViewImageColumn
+                {
+                    Name = "Edit",
+                    HeaderText = string.Empty,
+                    Image = Properties.Resources.edit_48px,
+                    ImageLayout = DataGridViewImageCellLayout.Zoom,
+                    Width = 32
+                };
+                usersDataGridView.Columns.Insert(0, editColumn);
+            }
+
+            if (usersDataGridView.Columns["Delete"] == null)
+            {
+                var deleteColumn = new DataGridViewImageColumn
+                {
+                    Name = "Delete",
+                    HeaderText = string.Empty,
+                    Image = Properties.Resources.delete_48px,
+                    ImageLayout = DataGridViewImageCellLayout.Zoom,
+                    Width = 32
+                };
+                usersDataGridView.Columns.Insert(1, deleteColumn);
+            }
+        }
+
+        private async void UsersDataGridView_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            var column = usersDataGridView.Columns[e.ColumnIndex];
+            if (column.Name != "Edit" && column.Name != "Delete")
+                return;
+
+            if (usersDataGridView.Rows[e.RowIndex].DataBoundItem is not UserDto user)
+                return;
+
+            if (column.Name == "Edit")
+            {
+                using var form = new NewUserForm(user);
+                if (form.ShowDialog() == DialogResult.OK)
+                    await LoadUsersAsync();
+            }
+            else if (column.Name == "Delete")
+            {
+                var result = MessageBox.Show(UserConstants.UserDeleteConfirmMessage, UserConstants.InfoTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        await _userService.DeleteAsync(user.Id);
+                        MessageBox.Show(string.Format(UserConstants.UserDeletedMessage, user.UserName), UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        await LoadUsersAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Kullanıcı silinirken hata: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

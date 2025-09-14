@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Constants;
+using WinUI.Models;
 using WinUI.Services;
 
 namespace WinUI.Forms
@@ -10,12 +11,22 @@ namespace WinUI.Forms
     public partial class NewUserForm : Form
     {
         private readonly IUserService _userService;
+        private readonly int? _userId;
 
-        public NewUserForm()
+        public NewUserForm(UserDto? user = null)
         {
             InitializeComponent();
             _userService = Program.Services.GetRequiredService<IUserService>();
             saveButton.Click += SaveButton_Click;
+
+            if (user != null)
+            {
+                _userId = user.Id;
+                userNameTextBox.Text = user.UserName;
+                emailTextBox.Text = user.Email;
+                titleLabel.Text = "Kullanıcı Düzenle";
+                Text = "Kullanıcı Düzenle";
+            }
         }
 
         private async void SaveButton_Click(object? sender, EventArgs e)
@@ -38,19 +49,35 @@ namespace WinUI.Forms
 
             try
             {
-                var command = new CreateUserCommand(userName, email, password);
-                var user = await _userService.CreateAsync(command);
-                if (user != null)
+                if (_userId.HasValue)
                 {
-                    MessageBox.Show(string.Format(UserConstants.UserSavedMessage, user.UserName), UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    var updateCommand = new UpdateUserCommand(_userId.Value, userName, email, password);
+                    var updated = await _userService.UpdateAsync(updateCommand);
+                    if (updated != null)
+                    {
+                        MessageBox.Show(string.Format(UserConstants.UserUpdatedMessage, updated.UserName), UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                }
+                else
+                {
+                    var command = new CreateUserCommand(userName, email, password);
+                    var user = await _userService.CreateAsync(command);
+                    if (user != null)
+                    {
+                        MessageBox.Show(string.Format(UserConstants.UserSavedMessage, user.UserName), UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Kullanıcı kaydedilirken hata oluştu: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var action = _userId.HasValue ? "güncellenirken" : "kaydedilirken";
+                MessageBox.Show($"Kullanıcı {action} hata oluştu: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
 }
+
