@@ -152,6 +152,7 @@
             MailPageButton.Text = "Mail";
             MailPageButton.TextAlign = ContentAlignment.BottomCenter;
             MailPageButton.UseVisualStyleBackColor = false;
+            MailPageButton.Click += MailPageButton_Click;
             // 
             // SettingsPageButton
             // 
