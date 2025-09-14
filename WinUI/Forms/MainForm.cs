@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinUI.Helpers;
 using WinUI.Pages;
-using WinUI.Pages.Mail;
 
 namespace WinUI.Forms;
 
@@ -88,13 +87,6 @@ public partial class MainForm : Form
         LoginForm loginForm = new LoginForm();
 
         loginForm.ShowDialog();
-    }
-
-    private void MailUsersButton_Click(object sender, EventArgs e)
-    {
-        ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
-
-        PageManager.ShowPage(MainContentPanel, new MailUsersPage());
     }
 
     private void MailSettingsButton_Click(object sender, EventArgs e)

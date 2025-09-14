@@ -268,10 +268,6 @@ namespace WinUI.Pages
         {
         }
 
-        private void ButtonMailUsers_Click(object sender, EventArgs e)
-        {
-        }
-
         private void ButtonEditMailStatements_Click(object sender, EventArgs e)
         {
         }

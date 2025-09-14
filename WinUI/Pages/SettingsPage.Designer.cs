@@ -35,7 +35,6 @@
             PanelContent = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             PlcButton = new Button();
-            MailUsersButton = new Button();
             CalibrationButton = new Button();
             ApiButton = new Button();
             DatabaseButton = new Button();
@@ -105,7 +104,6 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.Controls.Add(PlcButton, 2, 0);
-            tableLayoutPanel2.Controls.Add(MailUsersButton, 1, 1);
             tableLayoutPanel2.Controls.Add(CalibrationButton, 0, 1);
             tableLayoutPanel2.Controls.Add(ApiButton, 3, 0);
             tableLayoutPanel2.Controls.Add(DatabaseButton, 1, 0);
@@ -133,21 +131,6 @@
             PlcButton.TextImageRelation = TextImageRelation.ImageAboveText;
             PlcButton.UseVisualStyleBackColor = true;
             PlcButton.Click += PlcButton_Click;
-            // 
-            // MailUsersButton
-            // 
-            MailUsersButton.Dock = DockStyle.Fill;
-            MailUsersButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            MailUsersButton.Image = Properties.Resources.shared_mail_96px;
-            MailUsersButton.Location = new Point(276, 269);
-            MailUsersButton.Name = "MailUsersButton";
-            MailUsersButton.Size = new Size(267, 261);
-            MailUsersButton.TabIndex = 4;
-            MailUsersButton.Text = "Mail Kullanıcıları";
-            MailUsersButton.TextAlign = ContentAlignment.BottomCenter;
-            MailUsersButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            MailUsersButton.UseVisualStyleBackColor = true;
-            MailUsersButton.Click += ButtonMailUsers_Click;
             // 
             // CalibrationButton
             // 
@@ -230,7 +213,6 @@
         private Controls.IBKS.TitleBarControl titleBarControl1;
         private Panel PanelContent;
         private TableLayoutPanel tableLayoutPanel2;
-        private Button MailUsersButton;
         private Button CalibrationButton;
         private Button ApiButton;
         private Button DatabaseButton;
