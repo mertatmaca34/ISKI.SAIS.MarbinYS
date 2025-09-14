@@ -14,11 +14,7 @@ public static class ServiceRegistration
         services.AddDbContext<IBKSContext>(options =>
             options.UseSqlServer(connectionString));
 
-        services.AddScoped<IMailTriggerRepository, MailTriggerRepository>();
         services.AddScoped<IMailSettingsRepository, MailSettingsRepository>();
-        services.AddScoped<IMailUserRepository, MailUserRepository>();
-        services.AddScoped<IMailLogRepository, MailLogRepository>();
-        services.AddScoped<IMailTriggerRecipientRepository, MailTriggerRecipientRepository>();
         services.AddScoped<ISendDataRepository, SendDataRepository>();
         services.AddScoped<IApiEndpointRepository, ApiEndpointRepository>();
         services.AddScoped<ICalibrationLimitRepository, CalibrationLimitRepository>();

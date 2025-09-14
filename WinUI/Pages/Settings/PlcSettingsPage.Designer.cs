@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            MailUsersLabel = new Label();
-            MailUsersHeaderTableLayoutPanel = new TableLayoutPanel();
+            PlcSettingsLabel = new Label();
+            PlcSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
             SaveButton = new Button();
             EditUserLabel = new Label();
             StationSettingsContentTableLayoutPanel = new TableLayoutPanel();
@@ -42,7 +42,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             label1 = new Label();
             textBox1 = new TextBox();
-            MailUsersHeaderTableLayoutPanel.SuspendLayout();
+            PlcSettingsHeaderTableLayoutPanel.SuspendLayout();
             StationSettingsContentTableLayoutPanel.SuspendLayout();
             ResponseGroupBox.SuspendLayout();
             EditUserHeaderTableLayoutPanel.SuspendLayout();
@@ -51,32 +51,32 @@
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // MailUsersLabel
-            // 
-            MailUsersLabel.AutoSize = true;
-            MailUsersLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            MailUsersLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            MailUsersLabel.Location = new Point(3, 0);
-            MailUsersLabel.Name = "MailUsersLabel";
-            MailUsersLabel.Size = new Size(124, 22);
-            MailUsersLabel.TabIndex = 0;
-            MailUsersLabel.Text = "PLC Ayarları";
-            // 
-            // MailUsersHeaderTableLayoutPanel
-            // 
-            MailUsersHeaderTableLayoutPanel.ColumnCount = 2;
-            MailUsersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            MailUsersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            MailUsersHeaderTableLayoutPanel.Controls.Add(SaveButton, 1, 0);
-            MailUsersHeaderTableLayoutPanel.Controls.Add(MailUsersLabel, 0, 0);
-            MailUsersHeaderTableLayoutPanel.Dock = DockStyle.Fill;
-            MailUsersHeaderTableLayoutPanel.Location = new Point(0, 15);
-            MailUsersHeaderTableLayoutPanel.Margin = new Padding(0);
-            MailUsersHeaderTableLayoutPanel.Name = "MailUsersHeaderTableLayoutPanel";
-            MailUsersHeaderTableLayoutPanel.RowCount = 1;
-            MailUsersHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            MailUsersHeaderTableLayoutPanel.Size = new Size(547, 40);
-            MailUsersHeaderTableLayoutPanel.TabIndex = 3;
+            // PlcSettingsLabel
+            //
+            PlcSettingsLabel.AutoSize = true;
+            PlcSettingsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            PlcSettingsLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            PlcSettingsLabel.Location = new Point(3, 0);
+            PlcSettingsLabel.Name = "PlcSettingsLabel";
+            PlcSettingsLabel.Size = new Size(124, 22);
+            PlcSettingsLabel.TabIndex = 0;
+            PlcSettingsLabel.Text = "PLC Ayarları";
+            //
+            // PlcSettingsHeaderTableLayoutPanel
+            //
+            PlcSettingsHeaderTableLayoutPanel.ColumnCount = 2;
+            PlcSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            PlcSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            PlcSettingsHeaderTableLayoutPanel.Controls.Add(SaveButton, 1, 0);
+            PlcSettingsHeaderTableLayoutPanel.Controls.Add(PlcSettingsLabel, 0, 0);
+            PlcSettingsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
+            PlcSettingsHeaderTableLayoutPanel.Location = new Point(0, 15);
+            PlcSettingsHeaderTableLayoutPanel.Margin = new Padding(0);
+            PlcSettingsHeaderTableLayoutPanel.Name = "PlcSettingsHeaderTableLayoutPanel";
+            PlcSettingsHeaderTableLayoutPanel.RowCount = 1;
+            PlcSettingsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            PlcSettingsHeaderTableLayoutPanel.Size = new Size(547, 40);
+            PlcSettingsHeaderTableLayoutPanel.TabIndex = 3;
             // 
             // SaveButton
             // 
@@ -192,7 +192,7 @@
             StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             StationSettingsBgTableLayoutPanel.Controls.Add(StationSettingsContentTableLayoutPanel, 1, 1);
             StationSettingsBgTableLayoutPanel.Controls.Add(EditUserHeaderTableLayoutPanel, 1, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(MailUsersHeaderTableLayoutPanel, 0, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(PlcSettingsHeaderTableLayoutPanel, 0, 0);
             StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
             StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
             StationSettingsBgTableLayoutPanel.Location = new Point(0, 0);
@@ -279,8 +279,8 @@
             Controls.Add(StationSettingsBgTableLayoutPanel);
             Name = "PlcSettingsPage";
             Size = new Size(1094, 533);
-            MailUsersHeaderTableLayoutPanel.ResumeLayout(false);
-            MailUsersHeaderTableLayoutPanel.PerformLayout();
+            PlcSettingsHeaderTableLayoutPanel.ResumeLayout(false);
+            PlcSettingsHeaderTableLayoutPanel.PerformLayout();
             StationSettingsContentTableLayoutPanel.ResumeLayout(false);
             ResponseGroupBox.ResumeLayout(false);
             ResponseGroupBox.PerformLayout();
@@ -294,8 +294,8 @@
         }
 
         #endregion
-        private Label MailUsersLabel;
-        private TableLayoutPanel MailUsersHeaderTableLayoutPanel;
+        private Label PlcSettingsLabel;
+        private TableLayoutPanel PlcSettingsHeaderTableLayoutPanel;
         private Label EditUserLabel;
         private TableLayoutPanel StationSettingsContentTableLayoutPanel;
         private TableLayoutPanel EditUserHeaderTableLayoutPanel;

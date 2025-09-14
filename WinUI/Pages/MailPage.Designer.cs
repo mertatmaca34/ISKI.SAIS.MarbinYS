@@ -1,4 +1,4 @@
-﻿
+
 namespace WinUI.Pages
 {
     partial class MailPage
@@ -29,75 +29,207 @@ namespace WinUI.Pages
         /// </summary>
         private void InitializeComponent()
         {
-            mainLayoutPanel = new TableLayoutPanel();
-            titleBarControl = new WinUI.Controls.IBKS.TitleBarControl();
-            contentPanel = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
+            PanelContent = new Panel();
+            StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            label1 = new Label();
+            ApiTestBgTableLayoutPanel = new TableLayoutPanel();
+            dataGridView2 = new DataGridView();
+            ApiSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
+            ApiSettingsLabel = new Label();
+            SaveApiSettingsButton = new Button();
+            StationInfoBgTableLayoutPanel = new TableLayoutPanel();
+            dataGridView1 = new DataGridView();
             nameColumn = new DataGridViewTextBoxColumn();
             valueColumn = new DataGridViewTextBoxColumn();
-            alarmsTableLayoutPanel = new TableLayoutPanel();
-            contentTableLayoutPanel = new TableLayoutPanel();
-            usersHeaderTableLayoutPanel = new TableLayoutPanel();
-            usersLabel = new Label();
-            newUserButton = new Button();
-            usersTableLayoutPanel = new TableLayoutPanel();
-            alarmsDataGridView = new DataGridView();
-            usersDataGridView = new DataGridView();
-            alarmsHeaderTableLayoutPanel = new TableLayoutPanel();
-            alarmsLabel = new Label();
-            mainLayoutPanel.SuspendLayout();
-            contentPanel.SuspendLayout();
-            alarmsTableLayoutPanel.SuspendLayout();
-            contentTableLayoutPanel.SuspendLayout();
-            usersHeaderTableLayoutPanel.SuspendLayout();
-            usersTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)alarmsDataGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)usersDataGridView).BeginInit();
-            alarmsHeaderTableLayoutPanel.SuspendLayout();
+            SaveCalibrationButton = new Button();
+            tableLayoutPanel1.SuspendLayout();
+            PanelContent.SuspendLayout();
+            StationSettingsBgTableLayoutPanel.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            ApiTestBgTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
+            StationInfoBgTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            //
-            // mainLayoutPanel
-            //
-            mainLayoutPanel.ColumnCount = 2;
-            mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            mainLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            mainLayoutPanel.Controls.Add(titleBarControl, 0, 0);
-            mainLayoutPanel.Controls.Add(contentPanel, 0, 1);
-            mainLayoutPanel.Dock = DockStyle.Fill;
-            mainLayoutPanel.Location = new Point(0, 0);
-            mainLayoutPanel.Name = "mainLayoutPanel";
-            mainLayoutPanel.Padding = new Padding(8);
-            mainLayoutPanel.RowCount = 3;
-            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
-            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            mainLayoutPanel.Size = new Size(1170, 677);
-            mainLayoutPanel.TabIndex = 2;
             // 
-            // titleBarControl
-            //
-            titleBarControl.BackColor = Color.FromArgb(235, 235, 235);
-            mainLayoutPanel.SetColumnSpan(titleBarControl, 2);
-            titleBarControl.Dock = DockStyle.Fill;
-            titleBarControl.Location = new Point(11, 11);
-            titleBarControl.Name = "titleBarControl";
-            titleBarControl.Padding = new Padding(1);
-            titleBarControl.Size = new Size(1148, 32);
-            titleBarControl.TabIndex = 0;
-            titleBarControl.TitleBarText = "Mail Alarmları";
-            //
-            // contentPanel
-            //
-            mainLayoutPanel.SetColumnSpan(contentPanel, 2);
-            contentPanel.Controls.Add(contentTableLayoutPanel);
-            contentPanel.Dock = DockStyle.Fill;
-            contentPanel.Location = new Point(8, 46);
-            contentPanel.Margin = new Padding(0);
-            contentPanel.Name = "contentPanel";
-            contentPanel.Padding = new Padding(60, 30, 0, 60);
-            mainLayoutPanel.SetRowSpan(contentPanel, 2);
-            contentPanel.Size = new Size(1154, 623);
-            contentPanel.TabIndex = 1;
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(titleBarControl1, 0, 0);
+            tableLayoutPanel1.Controls.Add(PanelContent, 0, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.Padding = new Padding(8);
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(1170, 677);
+            tableLayoutPanel1.TabIndex = 2;
+            // 
+            // titleBarControl1
+            // 
+            titleBarControl1.BackColor = Color.FromArgb(235, 235, 235);
+            tableLayoutPanel1.SetColumnSpan(titleBarControl1, 2);
+            titleBarControl1.Dock = DockStyle.Fill;
+            titleBarControl1.Location = new Point(11, 11);
+            titleBarControl1.Name = "titleBarControl1";
+            titleBarControl1.Padding = new Padding(1);
+            titleBarControl1.Size = new Size(1148, 32);
+            titleBarControl1.TabIndex = 0;
+            titleBarControl1.TitleBarText = "Mail Alarmları";
+            // 
+            // PanelContent
+            // 
+            tableLayoutPanel1.SetColumnSpan(PanelContent, 2);
+            PanelContent.Controls.Add(StationSettingsBgTableLayoutPanel);
+            PanelContent.Dock = DockStyle.Fill;
+            PanelContent.Location = new Point(8, 46);
+            PanelContent.Margin = new Padding(0);
+            PanelContent.Name = "PanelContent";
+            PanelContent.Padding = new Padding(60, 30, 0, 60);
+            tableLayoutPanel1.SetRowSpan(PanelContent, 2);
+            PanelContent.Size = new Size(1154, 623);
+            PanelContent.TabIndex = 1;
+            // 
+            // StationSettingsBgTableLayoutPanel
+            // 
+            StationSettingsBgTableLayoutPanel.ColumnCount = 2;
+            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationSettingsBgTableLayoutPanel.Controls.Add(tableLayoutPanel2, 1, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(ApiTestBgTableLayoutPanel, 1, 1);
+            StationSettingsBgTableLayoutPanel.Controls.Add(ApiSettingsHeaderTableLayoutPanel, 0, 0);
+            StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
+            StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
+            StationSettingsBgTableLayoutPanel.Location = new Point(60, 30);
+            StationSettingsBgTableLayoutPanel.Name = "StationSettingsBgTableLayoutPanel";
+            StationSettingsBgTableLayoutPanel.RowCount = 2;
+            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
+            StationSettingsBgTableLayoutPanel.Size = new Size(1094, 533);
+            StationSettingsBgTableLayoutPanel.TabIndex = 3;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(SaveCalibrationButton, 1, 0);
+            tableLayoutPanel2.Controls.Add(label1, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(547, 0);
+            tableLayoutPanel2.Margin = new Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new Size(547, 40);
+            tableLayoutPanel2.TabIndex = 7;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label1.ForeColor = Color.FromArgb(64, 64, 64);
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(88, 22);
+            label1.TabIndex = 0;
+            label1.Text = "Alarmlar";
+            // 
+            // ApiTestBgTableLayoutPanel
+            // 
+            ApiTestBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
+            ApiTestBgTableLayoutPanel.ColumnCount = 1;
+            ApiTestBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiTestBgTableLayoutPanel.Controls.Add(dataGridView2, 0, 0);
+            ApiTestBgTableLayoutPanel.Dock = DockStyle.Fill;
+            ApiTestBgTableLayoutPanel.Location = new Point(547, 40);
+            ApiTestBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
+            ApiTestBgTableLayoutPanel.Name = "ApiTestBgTableLayoutPanel";
+            ApiTestBgTableLayoutPanel.RowCount = 1;
+            ApiTestBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            ApiTestBgTableLayoutPanel.Size = new Size(542, 493);
+            ApiTestBgTableLayoutPanel.TabIndex = 6;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(3, 3);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.Size = new Size(536, 487);
+            dataGridView2.TabIndex = 1;
+            // 
+            // ApiSettingsHeaderTableLayoutPanel
+            // 
+            ApiSettingsHeaderTableLayoutPanel.ColumnCount = 2;
+            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ApiSettingsHeaderTableLayoutPanel.Controls.Add(ApiSettingsLabel, 0, 0);
+            ApiSettingsHeaderTableLayoutPanel.Controls.Add(SaveApiSettingsButton, 1, 0);
+            ApiSettingsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
+            ApiSettingsHeaderTableLayoutPanel.Location = new Point(0, 0);
+            ApiSettingsHeaderTableLayoutPanel.Margin = new Padding(0);
+            ApiSettingsHeaderTableLayoutPanel.Name = "ApiSettingsHeaderTableLayoutPanel";
+            ApiSettingsHeaderTableLayoutPanel.RowCount = 1;
+            ApiSettingsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            ApiSettingsHeaderTableLayoutPanel.Size = new Size(547, 40);
+            ApiSettingsHeaderTableLayoutPanel.TabIndex = 3;
+            // 
+            // ApiSettingsLabel
+            // 
+            ApiSettingsLabel.AutoSize = true;
+            ApiSettingsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ApiSettingsLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            ApiSettingsLabel.Location = new Point(3, 0);
+            ApiSettingsLabel.Name = "ApiSettingsLabel";
+            ApiSettingsLabel.Size = new Size(114, 22);
+            ApiSettingsLabel.TabIndex = 0;
+            ApiSettingsLabel.Text = "Kullanıcılar";
+            // 
+            // SaveApiSettingsButton
+            // 
+            SaveApiSettingsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveApiSettingsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveApiSettingsButton.Location = new Point(405, 3);
+            SaveApiSettingsButton.Name = "SaveApiSettingsButton";
+            SaveApiSettingsButton.Size = new Size(139, 32);
+            SaveApiSettingsButton.TabIndex = 2;
+            SaveApiSettingsButton.Text = "Yeni Kullanıcı";
+            SaveApiSettingsButton.UseVisualStyleBackColor = true;
+            // 
+            // StationInfoBgTableLayoutPanel
+            // 
+            StationInfoBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
+            StationInfoBgTableLayoutPanel.ColumnCount = 1;
+            StationInfoBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            StationInfoBgTableLayoutPanel.Controls.Add(dataGridView1, 0, 0);
+            StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
+            StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
+            StationInfoBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
+            StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
+            StationInfoBgTableLayoutPanel.RowCount = 1;
+            StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            StationInfoBgTableLayoutPanel.Size = new Size(542, 493);
+            StationInfoBgTableLayoutPanel.TabIndex = 5;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(536, 487);
+            dataGridView1.TabIndex = 0;
             // 
             // nameColumn
             // 
@@ -107,156 +239,37 @@ namespace WinUI.Pages
             // 
             valueColumn.Name = "valueColumn";
             // 
-            // ApiTestBgTableLayoutPanel
+            // SaveCalibrationButton
             // 
-            alarmsTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            alarmsTableLayoutPanel.ColumnCount = 1;
-            alarmsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            alarmsTableLayoutPanel.Controls.Add(alarmsDataGridView, 0, 0);
-            alarmsTableLayoutPanel.Dock = DockStyle.Fill;
-            alarmsTableLayoutPanel.Location = new Point(547, 40);
-            alarmsTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            alarmsTableLayoutPanel.Name = "alarmsTableLayoutPanel";
-            alarmsTableLayoutPanel.RowCount = 1;
-            alarmsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            alarmsTableLayoutPanel.Size = new Size(542, 493);
-            alarmsTableLayoutPanel.TabIndex = 6;
-            // 
-            // StationSettingsBgTableLayoutPanel
-            // 
-            contentTableLayoutPanel.ColumnCount = 2;
-            contentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            contentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            contentTableLayoutPanel.Controls.Add(alarmsHeaderTableLayoutPanel, 1, 0);
-            contentTableLayoutPanel.Controls.Add(alarmsTableLayoutPanel, 1, 1);
-            contentTableLayoutPanel.Controls.Add(usersHeaderTableLayoutPanel, 0, 0);
-            contentTableLayoutPanel.Controls.Add(usersTableLayoutPanel, 0, 1);
-            contentTableLayoutPanel.Dock = DockStyle.Fill;
-            contentTableLayoutPanel.Location = new Point(60, 30);
-            contentTableLayoutPanel.Name = "contentTableLayoutPanel";
-            contentTableLayoutPanel.RowCount = 2;
-            contentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            contentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
-            contentTableLayoutPanel.Size = new Size(1094, 533);
-            contentTableLayoutPanel.TabIndex = 3;
-            // 
-            // ApiSettingsHeaderTableLayoutPanel
-            // 
-            usersHeaderTableLayoutPanel.ColumnCount = 2;
-            usersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            usersHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            usersHeaderTableLayoutPanel.Controls.Add(usersLabel, 0, 0);
-            usersHeaderTableLayoutPanel.Controls.Add(newUserButton, 1, 0);
-            usersHeaderTableLayoutPanel.Dock = DockStyle.Fill;
-            usersHeaderTableLayoutPanel.Location = new Point(0, 0);
-            usersHeaderTableLayoutPanel.Margin = new Padding(0);
-            usersHeaderTableLayoutPanel.Name = "usersHeaderTableLayoutPanel";
-            usersHeaderTableLayoutPanel.RowCount = 1;
-            usersHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            usersHeaderTableLayoutPanel.Size = new Size(547, 40);
-            usersHeaderTableLayoutPanel.TabIndex = 3;
-            // 
-            // ApiSettingsLabel
-            // 
-            usersLabel.AutoSize = true;
-            usersLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            usersLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            usersLabel.Location = new Point(3, 0);
-            usersLabel.Name = "usersLabel";
-            usersLabel.Size = new Size(114, 22);
-            usersLabel.TabIndex = 0;
-            usersLabel.Text = "Kullanıcılar";
-            // 
-            // SaveApiSettingsButton
-            // 
-            newUserButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            newUserButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            newUserButton.Location = new Point(405, 3);
-            newUserButton.Name = "newUserButton";
-            newUserButton.Size = new Size(139, 32);
-            newUserButton.TabIndex = 2;
-            newUserButton.Text = "Yeni Kullanıcı";
-            newUserButton.UseVisualStyleBackColor = true;
-            // 
-            // StationInfoBgTableLayoutPanel
-            // 
-            usersTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            usersTableLayoutPanel.ColumnCount = 1;
-            usersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            usersTableLayoutPanel.Controls.Add(usersDataGridView, 0, 0);
-            usersTableLayoutPanel.Dock = DockStyle.Fill;
-            usersTableLayoutPanel.Location = new Point(0, 40);
-            usersTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            usersTableLayoutPanel.Name = "usersTableLayoutPanel";
-            usersTableLayoutPanel.RowCount = 1;
-            usersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            usersTableLayoutPanel.Size = new Size(542, 493);
-            usersTableLayoutPanel.TabIndex = 5;
-            // 
-            // dataGridView2
-            // 
-            alarmsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            alarmsDataGridView.Dock = DockStyle.Fill;
-            alarmsDataGridView.Location = new Point(3, 3);
-            alarmsDataGridView.Name = "alarmsDataGridView";
-            alarmsDataGridView.Size = new Size(536, 487);
-            alarmsDataGridView.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            usersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            usersDataGridView.Dock = DockStyle.Fill;
-            usersDataGridView.Location = new Point(3, 3);
-            usersDataGridView.Name = "usersDataGridView";
-            usersDataGridView.Size = new Size(536, 487);
-            usersDataGridView.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            alarmsHeaderTableLayoutPanel.ColumnCount = 2;
-            alarmsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            alarmsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            alarmsHeaderTableLayoutPanel.Controls.Add(alarmsLabel, 0, 0);
-            alarmsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
-            alarmsHeaderTableLayoutPanel.Location = new Point(547, 0);
-            alarmsHeaderTableLayoutPanel.Margin = new Padding(0);
-            alarmsHeaderTableLayoutPanel.Name = "alarmsHeaderTableLayoutPanel";
-            alarmsHeaderTableLayoutPanel.RowCount = 1;
-            alarmsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            alarmsHeaderTableLayoutPanel.Size = new Size(547, 40);
-            alarmsHeaderTableLayoutPanel.TabIndex = 7;
-            // 
-            // label1
-            // 
-            alarmsLabel.AutoSize = true;
-            alarmsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            alarmsLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            alarmsLabel.Location = new Point(3, 0);
-            alarmsLabel.Name = "alarmsLabel";
-            alarmsLabel.Size = new Size(88, 22);
-            alarmsLabel.TabIndex = 0;
-            alarmsLabel.Text = "Alarmlar";
+            SaveCalibrationButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveCalibrationButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveCalibrationButton.Location = new Point(452, 3);
+            SaveCalibrationButton.Name = "SaveCalibrationButton";
+            SaveCalibrationButton.Size = new Size(92, 32);
+            SaveCalibrationButton.TabIndex = 3;
+            SaveCalibrationButton.Text = "Kaydet";
+            SaveCalibrationButton.UseVisualStyleBackColor = true;
             // 
             // MailPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            Controls.Add(mainLayoutPanel);
+            Controls.Add(tableLayoutPanel1);
             Name = "MailPage";
             Size = new Size(1170, 677);
             SizeChanged += MailPage_SizeChanged;
-            mainLayoutPanel.ResumeLayout(false);
-            contentPanel.ResumeLayout(false);
-            alarmsTableLayoutPanel.ResumeLayout(false);
-            contentTableLayoutPanel.ResumeLayout(false);
-            usersHeaderTableLayoutPanel.ResumeLayout(false);
-            usersHeaderTableLayoutPanel.PerformLayout();
-            usersTableLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)alarmsDataGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)usersDataGridView).EndInit();
-            alarmsHeaderTableLayoutPanel.ResumeLayout(false);
-            alarmsHeaderTableLayoutPanel.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            PanelContent.ResumeLayout(false);
+            StationSettingsBgTableLayoutPanel.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            ApiTestBgTableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ApiSettingsHeaderTableLayoutPanel.ResumeLayout(false);
+            ApiSettingsHeaderTableLayoutPanel.PerformLayout();
+            StationInfoBgTableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -265,10 +278,6 @@ namespace WinUI.Pages
         }
 
         private void ButtonMailStatements_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ButtonMailUsers_Click(object sender, EventArgs e)
         {
         }
 
@@ -282,20 +291,21 @@ namespace WinUI.Pages
 
         #endregion
 
-        private TableLayoutPanel mainLayoutPanel;
-        private Controls.IBKS.TitleBarControl titleBarControl;
-        private Panel contentPanel;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Controls.IBKS.TitleBarControl titleBarControl1;
+        private Panel PanelContent;
         private DataGridViewTextBoxColumn nameColumn;
         private DataGridViewTextBoxColumn valueColumn;
-        private TableLayoutPanel contentTableLayoutPanel;
-        private TableLayoutPanel alarmsTableLayoutPanel;
-        private TableLayoutPanel usersHeaderTableLayoutPanel;
-        private Label usersLabel;
-        private Button newUserButton;
-        private TableLayoutPanel usersTableLayoutPanel;
-        private DataGridView alarmsDataGridView;
-        private TableLayoutPanel alarmsHeaderTableLayoutPanel;
-        private Label alarmsLabel;
-        private DataGridView usersDataGridView;
+        private TableLayoutPanel StationSettingsBgTableLayoutPanel;
+        private TableLayoutPanel ApiTestBgTableLayoutPanel;
+        private TableLayoutPanel ApiSettingsHeaderTableLayoutPanel;
+        private Label ApiSettingsLabel;
+        private Button SaveApiSettingsButton;
+        private TableLayoutPanel StationInfoBgTableLayoutPanel;
+        private DataGridView dataGridView2;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label1;
+        private DataGridView dataGridView1;
+        private Button SaveCalibrationButton;
     }
 }
