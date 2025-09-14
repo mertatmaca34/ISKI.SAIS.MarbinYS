@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,8 @@ namespace WinUI.Pages
             _userService = Program.Services.GetRequiredService<IUserService>();
             Load += MailPage_Load;
             newUserButton.Click += NewUserButton_Click;
+            ConfigureDataGridView(usersDataGridView);
+            ConfigureDataGridView(dataGridView2);
         }
 
         private async void MailPage_Load(object? sender, EventArgs e)
@@ -45,6 +48,28 @@ namespace WinUI.Pages
             {
                 _ = LoadUsersAsync();
             }
+        }
+
+        private static void ConfigureDataGridView(DataGridView grid)
+        {
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            grid.BackgroundColor = Color.White;
+            grid.BorderStyle = BorderStyle.None;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            grid.EnableHeadersVisualStyles = false;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(64, 64, 64);
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 248, 248);
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 220, 220);
+            grid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grid.RowHeadersVisible = false;
+            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grid.AllowUserToAddRows = false;
+            grid.AllowUserToDeleteRows = false;
+            grid.AllowUserToResizeRows = false;
+            grid.ReadOnly = true;
         }
     }
 }
