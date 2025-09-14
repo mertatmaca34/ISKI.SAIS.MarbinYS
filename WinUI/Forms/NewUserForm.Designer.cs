@@ -41,7 +41,7 @@
             mainLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // mainLayoutPanel
             // 
             mainLayoutPanel.BackColor = Color.White;
             mainLayoutPanel.ColumnCount = 3;
@@ -74,7 +74,7 @@
             mainLayoutPanel.Size = new Size(579, 521);
             mainLayoutPanel.TabIndex = 3;
             // 
-            // label1
+            // userNameLabel
             // 
             userNameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             userNameLabel.AutoSize = true;
@@ -86,7 +86,7 @@
             userNameLabel.TabIndex = 1;
             userNameLabel.Text = "Kullanıcı Adı";
             // 
-            // label2
+            // passwordLabel
             // 
             passwordLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             passwordLabel.AutoSize = true;
@@ -94,11 +94,11 @@
             passwordLabel.Location = new Point(130, 322);
             passwordLabel.Margin = new Padding(30, 0, 30, 0);
             passwordLabel.Name = "passwordLabel";
-            passwordLabel.Size = new Size(27, 15);
+            passwordLabel.Size = new Size(32, 15);
             passwordLabel.TabIndex = 3;
             passwordLabel.Text = "Şifre";
             // 
-            // PasswordTextBox
+            // passwordTextBox
             // 
             mainLayoutPanel.SetColumnSpan(passwordTextBox, 2);
             passwordTextBox.Dock = DockStyle.Fill;
@@ -110,7 +110,7 @@
             passwordTextBox.Size = new Size(285, 27);
             passwordTextBox.TabIndex = 4;
             // 
-            // labelTitle
+            // titleLabel
             // 
             titleLabel.Anchor = AnchorStyles.None;
             titleLabel.AutoSize = true;
@@ -124,7 +124,7 @@
             titleLabel.TabIndex = 0;
             titleLabel.Text = "Yeni Kullanıcı";
             // 
-            // LoginButton
+            // saveButton
             // 
             saveButton.BaseColor = Color.FromArgb(0, 130, 201);
             saveButton.BorderRadius = 12;
@@ -139,6 +139,8 @@
             saveButton.TabIndex = 6;
             saveButton.TextColor = Color.White;
             // 
+            // userNameTextBox
+            // 
             mainLayoutPanel.SetColumnSpan(userNameTextBox, 2);
             userNameTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             userNameTextBox.Location = new Point(130, 176);
@@ -148,7 +150,7 @@
             userNameTextBox.Size = new Size(285, 27);
             userNameTextBox.TabIndex = 9;
             // 
-            // label3
+            // emailLabel
             // 
             emailLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             emailLabel.AutoSize = true;
@@ -160,7 +162,7 @@
             emailLabel.TabIndex = 1;
             emailLabel.Text = "Mail";
             // 
-            // textBox2
+            // emailTextBox
             // 
             mainLayoutPanel.SetColumnSpan(emailTextBox, 2);
             emailTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
@@ -179,6 +181,7 @@
             Controls.Add(mainLayoutPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "NewUserForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = " Yeni Kullanıcı";
             mainLayoutPanel.ResumeLayout(false);
             mainLayoutPanel.PerformLayout();

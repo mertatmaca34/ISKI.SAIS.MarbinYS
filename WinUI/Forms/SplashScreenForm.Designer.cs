@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreenForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             LabelVersion = new Label();
             label2 = new Label();
-            tableLayoutPanel2 = new TableLayoutPanel();
             label3 = new Label();
+            tableLayoutPanel2 = new TableLayoutPanel();
             timer1 = new System.Windows.Forms.Timer(components);
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -114,6 +115,19 @@
             label2.TabIndex = 0;
             label2.Text = "İSKİ Bakanlık Kabini Sistemi";
             // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label3.ForeColor = Color.FromArgb(0, 148, 212);
+            label3.Location = new Point(377, 200);
+            label3.Name = "label3";
+            label3.Size = new Size(37, 20);
+            label3.TabIndex = 0;
+            label3.Text = ".....";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.BackColor = Color.White;
@@ -128,19 +142,6 @@
             tableLayoutPanel2.Size = new Size(798, 448);
             tableLayoutPanel2.TabIndex = 1;
             // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label3.ForeColor = Color.FromArgb(0, 148, 212);
-            label3.Location = new Point(377, 200);
-            label3.Name = "label3";
-            label3.Size = new Size(37, 20);
-            label3.TabIndex = 0;
-            label3.Text = ".....";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
@@ -153,6 +154,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel2);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SplashScreenForm";
             Padding = new Padding(1);
             StartPosition = FormStartPosition.CenterScreen;

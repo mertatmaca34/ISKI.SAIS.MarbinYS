@@ -143,6 +143,16 @@ namespace WinUI.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap delete_48px {
+            get {
+                object obj = ResourceManager.GetObject("delete_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap door_closed {
             get {
                 object obj = ResourceManager.GetObject("door_closed", resourceCulture);
@@ -166,6 +176,16 @@ namespace WinUI.Properties {
         internal static System.Drawing.Bitmap e57b3257b6ccd2895f11c6a89710e02b {
             get {
                 object obj = ResourceManager.GetObject("e57b3257b6ccd2895f11c6a89710e02b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_48px {
+            get {
+                object obj = ResourceManager.GetObject("edit_48px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
