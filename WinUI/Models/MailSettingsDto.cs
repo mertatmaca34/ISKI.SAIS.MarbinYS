@@ -1,4 +1,4 @@
-namespace Application.Features.MailSettings.Dtos;
+namespace WinUI.Models;
 
 public class MailSettingsDto
 {
@@ -12,3 +12,4 @@ public class MailSettingsDto
     public string SenderName { get; set; }
     public bool UseDefaultCredentials { get; set; }
 }
+

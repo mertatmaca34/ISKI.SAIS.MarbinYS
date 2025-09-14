@@ -1,16 +1,15 @@
-﻿namespace WinUI.Pages.Settings
+namespace WinUI.Pages.Settings
 {
     partial class MailSettingsPage
     {
-        /// <summary> 
-        ///Gerekli tasarımcı değişkeni.
+        /// <summary>
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        ///Kullanılan tüm kaynakları temizleyin.
+        /// <summary>
+        /// Clean up any resources being used.
         /// </summary>
-        ///<param name="disposing">yönetilen kaynaklar dispose edilmeliyse doğru; aksi halde yanlış.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,514 +19,487 @@
             base.Dispose(disposing);
         }
 
-        #region Bileşen Tasarımcısı üretimi kod
+        #region Component Designer generated code
 
-        /// <summary> 
-        /// Tasarımcı desteği için gerekli metot - bu metodun 
-        ///içeriğini kod düzenleyici ile değiştirmeyin.
-        /// </summary>
         private void InitializeComponent()
         {
-            ApiUrlLabel = new Label();
-            ApiUrlTextBox = new TextBox();
-            StationInfoContentTableLayoutPanel = new TableLayoutPanel();
-            ApiUsernameLabel = new Label();
-            ApiPasswordLabel = new Label();
-            ApiUsernameTextBox = new TextBox();
-            ApiPasswordTextBox = new TextBox();
-            SendPeriodLabel = new Label();
-            ResendPeriodLabel = new Label();
-            StationInfoBgTableLayoutPanel = new TableLayoutPanel();
-            ApiSettingsLabel = new Label();
-            SaveApiSettingsButton = new Button();
-            ApiSettingsHeaderTableLayoutPanel = new TableLayoutPanel();
-            StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
-            ApiTestBgTableLayoutPanel = new TableLayoutPanel();
-            ApiTestContentTableLayoutPanel = new TableLayoutPanel();
-            SendServerRequestButton = new Button();
-            ResponseGroupBox = new GroupBox();
-            ResponseTextBox = new TextBox();
-            SendDiagnosticButton = new Button();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            checkBox1 = new CheckBox();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            checkBox2 = new CheckBox();
-            ApiTestLabel = new Label();
-            textBox4 = new TextBox();
-            StationInfoContentTableLayoutPanel.SuspendLayout();
-            StationInfoBgTableLayoutPanel.SuspendLayout();
-            ApiSettingsHeaderTableLayoutPanel.SuspendLayout();
-            StationSettingsBgTableLayoutPanel.SuspendLayout();
-            ApiTestBgTableLayoutPanel.SuspendLayout();
-            ApiTestContentTableLayoutPanel.SuspendLayout();
-            ResponseGroupBox.SuspendLayout();
-            SuspendLayout();
+            this.MailSettingsMainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.MailSettingsHeaderTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.MailSettingsHeaderLabel = new System.Windows.Forms.Label();
+            this.SaveMailSettingsButton = new System.Windows.Forms.Button();
+            this.MailSettingsBgTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.MailSettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.SmtpHostLabel = new System.Windows.Forms.Label();
+            this.SmtpHostTextBox = new System.Windows.Forms.TextBox();
+            this.SmtpPortLabel = new System.Windows.Forms.Label();
+            this.SmtpPortTextBox = new System.Windows.Forms.TextBox();
+            this.SmtpUserLabel = new System.Windows.Forms.Label();
+            this.SmtpUserTextBox = new System.Windows.Forms.TextBox();
+            this.SmtpPasswordLabel = new System.Windows.Forms.Label();
+            this.SmtpPasswordTextBox = new System.Windows.Forms.TextBox();
+            this.UseSslLabel = new System.Windows.Forms.Label();
+            this.UseSslCheckBox = new System.Windows.Forms.CheckBox();
+            this.SenderEmailLabel = new System.Windows.Forms.Label();
+            this.SenderEmailTextBox = new System.Windows.Forms.TextBox();
+            this.SenderNameLabel = new System.Windows.Forms.Label();
+            this.SenderNameTextBox = new System.Windows.Forms.TextBox();
+            this.UseDefaultCredentialsLabel = new System.Windows.Forms.Label();
+            this.UseDefaultCredentialsCheckBox = new System.Windows.Forms.CheckBox();
+            this.MailTestHeaderLabel = new System.Windows.Forms.Label();
+            this.MailTestBgTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.MailTestContentTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.TestConnectionButton = new System.Windows.Forms.Button();
+            this.TestEmailTextBox = new System.Windows.Forms.TextBox();
+            this.SendTestEmailButton = new System.Windows.Forms.Button();
+            this.ResponseGroupBox = new System.Windows.Forms.GroupBox();
+            this.ResponseTextBox = new System.Windows.Forms.TextBox();
+            this.MailSettingsMainTableLayoutPanel.SuspendLayout();
+            this.MailSettingsHeaderTableLayoutPanel.SuspendLayout();
+            this.MailSettingsBgTableLayoutPanel.SuspendLayout();
+            this.MailSettingsTableLayoutPanel.SuspendLayout();
+            this.MailTestBgTableLayoutPanel.SuspendLayout();
+            this.MailTestContentTableLayoutPanel.SuspendLayout();
+            this.ResponseGroupBox.SuspendLayout();
+            this.SuspendLayout();
             // 
-            // ApiUrlLabel
+            // MailSettingsMainTableLayoutPanel
             // 
-            ApiUrlLabel.Anchor = AnchorStyles.Left;
-            ApiUrlLabel.AutoSize = true;
-            ApiUrlLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ApiUrlLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ApiUrlLabel.Location = new Point(18, 22);
-            ApiUrlLabel.Name = "ApiUrlLabel";
-            ApiUrlLabel.Size = new Size(75, 16);
-            ApiUrlLabel.TabIndex = 1;
-            ApiUrlLabel.Text = "SMTP Host";
+            this.MailSettingsMainTableLayoutPanel.ColumnCount = 2;
+            this.MailSettingsMainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MailSettingsMainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MailSettingsMainTableLayoutPanel.Controls.Add(this.MailSettingsHeaderTableLayoutPanel, 0, 0);
+            this.MailSettingsMainTableLayoutPanel.Controls.Add(this.MailSettingsBgTableLayoutPanel, 0, 1);
+            this.MailSettingsMainTableLayoutPanel.Controls.Add(this.MailTestHeaderLabel, 1, 0);
+            this.MailSettingsMainTableLayoutPanel.Controls.Add(this.MailTestBgTableLayoutPanel, 1, 1);
+            this.MailSettingsMainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MailSettingsMainTableLayoutPanel.RowCount = 2;
+            this.MailSettingsMainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.MailSettingsMainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MailSettingsMainTableLayoutPanel.Location = new System.Drawing.Point(0, 15);
+            this.MailSettingsMainTableLayoutPanel.Name = "MailSettingsMainTableLayoutPanel";
+            this.MailSettingsMainTableLayoutPanel.Size = new System.Drawing.Size(1094, 503);
+            this.MailSettingsMainTableLayoutPanel.TabIndex = 0;
             // 
-            // ApiUrlTextBox
+            // MailSettingsHeaderTableLayoutPanel
             // 
-            ApiUrlTextBox.Anchor = AnchorStyles.Left;
-            ApiUrlTextBox.Location = new Point(323, 19);
-            ApiUrlTextBox.Name = "ApiUrlTextBox";
-            ApiUrlTextBox.PlaceholderText = "localhost";
-            ApiUrlTextBox.Size = new Size(199, 23);
-            ApiUrlTextBox.TabIndex = 2;
+            this.MailSettingsHeaderTableLayoutPanel.ColumnCount = 2;
+            this.MailSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MailSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MailSettingsHeaderTableLayoutPanel.Controls.Add(this.MailSettingsHeaderLabel, 0, 0);
+            this.MailSettingsHeaderTableLayoutPanel.Controls.Add(this.SaveMailSettingsButton, 1, 0);
+            this.MailSettingsHeaderTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MailSettingsHeaderTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.MailSettingsHeaderTableLayoutPanel.Name = "MailSettingsHeaderTableLayoutPanel";
+            this.MailSettingsHeaderTableLayoutPanel.RowCount = 1;
+            this.MailSettingsHeaderTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MailSettingsHeaderTableLayoutPanel.Size = new System.Drawing.Size(541, 34);
+            this.MailSettingsHeaderTableLayoutPanel.TabIndex = 0;
             // 
-            // StationInfoContentTableLayoutPanel
+            // MailSettingsHeaderLabel
             // 
-            StationInfoContentTableLayoutPanel.BackColor = Color.White;
-            StationInfoContentTableLayoutPanel.ColumnCount = 2;
-            StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 59.80392F));
-            StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.19608F));
-            StationInfoContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            StationInfoContentTableLayoutPanel.Controls.Add(ApiUrlLabel, 0, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(ApiUrlTextBox, 1, 0);
-            StationInfoContentTableLayoutPanel.Controls.Add(ApiUsernameTextBox, 1, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(ApiPasswordTextBox, 1, 2);
-            StationInfoContentTableLayoutPanel.Controls.Add(ResendPeriodLabel, 0, 4);
-            StationInfoContentTableLayoutPanel.Controls.Add(label1, 0, 5);
-            StationInfoContentTableLayoutPanel.Controls.Add(label2, 0, 6);
-            StationInfoContentTableLayoutPanel.Controls.Add(label3, 0, 7);
-            StationInfoContentTableLayoutPanel.Controls.Add(SendPeriodLabel, 0, 1);
-            StationInfoContentTableLayoutPanel.Controls.Add(ApiPasswordLabel, 0, 3);
-            StationInfoContentTableLayoutPanel.Controls.Add(ApiUsernameLabel, 0, 2);
-            StationInfoContentTableLayoutPanel.Controls.Add(checkBox1, 1, 4);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox1, 1, 5);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox2, 1, 3);
-            StationInfoContentTableLayoutPanel.Controls.Add(textBox3, 1, 6);
-            StationInfoContentTableLayoutPanel.Controls.Add(checkBox2, 1, 7);
-            StationInfoContentTableLayoutPanel.Dock = DockStyle.Fill;
-            StationInfoContentTableLayoutPanel.Location = new Point(1, 1);
-            StationInfoContentTableLayoutPanel.Margin = new Padding(1);
-            StationInfoContentTableLayoutPanel.Name = "StationInfoContentTableLayoutPanel";
-            StationInfoContentTableLayoutPanel.Padding = new Padding(15);
-            StationInfoContentTableLayoutPanel.RowCount = 14;
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            StationInfoContentTableLayoutPanel.Size = new Size(540, 461);
-            StationInfoContentTableLayoutPanel.TabIndex = 2;
+            this.MailSettingsHeaderLabel.AutoSize = true;
+            this.MailSettingsHeaderLabel.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.MailSettingsHeaderLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.MailSettingsHeaderLabel.Location = new System.Drawing.Point(3, 0);
+            this.MailSettingsHeaderLabel.Name = "MailSettingsHeaderLabel";
+            this.MailSettingsHeaderLabel.Size = new System.Drawing.Size(207, 22);
+            this.MailSettingsHeaderLabel.TabIndex = 0;
+            this.MailSettingsHeaderLabel.Text = "Mail Sunucusu Ayarları";
             // 
-            // ApiUsernameLabel
+            // SaveMailSettingsButton
             // 
-            ApiUsernameLabel.Anchor = AnchorStyles.Left;
-            ApiUsernameLabel.AutoSize = true;
-            ApiUsernameLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ApiUsernameLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ApiUsernameLabel.Location = new Point(18, 84);
-            ApiUsernameLabel.Name = "ApiUsernameLabel";
-            ApiUsernameLabel.Size = new Size(129, 16);
-            ApiUsernameLabel.TabIndex = 1;
-            ApiUsernameLabel.Text = "SMTP Kullanıcı Adı";
+            this.SaveMailSettingsButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.SaveMailSettingsButton.Location = new System.Drawing.Point(446, 3);
+            this.SaveMailSettingsButton.Name = "SaveMailSettingsButton";
+            this.SaveMailSettingsButton.Size = new System.Drawing.Size(92, 28);
+            this.SaveMailSettingsButton.TabIndex = 1;
+            this.SaveMailSettingsButton.Text = "Kaydet";
+            this.SaveMailSettingsButton.UseVisualStyleBackColor = true;
             // 
-            // ApiPasswordLabel
+            // MailSettingsBgTableLayoutPanel
             // 
-            ApiPasswordLabel.Anchor = AnchorStyles.Left;
-            ApiPasswordLabel.AutoSize = true;
-            ApiPasswordLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ApiPasswordLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ApiPasswordLabel.Location = new Point(18, 115);
-            ApiPasswordLabel.Name = "ApiPasswordLabel";
-            ApiPasswordLabel.Size = new Size(88, 16);
-            ApiPasswordLabel.TabIndex = 1;
-            ApiPasswordLabel.Text = "SMTP Şifresi";
+            this.MailSettingsBgTableLayoutPanel.BackColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            this.MailSettingsBgTableLayoutPanel.ColumnCount = 1;
+            this.MailSettingsBgTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MailSettingsBgTableLayoutPanel.Controls.Add(this.MailSettingsTableLayoutPanel, 0, 0);
+            this.MailSettingsBgTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MailSettingsBgTableLayoutPanel.Location = new System.Drawing.Point(3, 43);
+            this.MailSettingsBgTableLayoutPanel.Name = "MailSettingsBgTableLayoutPanel";
+            this.MailSettingsBgTableLayoutPanel.RowCount = 1;
+            this.MailSettingsBgTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MailSettingsBgTableLayoutPanel.Size = new System.Drawing.Size(541, 457);
+            this.MailSettingsBgTableLayoutPanel.TabIndex = 1;
             // 
-            // ApiUsernameTextBox
+            // MailSettingsTableLayoutPanel
             // 
-            ApiUsernameTextBox.Anchor = AnchorStyles.Left;
-            ApiUsernameTextBox.Location = new Point(323, 50);
-            ApiUsernameTextBox.Name = "ApiUsernameTextBox";
-            ApiUsernameTextBox.PlaceholderText = "api_user";
-            ApiUsernameTextBox.Size = new Size(199, 23);
-            ApiUsernameTextBox.TabIndex = 2;
+            this.MailSettingsTableLayoutPanel.BackColor = System.Drawing.Color.White;
+            this.MailSettingsTableLayoutPanel.ColumnCount = 2;
+            this.MailSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.MailSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpHostLabel, 0, 0);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpHostTextBox, 1, 0);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpPortLabel, 0, 1);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpPortTextBox, 1, 1);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpUserLabel, 0, 2);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpUserTextBox, 1, 2);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpPasswordLabel, 0, 3);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SmtpPasswordTextBox, 1, 3);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.UseSslLabel, 0, 4);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.UseSslCheckBox, 1, 4);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SenderEmailLabel, 0, 5);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SenderEmailTextBox, 1, 5);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SenderNameLabel, 0, 6);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.SenderNameTextBox, 1, 6);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.UseDefaultCredentialsLabel, 0, 7);
+            this.MailSettingsTableLayoutPanel.Controls.Add(this.UseDefaultCredentialsCheckBox, 1, 7);
+            this.MailSettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MailSettingsTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.MailSettingsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.MailSettingsTableLayoutPanel.Name = "MailSettingsTableLayoutPanel";
+            this.MailSettingsTableLayoutPanel.Padding = new System.Windows.Forms.Padding(15);
+            this.MailSettingsTableLayoutPanel.RowCount = 8;
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailSettingsTableLayoutPanel.Size = new System.Drawing.Size(541, 457);
+            this.MailSettingsTableLayoutPanel.TabIndex = 0;
             // 
-            // ApiPasswordTextBox
+            // SmtpHostLabel
             // 
-            ApiPasswordTextBox.Anchor = AnchorStyles.Left;
-            ApiPasswordTextBox.Location = new Point(323, 81);
-            ApiPasswordTextBox.Name = "ApiPasswordTextBox";
-            ApiPasswordTextBox.PlaceholderText = "api_pass";
-            ApiPasswordTextBox.Size = new Size(199, 23);
-            ApiPasswordTextBox.TabIndex = 2;
+            this.SmtpHostLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpHostLabel.AutoSize = true;
+            this.SmtpHostLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SmtpHostLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.SmtpHostLabel.Location = new System.Drawing.Point(18, 22);
+            this.SmtpHostLabel.Name = "SmtpHostLabel";
+            this.SmtpHostLabel.Size = new System.Drawing.Size(79, 16);
+            this.SmtpHostLabel.TabIndex = 0;
+            this.SmtpHostLabel.Text = "SMTP Host";
             // 
-            // SendPeriodLabel
+            // SmtpHostTextBox
             // 
-            SendPeriodLabel.Anchor = AnchorStyles.Left;
-            SendPeriodLabel.AutoSize = true;
-            SendPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            SendPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            SendPeriodLabel.Location = new Point(18, 53);
-            SendPeriodLabel.Name = "SendPeriodLabel";
-            SendPeriodLabel.Size = new Size(74, 16);
-            SendPeriodLabel.TabIndex = 1;
-            SendPeriodLabel.Text = "SMPT Port";
+            this.SmtpHostTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpHostTextBox.Location = new System.Drawing.Point(219, 19);
+            this.SmtpHostTextBox.Name = "SmtpHostTextBox";
+            this.SmtpHostTextBox.PlaceholderText = "smtp.server.com";
+            this.SmtpHostTextBox.Size = new System.Drawing.Size(298, 23);
+            this.SmtpHostTextBox.TabIndex = 1;
             // 
-            // ResendPeriodLabel
+            // SmtpPortLabel
             // 
-            ResendPeriodLabel.Anchor = AnchorStyles.Left;
-            ResendPeriodLabel.AutoSize = true;
-            ResendPeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ResendPeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ResendPeriodLabel.Location = new Point(18, 146);
-            ResendPeriodLabel.Name = "ResendPeriodLabel";
-            ResendPeriodLabel.Size = new Size(132, 16);
-            ResendPeriodLabel.TabIndex = 1;
-            ResendPeriodLabel.Text = "SSL Kullanılsın mı?";
+            this.SmtpPortLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpPortLabel.AutoSize = true;
+            this.SmtpPortLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SmtpPortLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.SmtpPortLabel.Location = new System.Drawing.Point(18, 53);
+            this.SmtpPortLabel.Name = "SmtpPortLabel";
+            this.SmtpPortLabel.Size = new System.Drawing.Size(80, 16);
+            this.SmtpPortLabel.TabIndex = 2;
+            this.SmtpPortLabel.Text = "SMTP Port";
             // 
-            // StationInfoBgTableLayoutPanel
+            // SmtpPortTextBox
             // 
-            StationInfoBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            StationInfoBgTableLayoutPanel.ColumnCount = 1;
-            StationInfoBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Controls.Add(StationInfoContentTableLayoutPanel, 0, 0);
-            StationInfoBgTableLayoutPanel.Dock = DockStyle.Fill;
-            StationInfoBgTableLayoutPanel.Location = new Point(0, 40);
-            StationInfoBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            StationInfoBgTableLayoutPanel.Name = "StationInfoBgTableLayoutPanel";
-            StationInfoBgTableLayoutPanel.RowCount = 1;
-            StationInfoBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            StationInfoBgTableLayoutPanel.Size = new Size(542, 463);
-            StationInfoBgTableLayoutPanel.TabIndex = 5;
+            this.SmtpPortTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpPortTextBox.Location = new System.Drawing.Point(219, 50);
+            this.SmtpPortTextBox.Name = "SmtpPortTextBox";
+            this.SmtpPortTextBox.PlaceholderText = "587";
+            this.SmtpPortTextBox.Size = new System.Drawing.Size(298, 23);
+            this.SmtpPortTextBox.TabIndex = 3;
             // 
-            // ApiSettingsLabel
+            // SmtpUserLabel
             // 
-            ApiSettingsLabel.AutoSize = true;
-            ApiSettingsLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ApiSettingsLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ApiSettingsLabel.Location = new Point(3, 0);
-            ApiSettingsLabel.Name = "ApiSettingsLabel";
-            ApiSettingsLabel.Size = new Size(223, 22);
-            ApiSettingsLabel.TabIndex = 0;
-            ApiSettingsLabel.Text = "Mail Sunucusu Ayarları";
+            this.SmtpUserLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpUserLabel.AutoSize = true;
+            this.SmtpUserLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SmtpUserLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.SmtpUserLabel.Location = new System.Drawing.Point(18, 84);
+            this.SmtpUserLabel.Name = "SmtpUserLabel";
+            this.SmtpUserLabel.Size = new System.Drawing.Size(131, 16);
+            this.SmtpUserLabel.TabIndex = 4;
+            this.SmtpUserLabel.Text = "SMTP Kullanıcı Adı";
             // 
-            // SaveApiSettingsButton
+            // SmtpUserTextBox
             // 
-            SaveApiSettingsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveApiSettingsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveApiSettingsButton.Location = new Point(452, 3);
-            SaveApiSettingsButton.Name = "SaveApiSettingsButton";
-            SaveApiSettingsButton.Size = new Size(92, 32);
-            SaveApiSettingsButton.TabIndex = 2;
-            SaveApiSettingsButton.Text = "Kaydet";
-            SaveApiSettingsButton.UseVisualStyleBackColor = true;
+            this.SmtpUserTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpUserTextBox.Location = new System.Drawing.Point(219, 81);
+            this.SmtpUserTextBox.Name = "SmtpUserTextBox";
+            this.SmtpUserTextBox.PlaceholderText = "kullanici";
+            this.SmtpUserTextBox.Size = new System.Drawing.Size(298, 23);
+            this.SmtpUserTextBox.TabIndex = 5;
             // 
-            // ApiSettingsHeaderTableLayoutPanel
+            // SmtpPasswordLabel
             // 
-            ApiSettingsHeaderTableLayoutPanel.ColumnCount = 2;
-            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            ApiSettingsHeaderTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            ApiSettingsHeaderTableLayoutPanel.Controls.Add(ApiSettingsLabel, 0, 0);
-            ApiSettingsHeaderTableLayoutPanel.Controls.Add(SaveApiSettingsButton, 1, 0);
-            ApiSettingsHeaderTableLayoutPanel.Dock = DockStyle.Fill;
-            ApiSettingsHeaderTableLayoutPanel.Location = new Point(0, 0);
-            ApiSettingsHeaderTableLayoutPanel.Margin = new Padding(0);
-            ApiSettingsHeaderTableLayoutPanel.Name = "ApiSettingsHeaderTableLayoutPanel";
-            ApiSettingsHeaderTableLayoutPanel.RowCount = 1;
-            ApiSettingsHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            ApiSettingsHeaderTableLayoutPanel.Size = new Size(547, 40);
-            ApiSettingsHeaderTableLayoutPanel.TabIndex = 3;
+            this.SmtpPasswordLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpPasswordLabel.AutoSize = true;
+            this.SmtpPasswordLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SmtpPasswordLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.SmtpPasswordLabel.Location = new System.Drawing.Point(18, 115);
+            this.SmtpPasswordLabel.Name = "SmtpPasswordLabel";
+            this.SmtpPasswordLabel.Size = new System.Drawing.Size(88, 16);
+            this.SmtpPasswordLabel.TabIndex = 6;
+            this.SmtpPasswordLabel.Text = "SMTP Şifresi";
             // 
-            // StationSettingsBgTableLayoutPanel
+            // SmtpPasswordTextBox
             // 
-            StationSettingsBgTableLayoutPanel.ColumnCount = 2;
-            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationSettingsBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            StationSettingsBgTableLayoutPanel.Controls.Add(ApiTestLabel, 1, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(ApiTestBgTableLayoutPanel, 1, 1);
-            StationSettingsBgTableLayoutPanel.Controls.Add(ApiSettingsHeaderTableLayoutPanel, 0, 0);
-            StationSettingsBgTableLayoutPanel.Controls.Add(StationInfoBgTableLayoutPanel, 0, 1);
-            StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
-            StationSettingsBgTableLayoutPanel.Location = new Point(0, 15);
-            StationSettingsBgTableLayoutPanel.Name = "StationSettingsBgTableLayoutPanel";
-            StationSettingsBgTableLayoutPanel.RowCount = 2;
-            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
-            StationSettingsBgTableLayoutPanel.Size = new Size(1094, 503);
-            StationSettingsBgTableLayoutPanel.TabIndex = 2;
+            this.SmtpPasswordTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SmtpPasswordTextBox.Location = new System.Drawing.Point(219, 112);
+            this.SmtpPasswordTextBox.Name = "SmtpPasswordTextBox";
+            this.SmtpPasswordTextBox.PlaceholderText = "şifre";
+            this.SmtpPasswordTextBox.Size = new System.Drawing.Size(298, 23);
+            this.SmtpPasswordTextBox.TabIndex = 7;
+            this.SmtpPasswordTextBox.UseSystemPasswordChar = true;
             // 
-            // ApiTestBgTableLayoutPanel
+            // UseSslLabel
             // 
-            ApiTestBgTableLayoutPanel.BackColor = Color.FromArgb(235, 235, 235);
-            ApiTestBgTableLayoutPanel.ColumnCount = 1;
-            ApiTestBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            ApiTestBgTableLayoutPanel.Controls.Add(ApiTestContentTableLayoutPanel, 0, 0);
-            ApiTestBgTableLayoutPanel.Dock = DockStyle.Fill;
-            ApiTestBgTableLayoutPanel.Location = new Point(547, 40);
-            ApiTestBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
-            ApiTestBgTableLayoutPanel.Name = "ApiTestBgTableLayoutPanel";
-            ApiTestBgTableLayoutPanel.RowCount = 1;
-            ApiTestBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            ApiTestBgTableLayoutPanel.Size = new Size(542, 463);
-            ApiTestBgTableLayoutPanel.TabIndex = 6;
+            this.UseSslLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.UseSslLabel.AutoSize = true;
+            this.UseSslLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.UseSslLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.UseSslLabel.Location = new System.Drawing.Point(18, 146);
+            this.UseSslLabel.Name = "UseSslLabel";
+            this.UseSslLabel.Size = new System.Drawing.Size(111, 16);
+            this.UseSslLabel.TabIndex = 8;
+            this.UseSslLabel.Text = "SSL Kullanılsın?";
             // 
-            // ApiTestContentTableLayoutPanel
+            // UseSslCheckBox
             // 
-            ApiTestContentTableLayoutPanel.BackColor = Color.White;
-            ApiTestContentTableLayoutPanel.ColumnCount = 2;
-            ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.27451F));
-            ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.72549F));
-            ApiTestContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            ApiTestContentTableLayoutPanel.Controls.Add(SendServerRequestButton, 0, 0);
-            ApiTestContentTableLayoutPanel.Controls.Add(ResponseGroupBox, 1, 0);
-            ApiTestContentTableLayoutPanel.Controls.Add(textBox4, 0, 2);
-            ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 3);
-            ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
-            ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
-            ApiTestContentTableLayoutPanel.Margin = new Padding(1);
-            ApiTestContentTableLayoutPanel.Name = "ApiTestContentTableLayoutPanel";
-            ApiTestContentTableLayoutPanel.Padding = new Padding(15);
-            ApiTestContentTableLayoutPanel.RowCount = 14;
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            ApiTestContentTableLayoutPanel.Size = new Size(540, 461);
-            ApiTestContentTableLayoutPanel.TabIndex = 2;
+            this.UseSslCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.UseSslCheckBox.AutoSize = true;
+            this.UseSslCheckBox.Location = new System.Drawing.Point(219, 146);
+            this.UseSslCheckBox.Name = "UseSslCheckBox";
+            this.UseSslCheckBox.Size = new System.Drawing.Size(50, 19);
+            this.UseSslCheckBox.TabIndex = 9;
+            this.UseSslCheckBox.Text = "Evet";
+            this.UseSslCheckBox.UseVisualStyleBackColor = true;
             // 
-            // SendServerRequestButton
+            // SenderEmailLabel
             // 
-            SendServerRequestButton.Anchor = AnchorStyles.Left;
-            SendServerRequestButton.AutoSize = true;
-            SendServerRequestButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SendServerRequestButton.Location = new Point(18, 18);
-            SendServerRequestButton.Name = "SendServerRequestButton";
-            SendServerRequestButton.Size = new Size(176, 25);
-            SendServerRequestButton.TabIndex = 2;
-            SendServerRequestButton.Text = "Sunucuya İstek At";
-            SendServerRequestButton.UseVisualStyleBackColor = true;
+            this.SenderEmailLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SenderEmailLabel.AutoSize = true;
+            this.SenderEmailLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SenderEmailLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.SenderEmailLabel.Location = new System.Drawing.Point(18, 177);
+            this.SenderEmailLabel.Name = "SenderEmailLabel";
+            this.SenderEmailLabel.Size = new System.Drawing.Size(121, 16);
+            this.SenderEmailLabel.TabIndex = 10;
+            this.SenderEmailLabel.Text = "Gönderen E-Posta";
+            // 
+            // SenderEmailTextBox
+            // 
+            this.SenderEmailTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SenderEmailTextBox.Location = new System.Drawing.Point(219, 174);
+            this.SenderEmailTextBox.Name = "SenderEmailTextBox";
+            this.SenderEmailTextBox.PlaceholderText = "gonderen@example.com";
+            this.SenderEmailTextBox.Size = new System.Drawing.Size(298, 23);
+            this.SenderEmailTextBox.TabIndex = 11;
+            // 
+            // SenderNameLabel
+            // 
+            this.SenderNameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SenderNameLabel.AutoSize = true;
+            this.SenderNameLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SenderNameLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.SenderNameLabel.Location = new System.Drawing.Point(18, 208);
+            this.SenderNameLabel.Name = "SenderNameLabel";
+            this.SenderNameLabel.Size = new System.Drawing.Size(100, 16);
+            this.SenderNameLabel.TabIndex = 12;
+            this.SenderNameLabel.Text = "Gönderen Adı";
+            // 
+            // SenderNameTextBox
+            // 
+            this.SenderNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SenderNameTextBox.Location = new System.Drawing.Point(219, 205);
+            this.SenderNameTextBox.Name = "SenderNameTextBox";
+            this.SenderNameTextBox.PlaceholderText = "İSKİ";
+            this.SenderNameTextBox.Size = new System.Drawing.Size(298, 23);
+            this.SenderNameTextBox.TabIndex = 13;
+            // 
+            // UseDefaultCredentialsLabel
+            // 
+            this.UseDefaultCredentialsLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.UseDefaultCredentialsLabel.AutoSize = true;
+            this.UseDefaultCredentialsLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.UseDefaultCredentialsLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.UseDefaultCredentialsLabel.Location = new System.Drawing.Point(18, 239);
+            this.UseDefaultCredentialsLabel.Name = "UseDefaultCredentialsLabel";
+            this.UseDefaultCredentialsLabel.Size = new System.Drawing.Size(173, 16);
+            this.UseDefaultCredentialsLabel.TabIndex = 14;
+            this.UseDefaultCredentialsLabel.Text = "Varsayılan Kimlik Bilgileri";
+            // 
+            // UseDefaultCredentialsCheckBox
+            // 
+            this.UseDefaultCredentialsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.UseDefaultCredentialsCheckBox.AutoSize = true;
+            this.UseDefaultCredentialsCheckBox.Location = new System.Drawing.Point(219, 239);
+            this.UseDefaultCredentialsCheckBox.Name = "UseDefaultCredentialsCheckBox";
+            this.UseDefaultCredentialsCheckBox.Size = new System.Drawing.Size(50, 19);
+            this.UseDefaultCredentialsCheckBox.TabIndex = 15;
+            this.UseDefaultCredentialsCheckBox.Text = "Evet";
+            this.UseDefaultCredentialsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // MailTestHeaderLabel
+            // 
+            this.MailTestHeaderLabel.AutoSize = true;
+            this.MailTestHeaderLabel.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.MailTestHeaderLabel.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            this.MailTestHeaderLabel.Location = new System.Drawing.Point(550, 0);
+            this.MailTestHeaderLabel.Name = "MailTestHeaderLabel";
+            this.MailTestHeaderLabel.Size = new System.Drawing.Size(177, 22);
+            this.MailTestHeaderLabel.TabIndex = 2;
+            this.MailTestHeaderLabel.Text = "Mail Sunucusu Testi";
+            // 
+            // MailTestBgTableLayoutPanel
+            // 
+            this.MailTestBgTableLayoutPanel.BackColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            this.MailTestBgTableLayoutPanel.ColumnCount = 1;
+            this.MailTestBgTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MailTestBgTableLayoutPanel.Controls.Add(this.MailTestContentTableLayoutPanel, 0, 0);
+            this.MailTestBgTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MailTestBgTableLayoutPanel.Location = new System.Drawing.Point(547, 43);
+            this.MailTestBgTableLayoutPanel.Name = "MailTestBgTableLayoutPanel";
+            this.MailTestBgTableLayoutPanel.RowCount = 1;
+            this.MailTestBgTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MailTestBgTableLayoutPanel.Size = new System.Drawing.Size(544, 457);
+            this.MailTestBgTableLayoutPanel.TabIndex = 3;
+            // 
+            // MailTestContentTableLayoutPanel
+            // 
+            this.MailTestContentTableLayoutPanel.BackColor = System.Drawing.Color.White;
+            this.MailTestContentTableLayoutPanel.ColumnCount = 2;
+            this.MailTestContentTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.MailTestContentTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.MailTestContentTableLayoutPanel.Controls.Add(this.TestConnectionButton, 0, 0);
+            this.MailTestContentTableLayoutPanel.Controls.Add(this.ResponseGroupBox, 1, 0);
+            this.MailTestContentTableLayoutPanel.Controls.Add(this.TestEmailTextBox, 0, 1);
+            this.MailTestContentTableLayoutPanel.Controls.Add(this.SendTestEmailButton, 0, 2);
+            this.MailTestContentTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MailTestContentTableLayoutPanel.Location = new System.Drawing.Point(1, 1);
+            this.MailTestContentTableLayoutPanel.Margin = new System.Windows.Forms.Padding(1);
+            this.MailTestContentTableLayoutPanel.Name = "MailTestContentTableLayoutPanel";
+            this.MailTestContentTableLayoutPanel.Padding = new System.Windows.Forms.Padding(15);
+            this.MailTestContentTableLayoutPanel.RowCount = 4;
+            this.MailTestContentTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailTestContentTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailTestContentTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailTestContentTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.MailTestContentTableLayoutPanel.Size = new System.Drawing.Size(542, 455);
+            this.MailTestContentTableLayoutPanel.TabIndex = 0;
+            // 
+            // TestConnectionButton
+            // 
+            this.TestConnectionButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.TestConnectionButton.AutoSize = true;
+            this.TestConnectionButton.Location = new System.Drawing.Point(18, 18);
+            this.TestConnectionButton.Name = "TestConnectionButton";
+            this.TestConnectionButton.Size = new System.Drawing.Size(129, 25);
+            this.TestConnectionButton.TabIndex = 0;
+            this.TestConnectionButton.Text = "Sunucuya Bağlan";
+            this.TestConnectionButton.UseVisualStyleBackColor = true;
+            // 
+            // TestEmailTextBox
+            // 
+            this.TestEmailTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.TestEmailTextBox.Location = new System.Drawing.Point(18, 49);
+            this.TestEmailTextBox.Name = "TestEmailTextBox";
+            this.TestEmailTextBox.PlaceholderText = "test@example.com";
+            this.TestEmailTextBox.Size = new System.Drawing.Size(179, 23);
+            this.TestEmailTextBox.TabIndex = 1;
+            // 
+            // SendTestEmailButton
+            // 
+            this.SendTestEmailButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SendTestEmailButton.AutoSize = true;
+            this.SendTestEmailButton.Location = new System.Drawing.Point(18, 80);
+            this.SendTestEmailButton.Name = "SendTestEmailButton";
+            this.SendTestEmailButton.Size = new System.Drawing.Size(176, 25);
+            this.SendTestEmailButton.TabIndex = 2;
+            this.SendTestEmailButton.Text = "Deneme E-Posta gönder";
+            this.SendTestEmailButton.UseVisualStyleBackColor = true;
             // 
             // ResponseGroupBox
             // 
-            ResponseGroupBox.Controls.Add(ResponseTextBox);
-            ResponseGroupBox.Dock = DockStyle.Fill;
-            ResponseGroupBox.Location = new Point(203, 18);
-            ResponseGroupBox.Name = "ResponseGroupBox";
-            ResponseGroupBox.Padding = new Padding(10);
-            ApiTestContentTableLayoutPanel.SetRowSpan(ResponseGroupBox, 14);
-            ResponseGroupBox.Size = new Size(319, 428);
-            ResponseGroupBox.TabIndex = 3;
-            ResponseGroupBox.TabStop = false;
-            ResponseGroupBox.Text = "Cevap";
+            this.ResponseGroupBox.Controls.Add(this.ResponseTextBox);
+            this.ResponseGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ResponseGroupBox.Location = new System.Drawing.Point(219, 18);
+            this.ResponseGroupBox.Name = "ResponseGroupBox";
+            this.ResponseGroupBox.Padding = new System.Windows.Forms.Padding(10);
+            this.MailTestContentTableLayoutPanel.SetRowSpan(this.ResponseGroupBox, 4);
+            this.ResponseGroupBox.Size = new System.Drawing.Size(305, 422);
+            this.ResponseGroupBox.TabIndex = 3;
+            this.ResponseGroupBox.TabStop = false;
+            this.ResponseGroupBox.Text = "Cevap";
             // 
             // ResponseTextBox
             // 
-            ResponseTextBox.BackColor = Color.White;
-            ResponseTextBox.BorderStyle = BorderStyle.None;
-            ResponseTextBox.Dock = DockStyle.Fill;
-            ResponseTextBox.ForeColor = Color.FromArgb(64, 64, 64);
-            ResponseTextBox.Location = new Point(10, 26);
-            ResponseTextBox.Margin = new Padding(15, 3, 3, 3);
-            ResponseTextBox.Multiline = true;
-            ResponseTextBox.Name = "ResponseTextBox";
-            ResponseTextBox.ReadOnly = true;
-            ResponseTextBox.Size = new Size(299, 392);
-            ResponseTextBox.TabIndex = 0;
-            // 
-            // SendDiagnosticButton
-            // 
-            SendDiagnosticButton.Anchor = AnchorStyles.Left;
-            SendDiagnosticButton.AutoSize = true;
-            SendDiagnosticButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SendDiagnosticButton.Location = new Point(18, 111);
-            SendDiagnosticButton.Name = "SendDiagnosticButton";
-            SendDiagnosticButton.Size = new Size(176, 25);
-            SendDiagnosticButton.TabIndex = 2;
-            SendDiagnosticButton.Text = "Deneme E-Posta gönder";
-            SendDiagnosticButton.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.FromArgb(64, 64, 64);
-            label1.Location = new Point(18, 177);
-            label1.Name = "label1";
-            label1.Size = new Size(121, 16);
-            label1.TabIndex = 1;
-            label1.Text = "Gönderen E-Posta";
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label2.ForeColor = Color.FromArgb(64, 64, 64);
-            label2.Location = new Point(18, 208);
-            label2.Name = "label2";
-            label2.Size = new Size(155, 16);
-            label2.TabIndex = 1;
-            label2.Text = "Gönderen Kullanıcı Adı";
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Left;
-            label3.AutoSize = true;
-            label3.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label3.ForeColor = Color.FromArgb(64, 64, 64);
-            label3.Location = new Point(18, 239);
-            label3.Name = "label3";
-            label3.Size = new Size(286, 16);
-            label3.TabIndex = 1;
-            label3.Text = "Varsayılan Kullanıcı Bilgileri Kullanılsın mı?";
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(323, 142);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(59, 19);
-            checkBox1.TabIndex = 3;
-            checkBox1.Text = "Kullan";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.Left;
-            textBox1.Location = new Point(323, 174);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "api_pass";
-            textBox1.Size = new Size(199, 23);
-            textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            textBox2.Anchor = AnchorStyles.Left;
-            textBox2.Location = new Point(323, 112);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "api_pass";
-            textBox2.Size = new Size(199, 23);
-            textBox2.TabIndex = 2;
-            // 
-            // textBox3
-            // 
-            textBox3.Anchor = AnchorStyles.Left;
-            textBox3.Location = new Point(323, 205);
-            textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "api_pass";
-            textBox3.Size = new Size(199, 23);
-            textBox3.TabIndex = 2;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(323, 235);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(59, 19);
-            checkBox2.TabIndex = 3;
-            checkBox2.Text = "Kullan";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // ApiTestLabel
-            // 
-            ApiTestLabel.AutoSize = true;
-            ApiTestLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            ApiTestLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            ApiTestLabel.Location = new Point(550, 0);
-            ApiTestLabel.Name = "ApiTestLabel";
-            ApiTestLabel.Size = new Size(198, 22);
-            ApiTestLabel.TabIndex = 0;
-            ApiTestLabel.Text = "Mail Sunucusu Testi";
-            // 
-            // textBox4
-            // 
-            textBox4.Anchor = AnchorStyles.Left;
-            textBox4.Location = new Point(18, 81);
-            textBox4.Name = "textBox4";
-            textBox4.PlaceholderText = "Gönderilecek Mail Adresi";
-            textBox4.Size = new Size(179, 23);
-            textBox4.TabIndex = 2;
+            this.ResponseTextBox.BackColor = System.Drawing.Color.White;
+            this.ResponseTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ResponseTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ResponseTextBox.Location = new System.Drawing.Point(10, 26);
+            this.ResponseTextBox.Multiline = true;
+            this.ResponseTextBox.Name = "ResponseTextBox";
+            this.ResponseTextBox.ReadOnly = true;
+            this.ResponseTextBox.Size = new System.Drawing.Size(285, 386);
+            this.ResponseTextBox.TabIndex = 0;
             // 
             // MailSettingsPage
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(StationSettingsBgTableLayoutPanel);
-            Name = "MailSettingsPage";
-            Padding = new Padding(0, 15, 0, 15);
-            Size = new Size(1094, 533);
-            StationInfoContentTableLayoutPanel.ResumeLayout(false);
-            StationInfoContentTableLayoutPanel.PerformLayout();
-            StationInfoBgTableLayoutPanel.ResumeLayout(false);
-            ApiSettingsHeaderTableLayoutPanel.ResumeLayout(false);
-            ApiSettingsHeaderTableLayoutPanel.PerformLayout();
-            StationSettingsBgTableLayoutPanel.ResumeLayout(false);
-            StationSettingsBgTableLayoutPanel.PerformLayout();
-            ApiTestBgTableLayoutPanel.ResumeLayout(false);
-            ApiTestContentTableLayoutPanel.ResumeLayout(false);
-            ApiTestContentTableLayoutPanel.PerformLayout();
-            ResponseGroupBox.ResumeLayout(false);
-            ResponseGroupBox.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.MailSettingsMainTableLayoutPanel);
+            this.Name = "MailSettingsPage";
+            this.Padding = new System.Windows.Forms.Padding(0, 15, 0, 15);
+            this.Size = new System.Drawing.Size(1094, 533);
+            this.MailSettingsMainTableLayoutPanel.ResumeLayout(false);
+            this.MailSettingsMainTableLayoutPanel.PerformLayout();
+            this.MailSettingsHeaderTableLayoutPanel.ResumeLayout(false);
+            this.MailSettingsHeaderTableLayoutPanel.PerformLayout();
+            this.MailSettingsBgTableLayoutPanel.ResumeLayout(false);
+            this.MailSettingsTableLayoutPanel.ResumeLayout(false);
+            this.MailSettingsTableLayoutPanel.PerformLayout();
+            this.MailTestBgTableLayoutPanel.ResumeLayout(false);
+            this.MailTestContentTableLayoutPanel.ResumeLayout(false);
+            this.MailTestContentTableLayoutPanel.PerformLayout();
+            this.ResponseGroupBox.ResumeLayout(false);
+            this.ResponseGroupBox.PerformLayout();
+            this.ResumeLayout(false);
         }
 
         #endregion
 
-        private Label ApiUrlLabel;
-        private TextBox ApiUrlTextBox;
-        private TableLayoutPanel StationInfoContentTableLayoutPanel;
-        private Label ApiUsernameLabel;
-        private TableLayoutPanel StationInfoBgTableLayoutPanel;
-        private Label ApiSettingsLabel;
-        private Button SaveApiSettingsButton;
-        private TableLayoutPanel ApiSettingsHeaderTableLayoutPanel;
-        private TableLayoutPanel StationSettingsBgTableLayoutPanel;
-        private Label ApiPasswordLabel;
-        private TextBox ApiUsernameTextBox;
-        private TextBox ApiPasswordTextBox;
-        private Label SendPeriodLabel;
-        private Label ResendPeriodLabel;
-        private TableLayoutPanel ApiTestBgTableLayoutPanel;
-        private TableLayoutPanel ApiTestContentTableLayoutPanel;
-        private Button SendServerRequestButton;
-        private Button SendDiagnosticButton;
-        private GroupBox ResponseGroupBox;
-        private TextBox ResponseTextBox;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private CheckBox checkBox1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private CheckBox checkBox2;
-        private Label ApiTestLabel;
-        private TextBox textBox4;
+        private System.Windows.Forms.TableLayoutPanel MailSettingsMainTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel MailSettingsHeaderTableLayoutPanel;
+        private System.Windows.Forms.Label MailSettingsHeaderLabel;
+        private System.Windows.Forms.Button SaveMailSettingsButton;
+        private System.Windows.Forms.TableLayoutPanel MailSettingsBgTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel MailSettingsTableLayoutPanel;
+        private System.Windows.Forms.Label SmtpHostLabel;
+        private System.Windows.Forms.TextBox SmtpHostTextBox;
+        private System.Windows.Forms.Label SmtpPortLabel;
+        private System.Windows.Forms.TextBox SmtpPortTextBox;
+        private System.Windows.Forms.Label SmtpUserLabel;
+        private System.Windows.Forms.TextBox SmtpUserTextBox;
+        private System.Windows.Forms.Label SmtpPasswordLabel;
+        private System.Windows.Forms.TextBox SmtpPasswordTextBox;
+        private System.Windows.Forms.Label UseSslLabel;
+        private System.Windows.Forms.CheckBox UseSslCheckBox;
+        private System.Windows.Forms.Label SenderEmailLabel;
+        private System.Windows.Forms.TextBox SenderEmailTextBox;
+        private System.Windows.Forms.Label SenderNameLabel;
+        private System.Windows.Forms.TextBox SenderNameTextBox;
+        private System.Windows.Forms.Label UseDefaultCredentialsLabel;
+        private System.Windows.Forms.CheckBox UseDefaultCredentialsCheckBox;
+        private System.Windows.Forms.Label MailTestHeaderLabel;
+        private System.Windows.Forms.TableLayoutPanel MailTestBgTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel MailTestContentTableLayoutPanel;
+        private System.Windows.Forms.Button TestConnectionButton;
+        private System.Windows.Forms.TextBox TestEmailTextBox;
+        private System.Windows.Forms.Button SendTestEmailButton;
+        private System.Windows.Forms.GroupBox ResponseGroupBox;
+        private System.Windows.Forms.TextBox ResponseTextBox;
     }
 }
