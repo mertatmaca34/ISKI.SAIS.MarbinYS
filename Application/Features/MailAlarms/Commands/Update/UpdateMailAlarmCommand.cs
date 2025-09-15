@@ -3,4 +3,10 @@ using MediatR;
 
 namespace Application.Features.MailAlarms.Commands.Update;
 
-public record UpdateMailAlarmCommand(int Id, double Limit) : IRequest<MailAlarmDto>;
+public record UpdateMailAlarmCommand(
+    int Id,
+    string Name,
+    string Channel,
+    double Limit,
+    string MailSubject,
+    string MailBody) : IRequest<MailAlarmDto>;

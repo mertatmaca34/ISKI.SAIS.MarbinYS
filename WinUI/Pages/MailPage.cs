@@ -201,6 +201,15 @@ namespace WinUI.Pages
             if (alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)] != null)
                 alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)].HeaderText = MailAlarmConstants.ActiveHeader;
 
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.Channel)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.Channel)].Visible = false;
+
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.MailSubject)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.MailSubject)].Visible = false;
+
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.MailBody)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.MailBody)].Visible = false;
+
             if (alarmsDataGridView.Columns["Edit"] == null)
             {
                 var editColumn = new DataGridViewImageColumn
