@@ -9,5 +9,6 @@ public class SendDataProfile : Profile
     public SendDataProfile()
     {
         CreateMap<SendData, SendDataDto>();
+        CreateMap<Commands.Create.CreateSendDataCommand, SendData>();
     }
 }

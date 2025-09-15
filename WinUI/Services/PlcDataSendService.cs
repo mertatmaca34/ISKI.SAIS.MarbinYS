@@ -1,11 +1,10 @@
 using System;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using WinUI.Constants;
+using Microsoft.Extensions.Logging;
+using Domain.Entities;
+using Domain.Enums;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -14,23 +13,25 @@ public class PlcDataSendService : BackgroundService
 {
     private readonly IPlcDataService _plcService;
     private readonly IApiEndpointService _apiEndpointService;
-    private readonly ITicketService _ticketService;
     private readonly IStationService _stationService;
-    private readonly HttpClient _httpClient;
+    private readonly ISaisApiService _saisApiService;
+    private readonly ISendDataService _sendDataService;
+    private readonly ILogger<PlcDataSendService> _logger;
 
     public PlcDataSendService(
         IPlcDataService plcService,
         IApiEndpointService apiEndpointService,
-        ITicketService ticketService,
-        IStationService stationService)
+        IStationService stationService,
+        ISaisApiService saisApiService,
+        ISendDataService sendDataService,
+        ILogger<PlcDataSendService> logger)
     {
         _plcService = plcService;
         _apiEndpointService = apiEndpointService;
-        _ticketService = ticketService;
         _stationService = stationService;
-        var handler = new HttpClientHandler();
-        handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-        _httpClient = new HttpClient(handler);
+        _saisApiService = saisApiService;
+        _sendDataService = sendDataService;
+        _logger = logger;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -47,46 +48,88 @@ public class PlcDataSendService : BackgroundService
                     delay = TimeSpan.FromMinutes(endpoint.DataSendPeriodMinute ?? 1);
                 }
 
-                if (endpoint != null && station != null)
+                if (endpoint == null)
+                {
+                    _logger.LogWarning("Api bilgileri henüz kurulmadı.");
+                }
+                else if (station != null)
                 {
                     try
                     {
-                        await _ticketService.EnsureTicketAsync();
                         var plcData = await _plcService.GetLatestAsync();
                         if (plcData != null)
                         {
+                            var readTime = DateTime.Now;
+
+                            var status = ResolveStatus(plcData.Digital);
+                            var statusString = ((int)status).ToString();
+
                             var body = new ApiSendDataDto
                             {
                                 StationId = station.StationId,
-                                StartTime = DateTime.Now,
+                                StartTime = readTime,
                                 SoftwareVersion = station.Software,
                                 Regions = string.Empty,
-                                StationStatus = string.Empty,
+                                StationStatus = statusString,
                                 AAKM = plcData.Analog.Akm,
                                 BGM = plcData.Analog.AkisHizi,
+                                AAKM_Status = statusString,
+                                BGM_Status = statusString,
                                 CozunmusOksijen = plcData.Analog.CozunmusOksijen,
+                                COJ_Status = statusString,
                                 Koi = plcData.Analog.Koi,
+                                Koi_Status = statusString,
                                 Debi = plcData.Analog.Debi,
+                                Debi_Status = statusString,
                                 Sicaklik = plcData.Analog.Sicaklik
                             };
 
-                            _httpClient.DefaultRequestHeaders.Remove("AToken");
-                            _httpClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket }));
+                            var result = await _saisApiService.SendDataAsync(body);
+                            bool isSent = result?.result ?? false;
 
-                            var url = $"{endpoint.ApiAddress.TrimEnd('/')}/SAIS/SendData";
-                            using var response = await _httpClient.PostAsJsonAsync(url, body, stoppingToken);
-                            // ignore non-success for now
+                            var sendData = new SendData
+                            {
+                                Stationid = station.StationId,
+                                Readtime = readTime,
+                                SoftwareVersion = station.Software,
+                                AkisHizi = plcData.Analog.AkisHizi,
+                                AKM = plcData.Analog.Akm,
+                                CozunmusOksijen = plcData.Analog.CozunmusOksijen,
+                                Debi = plcData.Analog.Debi,
+                                DesarjDebi = plcData.Analog.DesarjDebi,
+                                HariciDebi = plcData.Analog.HariciDebi,
+                                HariciDebi2 = plcData.Analog.HariciDebi2,
+                                KOi = plcData.Analog.Koi,
+                                pH = plcData.Analog.Ph,
+                                Sicaklik = plcData.Analog.Sicaklik,
+                                Iletkenlik = plcData.Analog.Iletkenlik,
+                                Period = 1,
+                                AkisHizi_Status = (int)status,
+                                AKM_Status = (int)status,
+                                CozunmusOksijen_Status = (int)status,
+                                Debi_Status = (int)status,
+                                DesarjDebi_Status = (int)status,
+                                HariciDebi_Status = (int)status,
+                                HariciDebi2_Status = (int)status,
+                                KOi_Status = (int)status,
+                                pH_Status = (int)status,
+                                Sicaklik_Status = (int)status,
+                                Iletkenlik_Status = statusString,
+                                IsSent = isSent
+                            };
+
+                            await _sendDataService.CreateAsync(sendData);
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        // ignore send errors
+                        _logger.LogError(ex, "Veri gönderilemedi");
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore configuration errors
+                _logger.LogError(ex, "Ayarlar okunurken hata oluştu");
             }
 
             try
@@ -98,5 +141,23 @@ public class PlcDataSendService : BackgroundService
                 // ignore cancellation
             }
         }
+    }
+
+    private static SensorStatusCode ResolveStatus(DigitalSensorData digital)
+    {
+        if (digital.KabinBakim)
+            return SensorStatusCode.IstasyonBakimda;
+        if (digital.KabinKalibrasyon)
+            return SensorStatusCode.SistemKal;
+        if (digital.KabinHaftalikYikamada)
+            return SensorStatusCode.HaftalikYikama;
+        if (digital.KabinSaatlikYikamada)
+            return SensorStatusCode.Yikama;
+        if (digital.KabinDuman || digital.KabinSuBaskini || digital.KabinKapiAcildi || digital.KabinEnerjiYok || digital.KabinAcilStopBasili)
+            return SensorStatusCode.Alarm;
+        if (digital.KabinOto)
+            return SensorStatusCode.VeriGecerli;
+
+        return SensorStatusCode.VeriYok;
     }
 }
