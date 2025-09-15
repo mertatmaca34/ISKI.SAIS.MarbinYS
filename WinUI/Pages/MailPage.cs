@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Extensions.DependencyInjection;
 using WinUI.Constants;
 using WinUI.Forms;
 using WinUI.Models;
@@ -16,13 +15,15 @@ namespace WinUI.Pages
     {
         private readonly IUserService _userService;
         private readonly IMailAlarmService _mailAlarmService;
+        private readonly IChannelNameProvider _channelProvider;
 
-        public MailPage()
+        public MailPage(IUserService userService, IMailAlarmService mailAlarmService, IChannelNameProvider channelProvider)
         {
             InitializeComponent();
-            
-            _userService = Program.Services.GetRequiredService<IUserService>();
-            _mailAlarmService = Program.Services.GetRequiredService<IMailAlarmService>();
+
+            _userService = userService;
+            _mailAlarmService = mailAlarmService;
+            _channelProvider = channelProvider;
             Load += MailPage_Load;
             newUserButton.Click += NewUserButton_Click;
             ConfigureDataGridView(usersDataGridView);
@@ -237,7 +238,7 @@ namespace WinUI.Pages
             if (alarmsDataGridView.Rows[e.RowIndex].DataBoundItem is not MailAlarmDto alarm)
                 return;
 
-            using var form = new EditMailAlarmForm(alarm);
+            using var form = new EditMailAlarmForm(alarm, _mailAlarmService, _channelProvider);
             if (form.ShowDialog() == DialogResult.OK &&
                 usersDataGridView.CurrentRow?.DataBoundItem is UserDto user)
             {
