@@ -19,8 +19,9 @@ public partial class MainForm : Form
     SimulationPage _simulationPage;
     ReportingPage _reportingPage;
     MailPage _mailPage;
+    SettingsPage _settingsPage;
 
-    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage, ReportingPage reportingPage, MailPage mailPage)
+    public MainForm(HomePage homePage, CalibrationPage calibrationPage, SimulationPage simulationPage, ReportingPage reportingPage, MailPage mailPage, SettingsPage settingsPage)
     {
         InitializeComponent();
 
@@ -29,6 +30,7 @@ public partial class MainForm : Form
         _simulationPage = simulationPage;
         _reportingPage = reportingPage;
         _mailPage = mailPage;
+        _settingsPage = settingsPage;
 
         PageManager.ShowPage(MainContentPanel, _homePage);
     }
@@ -67,13 +69,13 @@ public partial class MainForm : Form
     private void SettingsPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SettingsPageButton);
-        PageManager.ShowPage(MainContentPanel, new SettingsPage());
+        PageManager.ShowPage(MainContentPanel, _settingsPage);
     }
 
     private void MailPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
-        PageManager.ShowPage(MainContentPanel, new MailPage());
+        PageManager.ShowPage(MainContentPanel, _mailPage);
     }
 
     private void LoginButton_Click(object sender, EventArgs e)
