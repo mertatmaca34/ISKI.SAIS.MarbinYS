@@ -69,7 +69,7 @@ public partial class MainForm : Form
     private void SettingsPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SettingsPageButton);
-        PageManager.ShowPage(MainContentPanel, _settingsPage);
+        PageManager.ShowPage(MainContentPanel, new SettingsPage());
     }
 
     private void MailPageButton_Click(object sender, EventArgs e)

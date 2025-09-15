@@ -26,7 +26,7 @@ public class PlcDataWorker(
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
             var cmd = new ReadAndSavePlcDataCommand(
-                configuration["PlcSettings:IpAddress"] ?? "10.33.3.253",
+                configuration["PlcSettings:IpAddress"] ?? "10.33.7.253",
                 configuration.GetValue<int>("PlcSettings:AnalogDb"),
                 configuration.GetValue<int>("PlcSettings:AnalogStart"),
                 configuration.GetValue<int>("PlcSettings:AnalogLength"),
