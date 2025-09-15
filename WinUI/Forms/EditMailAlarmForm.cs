@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Constants;
 using WinUI.Models;
@@ -13,7 +15,7 @@ namespace WinUI.Forms
         private readonly IMailAlarmService _alarmService;
         private readonly MailAlarmDto _alarm;
         private TextBox nameTextBox = null!;
-        private TextBox channelTextBox = null!;
+        private ComboBox channelComboBox = null!;
         private NumericUpDown limitNumericUpDown = null!;
         private TextBox subjectTextBox = null!;
         private TextBox bodyTextBox = null!;
@@ -25,7 +27,7 @@ namespace WinUI.Forms
             _alarmService = Program.Services.GetRequiredService<IMailAlarmService>();
             InitializeComponent();
             nameTextBox.Text = _alarm.Name;
-            channelTextBox.Text = _alarm.Channel;
+            channelComboBox.SelectedItem = _alarm.Channel;
             limitNumericUpDown.Value = (decimal)_alarm.Limit;
             subjectTextBox.Text = _alarm.MailSubject;
             bodyTextBox.Text = _alarm.MailBody;
@@ -40,7 +42,7 @@ namespace WinUI.Forms
             var subjectLabel = new Label();
             var bodyLabel = new Label();
             nameTextBox = new TextBox();
-            channelTextBox = new TextBox();
+            channelComboBox = new ComboBox();
             limitNumericUpDown = new NumericUpDown();
             subjectTextBox = new TextBox();
             bodyTextBox = new TextBox();
@@ -73,12 +75,20 @@ namespace WinUI.Forms
             channelLabel.TabIndex = 2;
             channelLabel.Text = "Kanal";
             //
-            // channelTextBox
+            // channelComboBox
             //
-            channelTextBox.Location = new Point(110, 42);
-            channelTextBox.Name = "channelTextBox";
-            channelTextBox.Size = new Size(250, 23);
-            channelTextBox.TabIndex = 3;
+            channelComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            channelComboBox.Location = new Point(110, 42);
+            channelComboBox.Name = "channelComboBox";
+            channelComboBox.Size = new Size(250, 23);
+            channelComboBox.TabIndex = 3;
+            var analogChannels = typeof(AnalogSensorData).GetProperties()
+                .Where(p => p.PropertyType == typeof(double) || p.PropertyType == typeof(double?))
+                .Select(p => p.Name);
+            var digitalChannels = typeof(DigitalSensorData).GetProperties()
+                .Where(p => p.PropertyType == typeof(bool) || p.PropertyType == typeof(bool?))
+                .Select(p => p.Name);
+            channelComboBox.Items.AddRange(analogChannels.Concat(digitalChannels).ToArray());
             //
             // limitLabel
             //
@@ -149,7 +159,7 @@ namespace WinUI.Forms
             Controls.Add(nameLabel);
             Controls.Add(nameTextBox);
             Controls.Add(channelLabel);
-            Controls.Add(channelTextBox);
+            Controls.Add(channelComboBox);
             Controls.Add(limitLabel);
             Controls.Add(limitNumericUpDown);
             Controls.Add(subjectLabel);
@@ -171,7 +181,7 @@ namespace WinUI.Forms
             var command = new UpdateMailAlarmCommand(
                 _alarm.Id,
                 nameTextBox.Text,
-                channelTextBox.Text,
+                channelComboBox.SelectedItem?.ToString() ?? string.Empty,
                 (double)limitNumericUpDown.Value,
                 subjectTextBox.Text,
                 bodyTextBox.Text);
