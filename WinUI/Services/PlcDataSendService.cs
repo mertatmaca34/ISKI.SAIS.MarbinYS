@@ -86,6 +86,10 @@ public class PlcDataSendService : BackgroundService
 
                             var result = await _saisApiService.SendDataAsync(body);
                             bool isSent = result?.result ?? false;
+                            if (!isSent)
+                            {
+                                _logger.LogWarning("SAIS SendData failed: {Message}", result?.message ?? "Unknown error");
+                            }
 
                             var sendData = new SendData
                             {

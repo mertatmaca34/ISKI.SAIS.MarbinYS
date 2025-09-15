@@ -100,9 +100,7 @@ namespace WinUI
                     .AddStandardResilienceHandler(options =>
                         options.Retry.MaxRetryAttempts = 3);
 
-                    services.AddHttpClient<IStationInformationService, StationInformationService>()
-                        .AddStandardResilienceHandler(options =>
-                            options.Retry.MaxRetryAttempts = 3);
+                    services.AddScoped<IStationInformationService, StationInformationService>();
                     services.AddHttpClient<ISaisApiService, SaisApiService>()
                         .AddStandardResilienceHandler(options =>
                             options.Retry.MaxRetryAttempts = 3);
