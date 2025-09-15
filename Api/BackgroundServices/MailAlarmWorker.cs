@@ -22,7 +22,10 @@ public class MailAlarmWorker(
     IConfiguration configuration,
     ILogger<MailAlarmWorker> logger) : BackgroundService
 {
-    private readonly Dictionary<string, DateTime> _lastSentTimes = new();
+    // Stores the last time a notification mail was sent to a user so that we
+    // don't spam the same recipient repeatedly. Keyed only by user id to apply
+    // cooldown regardless of which alarm was triggered.
+    private readonly Dictionary<int, DateTime> _lastSentTimes = new();
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -72,8 +75,9 @@ public class MailAlarmWorker(
                     if (!triggered)
                         continue;
 
-                    var key = $"{item.UserId}:{item.Alarm.Id}";
-                    if (_lastSentTimes.TryGetValue(key, out var last) && DateTime.UtcNow - last < TimeSpan.FromMinutes(cooldownMinutes))
+                    // Skip sending if the last mail to this user was within the cooldown period
+                    if (_lastSentTimes.TryGetValue(item.UserId, out var last) &&
+                        DateTime.UtcNow - last < TimeSpan.FromMinutes(cooldownMinutes))
                         continue;
 
                     var subject = item.Alarm.MailSubject;
@@ -96,7 +100,7 @@ public class MailAlarmWorker(
 
                     await client.SendMailAsync(mail, stoppingToken);
                     logger.LogWarning("Alarm {Alarm} triggered for user {Email}. E-mail sent.", item.Alarm.Name, item.Email);
-                    _lastSentTimes[key] = DateTime.UtcNow;
+                    _lastSentTimes[item.UserId] = DateTime.UtcNow;
                 }
             }
             catch (Exception ex)
