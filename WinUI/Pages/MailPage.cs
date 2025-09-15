@@ -177,28 +177,28 @@ namespace WinUI.Pages
                 alarmsDataGridView.DataSource = alarms;
                 ConfigureAlarmColumns();
                 alarmsDataGridView.ReadOnly = false;
-                alarmsDataGridView.Columns["Name"].ReadOnly = true;
-                alarmsDataGridView.Columns["Limit"].ReadOnly = true;
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.Name)].ReadOnly = true;
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.Limit)].ReadOnly = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Alarmlar yüklenirken hata: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(MailAlarmConstants.LoadErrorMessage, ex.Message), UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ConfigureAlarmColumns()
         {
-            if (alarmsDataGridView.Columns["Id"] != null)
-                alarmsDataGridView.Columns["Id"].Visible = false;
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.Id)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.Id)].Visible = false;
 
-            if (alarmsDataGridView.Columns["Name"] != null)
-                alarmsDataGridView.Columns["Name"].HeaderText = "Alarm";
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.Name)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.Name)].HeaderText = MailAlarmConstants.AlarmHeader;
 
-            if (alarmsDataGridView.Columns["Limit"] != null)
-                alarmsDataGridView.Columns["Limit"].HeaderText = "Limit";
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.Limit)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.Limit)].HeaderText = MailAlarmConstants.LimitHeader;
 
-            if (alarmsDataGridView.Columns["IsActive"] != null)
-                alarmsDataGridView.Columns["IsActive"].HeaderText = "Aktif";
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)].HeaderText = MailAlarmConstants.ActiveHeader;
         }
 
         private async void SaveAlarmsButton_Click(object? sender, EventArgs e)
@@ -214,11 +214,11 @@ namespace WinUI.Pages
             try
             {
                 await _mailAlarmService.UpdateAsync(user.Id, activeIds);
-                MessageBox.Show("Alarmlar kaydedildi.", UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(MailAlarmConstants.SaveSuccessMessage, UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Alarmlar kaydedilirken hata: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(MailAlarmConstants.SaveErrorMessage, ex.Message), UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
