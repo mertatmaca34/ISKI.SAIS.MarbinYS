@@ -6,7 +6,7 @@ namespace Application.Features.MailAlarms.Commands.UpdateUser;
 
 public class UpdateUserMailAlarmsCommandHandler(
     IMailAlarmRepository alarmRepository,
-    IUserMailAlarmRepository userAlarmRepository) : IRequestHandler<UpdateUserMailAlarmsCommand>
+    IUserMailAlarmRepository userAlarmRepository) : IRequestHandler<UpdateUserMailAlarmsCommand, Unit>
 {
     public async Task<Unit> Handle(UpdateUserMailAlarmsCommand request, CancellationToken cancellationToken)
     {
