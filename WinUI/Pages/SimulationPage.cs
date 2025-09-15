@@ -16,8 +16,8 @@ namespace WinUI.Pages
     {
         private readonly IPlcDataService _plcService;
 
-        private bool _pump1Frame;
-        private bool _pump2Frame;
+        private bool _pump1Running;
+        private bool _pump2Running;
 
         private readonly Bitmap _autoFrame;
         private readonly Bitmap _autoFrame2;
@@ -86,24 +86,18 @@ namespace WinUI.Pages
             PanelDoor.BackgroundImage = value.Digital.Kapi ? _doorOpened : _doorClosed;
             PanelWaterTank.BackgroundImage = value.Digital.YikamaTanki ? _waterTankFull : _waterTankEmpty;
 
-            if (value.Digital.Pompa1CalisiyorMu)
+            var pump1Running = value.Digital.Pompa1CalisiyorMu;
+            if (pump1Running != _pump1Running)
             {
-                PictureBoxPump1.Image = _pump1Frame ? _pump1Animation : _pump1Idle;
-                _pump1Frame = !_pump1Frame;
-            }
-            else
-            {
-                PictureBoxPump1.Image = _pump1Idle;
+                PictureBoxPump1.Image = pump1Running ? _pump1Animation : _pump1Idle;
+                _pump1Running = pump1Running;
             }
 
-            if (value.Digital.Pompa2CalisiyorMu)
+            var pump2Running = value.Digital.Pompa2CalisiyorMu;
+            if (pump2Running != _pump2Running)
             {
-                PictureBoxPump2.Image = _pump2Frame ? _pump2Animation : _pump2Idle;
-                _pump2Frame = !_pump2Frame;
-            }
-            else
-            {
-                PictureBoxPump2.Image = _pump2Idle;
+                PictureBoxPump2.Image = pump2Running ? _pump2Animation : _pump2Idle;
+                _pump2Running = pump2Running;
             }
         }
 
