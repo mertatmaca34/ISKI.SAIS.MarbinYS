@@ -1,3 +1,4 @@
+using System;
 
 namespace WinUI.Pages
 {
@@ -31,7 +32,8 @@ namespace WinUI.Pages
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
-            PanelContents = new Panel();
+            nameColumn = new DataGridViewTextBoxColumn();
+            valueColumn = new DataGridViewTextBoxColumn();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             SaveAlarmsButton = new Button();
@@ -43,10 +45,7 @@ namespace WinUI.Pages
             newUserButton = new Button();
             usersTableLayoutPanel = new TableLayoutPanel();
             usersDataGridView = new DataGridView();
-            nameColumn = new DataGridViewTextBoxColumn();
-            valueColumn = new DataGridViewTextBoxColumn();
             tableLayoutPanel1.SuspendLayout();
-            PanelContents.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ApiTestBgTableLayoutPanel.SuspendLayout();
@@ -55,14 +54,12 @@ namespace WinUI.Pages
             usersTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)usersDataGridView).BeginInit();
             SuspendLayout();
-            // 
-            // tableLayoutPanel1
-            // 
+
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(StationSettingsBgTableLayoutPanel, 1, 2);
             tableLayoutPanel1.Controls.Add(titleBarControl1, 0, 0);
-            tableLayoutPanel1.Controls.Add(PanelContents, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -87,18 +84,13 @@ namespace WinUI.Pages
             titleBarControl1.TabIndex = 0;
             titleBarControl1.TitleBarText = "Mail Alarmları";
             // 
-            // PanelContents
+            // nameColumn
             // 
-            tableLayoutPanel1.SetColumnSpan(PanelContents, 2);
-            PanelContents.Controls.Add(StationSettingsBgTableLayoutPanel);
-            PanelContents.Dock = DockStyle.Fill;
-            PanelContents.Location = new Point(8, 46);
-            PanelContents.Margin = new Padding(0);
-            PanelContents.Name = "PanelContents";
-            PanelContents.Padding = new Padding(60, 30, 0, 60);
-            tableLayoutPanel1.SetRowSpan(PanelContents, 2);
-            PanelContents.Size = new Size(1154, 623);
-            PanelContents.TabIndex = 1;
+            nameColumn.Name = "nameColumn";
+            // 
+            // valueColumn
+            // 
+            valueColumn.Name = "valueColumn";
             // 
             // StationSettingsBgTableLayoutPanel
             // 
@@ -110,13 +102,13 @@ namespace WinUI.Pages
             StationSettingsBgTableLayoutPanel.Controls.Add(usersHeaderTableLayoutPanel, 0, 0);
             StationSettingsBgTableLayoutPanel.Controls.Add(usersTableLayoutPanel, 0, 1);
             StationSettingsBgTableLayoutPanel.Dock = DockStyle.Fill;
-            StationSettingsBgTableLayoutPanel.Location = new Point(60, 30);
+            StationSettingsBgTableLayoutPanel.Location = new Point(231, 89);
             StationSettingsBgTableLayoutPanel.Name = "StationSettingsBgTableLayoutPanel";
             StationSettingsBgTableLayoutPanel.RowCount = 2;
             StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             StationSettingsBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
-            StationSettingsBgTableLayoutPanel.Size = new Size(1094, 533);
-            StationSettingsBgTableLayoutPanel.TabIndex = 3;
+            StationSettingsBgTableLayoutPanel.Size = new Size(928, 577);
+            StationSettingsBgTableLayoutPanel.TabIndex = 4;
             // 
             // tableLayoutPanel2
             // 
@@ -126,19 +118,19 @@ namespace WinUI.Pages
             tableLayoutPanel2.Controls.Add(SaveAlarmsButton, 1, 0);
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(547, 0);
+            tableLayoutPanel2.Location = new Point(464, 0);
             tableLayoutPanel2.Margin = new Padding(0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(547, 40);
+            tableLayoutPanel2.Size = new Size(464, 40);
             tableLayoutPanel2.TabIndex = 7;
             // 
             // SaveAlarmsButton
             // 
             SaveAlarmsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SaveAlarmsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveAlarmsButton.Location = new Point(452, 3);
+            SaveAlarmsButton.Location = new Point(369, 3);
             SaveAlarmsButton.Name = "SaveAlarmsButton";
             SaveAlarmsButton.Size = new Size(92, 32);
             SaveAlarmsButton.TabIndex = 3;
@@ -163,12 +155,12 @@ namespace WinUI.Pages
             ApiTestBgTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             ApiTestBgTableLayoutPanel.Controls.Add(alarmsDataGridView, 0, 0);
             ApiTestBgTableLayoutPanel.Dock = DockStyle.Fill;
-            ApiTestBgTableLayoutPanel.Location = new Point(547, 40);
+            ApiTestBgTableLayoutPanel.Location = new Point(464, 40);
             ApiTestBgTableLayoutPanel.Margin = new Padding(0, 0, 5, 0);
             ApiTestBgTableLayoutPanel.Name = "ApiTestBgTableLayoutPanel";
             ApiTestBgTableLayoutPanel.RowCount = 1;
             ApiTestBgTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            ApiTestBgTableLayoutPanel.Size = new Size(542, 493);
+            ApiTestBgTableLayoutPanel.Size = new Size(459, 537);
             ApiTestBgTableLayoutPanel.TabIndex = 6;
             // 
             // alarmsDataGridView
@@ -177,7 +169,7 @@ namespace WinUI.Pages
             alarmsDataGridView.Dock = DockStyle.Fill;
             alarmsDataGridView.Location = new Point(3, 3);
             alarmsDataGridView.Name = "alarmsDataGridView";
-            alarmsDataGridView.Size = new Size(536, 487);
+            alarmsDataGridView.Size = new Size(453, 531);
             alarmsDataGridView.TabIndex = 1;
             // 
             // usersHeaderTableLayoutPanel
@@ -193,7 +185,7 @@ namespace WinUI.Pages
             usersHeaderTableLayoutPanel.Name = "usersHeaderTableLayoutPanel";
             usersHeaderTableLayoutPanel.RowCount = 1;
             usersHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            usersHeaderTableLayoutPanel.Size = new Size(547, 40);
+            usersHeaderTableLayoutPanel.Size = new Size(464, 40);
             usersHeaderTableLayoutPanel.TabIndex = 3;
             // 
             // usersLabel
@@ -211,7 +203,7 @@ namespace WinUI.Pages
             // 
             newUserButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             newUserButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            newUserButton.Location = new Point(405, 3);
+            newUserButton.Location = new Point(322, 3);
             newUserButton.Name = "newUserButton";
             newUserButton.Size = new Size(139, 32);
             newUserButton.TabIndex = 2;
@@ -230,7 +222,7 @@ namespace WinUI.Pages
             usersTableLayoutPanel.Name = "usersTableLayoutPanel";
             usersTableLayoutPanel.RowCount = 1;
             usersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            usersTableLayoutPanel.Size = new Size(542, 493);
+            usersTableLayoutPanel.Size = new Size(459, 537);
             usersTableLayoutPanel.TabIndex = 5;
             // 
             // usersDataGridView
@@ -239,16 +231,8 @@ namespace WinUI.Pages
             usersDataGridView.Dock = DockStyle.Fill;
             usersDataGridView.Location = new Point(3, 3);
             usersDataGridView.Name = "usersDataGridView";
-            usersDataGridView.Size = new Size(536, 487);
+            usersDataGridView.Size = new Size(453, 531);
             usersDataGridView.TabIndex = 0;
-            // 
-            // nameColumn
-            // 
-            nameColumn.Name = "nameColumn";
-            // 
-            // valueColumn
-            // 
-            valueColumn.Name = "valueColumn";
             // 
             // MailPage
             // 
@@ -260,7 +244,6 @@ namespace WinUI.Pages
             Size = new Size(1170, 677);
             SizeChanged += MailPage_SizeChanged;
             tableLayoutPanel1.ResumeLayout(false);
-            PanelContents.ResumeLayout(false);
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
@@ -293,19 +276,18 @@ namespace WinUI.Pages
 
         private TableLayoutPanel tableLayoutPanel1;
         private Controls.IBKS.TitleBarControl titleBarControl1;
-        private Panel PanelContents;
         private DataGridViewTextBoxColumn nameColumn;
         private DataGridViewTextBoxColumn valueColumn;
         private TableLayoutPanel StationSettingsBgTableLayoutPanel;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Button SaveAlarmsButton;
+        private Label label1;
         private TableLayoutPanel ApiTestBgTableLayoutPanel;
+        private DataGridView alarmsDataGridView;
         private TableLayoutPanel usersHeaderTableLayoutPanel;
         private Label usersLabel;
         private Button newUserButton;
         private TableLayoutPanel usersTableLayoutPanel;
-        private DataGridView alarmsDataGridView;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Label label1;
         private DataGridView usersDataGridView;
-        private Button SaveAlarmsButton;
     }
 }

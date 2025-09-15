@@ -24,10 +24,9 @@ namespace WinUI.Pages
             _userService = userService;
             _mailAlarmService = mailAlarmService;
             _channelProvider = channelProvider;
+
             Load += MailPage_Load;
             newUserButton.Click += NewUserButton_Click;
-            ConfigureDataGridView(usersDataGridView);
-            ConfigureDataGridView(alarmsDataGridView);
             usersDataGridView.CellContentClick += UsersDataGridView_CellContentClick;
             usersDataGridView.SelectionChanged += UsersDataGridView_SelectionChanged;
             SaveAlarmsButton.Click += SaveAlarmsButton_Click;
@@ -38,6 +37,9 @@ namespace WinUI.Pages
         private async void MailPage_Load(object? sender, EventArgs e)
         {
             await LoadUsersAsync();
+
+            ConfigureDataGridView(usersDataGridView);
+            ConfigureDataGridView(alarmsDataGridView);
         }
 
         private async Task LoadUsersAsync()
