@@ -30,5 +30,11 @@ public class MailAlarmService(HttpClient httpClient) : IMailAlarmService
     }
 }
 
-public record UpdateMailAlarmCommand(int Id, double Limit);
+public record UpdateMailAlarmCommand(
+    int Id,
+    string Name,
+    string Channel,
+    double Limit,
+    string MailSubject,
+    string MailBody);
 

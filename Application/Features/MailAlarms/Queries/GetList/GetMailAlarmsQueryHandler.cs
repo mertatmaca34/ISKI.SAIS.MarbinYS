@@ -17,7 +17,10 @@ public class GetMailAlarmsQueryHandler(
         {
             Id = a.Id,
             Name = a.Name,
+            Channel = a.Channel,
             Limit = a.Limit,
+            MailSubject = a.MailSubject,
+            MailBody = a.MailBody,
             IsActive = activeSet.Contains(a.Id)
         }).ToList();
     }

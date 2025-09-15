@@ -15,7 +15,11 @@ public class UpdateMailAlarmCommandHandler(IMailAlarmRepository repository, IMap
         if (entity == null)
             throw new Exception("Alarm not found");
 
+        entity.Name = request.Name;
+        entity.Channel = request.Channel;
         entity.Limit = request.Limit;
+        entity.MailSubject = request.MailSubject;
+        entity.MailBody = request.MailBody;
         await repository.UpdateAsync(entity);
         return mapper.Map<MailAlarmDto>(entity);
     }
