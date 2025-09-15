@@ -21,11 +21,23 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
     public DbSet<PlcInformation> PlcInformations => Set<PlcInformation>();
     public DbSet<Station> Stations => Set<Station>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<MailAlarm> MailAlarms => Set<MailAlarm>();
+    public DbSet<UserMailAlarm> UserMailAlarms => Set<UserMailAlarm>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(IBKSContext).Assembly);
+
+        modelBuilder.Entity<MailAlarm>().HasData(new MailAlarm
+        {
+            Id = 1,
+            Name = "AKM Limit Aşımı",
+            Channel = "AKM",
+            Limit = 90,
+            MailSubject = "AKM Limit Aşıldı",
+            MailBody = "AKM limit aşıldı. Değer: {value}"
+        });
     }
 }
