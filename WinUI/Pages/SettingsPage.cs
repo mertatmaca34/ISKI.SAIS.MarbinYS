@@ -96,4 +96,9 @@ public partial class SettingsPage : UserControl
     {
         PageManager.ShowPage(this.PanelContent, new PlcSettingsPage());
     }
+
+    private void MailSettingsButton_Click(object sender, EventArgs e)
+    {
+        PageManager.ShowPage(this.PanelContent, new MailSettingsPage());
+    }
 }

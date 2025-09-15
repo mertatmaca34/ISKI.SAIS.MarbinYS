@@ -363,6 +363,16 @@ namespace WinUI.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap mail_configuration_96px {
+            get {
+                object obj = ResourceManager.GetObject("mail_configuration_96px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap mail_server48px {
             get {
                 object obj = ResourceManager.GetObject("mail_server48px", resourceCulture);

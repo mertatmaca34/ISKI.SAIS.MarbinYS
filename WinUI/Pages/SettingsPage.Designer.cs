@@ -39,6 +39,7 @@
             ApiButton = new Button();
             DatabaseButton = new Button();
             StationButton = new Button();
+            MailSettingsButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             PanelContent.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -103,6 +104,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Controls.Add(MailSettingsButton, 1, 1);
             tableLayoutPanel2.Controls.Add(PlcButton, 2, 0);
             tableLayoutPanel2.Controls.Add(CalibrationButton, 0, 1);
             tableLayoutPanel2.Controls.Add(ApiButton, 3, 0);
@@ -192,6 +194,21 @@
             StationButton.UseVisualStyleBackColor = true;
             StationButton.Click += StationButton_Click;
             // 
+            // MailSettingsButton
+            // 
+            MailSettingsButton.Dock = DockStyle.Fill;
+            MailSettingsButton.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            MailSettingsButton.Image = Properties.Resources.mail_configuration_96px;
+            MailSettingsButton.Location = new Point(276, 269);
+            MailSettingsButton.Name = "MailSettingsButton";
+            MailSettingsButton.Size = new Size(267, 261);
+            MailSettingsButton.TabIndex = 8;
+            MailSettingsButton.Text = "Mail Ayarları";
+            MailSettingsButton.TextAlign = ContentAlignment.BottomCenter;
+            MailSettingsButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            MailSettingsButton.UseVisualStyleBackColor = true;
+            MailSettingsButton.Click += MailSettingsButton_Click;
+            // 
             // SettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -218,5 +235,6 @@
         private Button DatabaseButton;
         private Button StationButton;
         private Button PlcButton;
+        private Button MailSettingsButton;
     }
 }
