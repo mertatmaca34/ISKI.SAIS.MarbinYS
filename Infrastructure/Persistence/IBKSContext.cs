@@ -70,29 +70,29 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             new MailAlarm
             {
                 Id = 5,
-                Name = "Duman Alarmı",
-                Channel = "Duman",
+                Name = "Kabin Dumanı",
+                Channel = "KabinDuman",
                 Limit = 0,
-                MailSubject = "Duman Alarmı Tetiklendi",
-                MailBody = "Duman alarmı tetiklendi."
+                MailSubject = "Kabin Dumanı Tetiklendi",
+                MailBody = "Kabin dumanı tetiklendi."
             },
             new MailAlarm
             {
                 Id = 6,
-                Name = "Su Baskını",
-                Channel = "SuBaskini",
+                Name = "Kabin Su Baskını",
+                Channel = "KabinSuBaskini",
                 Limit = 0,
-                MailSubject = "Su Baskını Algılandı",
-                MailBody = "Su baskını algılandı."
+                MailSubject = "Kabin Su Baskını Algılandı",
+                MailBody = "Kabin su baskını algılandı."
             },
             new MailAlarm
             {
                 Id = 7,
-                Name = "Acil Stop",
-                Channel = "AcilStop",
+                Name = "Kabin Acil Stop",
+                Channel = "KabinAcilStopBasili",
                 Limit = 0,
-                MailSubject = "Acil Stop Aktif Edildi",
-                MailBody = "Acil stop aktif edildi."
+                MailSubject = "Kabin Acil Stop Basıldı",
+                MailBody = "Kabin acil stop basıldı."
             },
             new MailAlarm
             {
@@ -115,38 +115,155 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             new MailAlarm
             {
                 Id = 10,
-                Name = "Temiz Su Pompası Termik",
-                Channel = "TemizSuTermik",
+                Name = "Pompa 3 Termik",
+                Channel = "Pompa3Termik",
                 Limit = 0,
-                MailSubject = "Temiz Su Pompası Termik Attı",
-                MailBody = "Temiz su pompası termik attı."
+                MailSubject = "Pompa 3 Termik Attı",
+                MailBody = "Pompa 3 termik attı."
             },
             new MailAlarm
             {
                 Id = 11,
-                Name = "Yıkama Tankında Su Yok",
-                Channel = "YikamaTanki",
-                Limit = 0,
-                MailSubject = "Yıkama Tankında Su Kalmadı",
-                MailBody = "Yıkama tankında su kalmadı."
-            },
-            new MailAlarm
-            {
-                Id = 12,
-                Name = "Kabin Enerjisi Kesildi",
-                Channel = "Enerji",
+                Name = "Kabin Enerji Yok",
+                Channel = "KabinEnerjiYok",
                 Limit = 0,
                 MailSubject = "Kabin Enerjisi Kesildi",
                 MailBody = "Kabin enerjisi kesildi."
             },
             new MailAlarm
             {
-                Id = 13,
-                Name = "Numune Alımı Tetiklendi",
-                Channel = "NumuneAlimi",
+                Id = 12,
+                Name = "Tank Dolu",
+                Channel = "TankDolu",
                 Limit = 0,
-                MailSubject = "Numune Alımı Tetiklendi",
-                MailBody = "Numune alımı tetiklendi. Ölçüm seti: {value}"
+                MailSubject = "Tank Doldu",
+                MailBody = "Tank doldu."
+            },
+            new MailAlarm
+            {
+                Id = 13,
+                Name = "Pompa 1 Çalışıyor",
+                Channel = "Pompa1Calisiyor",
+                Limit = 0,
+                MailSubject = "Pompa 1 Çalışıyor",
+                MailBody = "Pompa 1 çalışıyor."
+            },
+            new MailAlarm
+            {
+                Id = 14,
+                Name = "Pompa 2 Çalışıyor",
+                Channel = "Pompa2Calisiyor",
+                Limit = 0,
+                MailSubject = "Pompa 2 Çalışıyor",
+                MailBody = "Pompa 2 çalışıyor."
+            },
+            new MailAlarm
+            {
+                Id = 15,
+                Name = "Pompa 3 Çalışıyor",
+                Channel = "Pompa3Calisiyor",
+                Limit = 0,
+                MailSubject = "Pompa 3 Çalışıyor",
+                MailBody = "Pompa 3 çalışıyor."
+            },
+            new MailAlarm
+            {
+                Id = 16,
+                Name = "Kabin Kapı Açıldı",
+                Channel = "KabinKapiAcildi",
+                Limit = 0,
+                MailSubject = "Kabin Kapısı Açıldı",
+                MailBody = "Kabin kapısı açıldı."
+            },
+            new MailAlarm
+            {
+                Id = 17,
+                Name = "Kabin Otomatik Mod",
+                Channel = "KabinOto",
+                Limit = 0,
+                MailSubject = "Kabin Otomatik Moda Geçti",
+                MailBody = "Kabin otomatik moda geçti."
+            },
+            new MailAlarm
+            {
+                Id = 18,
+                Name = "Kabin Bakım Modu",
+                Channel = "KabinBakim",
+                Limit = 0,
+                MailSubject = "Kabin Bakım Moduna Geçti",
+                MailBody = "Kabin bakım moduna geçti."
+            },
+            new MailAlarm
+            {
+                Id = 19,
+                Name = "Kabin Kalibrasyon",
+                Channel = "KabinKalibrasyon",
+                Limit = 0,
+                MailSubject = "Kabin Kalibrasyonda",
+                MailBody = "Kabin kalibrasyon modunda."
+            },
+            new MailAlarm
+            {
+                Id = 20,
+                Name = "Kabin Haftalık Yıkamada",
+                Channel = "KabinHaftalikYikamada",
+                Limit = 0,
+                MailSubject = "Kabin Haftalık Yıkamada",
+                MailBody = "Kabin haftalık yıkamada."
+            },
+            new MailAlarm
+            {
+                Id = 21,
+                Name = "Kabin Saatlik Yıkamada",
+                Channel = "KabinSaatlikYikamada",
+                Limit = 0,
+                MailSubject = "Kabin Saatlik Yıkamada",
+                MailBody = "Kabin saatlik yıkamada."
+            },
+            new MailAlarm
+            {
+                Id = 22,
+                Name = "AKM Tetik",
+                Channel = "AkmTetik",
+                Limit = 0,
+                MailSubject = "AKM Tetiklendi",
+                MailBody = "AKM tetiklendi."
+            },
+            new MailAlarm
+            {
+                Id = 23,
+                Name = "KOİ Tetik",
+                Channel = "KoiTetik",
+                Limit = 0,
+                MailSubject = "KOİ Tetiklendi",
+                MailBody = "KOİ tetiklendi."
+            },
+            new MailAlarm
+            {
+                Id = 24,
+                Name = "pH Tetik",
+                Channel = "PhTetik",
+                Limit = 0,
+                MailSubject = "pH Tetiklendi",
+                MailBody = "pH tetiklendi."
+            },
+            new MailAlarm
+            {
+                Id = 25,
+                Name = "Manuel Tetik",
+                Channel = "ManuelTetik",
+                Limit = 0,
+                MailSubject = "Manuel Tetiklendi",
+                MailBody = "Manuel tetikleme yapıldı."
+            },
+            new MailAlarm
+            {
+                Id = 26,
+                Name = "Simülasyon Numune Tetik",
+                Channel = "SimNumuneTetik",
+                Limit = 0,
+                MailSubject = "Simülasyon Numune Tetiklendi",
+                MailBody = "Simülasyon numune tetiklendi."
             }
         );
     }

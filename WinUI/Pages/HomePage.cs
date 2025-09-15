@@ -117,15 +117,15 @@ namespace WinUI.Pages
                 ChannelAkisHizi.InstantData = $"{value.Analog.AkisHizi} mg/l";
                 ChannelDebi.InstantData = $"{value.Analog.Debi} mg/l";
 
-                DigitalSensorKapi.SensorState = value.Digital.Kapi ? StateColors.Error : StateColors.Ok;
-                DigitalSensorDuman.SensorState = value.Digital.Duman ? StateColors.Error : StateColors.Ok;
-                DigitalSensorSuBaskini.SensorState = value.Digital.SuBaskini ? StateColors.Error : StateColors.Ok;
+                DigitalSensorKapi.SensorState = value.Digital.KabinKapiAcildi ? StateColors.Error : StateColors.Ok;
+                DigitalSensorDuman.SensorState = value.Digital.KabinDuman ? StateColors.Error : StateColors.Ok;
+                DigitalSensorSuBaskini.SensorState = value.Digital.KabinSuBaskini ? StateColors.Error : StateColors.Ok;
                 DigitalSensorPompa2Termik.SensorState = value.Digital.Pompa2Termik ? StateColors.Error : StateColors.Ok;
                 DigitalSensorPompa1Termik.SensorState = value.Digital.Pompa1Termik ? StateColors.Error : StateColors.Ok;
-                DigitalSensorAcilStop.SensorState = value.Digital.AcilStop ? StateColors.Error : StateColors.Ok;
-                DigitalSensorTSuPompaTermik.SensorState = value.Digital.TemizSuTermik ? StateColors.Error : StateColors.Ok;
-                DigitalSensorYikamaTanki.SensorState = value.Digital.YikamaTanki ? StateColors.Error : StateColors.Ok;
-                DigitalSensorEnerji.SensorState = value.Digital.Enerji ? StateColors.Error : StateColors.Ok;
+                DigitalSensorAcilStop.SensorState = value.Digital.KabinAcilStopBasili ? StateColors.Error : StateColors.Ok;
+                DigitalSensorTSuPompaTermik.SensorState = value.Digital.Pompa3Termik ? StateColors.Error : StateColors.Ok;
+                DigitalSensorYikamaTanki.SensorState = value.Digital.TankDolu ? StateColors.Error : StateColors.Ok;
+                DigitalSensorEnerji.SensorState = value.Digital.KabinEnerjiYok ? StateColors.Error : StateColors.Ok;
                 StatusBarControl.SistemSaati = $"Sistem Saati: {value.TimeParameter.SystemTime:g}";
                 StatusBarControl.GunlukYikamaKalan =
                     $"G. Yıkamaya Kalan: {value.TimeParameter.DailyWashHour:D2}:{value.TimeParameter.Minute:D2}:{value.TimeParameter.Second:D2}";
