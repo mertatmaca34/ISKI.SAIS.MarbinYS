@@ -19,6 +19,7 @@ builder.Services.AddInfrastructure(conn);
 
 builder.Services.AddControllers();
 builder.Services.AddHostedService<PlcDataWorker>();
+builder.Services.AddHostedService<MailAlarmWorker>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
