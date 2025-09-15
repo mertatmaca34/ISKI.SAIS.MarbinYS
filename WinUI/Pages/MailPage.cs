@@ -30,6 +30,7 @@ namespace WinUI.Pages
             usersDataGridView.SelectionChanged += UsersDataGridView_SelectionChanged;
             SaveAlarmsButton.Click += SaveAlarmsButton_Click;
             alarmsDataGridView.ReadOnly = true;
+            alarmsDataGridView.CellContentClick += AlarmsDataGridView_CellContentClick;
         }
 
         private async void MailPage_Load(object? sender, EventArgs e)
@@ -199,6 +200,39 @@ namespace WinUI.Pages
 
             if (alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)] != null)
                 alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)].HeaderText = MailAlarmConstants.ActiveHeader;
+
+            if (alarmsDataGridView.Columns["Edit"] == null)
+            {
+                var editColumn = new DataGridViewImageColumn
+                {
+                    Name = "Edit",
+                    HeaderText = string.Empty,
+                    Image = Properties.Resources.edit_48px,
+                    ImageLayout = DataGridViewImageCellLayout.Zoom,
+                    Width = 32
+                };
+                alarmsDataGridView.Columns.Insert(0, editColumn);
+            }
+        }
+
+        private async void AlarmsDataGridView_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            var column = alarmsDataGridView.Columns[e.ColumnIndex];
+            if (column.Name != "Edit")
+                return;
+
+            if (alarmsDataGridView.Rows[e.RowIndex].DataBoundItem is not MailAlarmDto alarm)
+                return;
+
+            using var form = new EditMailAlarmForm(alarm);
+            if (form.ShowDialog() == DialogResult.OK &&
+                usersDataGridView.CurrentRow?.DataBoundItem is UserDto user)
+            {
+                await LoadAlarmsAsync(user.Id);
+            }
         }
 
         private async void SaveAlarmsButton_Click(object? sender, EventArgs e)

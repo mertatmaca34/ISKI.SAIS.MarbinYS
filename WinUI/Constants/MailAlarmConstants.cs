@@ -9,5 +9,7 @@ public static class MailAlarmConstants
     public const string SaveSuccessMessage = "Alarmlar kaydedildi.";
     public const string LoadErrorMessage = "Alarmlar yüklenirken hata: {0}";
     public const string SaveErrorMessage = "Alarmlar kaydedilirken hata: {0}";
+    public const string UpdateSuccessMessage = "Alarm güncellendi.";
+    public const string UpdateErrorMessage = "Alarm güncellenirken hata: {0}";
 }
 
