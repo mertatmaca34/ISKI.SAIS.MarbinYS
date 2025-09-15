@@ -3,6 +3,7 @@ using Application.Features.SendDatas.Queries.GetById;
 using MediatR;                     
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.SendDatas.Commands;
+using Application.Features.SendDatas.Commands.Create;
 
 namespace Api.Controllers;
 
@@ -26,6 +27,13 @@ public class SendDataController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
     [HttpPost]
+    public async Task<IActionResult> Create(CreateSendDataCommand command)
+    {
+        var result = await mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpPost("send")]
     public async Task<IActionResult> Send(SendDataCommand command)
     {
         var result = await mediator.Send(command);
