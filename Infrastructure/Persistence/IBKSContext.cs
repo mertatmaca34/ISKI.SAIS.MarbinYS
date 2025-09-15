@@ -35,7 +35,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 1,
                 Name = "AKM Limit Aşımı",
-                Channel = "AKM",
+                Channel = "Akm",
                 Limit = 90,
                 MailSubject = "AKM Limit Aşıldı",
                 MailBody = "AKM limit aşıldı. Değer: {value}"
@@ -44,7 +44,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 2,
                 Name = "KOİ Limit Aşımı",
-                Channel = "KOI",
+                Channel = "Koi",
                 Limit = 0,
                 MailSubject = "KOİ Limit Aşıldı",
                 MailBody = "KOİ limit aşıldı. Değer: {value}"
@@ -53,7 +53,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 3,
                 Name = "Çözünmüş Oksijen Aralık Dışı",
-                Channel = "CO",
+                Channel = "CozunmusOksijen",
                 Limit = 0,
                 MailSubject = "Çözünmüş Oksijen Aralık Dışı",
                 MailBody = "Çözünmüş oksijen aralık dışı. Değer: {value}"
@@ -98,7 +98,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 8,
                 Name = "Pompa 1 Termik",
-                Channel = "Pompa1",
+                Channel = "Pompa1Termik",
                 Limit = 0,
                 MailSubject = "Pompa 1 Termik Attı",
                 MailBody = "Pompa 1 termik attı."
@@ -107,7 +107,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 9,
                 Name = "Pompa 2 Termik",
-                Channel = "Pompa2",
+                Channel = "Pompa2Termik",
                 Limit = 0,
                 MailSubject = "Pompa 2 Termik Attı",
                 MailBody = "Pompa 2 termik attı."
@@ -116,7 +116,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 10,
                 Name = "Temiz Su Pompası Termik",
-                Channel = "TemizSuPompa",
+                Channel = "TemizSuTermik",
                 Limit = 0,
                 MailSubject = "Temiz Su Pompası Termik Attı",
                 MailBody = "Temiz su pompası termik attı."
@@ -125,7 +125,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 11,
                 Name = "Yıkama Tankında Su Yok",
-                Channel = "YikamaTank",
+                Channel = "YikamaTanki",
                 Limit = 0,
                 MailSubject = "Yıkama Tankında Su Kalmadı",
                 MailBody = "Yıkama tankında su kalmadı."
@@ -134,7 +134,7 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             {
                 Id = 12,
                 Name = "Kabin Enerjisi Kesildi",
-                Channel = "KabinEnerjisi",
+                Channel = "Enerji",
                 Limit = 0,
                 MailSubject = "Kabin Enerjisi Kesildi",
                 MailBody = "Kabin enerjisi kesildi."

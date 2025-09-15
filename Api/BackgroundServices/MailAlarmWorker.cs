@@ -29,8 +29,8 @@ public class MailAlarmWorker(
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        int intervalSeconds = configuration.GetValue<int>("AlarmSettings:CheckIntervalSeconds", 60);
-        int cooldownMinutes = configuration.GetValue<int>("AlarmSettings:EmailCooldownMinutes", 30);
+        int intervalSeconds = configuration.GetValue<int>("AlarmSettings:CheckIntervalSeconds", 5);
+        int cooldownMinutes = configuration.GetValue<int>("AlarmSettings:EmailCooldownMinutes", 1);
         while (!stoppingToken.IsCancellationRequested)
         {
             try
@@ -120,9 +120,9 @@ public class MailAlarmWorker(
     private static double? GetAnalogValue(string channel, Domain.Entities.AnalogSensorData? data)
         => channel switch
         {
-            "AKM" => data?.Akm,
-            "KOI" => data?.Koi,
-            "CO" => data?.CozunmusOksijen,
+            "Akm" => data?.Akm,
+            "Koi" => data?.Koi,
+            "CozunmusOksijen" => data?.CozunmusOksijen,
             "Iletkenlik" => data?.Iletkenlik,
             _ => null
         };
