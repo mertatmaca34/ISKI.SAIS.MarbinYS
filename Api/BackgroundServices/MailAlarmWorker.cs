@@ -99,7 +99,12 @@ public class MailAlarmWorker(
                     mail.To.Add(item.Email);
 
                     await client.SendMailAsync(mail, stoppingToken);
-                    logger.LogWarning("Alarm {Alarm} triggered for user {Email}. E-mail sent.", item.Alarm.Name, item.Email);
+                    // Warn so the event stands out in the logs since it indicates an abnormal condition
+                    logger.LogWarning(
+                        "Alarm {Alarm} triggered for user {Email} with value {Value}. E-mail sent.",
+                        item.Alarm.Name,
+                        item.Email,
+                        bodyValue);
                     _lastSentTimes[item.UserId] = DateTime.UtcNow;
                 }
             }
