@@ -11,5 +11,6 @@ public record UpdateMailSettingsCommand(
     string SmtpPassword,
     bool UseSsl,
     string SenderEmail,
-    string SenderName
+    string SenderName,
+    bool UseDefaultCredentials
 ) : IRequest<MailSettingsDto>;
