@@ -143,7 +143,7 @@ public class PlcDataSendService : BackgroundService
         }
     }
 
-    private static SensorStatusCode ResolveStatus(DigitalSensorData digital)
+    private static SensorStatusCode ResolveStatus(WinUI.Models.DigitalSensorDataDto digital)
     {
         if (digital.KabinBakim)
             return SensorStatusCode.IstasyonBakimda;
