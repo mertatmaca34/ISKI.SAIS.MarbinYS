@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,16 +15,21 @@ namespace WinUI.Pages
     public partial class MailPage : UserControl
     {
         private readonly IUserService _userService;
+        private readonly IMailAlarmService _mailAlarmService;
 
         public MailPage()
         {
             InitializeComponent();
             _userService = Program.Services.GetRequiredService<IUserService>();
+            _mailAlarmService = Program.Services.GetRequiredService<IMailAlarmService>();
             Load += MailPage_Load;
             newUserButton.Click += NewUserButton_Click;
             ConfigureDataGridView(usersDataGridView);
-            ConfigureDataGridView(dataGridView2);
+            ConfigureDataGridView(alarmsDataGridView);
             usersDataGridView.CellContentClick += UsersDataGridView_CellContentClick;
+            usersDataGridView.SelectionChanged += UsersDataGridView_SelectionChanged;
+            SaveAlarmsButton.Click += SaveAlarmsButton_Click;
+            alarmsDataGridView.ReadOnly = true;
         }
 
         private async void MailPage_Load(object? sender, EventArgs e)
@@ -147,6 +154,71 @@ namespace WinUI.Pages
                         MessageBox.Show($"Kullanıcı silinirken hata: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+        private async void UsersDataGridView_SelectionChanged(object? sender, EventArgs e)
+        {
+            if (usersDataGridView.CurrentRow?.DataBoundItem is not UserDto user)
+            {
+                alarmsDataGridView.DataSource = null;
+                alarmsDataGridView.ReadOnly = true;
+                return;
+            }
+
+            await LoadAlarmsAsync(user.Id);
+        }
+
+        private async Task LoadAlarmsAsync(int userId)
+        {
+            try
+            {
+                var alarms = await _mailAlarmService.GetListAsync(userId) ?? new List<MailAlarmDto>();
+                alarmsDataGridView.DataSource = alarms;
+                ConfigureAlarmColumns();
+                alarmsDataGridView.ReadOnly = false;
+                alarmsDataGridView.Columns["Name"].ReadOnly = true;
+                alarmsDataGridView.Columns["Limit"].ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Alarmlar yüklenirken hata: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ConfigureAlarmColumns()
+        {
+            if (alarmsDataGridView.Columns["Id"] != null)
+                alarmsDataGridView.Columns["Id"].Visible = false;
+
+            if (alarmsDataGridView.Columns["Name"] != null)
+                alarmsDataGridView.Columns["Name"].HeaderText = "Alarm";
+
+            if (alarmsDataGridView.Columns["Limit"] != null)
+                alarmsDataGridView.Columns["Limit"].HeaderText = "Limit";
+
+            if (alarmsDataGridView.Columns["IsActive"] != null)
+                alarmsDataGridView.Columns["IsActive"].HeaderText = "Aktif";
+        }
+
+        private async void SaveAlarmsButton_Click(object? sender, EventArgs e)
+        {
+            if (usersDataGridView.CurrentRow?.DataBoundItem is not UserDto user)
+                return;
+
+            if (alarmsDataGridView.DataSource is not List<MailAlarmDto> alarms)
+                return;
+
+            var activeIds = alarms.Where(a => a.IsActive).Select(a => a.Id).ToList();
+
+            try
+            {
+                await _mailAlarmService.UpdateAsync(user.Id, activeIds);
+                MessageBox.Show("Alarmlar kaydedildi.", UserConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Alarmlar kaydedilirken hata: {ex.Message}", UserConstants.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -24,6 +24,8 @@ public static class ServiceRegistration
         services.AddScoped<IPlcInformationRepository, PlcInformationRepository>();
         services.AddScoped<IStationRepository, StationRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMailAlarmRepository, MailAlarmRepository>();
+        services.AddScoped<IUserMailAlarmRepository, UserMailAlarmRepository>();
         services.AddSingleton<IPlcClient, SiemensPlcClient>();
         services.AddSingleton<IPlcDataCache, PlcDataCache>();
 
