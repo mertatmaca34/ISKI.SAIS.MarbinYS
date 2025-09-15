@@ -30,6 +30,20 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(IBKSContext).Assembly);
 
+        modelBuilder.Entity<MailSetting>().HasData(new MailSetting
+        {
+            Id = 1,
+            SmtpHost = "10.0.3.63",
+            SmtpPort = 25,
+            SmtpUser = "sais@iski.istanbul",
+            SmtpPassword = "Ss,2023",
+            UseSsl = false,
+            SenderEmail = "sais@iski.istanbul",
+            SenderName = "sais",
+            UseDefaultCredentials = true,
+            CreatedAt = new DateTime(2025, 9, 15, 12, 24, 38, DateTimeKind.Utc).AddTicks(6790330)
+        });
+
         modelBuilder.Entity<MailAlarm>().HasData(
             new MailAlarm
             {
