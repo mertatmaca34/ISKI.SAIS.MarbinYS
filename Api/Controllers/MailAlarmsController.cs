@@ -1,4 +1,5 @@
 using Application.Features.MailAlarms.Commands.UpdateUser;
+using Application.Features.MailAlarms.Commands.Update;
 using Application.Features.MailAlarms.Queries.GetList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,15 @@ public class MailAlarmsController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(new UpdateUserMailAlarmsCommand(userId, alarmIds));
         return NoContent();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAlarm(int id, [FromBody] UpdateMailAlarmCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+        var result = await mediator.Send(command);
+        return Ok(result);
     }
 }
 

@@ -8,6 +8,7 @@ public interface IMailAlarmService
 {
     Task<List<MailAlarmDto>?> GetListAsync(int userId);
     Task UpdateAsync(int userId, List<int> alarmIds);
+    Task<MailAlarmDto?> UpdateAlarmAsync(UpdateMailAlarmCommand command);
 }
 
 public class MailAlarmService(HttpClient httpClient) : IMailAlarmService
@@ -20,5 +21,14 @@ public class MailAlarmService(HttpClient httpClient) : IMailAlarmService
         using var response = await httpClient.PostAsJsonAsync($"{MailAlarmConstants.ApiUrl}/{userId}", alarmIds);
         response.EnsureSuccessStatusCode();
     }
+
+    public async Task<MailAlarmDto?> UpdateAlarmAsync(UpdateMailAlarmCommand command)
+    {
+        using var response = await httpClient.PutAsJsonAsync($"{MailAlarmConstants.ApiUrl}/{command.Id}", command);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<MailAlarmDto>();
+    }
 }
+
+public record UpdateMailAlarmCommand(int Id, double Limit);
 
