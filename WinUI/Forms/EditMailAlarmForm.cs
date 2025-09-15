@@ -24,27 +24,49 @@ namespace WinUI.Forms
 
         private void InitializeComponent()
         {
-            nameLabel = new Label { Text = _alarm.Name, AutoSize = true, Top = 20, Left = 20 };
-            limitNumericUpDown = new NumericUpDown
-            {
-                Minimum = -100000,
-                Maximum = 100000,
-                DecimalPlaces = 2,
-                Value = (decimal)_alarm.Limit,
-                Top = 60,
-                Left = 20,
-                Width = 200
-            };
-            saveButton = new Button { Text = "Kaydet", Top = 100, Left = 20, Width = 80 };
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditMailAlarmForm));
+            nameLabel = new Label();
+            limitNumericUpDown = new NumericUpDown();
+            saveButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)limitNumericUpDown).BeginInit();
+            SuspendLayout();
+            // 
+            // nameLabel
+            // 
+            nameLabel.Location = new Point(0, 0);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new Size(100, 23);
+            nameLabel.TabIndex = 0;
+            // 
+            // limitNumericUpDown
+            // 
+            limitNumericUpDown.Location = new Point(0, 0);
+            limitNumericUpDown.Name = "limitNumericUpDown";
+            limitNumericUpDown.Size = new Size(120, 23);
+            limitNumericUpDown.TabIndex = 1;
+            // 
+            // saveButton
+            // 
+            saveButton.Location = new Point(0, 0);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(75, 23);
+            saveButton.TabIndex = 2;
             saveButton.Click += SaveButton_Click;
-
+            // 
+            // EditMailAlarmForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(260, 150);
             Controls.Add(nameLabel);
             Controls.Add(limitNumericUpDown);
             Controls.Add(saveButton);
-
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "EditMailAlarmForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Alarm Düzenle";
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(260, 150);
+            ((System.ComponentModel.ISupportInitialize)limitNumericUpDown).EndInit();
+            ResumeLayout(false);
         }
 
         private async void SaveButton_Click(object? sender, EventArgs e)
