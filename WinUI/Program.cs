@@ -241,6 +241,7 @@ namespace WinUI
                             options.Retry.MaxRetryAttempts = 3);
 
                     services.AddSingleton<IReportExportService, ReportExportService>();
+                    services.AddSingleton<IChannelNameProvider, ChannelNameProvider>();
                     services.AddHttpClient<IMeasurementReportService, MeasurementReportService>(client =>
                     {
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
