@@ -20,6 +20,7 @@ namespace WinUI.Pages
         public MailPage()
         {
             InitializeComponent();
+            
             _userService = Program.Services.GetRequiredService<IUserService>();
             _mailAlarmService = Program.Services.GetRequiredService<IMailAlarmService>();
             Load += MailPage_Load;

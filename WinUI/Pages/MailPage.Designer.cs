@@ -31,9 +31,10 @@ namespace WinUI.Pages
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             titleBarControl1 = new WinUI.Controls.IBKS.TitleBarControl();
-            PanelContent = new Panel();
+            PanelContents = new Panel();
             StationSettingsBgTableLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            SaveAlarmsButton = new Button();
             label1 = new Label();
             ApiTestBgTableLayoutPanel = new TableLayoutPanel();
             alarmsDataGridView = new DataGridView();
@@ -44,9 +45,8 @@ namespace WinUI.Pages
             usersDataGridView = new DataGridView();
             nameColumn = new DataGridViewTextBoxColumn();
             valueColumn = new DataGridViewTextBoxColumn();
-            SaveAlarmsButton = new Button();
             tableLayoutPanel1.SuspendLayout();
-            PanelContent.SuspendLayout();
+            PanelContents.SuspendLayout();
             StationSettingsBgTableLayoutPanel.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ApiTestBgTableLayoutPanel.SuspendLayout();
@@ -62,7 +62,7 @@ namespace WinUI.Pages
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(titleBarControl1, 0, 0);
-            tableLayoutPanel1.Controls.Add(PanelContent, 0, 1);
+            tableLayoutPanel1.Controls.Add(PanelContents, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -87,18 +87,18 @@ namespace WinUI.Pages
             titleBarControl1.TabIndex = 0;
             titleBarControl1.TitleBarText = "Mail Alarmları";
             // 
-            // PanelContent
+            // PanelContents
             // 
-            tableLayoutPanel1.SetColumnSpan(PanelContent, 2);
-            PanelContent.Controls.Add(StationSettingsBgTableLayoutPanel);
-            PanelContent.Dock = DockStyle.Fill;
-            PanelContent.Location = new Point(8, 46);
-            PanelContent.Margin = new Padding(0);
-            PanelContent.Name = "PanelContent";
-            PanelContent.Padding = new Padding(60, 30, 0, 60);
-            tableLayoutPanel1.SetRowSpan(PanelContent, 2);
-            PanelContent.Size = new Size(1154, 623);
-            PanelContent.TabIndex = 1;
+            tableLayoutPanel1.SetColumnSpan(PanelContents, 2);
+            PanelContents.Controls.Add(StationSettingsBgTableLayoutPanel);
+            PanelContents.Dock = DockStyle.Fill;
+            PanelContents.Location = new Point(8, 46);
+            PanelContents.Margin = new Padding(0);
+            PanelContents.Name = "PanelContents";
+            PanelContents.Padding = new Padding(60, 30, 0, 60);
+            tableLayoutPanel1.SetRowSpan(PanelContents, 2);
+            PanelContents.Size = new Size(1154, 623);
+            PanelContents.TabIndex = 1;
             // 
             // StationSettingsBgTableLayoutPanel
             // 
@@ -133,6 +133,17 @@ namespace WinUI.Pages
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Size = new Size(547, 40);
             tableLayoutPanel2.TabIndex = 7;
+            // 
+            // SaveAlarmsButton
+            // 
+            SaveAlarmsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveAlarmsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SaveAlarmsButton.Location = new Point(452, 3);
+            SaveAlarmsButton.Name = "SaveAlarmsButton";
+            SaveAlarmsButton.Size = new Size(92, 32);
+            SaveAlarmsButton.TabIndex = 3;
+            SaveAlarmsButton.Text = "Kaydet";
+            SaveAlarmsButton.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -184,9 +195,9 @@ namespace WinUI.Pages
             usersHeaderTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             usersHeaderTableLayoutPanel.Size = new Size(547, 40);
             usersHeaderTableLayoutPanel.TabIndex = 3;
-            //
+            // 
             // usersLabel
-            //
+            // 
             usersLabel.AutoSize = true;
             usersLabel.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             usersLabel.ForeColor = Color.FromArgb(64, 64, 64);
@@ -195,9 +206,9 @@ namespace WinUI.Pages
             usersLabel.Size = new Size(114, 22);
             usersLabel.TabIndex = 0;
             usersLabel.Text = "Kullanıcılar";
-            //
+            // 
             // newUserButton
-            //
+            // 
             newUserButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             newUserButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             newUserButton.Location = new Point(405, 3);
@@ -221,9 +232,9 @@ namespace WinUI.Pages
             usersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             usersTableLayoutPanel.Size = new Size(542, 493);
             usersTableLayoutPanel.TabIndex = 5;
-            //
+            // 
             // usersDataGridView
-            //
+            // 
             usersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             usersDataGridView.Dock = DockStyle.Fill;
             usersDataGridView.Location = new Point(3, 3);
@@ -239,17 +250,6 @@ namespace WinUI.Pages
             // 
             valueColumn.Name = "valueColumn";
             // 
-            // SaveAlarmsButton
-            // 
-            SaveAlarmsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            SaveAlarmsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveAlarmsButton.Location = new Point(452, 3);
-            SaveAlarmsButton.Name = "SaveAlarmsButton";
-            SaveAlarmsButton.Size = new Size(92, 32);
-            SaveAlarmsButton.TabIndex = 3;
-            SaveAlarmsButton.Text = "Kaydet";
-            SaveAlarmsButton.UseVisualStyleBackColor = true;
-            // 
             // MailPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -260,7 +260,7 @@ namespace WinUI.Pages
             Size = new Size(1170, 677);
             SizeChanged += MailPage_SizeChanged;
             tableLayoutPanel1.ResumeLayout(false);
-            PanelContent.ResumeLayout(false);
+            PanelContents.ResumeLayout(false);
             StationSettingsBgTableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
@@ -293,7 +293,7 @@ namespace WinUI.Pages
 
         private TableLayoutPanel tableLayoutPanel1;
         private Controls.IBKS.TitleBarControl titleBarControl1;
-        private Panel PanelContent;
+        private Panel PanelContents;
         private DataGridViewTextBoxColumn nameColumn;
         private DataGridViewTextBoxColumn valueColumn;
         private TableLayoutPanel StationSettingsBgTableLayoutPanel;
