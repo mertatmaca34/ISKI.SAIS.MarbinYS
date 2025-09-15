@@ -128,16 +128,12 @@ public class MailAlarmWorker(
         };
 
     private static bool? GetDigitalValue(string channel, Domain.Entities.DigitalSensorData? data)
-        => channel switch
-        {
-            "Duman" => data?.Duman,
-            "SuBaskini" => data?.SuBaskini,
-            "AcilStop" => data?.AcilStop,
-            "Pompa1" => data?.Pompa1Termik,
-            "Pompa2" => data?.Pompa2Termik,
-            "TemizSuPompa" => data?.TemizSuTermik,
-            "YikamaTank" => data?.YikamaTanki,
-            "KabinEnerjisi" => data is null ? null : !data.Enerji,
-            _ => null
-        };
+    {
+        if (data is null)
+            return null;
+        var prop = typeof(Domain.Entities.DigitalSensorData).GetProperty(channel);
+        if (prop is null || prop.PropertyType != typeof(bool))
+            return null;
+        return (bool)prop.GetValue(data)!;
+    }
 }

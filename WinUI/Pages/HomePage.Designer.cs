@@ -272,8 +272,8 @@ namespace WinUI.Pages
             DigitalSensorKapi.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorKapi.Name = "DigitalSensorKapi";
             DigitalSensorKapi.Padding = new Padding(1);
-            DigitalSensorKapi.SensorDescription = "Kabin Kapısı";
-            DigitalSensorKapi.SensorName = "Kapı";
+            DigitalSensorKapi.SensorDescription = "Kabin kapısı açıldı";
+            DigitalSensorKapi.SensorName = "Kapı Açık";
             DigitalSensorKapi.Size = new Size(188, 50);
             DigitalSensorKapi.TabIndex = 1;
             // 
@@ -350,8 +350,8 @@ namespace WinUI.Pages
             DigitalSensorTSuPompaTermik.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorTSuPompaTermik.Name = "DigitalSensorTSuPompaTermik";
             DigitalSensorTSuPompaTermik.Padding = new Padding(1);
-            DigitalSensorTSuPompaTermik.SensorDescription = "Temiz Su P. Termik atma durumu";
-            DigitalSensorTSuPompaTermik.SensorName = "T. Su Pompa Termik";
+            DigitalSensorTSuPompaTermik.SensorDescription = "Pompa 3 termik atma durumu";
+            DigitalSensorTSuPompaTermik.SensorName = "Pompa 3 Termik";
             DigitalSensorTSuPompaTermik.Size = new Size(188, 50);
             DigitalSensorTSuPompaTermik.TabIndex = 1;
             // 
@@ -363,8 +363,8 @@ namespace WinUI.Pages
             DigitalSensorYikamaTanki.Margin = new Padding(0, 0, 3, 0);
             DigitalSensorYikamaTanki.Name = "DigitalSensorYikamaTanki";
             DigitalSensorYikamaTanki.Padding = new Padding(1);
-            DigitalSensorYikamaTanki.SensorDescription = "Yıkama Tankı dolu/boş bilgisi";
-            DigitalSensorYikamaTanki.SensorName = "Yıkama Tankı";
+            DigitalSensorYikamaTanki.SensorDescription = "Tank doluluk bilgisi";
+            DigitalSensorYikamaTanki.SensorName = "Tank Dolu";
             DigitalSensorYikamaTanki.Size = new Size(188, 50);
             DigitalSensorYikamaTanki.TabIndex = 1;
             // 
@@ -376,8 +376,8 @@ namespace WinUI.Pages
             DigitalSensorEnerji.Margin = new Padding(0);
             DigitalSensorEnerji.Name = "DigitalSensorEnerji";
             DigitalSensorEnerji.Padding = new Padding(1);
-            DigitalSensorEnerji.SensorDescription = "Kabin elektrik enerjisi durumu";
-            DigitalSensorEnerji.SensorName = "Enerji";
+            DigitalSensorEnerji.SensorDescription = "Kabin enerji yok";
+            DigitalSensorEnerji.SensorName = "Enerji Yok";
             DigitalSensorEnerji.Size = new Size(192, 50);
             DigitalSensorEnerji.TabIndex = 1;
             // 

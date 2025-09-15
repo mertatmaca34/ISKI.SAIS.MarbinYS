@@ -83,17 +83,17 @@ namespace WinUI.Pages
 
         private void Animate(PlcDataDto value)
         {
-            PanelDoor.BackgroundImage = value.Digital.Kapi ? _doorOpened : _doorClosed;
-            PanelWaterTank.BackgroundImage = value.Digital.YikamaTanki ? _waterTankFull : _waterTankEmpty;
+            PanelDoor.BackgroundImage = value.Digital.KabinKapiAcildi ? _doorOpened : _doorClosed;
+            PanelWaterTank.BackgroundImage = value.Digital.TankDolu ? _waterTankFull : _waterTankEmpty;
 
-            var pump1Running = value.Digital.Pompa1CalisiyorMu;
+            var pump1Running = value.Digital.Pompa1Calisiyor;
             if (pump1Running != _pump1Running)
             {
                 PictureBoxPump1.Image = pump1Running ? _pump1Animation : _pump1Idle;
                 _pump1Running = pump1Running;
             }
 
-            var pump2Running = value.Digital.Pompa2CalisiyorMu;
+            var pump2Running = value.Digital.Pompa2Calisiyor;
             if (pump2Running != _pump2Running)
             {
                 PictureBoxPump2.Image = pump2Running ? _pump2Animation : _pump2Idle;

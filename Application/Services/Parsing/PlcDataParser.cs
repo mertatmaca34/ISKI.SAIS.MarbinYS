@@ -35,17 +35,28 @@ public class PlcDataParser : IPlcDataParser
         return new DigitalSensorData
         {
             ReadTime = DateTime.Now,
-            Kapi = ReadBit(data, 0, 5),
-            Duman = ReadBit(data, 0, 3),
-            SuBaskini = ReadBit(data, 0, 4),
-            AcilStop = ReadBit(data, 0, 7),
+            KabinOto = ReadBit(data, 0, 0),
+            KabinBakim = ReadBit(data, 0, 1),
+            KabinKalibrasyon = ReadBit(data, 0, 2),
+            KabinDuman = ReadBit(data, 0, 3),
+            KabinSuBaskini = ReadBit(data, 0, 4),
+            KabinKapiAcildi = ReadBit(data, 0, 5),
+            KabinEnerjiYok = ReadBit(data, 0, 6),
+            KabinAcilStopBasili = ReadBit(data, 0, 7),
+            KabinHaftalikYikamada = ReadBit(data, 1, 0),
+            KabinSaatlikYikamada = ReadBit(data, 1, 1),
             Pompa1Termik = ReadBit(data, 1, 2),
             Pompa2Termik = ReadBit(data, 1, 3),
-            TemizSuTermik = ReadBit(data, 1, 4),
-            YikamaTanki = ReadBit(data, 1, 5),
-            Enerji = ReadBit(data, 0, 6),
-            Pompa1CalisiyorMu = ReadBit(data, 1, 6),
-            Pompa2CalisiyorMu = ReadBit(data, 1, 7)
+            Pompa3Termik = ReadBit(data, 1, 4),
+            TankDolu = ReadBit(data, 1, 5),
+            Pompa1Calisiyor = ReadBit(data, 1, 6),
+            Pompa2Calisiyor = ReadBit(data, 1, 7),
+            Pompa3Calisiyor = ReadBit(data, 2, 0),
+            AkmTetik = ReadBit(data, 2, 1),
+            KoiTetik = ReadBit(data, 2, 2),
+            PhTetik = ReadBit(data, 2, 3),
+            ManuelTetik = ReadBit(data, 2, 4),
+            SimNumuneTetik = ReadBit(data, 2, 5)
         };
     }
 
