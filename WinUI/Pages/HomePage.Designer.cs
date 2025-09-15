@@ -481,7 +481,7 @@ namespace WinUI.Pages
             // TimerGetMissingDates
             // 
             TimerGetMissingDates.Enabled = true;
-            TimerGetMissingDates.Interval = 1200000;
+            TimerGetMissingDates.Interval = 1000;
             TimerGetMissingDates.Tick += TimerGetMissingDates_Tick;
             // 
             // HomePage
@@ -499,10 +499,14 @@ namespace WinUI.Pages
 
         private void TimerGetMissingDates_Tick(object sender, EventArgs e)
         {
-            if (_connectedSince.HasValue)
+            if (_lastConnectedTime.HasValue)
             {
-                var elapsed = DateTime.Now - _connectedSince.Value;
+                var elapsed = DateTime.Now - _lastConnectedTime.Value;
                 StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
+            }
+            else
+            {
+                StatusBarControl.ConnectionTime = "Bağlantı Zamanı: 00:00:00";
             }
         }
 

@@ -17,7 +17,8 @@ namespace WinUI.Pages
         private readonly IPlcDataService _plcService;
         private readonly List<ChannelControl> _channels;
         private readonly List<DigitalSensorControl> _digitalSensors;
-        private DateTime? _connectedSince;
+        private DateTime? _lastConnectedTime;
+        private bool _isConnected;
 
         public HomePage(IPlcDataService plcService)
         {
@@ -94,10 +95,10 @@ namespace WinUI.Pages
                     digitalSensorBar1.SystemStateDescription = "KOPUK";
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                     StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
-                    StatusBarControl.ConnectionTime = "Bağlantı Zamanı: 00:00:00";
-                    _connectedSince = null;
+                    _isConnected = false;
                     Log.Warning("Ticket yok veya süresi doldu");
-                }else
+                }
+                else
                 {
                     digitalSensorBar1.DataStateDescription = "GÖNDERİYOR";
                     digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
@@ -139,9 +140,17 @@ namespace WinUI.Pages
                 digitalSensorBar1.SystemStateTitleColor = StateColors.Ok;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı";
 
-                _connectedSince ??= DateTime.Now;
-                var elapsed = DateTime.Now - _connectedSince.Value;
-                StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
+                if (!_isConnected)
+                {
+                    _lastConnectedTime = DateTime.Now;
+                    _isConnected = true;
+                }
+
+                if (_lastConnectedTime.HasValue)
+                {
+                    var elapsed = DateTime.Now - _lastConnectedTime.Value;
+                    StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
+                }
                 Log.Information("PLC verisi okundu");
             }
             catch (InvalidOperationException)
@@ -155,16 +164,15 @@ namespace WinUI.Pages
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                 digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
-                StatusBarControl.ConnectionTime = "-";
-                _connectedSince = null;
+                _isConnected = false;
                 Log.Warning("PLC bilgileri henüz kurulmadı");
             }
             catch (HttpRequestException ex)
             {
                 foreach (var ch in _channels)
-                    ch.ChannelStatement = _connectedSince.HasValue ? StateColors.Error : StateColors.Waiting;
+                    ch.ChannelStatement = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
                 foreach (var sensor in _digitalSensors)
-                    sensor.SensorState = _connectedSince.HasValue ? StateColors.Error : StateColors.Waiting;
+                    sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
 
                 digitalSensorBar1.SystemStateDescription = "KOPUK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
@@ -172,16 +180,15 @@ namespace WinUI.Pages
                 digitalSensorBar1.DataStateDescription = "HATA";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
-                StatusBarControl.ConnectionTime = "-";
-                _connectedSince = null;
+                _isConnected = false;
                 Log.Error(ex, "API erişim hatası");
             }
             catch (Exception ex)
             {
                 foreach (var ch in _channels)
-                    ch.ChannelStatement = _connectedSince.HasValue ? StateColors.Error : StateColors.Waiting;
+                    ch.ChannelStatement = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
                 foreach (var sensor in _digitalSensors)
-                    sensor.SensorState = _connectedSince.HasValue ? StateColors.Error : StateColors.Waiting;
+                    sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
 
                 digitalSensorBar1.SystemStateDescription = "KOPUK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
@@ -189,8 +196,7 @@ namespace WinUI.Pages
                 digitalSensorBar1.DataStateDescription = "HATA";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
-                StatusBarControl.ConnectionTime = "-";
-                _connectedSince = null;
+                _isConnected = false;
                 Log.Error(ex, "PLC verisi okunamadı");
             }
         }
