@@ -242,7 +242,7 @@ namespace WinUI.Pages
 
             if (alarmsDataGridView.Columns["Edit"] == null)
             {
-                var editColumn = new DataGridViewImageColumn
+                var editColumn2 = new DataGridViewImageColumn
                 {
                     Name = "Edit",
                     HeaderText = string.Empty,
@@ -250,7 +250,7 @@ namespace WinUI.Pages
                     ImageLayout = DataGridViewImageCellLayout.Zoom,
                     Width = 32
                 };
-                alarmsDataGridView.Columns.Insert(0, editColumn);
+                alarmsDataGridView.Columns.Insert(0, editColumn2);
             }
 
             if (alarmsDataGridView.Columns["Edit"] is DataGridViewImageColumn editColumn)

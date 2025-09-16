@@ -1,10 +1,9 @@
-using System;
-using System.Net.Http;
+using Microsoft.Extensions.Logging;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -13,11 +12,12 @@ namespace WinUI.Services;
 public interface ITicketService
 {
     Task EnsureTicketAsync();
-    Task<ResultStatus<LoginResult>?> RefreshTicketAsync();
+    Task<ResultStatus<LoginResult>?> RefreshTicketAsync(CancellationToken ct = default);
 }
 
 public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpointService, ILogger<TicketService> logger) : ITicketService
 {
+    private static readonly JsonSerializerOptions JsonOpts = new();
     public async Task EnsureTicketAsync()
     {
         if (!string.IsNullOrEmpty(StationConstants.Ticket) && DateTime.Now < StationConstants.TicketExpiry)
@@ -29,7 +29,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         await RefreshTicketAsync();
     }
 
-    public async Task<ResultStatus<LoginResult>?> RefreshTicketAsync()
+    public async Task<ResultStatus<LoginResult>?> RefreshTicketAsync(CancellationToken ct = default)
     {
         var endpoint = await apiEndpointService.GetFirstAsync();
         if (endpoint == null)
@@ -37,32 +37,48 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
             return null;
         }
 
-        var loginUrl = $"{endpoint.ApiAddress.TrimEnd('/')}/Security/login";
+        var loginUrl = $"{endpoint.ApiAddress?.TrimEnd('/')}/security/login";
         var loginRequest = new
         {
             username = endpoint.UserName,
-            password = DoubleMd5(endpoint.Password),
+            password = MD5Hash(MD5Hash(endpoint.Password)),
         };
 
-        using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest);
-        response.EnsureSuccessStatusCode();
-        var loginResult = await response.Content.ReadFromJsonAsync<ResultStatus<LoginResult>>();
-        if (loginResult?.objects?.TicketId is not { } ticketId)
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        if (!string.IsNullOrWhiteSpace(StationConstants.Ticket))
         {
-            return null;
+            httpClient.DefaultRequestHeaders.Remove("AToken");
+            var aTokenJson = JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket });
+            httpClient.DefaultRequestHeaders.Add("AToken", aTokenJson);
         }
 
-        StationConstants.Ticket = loginResult.objects.TicketId.ToString()!;
+        using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest, JsonOpts, ct);
+        response.EnsureSuccessStatusCode();
+
+
+        var loginResult = await response.Content.ReadFromJsonAsync<ResultStatus<LoginResult>>(JsonOpts, ct);
+        if (loginResult?.objects?.TicketId is not { } ticketId)
+            return null;
+
+
+        // Sunucunun döndürdüðü deðerlerle sabitleri güncelle
+        StationConstants.Ticket = ticketId.ToString();
         StationConstants.TicketExpiry = loginResult.objects.ExpireDate;
+
+
         return loginResult;
     }
-
-    private static string DoubleMd5(string password)
+        public static string MD5Hash(string input)
     {
-        using var md5 = MD5.Create();
-        var first = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
-        var second = md5.ComputeHash(first);
-        return Convert.ToHexString(second).ToLowerInvariant();
+        MD5 md5Hasher = MD5.Create();
+        byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+        StringBuilder sBuilder = new StringBuilder();
+        for (int i = 0; i < data.Length; i++)
+        {
+            sBuilder.Append(data[i].ToString("x2"));
+        }
+        return sBuilder.ToString();
     }
 }
 
