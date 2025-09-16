@@ -27,7 +27,6 @@ namespace WinUI.Pages
             ComboBoxReportType.Items.AddRange(new object[] { "Ölçüm Verileri", "Kalibrasyon Verileri", "Numune Verileri", "Log Kayıtları" });
             ComboBoxReportType.SelectedIndex = 0;
             RadioButtonDaily.Checked = true;
-            ConfigureMeasurementColumns();
         }
 
         private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)

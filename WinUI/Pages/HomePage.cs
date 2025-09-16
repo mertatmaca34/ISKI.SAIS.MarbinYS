@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Serilog;
 using System.Text.Json.Nodes;
-using System.Windows.Forms;
-using Serilog;
 using WinUI.Constants;
 using WinUI.Controls.IBKS;
 using WinUI.Helpers;
@@ -104,7 +100,7 @@ namespace WinUI.Pages
                     digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
                 }
 
-                    var value = await ReadPlcDataAsync();
+                var value = await ReadPlcDataAsync();
                 if (value == null)
                     return;
 
@@ -162,7 +158,7 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "KURULMADI";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
+
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 _isConnected = false;
                 Log.Warning("PLC bilgileri henüz kurulmadı");
@@ -176,7 +172,7 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "KOPUK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
+
                 digitalSensorBar1.DataStateDescription = "HATA";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
@@ -192,7 +188,7 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "KOPUK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
+
                 digitalSensorBar1.DataStateDescription = "HATA";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
