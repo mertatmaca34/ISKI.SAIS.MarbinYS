@@ -4,21 +4,30 @@ namespace WinUI.Models;
 
 public class ApiSendDataDto
 {
-    public Guid StationId { get; set; }
-    public DateTime StartTime { get; set; }
+    public Guid Stationid { get; set; }
+    public DateTime Readtime { get; set; }
     public string SoftwareVersion { get; set; } = string.Empty;
-    public string Regions { get; set; } = string.Empty;
-    public string StationStatus { get; set; } = string.Empty;
-    public double AAKM { get; set; }
-    public double BGM { get; set; }
-    public string AAKM_Status { get; set; } = string.Empty;
-    public string BGM_Status { get; set; } = string.Empty;
+    public double AkisHizi { get; set; }
+    public double AKM { get; set; }
     public double CozunmusOksijen { get; set; }
-    public string COJ_Status { get; set; } = string.Empty;
-    public string COJ_ND { get; set; } = string.Empty;
-    public double Koi { get; set; }
-    public string Koi_Status { get; set; } = string.Empty;
     public double Debi { get; set; }
-    public string Debi_Status { get; set; } = string.Empty;
+    public double? DesarjDebi { get; set; }
+    public double? HariciDebi { get; set; }
+    public double? HariciDebi2 { get; set; }
+    public double KOi { get; set; }
+    public double pH { get; set; }
     public double Sicaklik { get; set; }
+    public double Iletkenlik { get; set; }
+    public int Period { get; set; }
+    public int AkisHizi_Status { get; set; }
+    public int AKM_Status { get; set; }
+    public int CozunmusOksijen_Status { get; set; }
+    public int Debi_Status { get; set; }
+    public int? DesarjDebi_Status { get; set; }
+    public int? HariciDebi_Status { get; set; }
+    public int? HariciDebi2_Status { get; set; }
+    public int KOi_Status { get; set; }
+    public int pH_Status { get; set; }
+    public int Sicaklik_Status { get; set; }
+    public string Iletkenlik_Status { get; set; } = string.Empty;
 }

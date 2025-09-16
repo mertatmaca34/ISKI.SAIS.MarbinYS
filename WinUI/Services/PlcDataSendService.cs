@@ -102,7 +102,7 @@ public class PlcDataSendService : BackgroundService
         var statusCode = (int)status;
         var statusString = statusCode.ToString();
 
-        var payload = CreateApiSendDataDto(station, plcData.Analog, readTime, statusString);
+        var payload = CreateApiSendDataDto(station, plcData.Analog, readTime, statusCode);
         var sendData = CreateSendData(station, plcData.Analog, status, statusString, readTime);
 
         var isSent = await TrySendToSaisAsync(payload);
@@ -131,26 +131,39 @@ public class PlcDataSendService : BackgroundService
         }
     }
 
-    private static ApiSendDataDto CreateApiSendDataDto(StationDto station, AnalogSensorDataDto analog, DateTime readTime, string statusString) =>
-        new()
+    private static ApiSendDataDto CreateApiSendDataDto(StationDto station, AnalogSensorDataDto analog, DateTime readTime, int statusCode)
+    {
+        var statusString = statusCode.ToString();
+        return new ApiSendDataDto
         {
-            StationId = station.StationId,
-            StartTime = readTime,
-            SoftwareVersion = station.Software,
-            Regions = string.Empty,
-            StationStatus = statusString,
-            AAKM = analog.Akm,
-            BGM = analog.AkisHizi,
-            AAKM_Status = statusString,
-            BGM_Status = statusString,
+            Stationid = station.StationId,
+            Readtime = readTime,
+            SoftwareVersion = station.Software ?? string.Empty,
+            AkisHizi = analog.AkisHizi,
+            AKM = analog.Akm,
             CozunmusOksijen = analog.CozunmusOksijen,
-            COJ_Status = statusString,
-            Koi = analog.Koi,
-            Koi_Status = statusString,
             Debi = analog.Debi,
-            Debi_Status = statusString,
-            Sicaklik = analog.Sicaklik
+            DesarjDebi = analog.DesarjDebi,
+            HariciDebi = analog.HariciDebi,
+            HariciDebi2 = analog.HariciDebi2,
+            KOi = analog.Koi,
+            pH = analog.Ph,
+            Sicaklik = analog.Sicaklik,
+            Iletkenlik = analog.Iletkenlik,
+            Period = 1,
+            AkisHizi_Status = statusCode,
+            AKM_Status = statusCode,
+            CozunmusOksijen_Status = statusCode,
+            Debi_Status = statusCode,
+            DesarjDebi_Status = statusCode,
+            HariciDebi_Status = statusCode,
+            HariciDebi2_Status = statusCode,
+            KOi_Status = statusCode,
+            pH_Status = statusCode,
+            Sicaklik_Status = statusCode,
+            Iletkenlik_Status = statusString
         };
+    }
 
     private static SendData CreateSendData(StationDto station, AnalogSensorDataDto analog, SensorStatusCode status, string statusString, DateTime readTime)
     {
