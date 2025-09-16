@@ -94,7 +94,7 @@ namespace WinUI.Pages
                 {
                     if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
                     {
-                        Log.Warning(ex, "SAIS ticket alınamadı.");
+                        Log.Warning(ex, "SAIS bileti alınamadı.");
                     }
                     ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
                     return ApiConnectionStatus.NoAccess;
@@ -103,7 +103,7 @@ namespace WinUI.Pages
                 {
                     if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
                     {
-                        Log.Warning(ex, "SAIS ticket isteği zaman aşımına uğradı.");
+                        Log.Warning(ex, "SAIS bileti isteği zaman aşımına uğradı.");
                     }
                     ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
                     return ApiConnectionStatus.NoAccess;
@@ -112,7 +112,7 @@ namespace WinUI.Pages
                 {
                     if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
                     {
-                        Log.Error(ex, "SAIS ticket alınırken beklenmeyen bir hata oluştu.");
+                        Log.Error(ex, "SAIS bileti alınırken beklenmeyen bir hata oluştu.");
                     }
                     ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
                     return ApiConnectionStatus.NoAccess;

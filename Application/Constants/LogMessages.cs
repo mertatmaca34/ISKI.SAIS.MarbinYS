@@ -4,14 +4,14 @@ public static class LogMessages
 {
     public static class PlcData
     {
-        public const string ReadOrSaveError = "Error reading or saving PLC data";
+        public const string ReadOrSaveError = "PLC verisi okunurken veya kaydedilirken hata oluştu.";
     }
 
     public static class Stations
     {
-        public const string CreatedSuccessfully = "Station {StationId} created successfully";
-        public const string CreationError = "Error creating station {StationId}";
-        public const string UpdatedSuccessfully = "Station {StationId} updated successfully";
-        public const string UpdateError = "Error updating station {StationId}";
+        public const string CreatedSuccessfully = "İstasyon {StationId} başarıyla oluşturuldu.";
+        public const string CreationError = "İstasyon {StationId} oluşturulurken hata oluştu.";
+        public const string UpdatedSuccessfully = "İstasyon {StationId} başarıyla güncellendi.";
+        public const string UpdateError = "İstasyon {StationId} güncellenirken hata oluştu.";
     }
 }
