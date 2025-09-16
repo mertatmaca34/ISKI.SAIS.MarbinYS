@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Serilog;
+using WinUI.Constants;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -81,11 +82,11 @@ public class DatabaseSelectionService : IDatabaseSelectionService
                 await File.WriteAllTextAsync(_apiSettingsPath,
                     root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
-            Log.Information("Database settings saved for server {Server}", settings.Server);
+            Log.Information(LogMessages.DatabaseSelectionService.SettingsSaved, settings.Server);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to update API configuration");
+            Log.Error(ex, LogMessages.DatabaseSelectionService.ApiConfigurationUpdateFailed);
         }
     }
 

@@ -4,6 +4,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System.Text.Json.Nodes;
+using WinUI.Constants;
 using WinUI.Forms;
 using WinUI.Pages;
 using WinUI.Services;
@@ -27,7 +28,7 @@ namespace WinUI
             splashThread.Start();
 
             var host = CreateHostBuilder(args).Build();
-            Log.Information("WinUI started");
+            Log.Information(LogMessages.Program.ApplicationStarted);
             Services = host.Services;
             using var scope = Services.CreateScope();
             var services = scope.ServiceProvider;

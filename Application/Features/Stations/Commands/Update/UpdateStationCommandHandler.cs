@@ -1,4 +1,5 @@
 using System;
+using Application.Constants;
 using Application.Features.Stations.Dtos;
 using AutoMapper;
 using Domain.Entities;
@@ -24,13 +25,13 @@ public class UpdateStationCommandHandler(
             mapper.Map(request, entity);
             entity = await repository.UpdateAsync(entity);
 
-            Log.Information("Station {StationId} updated successfully", entity.StationId);
+            Log.Information(LogMessages.Stations.UpdatedSuccessfully, entity.StationId);
 
             return mapper.Map<StationDto>(entity);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error updating station {StationId}", request.StationId);
+            Log.Error(ex, LogMessages.Stations.UpdateError, request.StationId);
 
             throw;
         }

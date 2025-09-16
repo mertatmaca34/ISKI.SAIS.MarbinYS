@@ -25,7 +25,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
             return;
         }
 
-        logger.LogWarning("SAIS ticket missing or expired. Refreshing ticket.");
+        logger.LogWarning(LogMessages.TicketService.TicketMissingOrExpired);
         await RefreshTicketAsync();
     }
 

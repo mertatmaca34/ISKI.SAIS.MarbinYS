@@ -1,4 +1,5 @@
 using System;
+using Api.Constants;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -102,7 +103,7 @@ public class MailAlarmWorker(
                     await client.SendMailAsync(mail, stoppingToken);
                     // Warn so the event stands out in the logs since it indicates an abnormal condition
                     logger.LogWarning(
-                        "Alarm {Alarm} triggered for user {Email} with value {Value}. E-mail sent.",
+                        LogMessages.MailAlarmWorker.AlarmTriggered,
                         item.Alarm.Name,
                         item.Email,
                         bodyValue);
@@ -111,7 +112,7 @@ public class MailAlarmWorker(
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error while processing mail alarms");
+                logger.LogError(ex, LogMessages.MailAlarmWorker.ProcessingError);
             }
 
             await Task.Delay(TimeSpan.FromSeconds(intervalSeconds), stoppingToken);

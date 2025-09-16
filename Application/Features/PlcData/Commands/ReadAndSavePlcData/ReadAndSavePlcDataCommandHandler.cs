@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Application.Constants;
 using Application.Services.PlcData;
 using Infrastructure.Persistence;
 using MediatR;
@@ -60,7 +61,7 @@ public class ReadAndSavePlcDataCommandHandler(
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error reading or saving PLC data");
+            logger.LogError(ex, LogMessages.PlcData.ReadOrSaveError);
             throw;
         }
     }

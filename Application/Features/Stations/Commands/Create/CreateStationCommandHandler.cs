@@ -1,4 +1,5 @@
 using System;
+using Application.Constants;
 using Application.Features.Stations.Dtos;
 using AutoMapper;
 using Domain.Entities;
@@ -20,13 +21,13 @@ public class CreateStationCommandHandler(
             var entity = mapper.Map<Station>(request);
             entity = await repository.AddAsync(entity);
 
-            Log.Information("Station {StationId} created successfully", entity.StationId);
+            Log.Information(LogMessages.Stations.CreatedSuccessfully, entity.StationId);
 
             return mapper.Map<StationDto>(entity);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error creating station {StationId}", request.StationId);
+            Log.Error(ex, LogMessages.Stations.CreationError, request.StationId);
 
             throw;
         }

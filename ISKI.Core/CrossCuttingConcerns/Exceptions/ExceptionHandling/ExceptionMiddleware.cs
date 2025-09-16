@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Data.SqlClient;
+using ISKI.Core.Constants;
 
 namespace ISKI.Core.CrossCuttingConcerns.Exceptions.ExceptionHandling;
 
@@ -21,7 +22,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         }
         catch (BusinessException bx)
         {
-            _logger.LogWarning(bx, "İş kuralı ihlali");
+            _logger.LogWarning(bx, LogMessages.ExceptionMiddleware.BusinessRuleViolation);
             context.Response.StatusCode = 400;
             await WriteErrorResponse(context, bx.Message);
         }

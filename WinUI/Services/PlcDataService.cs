@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Serilog;
+using WinUI.Constants;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -24,14 +25,14 @@ public class PlcDataService : IPlcDataService
         using var response = await _httpClient.GetAsync("api/plcdata");
         if (response.StatusCode == HttpStatusCode.NotFound)
         {
-            Log.Warning("PLC bilgileri bulunamadı");
+            Log.Warning(LogMessages.PlcDataService.PlcInfoNotFound);
             throw new InvalidOperationException("PLC_NOT_CONFIGURED");
         }
 
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadAsStringAsync();
-            Log.Error("PLC API hatası {StatusCode}: {Error}", response.StatusCode, error);
+            Log.Error(LogMessages.PlcDataService.PlcApiError, response.StatusCode, error);
             throw new HttpRequestException("PLC API request failed");
         }
 
