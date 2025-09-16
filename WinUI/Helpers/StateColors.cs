@@ -26,4 +26,14 @@ public static class StateColors
     /// Color used when an error occurs while retrieving PLC data.
     /// </summary>
     public static readonly Color Error = Color.FromArgb(235, 85, 101);
+
+    /// <summary>
+    /// Color used when PLC configuration is missing either in the database or settings.
+    /// </summary>
+    public static readonly Color NotConfigured = Color.FromArgb(204, 153, 0);
+
+    /// <summary>
+    /// Color used when PLC is configured but cannot be reached.
+    /// </summary>
+    public static readonly Color NoAccess = Color.FromArgb(220, 53, 69);
 }

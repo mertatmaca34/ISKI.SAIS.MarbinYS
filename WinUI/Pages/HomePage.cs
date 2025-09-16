@@ -57,6 +57,17 @@ namespace WinUI.Pages
             {
                 TimerAssignUI_Tick(this, EventArgs.Empty);
             }
+            else
+            {
+                digitalSensorBar1.SystemStateDescription = "KURULMADI";
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
+                digitalSensorBar1.SystemStateTitleColor = StateColors.NotConfigured;
+                digitalSensorBar1.DataStateDescription = "KURULMADI";
+                digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
+                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
+                _isConnected = false;
+                Log.Warning("PLC yapılandırması eksik: IP adresi tanımlı değil");
+            }
         }
 
         public Task<PlcDataDto?> ReadPlcDataAsync()
@@ -273,9 +284,12 @@ namespace WinUI.Pages
                     sensor.SensorState = StateColors.Waiting;
 
                 digitalSensorBar1.SystemStateDescription = "KURULMADI";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
+                digitalSensorBar1.SystemStateTitleColor = StateColors.NotConfigured;
+                digitalSensorBar1.DataStateDescription = "KURULMADI";
+                digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
 
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
+                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
                 _isConnected = false;
                 Log.Warning("PLC bilgileri henüz kurulmadı");
             }
@@ -286,10 +300,10 @@ namespace WinUI.Pages
                 foreach (var sensor in _digitalSensors)
                     sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
 
-                digitalSensorBar1.SystemStateDescription = "KOPUK";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
+                digitalSensorBar1.SystemStateDescription = "ERİŞİM YOK";
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
+                digitalSensorBar1.SystemStateTitleColor = StateColors.NoAccess;
 
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 _isConnected = false;
                 Log.Error(ex, "API erişim hatası");
             }
@@ -302,6 +316,7 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "KOPUK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
+                digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
 
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 _isConnected = false;

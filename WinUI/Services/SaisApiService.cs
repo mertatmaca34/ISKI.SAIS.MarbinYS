@@ -58,6 +58,7 @@ public class SaisApiService : ISaisApiService
         var endpoint = await _apiEndpointService.GetFirstAsync();
         if (endpoint == null)
         {
+            _logger.LogWarning(LogMessages.SaisApiNotConfigured);
             return null;
         }
         _httpClient.DefaultRequestHeaders.Remove("AToken");
