@@ -6,18 +6,18 @@ public static class LogMessages
 
     public static class TicketService
     {
-        public const string TicketMissingOrExpired = "SAIS ticket missing or expired. Refreshing ticket.";
+        public const string TicketMissingOrExpired = "SAIS bileti eksik veya süresi dolmuş. Bilet yenileniyor.";
     }
 
     public static class SaisApiService
     {
-        public const string SessionNotFoundOrExpired = "SAIS session not found or expired. Refreshing ticket and retrying.";
+        public const string SessionNotFoundOrExpired = "SAIS oturumu bulunamadı veya süresi doldu. Bilet yenileniyor ve yeniden deneniyor.";
     }
 
     public static class DatabaseSelectionService
     {
-        public const string SettingsSaved = "Database settings saved for server {Server}";
-        public const string ApiConfigurationUpdateFailed = "Failed to update API configuration";
+        public const string SettingsSaved = "{Server} sunucusu için veritabanı ayarları kaydedildi.";
+        public const string ApiConfigurationUpdateFailed = "API yapılandırması güncellenemedi.";
     }
 
     public static class PlcDataSendService
@@ -26,8 +26,8 @@ public static class LogMessages
         public const string StationInfoNotFound = "İstasyon bilgisi bulunamadı.";
         public const string PlcInfoNotFound = "PLC bilgileri bulunamadı.";
         public const string PlcDataUnavailable = "PLC verisi alınamadı.";
-        public const string SendDataFailed = "SAIS SendData failed: {Message}";
-        public const string UnknownError = "Unknown error";
+        public const string SendDataFailed = "SAIS SendData işlemi başarısız oldu: {Message}";
+        public const string UnknownError = "Bilinmeyen hata";
         public const string SendDataRequestFailed = "SAIS SendData isteği tamamlanamadı.";
     }
 
@@ -40,7 +40,7 @@ public static class LogMessages
     public static class HomePage
     {
         public const string PlcConfigurationMissing = "PLC yapılandırması eksik: IP adresi tanımlı değil";
-        public const string TicketMissingOrExpired = "Ticket yok veya süresi doldu";
+        public const string TicketMissingOrExpired = "SAIS bileti yok veya süresi doldu";
         public const string PlcDataRead = "PLC verisi okundu";
         public const string PlcInfoNotYetConfigured = "PLC bilgileri henüz kurulmadı";
         public const string ApiAccessError = "API erişim hatası";
@@ -49,6 +49,6 @@ public static class LogMessages
 
     public static class Program
     {
-        public const string ApplicationStarted = "WinUI started";
+        public const string ApplicationStarted = "WinUI uygulaması başlatıldı.";
     }
 }

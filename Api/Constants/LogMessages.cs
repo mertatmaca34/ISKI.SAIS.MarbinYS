@@ -4,25 +4,25 @@ public static class LogMessages
 {
     public static class Program
     {
-        public const string ConnectionStringEmpty = "Connection string is empty";
-        public const string DatabaseChecked = "Database checked";
-        public const string DatabaseInitializationFailed = "Database initialization failed";
-        public const string ApiStarted = "API started";
+        public const string ConnectionStringEmpty = "Bağlantı dizesi boş.";
+        public const string DatabaseChecked = "Veritabanı kontrol edildi.";
+        public const string DatabaseInitializationFailed = "Veritabanı başlatılamadı.";
+        public const string ApiStarted = "API başlatıldı.";
     }
 
     public static class MailAlarmWorker
     {
-        public const string AlarmTriggered = "Alarm {Alarm} triggered for user {Email} with value {Value}. E-mail sent.";
-        public const string ProcessingError = "Error while processing mail alarms";
+        public const string AlarmTriggered = "Alarm {Alarm}, {Email} kullanıcısı için {Value} değeriyle tetiklendi. E-posta gönderildi.";
+        public const string ProcessingError = "E-posta alarmları işlenirken hata oluştu.";
     }
 
     public static class PlcDataWorker
     {
-        public const string ReadError = "Error while reading PLC data";
+        public const string ReadError = "PLC verisi okunurken hata oluştu.";
     }
 
     public static class PlcDataController
     {
-        public const string CacheEmpty = "PLC data requested but cache is empty";
+        public const string CacheEmpty = "PLC verisi istendi ancak önbellek boş.";
     }
 }

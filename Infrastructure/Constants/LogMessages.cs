@@ -4,7 +4,7 @@ public static class LogMessages
 {
     public static class PlcDataCache
     {
-        public const string NullDataAttempt = "Attempted to cache null PLC data";
-        public const string CacheUpdated = "PLC data cache updated at {Time}";
+        public const string NullDataAttempt = "Boş PLC verisini önbelleğe almaya çalışıldı";
+        public const string CacheUpdated = "PLC verisi önbelleği {Time} tarihinde güncellendi";
     }
 }
