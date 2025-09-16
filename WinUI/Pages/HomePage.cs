@@ -11,15 +11,20 @@ namespace WinUI.Pages
     public partial class HomePage : UserControl
     {
         private readonly IPlcDataService _plcService;
+        private readonly IApiEndpointService _apiEndpointService;
+        private readonly ITicketService _ticketService;
         private readonly List<ChannelControl> _channels;
         private readonly List<DigitalSensorControl> _digitalSensors;
         private DateTime? _lastConnectedTime;
         private bool _isConnected;
+        private ApiConnectionStatus _apiConnectionStatus = ApiConnectionStatus.Unknown;
 
-        public HomePage(IPlcDataService plcService)
+        public HomePage(IPlcDataService plcService, IApiEndpointService apiEndpointService, ITicketService ticketService)
         {
             InitializeComponent();
             _plcService = plcService;
+            _apiEndpointService = apiEndpointService;
+            _ticketService = ticketService;
             _channels = new()
             {
                 ChannelAkm,
@@ -70,6 +75,124 @@ namespace WinUI.Pages
             return _plcService.GetLatestAsync();
         }
 
+        private async Task<ApiConnectionStatus> UpdateSaisConnectionStatusAsync()
+        {
+            try
+            {
+                var endpoint = await _apiEndpointService.GetFirstAsync();
+                if (endpoint == null)
+                {
+                    ApplyApiConnectionStatus(ApiConnectionStatus.NotConfigured);
+                    return ApiConnectionStatus.NotConfigured;
+                }
+
+                try
+                {
+                    await _ticketService.EnsureTicketAsync();
+                }
+                catch (HttpRequestException ex)
+                {
+                    if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                    {
+                        Log.Warning(ex, "SAIS ticket alınamadı.");
+                    }
+                    ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                    return ApiConnectionStatus.NoAccess;
+                }
+                catch (TaskCanceledException ex)
+                {
+                    if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                    {
+                        Log.Warning(ex, "SAIS ticket isteği zaman aşımına uğradı.");
+                    }
+                    ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                    return ApiConnectionStatus.NoAccess;
+                }
+                catch (Exception ex)
+                {
+                    if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                    {
+                        Log.Error(ex, "SAIS ticket alınırken beklenmeyen bir hata oluştu.");
+                    }
+                    ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                    return ApiConnectionStatus.NoAccess;
+                }
+
+                if (!string.IsNullOrWhiteSpace(StationConstants.Ticket) &&
+                    DateTime.Now < StationConstants.TicketExpiry)
+                {
+                    ApplyApiConnectionStatus(ApiConnectionStatus.Connected);
+                    return ApiConnectionStatus.Connected;
+                }
+
+                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                return ApiConnectionStatus.NoAccess;
+            }
+            catch (HttpRequestException ex)
+            {
+                if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                {
+                    Log.Warning(ex, "SAIS API ayarları alınamadı.");
+                }
+                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                return ApiConnectionStatus.NoAccess;
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                {
+                    Log.Warning(ex, "SAIS API ayarları isteği zaman aşımına uğradı.");
+                }
+                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                return ApiConnectionStatus.NoAccess;
+            }
+            catch (Exception ex)
+            {
+                if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                {
+                    Log.Error(ex, "SAIS API ayarları alınırken beklenmeyen bir hata oluştu.");
+                }
+                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
+                return ApiConnectionStatus.NoAccess;
+            }
+        }
+
+        private void ApplyApiConnectionStatus(ApiConnectionStatus status)
+        {
+            if (_apiConnectionStatus == status)
+            {
+                return;
+            }
+
+            _apiConnectionStatus = status;
+            switch (status)
+            {
+                case ApiConnectionStatus.Connected:
+                    digitalSensorBar1.DataStateDescription = "BAĞLI";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
+                    Log.Information("SAIS API bağlantısı sağlandı.");
+                    break;
+                case ApiConnectionStatus.NotConfigured:
+                    digitalSensorBar1.DataStateDescription = "KURULMADI";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Warning;
+                    Log.Warning("SAIS API ayarları bulunamadı.");
+                    break;
+                default:
+                    digitalSensorBar1.DataStateDescription = "ERİŞİM YOK";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
+                    Log.Warning("SAIS API erişimi sağlanamadı.");
+                    break;
+            }
+        }
+
+        private enum ApiConnectionStatus
+        {
+            Unknown,
+            Connected,
+            NoAccess,
+            NotConfigured
+        }
+
         private static bool IsPlcConfigured()
         {
             try
@@ -94,21 +217,14 @@ namespace WinUI.Pages
         {
             try
             {
-                if (string.IsNullOrEmpty(StationConstants.Ticket) ||
-                    DateTime.Now >= StationConstants.TicketExpiry)
+                var apiStatus = await UpdateSaisConnectionStatusAsync();
+
+                if (apiStatus != ApiConnectionStatus.Connected)
                 {
-                    digitalSensorBar1.DataStateDescription = "GÖNDERMİYOR";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                     digitalSensorBar1.SystemStateDescription = "KOPUK";
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                     StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                     _isConnected = false;
-                    Log.Warning("Ticket yok veya süresi doldu");
-                }
-                else
-                {
-                    digitalSensorBar1.DataStateDescription = "GÖNDERİYOR";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
                 }
 
                 var value = await ReadPlcDataAsync();
@@ -188,9 +304,6 @@ namespace WinUI.Pages
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
                 digitalSensorBar1.SystemStateTitleColor = StateColors.NoAccess;
 
-                digitalSensorBar1.DataStateDescription = "HATA";
-                digitalSensorBar1.DataStateDescriptionColor = StateColors.NoAccess;
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Erişim Yok";
                 _isConnected = false;
                 Log.Error(ex, "API erişim hatası");
             }
@@ -205,8 +318,6 @@ namespace WinUI.Pages
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                 digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
 
-                digitalSensorBar1.DataStateDescription = "HATA";
-                digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 _isConnected = false;
                 Log.Error(ex, "PLC verisi okunamadı");
