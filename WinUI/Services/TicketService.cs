@@ -2,6 +2,8 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.Extensions.Logging;
 using WinUI.Constants;
 using WinUI.Models;
@@ -39,7 +41,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         var loginRequest = new
         {
             username = endpoint.UserName,
-            password = endpoint.Password,
+            password = DoubleMd5(endpoint.Password),
         };
 
         using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest);
@@ -53,6 +55,14 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         StationConstants.Ticket = loginResult.objects.TicketId.ToString()!;
         StationConstants.TicketExpiry = loginResult.objects.ExpireDate;
         return loginResult;
+    }
+
+    private static string DoubleMd5(string password)
+    {
+        using var md5 = MD5.Create();
+        var first = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+        var second = md5.ComputeHash(first);
+        return Convert.ToHexString(second).ToLowerInvariant();
     }
 }
 
