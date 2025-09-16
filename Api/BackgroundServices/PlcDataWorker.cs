@@ -1,4 +1,5 @@
 using System;
+using Api.Constants;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +44,7 @@ public class PlcDataWorker(
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error while reading PLC data");
+                logger.LogError(ex, LogMessages.PlcDataWorker.ReadError);
             }
             await Task.Delay(TimeSpan.FromSeconds(interval), stoppingToken);
         }

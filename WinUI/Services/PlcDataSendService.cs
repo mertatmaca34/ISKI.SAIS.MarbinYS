@@ -57,7 +57,7 @@ public class PlcDataSendService : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "SAIS veri gönderimi sırasında beklenmeyen hata oluştu.");
+                _logger.LogError(ex, LogMessages.PlcDataSendService.UnexpectedError);
             }
 
             try
@@ -76,7 +76,7 @@ public class PlcDataSendService : BackgroundService
         var station = await _stationService.GetFirstAsync();
         if (station == null)
         {
-            _logger.LogWarning("İstasyon bilgisi bulunamadı.");
+            _logger.LogWarning(LogMessages.PlcDataSendService.StationInfoNotFound);
             return;
         }
 
@@ -87,13 +87,13 @@ public class PlcDataSendService : BackgroundService
         }
         catch (InvalidOperationException ex) when (string.Equals(ex.Message, "PLC_NOT_CONFIGURED", StringComparison.OrdinalIgnoreCase))
         {
-            _logger.LogWarning("PLC bilgileri bulunamadı.");
+            _logger.LogWarning(LogMessages.PlcDataSendService.PlcInfoNotFound);
             return;
         }
 
         if (plcData == null)
         {
-            _logger.LogWarning("PLC verisi alınamadı.");
+            _logger.LogWarning(LogMessages.PlcDataSendService.PlcDataUnavailable);
             return;
         }
 
@@ -121,12 +121,12 @@ public class PlcDataSendService : BackgroundService
                 return true;
             }
 
-            _logger.LogWarning("SAIS SendData failed: {Message}", result?.message ?? "Unknown error");
+            _logger.LogWarning(LogMessages.PlcDataSendService.SendDataFailed, result?.message ?? LogMessages.PlcDataSendService.UnknownError);
             return false;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "SAIS SendData isteği tamamlanamadı.");
+            _logger.LogError(ex, LogMessages.PlcDataSendService.SendDataRequestFailed);
             return false;
         }
     }

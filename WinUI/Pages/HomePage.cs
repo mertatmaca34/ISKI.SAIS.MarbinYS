@@ -61,7 +61,7 @@ namespace WinUI.Pages
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
                 _isConnected = false;
-                Log.Warning("PLC yapılandırması eksik: IP adresi tanımlı değil");
+                Log.Warning(LogMessages.HomePage.PlcConfigurationMissing);
             }
         }
 
@@ -103,7 +103,7 @@ namespace WinUI.Pages
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                     StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                     _isConnected = false;
-                    Log.Warning("Ticket yok veya süresi doldu");
+                    Log.Warning(LogMessages.HomePage.TicketMissingOrExpired);
                 }
                 else
                 {
@@ -158,7 +158,7 @@ namespace WinUI.Pages
                     var elapsed = DateTime.Now - _lastConnectedTime.Value;
                     StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
                 }
-                Log.Information("PLC verisi okundu");
+                Log.Information(LogMessages.HomePage.PlcDataRead);
             }
             catch (InvalidOperationException)
             {
@@ -175,7 +175,7 @@ namespace WinUI.Pages
 
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
                 _isConnected = false;
-                Log.Warning("PLC bilgileri henüz kurulmadı");
+                Log.Warning(LogMessages.HomePage.PlcInfoNotYetConfigured);
             }
             catch (HttpRequestException ex)
             {
@@ -192,7 +192,7 @@ namespace WinUI.Pages
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NoAccess;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Erişim Yok";
                 _isConnected = false;
-                Log.Error(ex, "API erişim hatası");
+                Log.Error(ex, LogMessages.HomePage.ApiAccessError);
             }
             catch (Exception ex)
             {
@@ -209,7 +209,7 @@ namespace WinUI.Pages
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 _isConnected = false;
-                Log.Error(ex, "PLC verisi okunamadı");
+                Log.Error(ex, LogMessages.HomePage.PlcDataReadFailed);
             }
         }
     }

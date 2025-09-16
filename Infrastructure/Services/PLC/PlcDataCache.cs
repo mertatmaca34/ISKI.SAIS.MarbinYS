@@ -1,5 +1,6 @@
 using System;
 using Domain.Entities;
+using Infrastructure.Constants;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services.PLC;
@@ -30,14 +31,14 @@ public class PlcDataCache : IPlcDataCache
     {
         if (data == null)
         {
-            _logger.LogWarning("Attempted to cache null PLC data");
+            _logger.LogWarning(LogMessages.PlcDataCache.NullDataAttempt);
             return;
         }
 
         lock (_lock)
         {
             _current = data;
-            _logger.LogInformation("PLC data cache updated at {Time}", DateTime.UtcNow);
+            _logger.LogInformation(LogMessages.PlcDataCache.CacheUpdated, DateTime.UtcNow);
         }
     }
 }

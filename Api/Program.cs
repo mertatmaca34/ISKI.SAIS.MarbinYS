@@ -1,4 +1,5 @@
 ﻿using Api.BackgroundServices;
+using Api.Constants;
 using Application;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -14,7 +15,7 @@ builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration
 builder.Services.AddApplication();
 var conn = builder.Configuration.GetConnectionString("Default") ?? string.Empty;
 if (string.IsNullOrWhiteSpace(conn))
-    Log.Warning("Connection string is empty");
+    Log.Warning(LogMessages.Program.ConnectionStringEmpty);
 builder.Services.AddInfrastructure(conn);
 
 builder.Services.AddControllers();
@@ -31,11 +32,11 @@ using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<IBKSContext>();
         context.Database.EnsureCreated();
-        Log.Information("Database checked");
+        Log.Information(LogMessages.Program.DatabaseChecked);
     }
     catch (Exception ex)
     {
-        Log.Error(ex, "Database initialization failed");
+        Log.Error(ex, LogMessages.Program.DatabaseInitializationFailed);
     }
 }
 
@@ -51,5 +52,5 @@ app.UseGlobalExceptionHandling();
 
 app.MapControllers();
 
-Log.Information("API started");
+Log.Information(LogMessages.Program.ApiStarted);
 app.Run();

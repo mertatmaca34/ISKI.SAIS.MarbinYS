@@ -74,7 +74,7 @@ public class SaisApiService : ISaisApiService
         HttpResponseMessage response = await sendRequest(baseUrl);
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            _logger.LogWarning("SAIS session not found or expired. Refreshing ticket and retrying.");
+            _logger.LogWarning(LogMessages.SaisApiService.SessionNotFoundOrExpired);
             response.Dispose();
             await _ticketService.RefreshTicketAsync();
             baseUrl = await PrepareAsync();
