@@ -36,10 +36,10 @@ namespace WinUI.Pages
 
         private async void MailPage_Load(object? sender, EventArgs e)
         {
-            await LoadUsersAsync();
-
             ConfigureDataGridView(usersDataGridView);
             ConfigureDataGridView(alarmsDataGridView);
+
+            await LoadUsersAsync();
         }
 
         private async Task LoadUsersAsync()
@@ -122,6 +122,32 @@ namespace WinUI.Pages
                     Width = 32
                 };
                 usersDataGridView.Columns.Insert(1, deleteColumn);
+            }
+
+            if (usersDataGridView.Columns["Edit"] is DataGridViewImageColumn edit)
+            {
+                edit.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                edit.Width = 36;
+            }
+
+            if (usersDataGridView.Columns["Delete"] is DataGridViewImageColumn delete)
+            {
+                delete.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                delete.Width = 36;
+            }
+
+            if (usersDataGridView.Columns["UserName"] is DataGridViewColumn userNameColumn)
+            {
+                userNameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                userNameColumn.FillWeight = 45f;
+                userNameColumn.MinimumWidth = 120;
+            }
+
+            if (usersDataGridView.Columns["Email"] is DataGridViewColumn emailColumn)
+            {
+                emailColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                emailColumn.FillWeight = 55f;
+                emailColumn.MinimumWidth = 180;
             }
         }
 
@@ -225,6 +251,34 @@ namespace WinUI.Pages
                     Width = 32
                 };
                 alarmsDataGridView.Columns.Insert(0, editColumn);
+            }
+
+            if (alarmsDataGridView.Columns["Edit"] is DataGridViewImageColumn editColumn)
+            {
+                editColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                editColumn.Width = 36;
+            }
+
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.Name)] is DataGridViewColumn nameColumn)
+            {
+                nameColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                nameColumn.FillWeight = 60f;
+                nameColumn.MinimumWidth = 180;
+            }
+
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.Limit)] is DataGridViewColumn limitColumn)
+            {
+                limitColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                limitColumn.FillWeight = 20f;
+                limitColumn.MinimumWidth = 90;
+                limitColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.IsActive)] is DataGridViewColumn activeColumn)
+            {
+                activeColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                activeColumn.FillWeight = 20f;
+                activeColumn.MinimumWidth = 90;
             }
         }
 
