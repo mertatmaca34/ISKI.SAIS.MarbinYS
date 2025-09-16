@@ -34,6 +34,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         var endpoint = await apiEndpointService.GetFirstAsync();
         if (endpoint == null)
         {
+            logger.LogWarning(LogMessages.SaisApiNotConfigured);
             return null;
         }
 

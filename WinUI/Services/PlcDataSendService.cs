@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Domain.Entities;
 using Domain.Enums;
+using WinUI.Constants;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -39,101 +40,24 @@ public class PlcDataSendService : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             var delay = TimeSpan.FromMinutes(1);
+
             try
             {
                 var endpoint = await _apiEndpointService.GetFirstAsync();
-                var station = await _stationService.GetFirstAsync();
-                if (endpoint != null)
-                {
-                    delay = TimeSpan.FromMinutes(endpoint.DataSendPeriodMinute ?? 1);
-                }
+                delay = ResolveDelay(endpoint);
 
                 if (endpoint == null)
                 {
-                    _logger.LogWarning("Api bilgileri henüz kurulmadı.");
+                    _logger.LogWarning(LogMessages.SaisApiNotConfigured);
                 }
-                else if (station != null)
+                else
                 {
-                    try
-                    {
-                        var plcData = await _plcService.GetLatestAsync();
-                        if (plcData != null)
-                        {
-                            var readTime = DateTime.Now;
-
-                            var status = ResolveStatus(plcData.Digital);
-                            var statusString = ((int)status).ToString();
-
-                            var body = new ApiSendDataDto
-                            {
-                                StationId = station.StationId,
-                                StartTime = readTime,
-                                SoftwareVersion = station.Software,
-                                Regions = string.Empty,
-                                StationStatus = statusString,
-                                AAKM = plcData.Analog.Akm,
-                                BGM = plcData.Analog.AkisHizi,
-                                AAKM_Status = statusString,
-                                BGM_Status = statusString,
-                                CozunmusOksijen = plcData.Analog.CozunmusOksijen,
-                                COJ_Status = statusString,
-                                Koi = plcData.Analog.Koi,
-                                Koi_Status = statusString,
-                                Debi = plcData.Analog.Debi,
-                                Debi_Status = statusString,
-                                Sicaklik = plcData.Analog.Sicaklik
-                            };
-
-                            var result = await _saisApiService.SendDataAsync(body);
-                            bool isSent = result?.result ?? false;
-                            if (!isSent)
-                            {
-                                _logger.LogWarning("SAIS SendData failed: {Message}", result?.message ?? "Unknown error");
-                            }
-
-                            var sendData = new SendData
-                            {
-                                Stationid = station.StationId,
-                                Readtime = readTime,
-                                SoftwareVersion = station.Software,
-                                AkisHizi = plcData.Analog.AkisHizi,
-                                AKM = plcData.Analog.Akm,
-                                CozunmusOksijen = plcData.Analog.CozunmusOksijen,
-                                Debi = plcData.Analog.Debi,
-                                DesarjDebi = plcData.Analog.DesarjDebi,
-                                HariciDebi = plcData.Analog.HariciDebi,
-                                HariciDebi2 = plcData.Analog.HariciDebi2,
-                                KOi = plcData.Analog.Koi,
-                                pH = plcData.Analog.Ph,
-                                Sicaklik = plcData.Analog.Sicaklik,
-                                Iletkenlik = plcData.Analog.Iletkenlik,
-                                Period = 1,
-                                AkisHizi_Status = (int)status,
-                                AKM_Status = (int)status,
-                                CozunmusOksijen_Status = (int)status,
-                                Debi_Status = (int)status,
-                                DesarjDebi_Status = (int)status,
-                                HariciDebi_Status = (int)status,
-                                HariciDebi2_Status = (int)status,
-                                KOi_Status = (int)status,
-                                pH_Status = (int)status,
-                                Sicaklik_Status = (int)status,
-                                Iletkenlik_Status = statusString,
-                                IsSent = isSent
-                            };
-
-                            await _sendDataService.CreateAsync(sendData);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Veri gönderilemedi");
-                    }
+                    await ProcessAndPersistAsync();
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ayarlar okunurken hata oluştu");
+                _logger.LogError(ex, "SAIS veri gönderimi sırasında beklenmeyen hata oluştu.");
             }
 
             try
@@ -145,6 +69,132 @@ public class PlcDataSendService : BackgroundService
                 // ignore cancellation
             }
         }
+    }
+
+    private async Task ProcessAndPersistAsync()
+    {
+        var station = await _stationService.GetFirstAsync();
+        if (station == null)
+        {
+            _logger.LogWarning("İstasyon bilgisi bulunamadı.");
+            return;
+        }
+
+        PlcDataDto plcData;
+        try
+        {
+            plcData = await _plcService.GetLatestAsync();
+        }
+        catch (InvalidOperationException ex) when (string.Equals(ex.Message, "PLC_NOT_CONFIGURED", StringComparison.OrdinalIgnoreCase))
+        {
+            _logger.LogWarning("PLC bilgileri bulunamadı.");
+            return;
+        }
+
+        if (plcData == null)
+        {
+            _logger.LogWarning("PLC verisi alınamadı.");
+            return;
+        }
+
+        var readTime = DateTime.Now;
+        var status = ResolveStatus(plcData.Digital);
+        var statusCode = (int)status;
+        var statusString = statusCode.ToString();
+
+        var payload = CreateApiSendDataDto(station, plcData.Analog, readTime, statusString);
+        var sendData = CreateSendData(station, plcData.Analog, status, statusString, readTime);
+
+        var isSent = await TrySendToSaisAsync(payload);
+        sendData.IsSent = isSent;
+
+        await _sendDataService.CreateAsync(sendData);
+    }
+
+    private async Task<bool> TrySendToSaisAsync(ApiSendDataDto body)
+    {
+        try
+        {
+            var result = await _saisApiService.SendDataAsync(body);
+            if (result?.result == true)
+            {
+                return true;
+            }
+
+            _logger.LogWarning("SAIS SendData failed: {Message}", result?.message ?? "Unknown error");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "SAIS SendData isteği tamamlanamadı.");
+            return false;
+        }
+    }
+
+    private static ApiSendDataDto CreateApiSendDataDto(StationDto station, AnalogSensorDataDto analog, DateTime readTime, string statusString) =>
+        new()
+        {
+            StationId = station.StationId,
+            StartTime = readTime,
+            SoftwareVersion = station.Software,
+            Regions = string.Empty,
+            StationStatus = statusString,
+            AAKM = analog.Akm,
+            BGM = analog.AkisHizi,
+            AAKM_Status = statusString,
+            BGM_Status = statusString,
+            CozunmusOksijen = analog.CozunmusOksijen,
+            COJ_Status = statusString,
+            Koi = analog.Koi,
+            Koi_Status = statusString,
+            Debi = analog.Debi,
+            Debi_Status = statusString,
+            Sicaklik = analog.Sicaklik
+        };
+
+    private static SendData CreateSendData(StationDto station, AnalogSensorDataDto analog, SensorStatusCode status, string statusString, DateTime readTime)
+    {
+        var statusCode = (int)status;
+        return new SendData
+        {
+            Stationid = station.StationId,
+            Readtime = readTime,
+            SoftwareVersion = station.Software,
+            AkisHizi = analog.AkisHizi,
+            AKM = analog.Akm,
+            CozunmusOksijen = analog.CozunmusOksijen,
+            Debi = analog.Debi,
+            DesarjDebi = analog.DesarjDebi,
+            HariciDebi = analog.HariciDebi,
+            HariciDebi2 = analog.HariciDebi2,
+            KOi = analog.Koi,
+            pH = analog.Ph,
+            Sicaklik = analog.Sicaklik,
+            Iletkenlik = analog.Iletkenlik,
+            Period = 1,
+            AkisHizi_Status = statusCode,
+            AKM_Status = statusCode,
+            CozunmusOksijen_Status = statusCode,
+            Debi_Status = statusCode,
+            DesarjDebi_Status = statusCode,
+            HariciDebi_Status = statusCode,
+            HariciDebi2_Status = statusCode,
+            KOi_Status = statusCode,
+            pH_Status = statusCode,
+            Sicaklik_Status = statusCode,
+            Iletkenlik_Status = statusString
+        };
+    }
+
+    private static TimeSpan ResolveDelay(ApiEndpointDto? endpoint)
+    {
+        var period = endpoint?.DataSendPeriodMinute;
+        if (!period.HasValue || period.Value <= 0)
+        {
+            return TimeSpan.FromMinutes(1);
+        }
+
+        return TimeSpan.FromMinutes(period.Value);
     }
 
     private static SensorStatusCode ResolveStatus(WinUI.Models.DigitalSensorDataDto digital)
