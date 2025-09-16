@@ -27,18 +27,33 @@ namespace WinUI
             splashThread.SetApartmentState(ApartmentState.STA);
             splashThread.Start();
 
-            var host = CreateHostBuilder(args).Build();
-            Log.Information(LogMessages.Program.ApplicationStarted);
-            Services = host.Services;
-            using var scope = Services.CreateScope();
-            var services = scope.ServiceProvider;
+            using var host = CreateHostBuilder(args).Build();
+            var hostStarted = false;
 
-            var mainForm = services.GetRequiredService<MainForm>();
+            try
+            {
+                host.StartAsync().GetAwaiter().GetResult();
+                hostStarted = true;
 
-            splash.Invoke(() => splash.Close());
-            splashThread.Join();
+                Log.Information(LogMessages.Program.ApplicationStarted);
+                Services = host.Services;
+                using var scope = Services.CreateScope();
+                var services = scope.ServiceProvider;
 
-            Application.Run(mainForm);
+                var mainForm = services.GetRequiredService<MainForm>();
+
+                splash.Invoke(() => splash.Close());
+                splashThread.Join();
+
+                Application.Run(mainForm);
+            }
+            finally
+            {
+                if (hostStarted)
+                {
+                    host.StopAsync().GetAwaiter().GetResult();
+                }
+            }
         }
 
         static IHostBuilder CreateHostBuilder(string[] args)
