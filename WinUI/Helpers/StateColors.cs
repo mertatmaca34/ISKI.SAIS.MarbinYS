@@ -18,6 +18,11 @@ public static class StateColors
     public static readonly Color Ok = Color.FromArgb(19, 162, 97);
 
     /// <summary>
+    /// Color used when a configuration is missing or attention is required.
+    /// </summary>
+    public static readonly Color Warning = Color.FromArgb(204, 153, 0);
+
+    /// <summary>
     /// Color used when an error occurs while retrieving PLC data.
     /// </summary>
     public static readonly Color Error = Color.FromArgb(235, 85, 101);
