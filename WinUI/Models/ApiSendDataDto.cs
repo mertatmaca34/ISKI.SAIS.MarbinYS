@@ -4,6 +4,7 @@ namespace WinUI.Models;
 
 public class ApiSendDataDto
 {
+    public int Id { get; set; }
     public Guid Stationid { get; set; }
     public DateTime Readtime { get; set; }
     public string SoftwareVersion { get; set; } = string.Empty;
@@ -30,4 +31,5 @@ public class ApiSendDataDto
     public int pH_Status { get; set; }
     public int Sicaklik_Status { get; set; }
     public string Iletkenlik_Status { get; set; } = string.Empty;
+    public bool? IsSent { get; set; }
 }

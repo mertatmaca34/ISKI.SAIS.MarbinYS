@@ -20,7 +20,7 @@ public interface ISaisApiService
     Task<ResultStatus?> UpdateChannelInformationAsync(UpdateChannelInformationRequest request);
     Task<ResultStatus<List<ParameterDto>>?> GetParametersAsync();
     Task<ResultStatus<List<UnitDto>>?> GetUnitsAsync();
-    Task<ResultStatus?> SendDataAsync(ApiSendDataDto body);
+    Task<ResultStatus<SendDataResult>> SendDataAsync(ApiSendDataDto body);
     Task<ResultStatus<ApiDataResultDto>?> GetLastDataAsync(Guid stationId, int period);
     Task<ResultStatus<MissingDatesDto>?> GetMissingDatesAsync(Guid stationId);
     Task<ResultStatus<List<ApiDataResultDto>>?> GetDataByBetweenTwoDateAsync(Guid stationId, int period, DateTime startDate, DateTime endDate);
@@ -120,8 +120,8 @@ public class SaisApiService : ISaisApiService
         SendAsync<ResultStatus<List<UnitDto>>>(baseUrl =>
             _httpClient.PostAsync($"{baseUrl}/SAIS/GetUnits", null));
 
-    public Task<ResultStatus?> SendDataAsync(ApiSendDataDto body) =>
-        SendAsync<ResultStatus>(baseUrl =>
+    public Task<ResultStatus<SendDataResult>> SendDataAsync(ApiSendDataDto body) =>
+        SendAsync<ResultStatus<SendDataResult>>(baseUrl =>
             _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendData", body));
 
     public Task<ResultStatus<ApiDataResultDto>?> GetLastDataAsync(Guid stationId, int period) =>
