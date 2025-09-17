@@ -21,6 +21,12 @@ public class ChannelNameProvider : IChannelNameProvider
             .Where(p => p.PropertyType == typeof(bool) || p.PropertyType == typeof(bool?))
             .Select(p => p.Name);
 
-        return analogChannels.Concat(digitalChannels);
+        var sendDataChannels = typeof(SendData).GetProperties()
+            .Where(p => p.PropertyType == typeof(bool))
+            .Select(p => p.Name);
+
+        return analogChannels
+            .Concat(digitalChannels)
+            .Concat(sendDataChannels);
     }
 }
