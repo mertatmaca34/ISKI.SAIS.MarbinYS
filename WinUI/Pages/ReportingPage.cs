@@ -200,85 +200,33 @@ namespace WinUI.Pages
 
         private void ConfigureLogColumns()
         {
-            DataGridViewDatas.AutoGenerateColumns = false;
-            DataGridViewDatas.Columns.Clear();
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            ConfigureColumns(new[]
             {
-                DataPropertyName = nameof(LogDto.LoggedAt),
-                HeaderText = "Log Tarihi"
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(LogDto.Level),
-                HeaderText = "Level"
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(LogDto.Message),
-                HeaderText = "Mesaj"
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(LogDto.Exception),
-                HeaderText = "Exception"
+                new ColumnConfiguration(nameof(LogDto.LoggedAt), "Log Tarihi", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(LogDto.Level), "Level", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(LogDto.Message), "Mesaj", DataGridViewAutoSizeColumnMode.Fill)
+                {
+                    FillWeight = 60f
+                },
+                new ColumnConfiguration(nameof(LogDto.Exception), "Exception", DataGridViewAutoSizeColumnMode.Fill)
+                {
+                    FillWeight = 40f
+                }
             });
         }
 
         private void ConfigureMeasurementColumns()
         {
-            DataGridViewDatas.AutoGenerateColumns = false;
-            DataGridViewDatas.Columns.Clear();
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            ConfigureColumns(new[]
             {
-                DataPropertyName = nameof(ApiDataResultDto.ReadTime),
-                HeaderText = "Tarih",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.AKM),
-                HeaderText = "AKM",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.Debi),
-                HeaderText = "Debi",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.KOi),
-                HeaderText = "KOi",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.pH),
-                HeaderText = "pH",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.CozunmusOksijen),
-                HeaderText = "Çözünmüş Oksijen",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.AkisHizi),
-                HeaderText = "Akış Hızı",
-            });
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = nameof(ApiDataResultDto.Sicaklik),
-                HeaderText = "Sıcaklık",
+                new ColumnConfiguration(nameof(ApiDataResultDto.ReadTime), "Tarih", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.AKM), "AKM", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.Debi), "Debi", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.KOi), "KOi", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.pH), "pH", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.CozunmusOksijen), "Çözünmüş Oksijen", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.AkisHizi), "Akış Hızı", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(ApiDataResultDto.Sicaklik), "Sıcaklık", DataGridViewAutoSizeColumnMode.AllCells)
             });
         }
 
@@ -347,14 +295,12 @@ namespace WinUI.Pages
 
         private void ConfigureMissingDateColumns()
         {
-            DataGridViewDatas.AutoGenerateColumns = false;
-            DataGridViewDatas.Columns.Clear();
-
-            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            ConfigureColumns(new[]
             {
-                DataPropertyName = nameof(MissingDateRow.MissingDate),
-                HeaderText = "Eksik Veri Zamanı",
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "g" }
+                new ColumnConfiguration(nameof(MissingDateRow.MissingDate), "Eksik Veri Zamanı", DataGridViewAutoSizeColumnMode.Fill)
+                {
+                    Format = "g"
+                }
             });
         }
 
@@ -366,6 +312,54 @@ namespace WinUI.Pages
             }
 
             public DateTime MissingDate { get; }
+        }
+
+        private void ConfigureColumns(IEnumerable<ColumnConfiguration> configurations)
+        {
+            DataGridViewDatas.AutoGenerateColumns = false;
+            DataGridViewDatas.Columns.Clear();
+            DataGridViewDatas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            foreach (var configuration in configurations)
+            {
+                var column = new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = configuration.DataPropertyName,
+                    HeaderText = configuration.HeaderText,
+                    AutoSizeMode = configuration.AutoSizeMode
+                };
+
+                if (!string.IsNullOrWhiteSpace(configuration.Format))
+                {
+                    column.DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Format = configuration.Format
+                    };
+                }
+
+                if (configuration.FillWeight.HasValue)
+                {
+                    column.FillWeight = configuration.FillWeight.Value;
+                }
+
+                DataGridViewDatas.Columns.Add(column);
+            }
+        }
+
+        private sealed class ColumnConfiguration
+        {
+            public ColumnConfiguration(string dataPropertyName, string headerText, DataGridViewAutoSizeColumnMode autoSizeMode)
+            {
+                DataPropertyName = dataPropertyName;
+                HeaderText = headerText;
+                AutoSizeMode = autoSizeMode;
+            }
+
+            public string DataPropertyName { get; }
+            public string HeaderText { get; }
+            public DataGridViewAutoSizeColumnMode AutoSizeMode { get; }
+            public float? FillWeight { get; init; }
+            public string? Format { get; init; }
         }
     }
 }
