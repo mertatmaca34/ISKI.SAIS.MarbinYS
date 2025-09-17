@@ -48,236 +48,209 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
             new MailAlarm
             {
                 Id = 1,
-                Name = "AKM Limit Aşımı",
-                Channel = "Akm",
-                Limit = 90,
-                MailSubject = "AKM Limit Aşıldı",
-                MailBody = "AKM limit aşıldı. Değer: {value}"
+                Name = "Kabin Dumanı",
+                Channel = "KabinDuman",
+                Limit = 0,
+                MailSubject = "Kabin Dumanı Algılandı",
+                MailBody = "Kabin içerisinde duman algılandı. Lütfen kontrol ediniz."
             },
             new MailAlarm
             {
                 Id = 2,
-                Name = "KOİ Limit Aşımı",
-                Channel = "Koi",
-                Limit = 0,
-                MailSubject = "KOİ Limit Aşıldı",
-                MailBody = "KOİ limit aşıldı. Değer: {value}"
-            },
-            new MailAlarm
-            {
-                Id = 3,
-                Name = "Çözünmüş Oksijen Aralık Dışı",
-                Channel = "CozunmusOksijen",
-                Limit = 0,
-                MailSubject = "Çözünmüş Oksijen Aralık Dışı",
-                MailBody = "Çözünmüş oksijen aralık dışı. Değer: {value}"
-            },
-            new MailAlarm
-            {
-                Id = 4,
-                Name = "İletkenlik Limit Aşımı",
-                Channel = "Iletkenlik",
-                Limit = 0,
-                MailSubject = "İletkenlik Limit Aşıldı",
-                MailBody = "İletkenlikte limit aşıldı. Değer: {value}"
-            },
-            new MailAlarm
-            {
-                Id = 5,
-                Name = "Kabin Dumanı",
-                Channel = "KabinDuman",
-                Limit = 0,
-                MailSubject = "Kabin Dumanı Tetiklendi",
-                MailBody = "Kabin dumanı tetiklendi."
-            },
-            new MailAlarm
-            {
-                Id = 6,
                 Name = "Kabin Su Baskını",
                 Channel = "KabinSuBaskini",
                 Limit = 0,
                 MailSubject = "Kabin Su Baskını Algılandı",
-                MailBody = "Kabin su baskını algılandı."
+                MailBody = "Kabin içerisinde su baskını algılandı. Lütfen kontrol ediniz."
             },
             new MailAlarm
             {
-                Id = 7,
+                Id = 3,
                 Name = "Kabin Acil Stop",
                 Channel = "KabinAcilStopBasili",
                 Limit = 0,
                 MailSubject = "Kabin Acil Stop Basıldı",
-                MailBody = "Kabin acil stop basıldı."
+                MailBody = "Kabin acil stop butonuna basıldı."
             },
             new MailAlarm
             {
-                Id = 8,
+                Id = 4,
                 Name = "Pompa 1 Termik",
                 Channel = "Pompa1Termik",
                 Limit = 0,
-                MailSubject = "Pompa 1 Termik Attı",
-                MailBody = "Pompa 1 termik attı."
+                MailSubject = "Pompa 1 Termik Koruması Aktif",
+                MailBody = "Pompa 1 için termik koruması devreye girdi."
             },
             new MailAlarm
             {
-                Id = 9,
+                Id = 5,
                 Name = "Pompa 2 Termik",
                 Channel = "Pompa2Termik",
                 Limit = 0,
-                MailSubject = "Pompa 2 Termik Attı",
-                MailBody = "Pompa 2 termik attı."
+                MailSubject = "Pompa 2 Termik Koruması Aktif",
+                MailBody = "Pompa 2 için termik koruması devreye girdi."
             },
             new MailAlarm
             {
-                Id = 10,
+                Id = 6,
                 Name = "Pompa 3 Termik",
                 Channel = "Pompa3Termik",
                 Limit = 0,
-                MailSubject = "Pompa 3 Termik Attı",
-                MailBody = "Pompa 3 termik attı."
+                MailSubject = "Pompa 3 Termik Koruması Aktif",
+                MailBody = "Pompa 3 için termik koruması devreye girdi."
             },
             new MailAlarm
             {
-                Id = 11,
+                Id = 7,
                 Name = "Kabin Enerji Yok",
                 Channel = "KabinEnerjiYok",
                 Limit = 0,
                 MailSubject = "Kabin Enerjisi Kesildi",
-                MailBody = "Kabin enerjisi kesildi."
+                MailBody = "Kabin enerji girişi kesildi."
+            },
+            new MailAlarm
+            {
+                Id = 8,
+                Name = "Tank Boş",
+                Channel = "TankDolu",
+                Limit = 0,
+                MailSubject = "Tank Boş Uyarısı",
+                MailBody = "Tank seviyesi minimuma indi."
+            },
+            new MailAlarm
+            {
+                Id = 9,
+                Name = "AKM Tetik",
+                Channel = "AkmTetik",
+                Limit = 0,
+                MailSubject = "AKM Numune Tetiklendi",
+                MailBody = "AKM parametresi limiti aştı, numune alma işlemi tetiklendi."
+            },
+            new MailAlarm
+            {
+                Id = 10,
+                Name = "KOİ Tetik",
+                Channel = "KoiTetik",
+                Limit = 0,
+                MailSubject = "KOİ Numune Tetiklendi",
+                MailBody = "KOİ parametresi limiti aştı, numune alma işlemi tetiklendi."
+            },
+            new MailAlarm
+            {
+                Id = 11,
+                Name = "pH Tetik",
+                Channel = "PhTetik",
+                Limit = 0,
+                MailSubject = "pH Numune Tetiklendi",
+                MailBody = "pH parametresi limiti aştı, numune alma işlemi tetiklendi."
             },
             new MailAlarm
             {
                 Id = 12,
-                Name = "Tank Dolu",
-                Channel = "TankDolu",
+                Name = "Manuel Tetik",
+                Channel = "ManuelTetik",
                 Limit = 0,
-                MailSubject = "Tank Doldu",
-                MailBody = "Tank doldu."
+                MailSubject = "Manuel Numune Tetiklendi",
+                MailBody = "Manuel olarak numune tetiklemesi yapıldı."
             },
             new MailAlarm
             {
                 Id = 13,
-                Name = "Pompa 1 Çalışıyor",
-                Channel = "Pompa1Calisiyor",
+                Name = "Sim Numune Tetik",
+                Channel = "SimNumuneTetik",
                 Limit = 0,
-                MailSubject = "Pompa 1 Çalışıyor",
-                MailBody = "Pompa 1 çalışıyor."
+                MailSubject = "Sim Numune Tetiklendi",
+                MailBody = "Sim tarafından numune tetiklemesi yapıldı."
             },
             new MailAlarm
             {
                 Id = 14,
-                Name = "Pompa 2 Çalışıyor",
-                Channel = "Pompa2Calisiyor",
+                Name = "AKM Limit Aşımı",
+                Channel = "AkmMail",
                 Limit = 0,
-                MailSubject = "Pompa 2 Çalışıyor",
-                MailBody = "Pompa 2 çalışıyor."
+                MailSubject = "AKM Limiti Aşıldı",
+                MailBody = "AKM parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi."
             },
             new MailAlarm
             {
                 Id = 15,
-                Name = "Pompa 3 Çalışıyor",
-                Channel = "Pompa3Calisiyor",
+                Name = "KOİ Limit Aşımı",
+                Channel = "KoiMail",
                 Limit = 0,
-                MailSubject = "Pompa 3 Çalışıyor",
-                MailBody = "Pompa 3 çalışıyor."
+                MailSubject = "KOİ Limiti Aşıldı",
+                MailBody = "KOİ parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi."
             },
             new MailAlarm
             {
                 Id = 16,
-                Name = "Kabin Kapı Açıldı",
-                Channel = "KabinKapiAcildi",
+                Name = "pH Limit Aşımı",
+                Channel = "PhMail",
                 Limit = 0,
-                MailSubject = "Kabin Kapısı Açıldı",
-                MailBody = "Kabin kapısı açıldı."
+                MailSubject = "pH Limiti Aşıldı",
+                MailBody = "pH parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi."
             },
             new MailAlarm
             {
                 Id = 17,
-                Name = "Kabin Otomatik Mod",
-                Channel = "KabinOto",
+                Name = "Saatlik Yıkama Geçersiz",
+                Channel = "SaatlikYikamaGecersiz",
                 Limit = 0,
-                MailSubject = "Kabin Otomatik Moda Geçti",
-                MailBody = "Kabin otomatik moda geçti."
+                MailSubject = "Saatlik Yıkama Geçersiz",
+                MailBody = "Saatlik yıkama işlemi geçersiz olarak değerlendirildi."
             },
             new MailAlarm
             {
                 Id = 18,
-                Name = "Kabin Bakım Modu",
-                Channel = "KabinBakim",
+                Name = "Haftalık Yıkama Geçersiz",
+                Channel = "HaftalikYikamaGecersiz",
                 Limit = 0,
-                MailSubject = "Kabin Bakım Moduna Geçti",
-                MailBody = "Kabin bakım moduna geçti."
+                MailSubject = "Haftalık Yıkama Geçersiz",
+                MailBody = "Haftalık yıkama işlemi geçersiz olarak değerlendirildi."
             },
             new MailAlarm
             {
                 Id = 19,
-                Name = "Kabin Kalibrasyon",
-                Channel = "KabinKalibrasyon",
+                Name = "Kalibrasyon Geçersiz",
+                Channel = "KalibrasyonGecersiz",
                 Limit = 0,
-                MailSubject = "Kabin Kalibrasyonda",
-                MailBody = "Kabin kalibrasyon modunda."
+                MailSubject = "Kalibrasyon Geçersiz",
+                MailBody = "Kalibrasyon işlemi geçersiz olarak değerlendirildi."
             },
             new MailAlarm
             {
                 Id = 20,
-                Name = "Kabin Haftalık Yıkamada",
-                Channel = "KabinHaftalikYikamada",
+                Name = "Akış Hızı Geçersiz",
+                Channel = "AkisHiziGecersiz",
                 Limit = 0,
-                MailSubject = "Kabin Haftalık Yıkamada",
-                MailBody = "Kabin haftalık yıkamada."
+                MailSubject = "Akış Hızı Geçersiz",
+                MailBody = "Akış hızı değeri geçersiz olarak değerlendirildi."
             },
             new MailAlarm
             {
                 Id = 21,
-                Name = "Kabin Saatlik Yıkamada",
-                Channel = "KabinSaatlikYikamada",
+                Name = "Geçersiz Debi",
+                Channel = "GecersizDebi",
                 Limit = 0,
-                MailSubject = "Kabin Saatlik Yıkamada",
-                MailBody = "Kabin saatlik yıkamada."
+                MailSubject = "Geçersiz Debi",
+                MailBody = "Debi ölçümü geçersiz olarak değerlendirildi."
             },
             new MailAlarm
             {
                 Id = 22,
-                Name = "AKM Tetik",
-                Channel = "AkmTetik",
+                Name = "Tekrar Veri Geçersiz",
+                Channel = "TekrarVeriGecersiz",
                 Limit = 0,
-                MailSubject = "AKM Tetiklendi",
-                MailBody = "AKM tetiklendi."
+                MailSubject = "Tekrar Veri Geçersiz",
+                MailBody = "Tekrar edilen veri geçersiz olarak değerlendirildi."
             },
             new MailAlarm
             {
                 Id = 23,
-                Name = "KOİ Tetik",
-                Channel = "KoiTetik",
+                Name = "Geçersiz Ölçüm Birimi",
+                Channel = "GecersizOlcumBirimi",
                 Limit = 0,
-                MailSubject = "KOİ Tetiklendi",
-                MailBody = "KOİ tetiklendi."
-            },
-            new MailAlarm
-            {
-                Id = 24,
-                Name = "pH Tetik",
-                Channel = "PhTetik",
-                Limit = 0,
-                MailSubject = "pH Tetiklendi",
-                MailBody = "pH tetiklendi."
-            },
-            new MailAlarm
-            {
-                Id = 25,
-                Name = "Manuel Tetik",
-                Channel = "ManuelTetik",
-                Limit = 0,
-                MailSubject = "Manuel Tetiklendi",
-                MailBody = "Manuel tetikleme yapıldı."
-            },
-            new MailAlarm
-            {
-                Id = 26,
-                Name = "Simülasyon Numune Tetik",
-                Channel = "SimNumuneTetik",
-                Limit = 0,
-                MailSubject = "Simülasyon Numune Tetiklendi",
-                MailBody = "Simülasyon numune tetiklendi."
+                MailSubject = "Geçersiz Ölçüm Birimi",
+                MailBody = "Ölçüm birimi geçersiz olarak değerlendirildi."
             }
         );
     }

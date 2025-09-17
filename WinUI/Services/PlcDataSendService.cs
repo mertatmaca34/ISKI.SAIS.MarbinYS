@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -105,30 +107,92 @@ public class PlcDataSendService : BackgroundService
         var payload = CreateApiSendDataDto(station, plcData.Analog, readTime, statusCode);
         var sendData = CreateSendData(station, plcData.Analog, status, statusString, readTime);
 
-        var isSent = await TrySendToSaisAsync(payload);
-        sendData.IsSent = isSent;
+        var sendResult = await TrySendToSaisAsync(payload);
+        sendData.IsSent = sendResult.IsSuccessful;
+        ApplyInvalidStatusCodes(sendData, sendResult.InvalidCodes);
 
         await _sendDataService.CreateAsync(sendData);
     }
 
-    private async Task<bool> TrySendToSaisAsync(ApiSendDataDto body)
+    private async Task<SaisSendResult> TrySendToSaisAsync(ApiSendDataDto body)
     {
         try
         {
             var result = await _saisApiService.SendDataAsync(body);
+            var invalidCodes = ExtractInvalidStatusCodes(result?.objects);
+
+            if (invalidCodes.Count > 0)
+            {
+                var codes = string.Join(", ", invalidCodes.Select(code => ((int)code).ToString()));
+                _logger.LogWarning("SAIS invalid status codes received: {Codes}", codes);
+            }
+
             if (result?.result == true)
             {
-                return true;
+                return new SaisSendResult(true, invalidCodes);
             }
 
             _logger.LogWarning(LogMessages.PlcDataSendService.SendDataFailed, result?.message ?? LogMessages.PlcDataSendService.UnknownError);
-            return false;
+            return new SaisSendResult(false, invalidCodes);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, LogMessages.PlcDataSendService.SendDataRequestFailed);
-            return false;
+            return new SaisSendResult(false, new HashSet<InvalidSensorStatusCode>());
         }
+    }
+
+    private static void ApplyInvalidStatusCodes(SendData sendData, IReadOnlyCollection<InvalidSensorStatusCode> invalidCodes)
+    {
+        bool Contains(InvalidSensorStatusCode code) => invalidCodes.Contains(code);
+
+        sendData.SaatlikYikamaGecersiz = Contains(InvalidSensorStatusCode.GecersizYikama);
+        sendData.HaftalikYikamaGecersiz = Contains(InvalidSensorStatusCode.GecersizHaftalikYikama);
+        sendData.KalibrasyonGecersiz = Contains(InvalidSensorStatusCode.GecersizKalibrasyon);
+        sendData.AkisHiziGecersiz = Contains(InvalidSensorStatusCode.GecersizAkisHizi);
+        sendData.GecersizDebi = Contains(InvalidSensorStatusCode.GecersizDebi);
+        sendData.TekrarVeriGecersiz = Contains(InvalidSensorStatusCode.TekrarVeri);
+        sendData.GecersizOlcumBirimi = Contains(InvalidSensorStatusCode.GecersizOlcumBirimi);
+    }
+
+    private static HashSet<InvalidSensorStatusCode> ExtractInvalidStatusCodes(SendDataResult? result)
+    {
+        var codes = new HashSet<InvalidSensorStatusCode>();
+        if (result is null)
+            return codes;
+
+        foreach (var property in typeof(SendDataResult).GetProperties())
+        {
+            if (!property.Name.EndsWith("_N", StringComparison.Ordinal))
+                continue;
+
+            var value = property.GetValue(result);
+            if (value is null)
+                continue;
+
+            if (!double.TryParse(value.ToString(), out var numericValue))
+                continue;
+
+            var intValue = (int)Math.Round(numericValue, MidpointRounding.AwayFromZero);
+            if (!Enum.IsDefined(typeof(InvalidSensorStatusCode), intValue))
+                continue;
+
+            codes.Add((InvalidSensorStatusCode)intValue);
+        }
+
+        return codes;
+    }
+
+    private sealed class SaisSendResult
+    {
+        public SaisSendResult(bool isSuccessful, HashSet<InvalidSensorStatusCode> invalidCodes)
+        {
+            IsSuccessful = isSuccessful;
+            InvalidCodes = invalidCodes;
+        }
+
+        public bool IsSuccessful { get; }
+        public HashSet<InvalidSensorStatusCode> InvalidCodes { get; }
     }
 
     private static ApiSendDataDto CreateApiSendDataDto(StationDto station, AnalogSensorDataDto analog, DateTime readTime, int statusCode)

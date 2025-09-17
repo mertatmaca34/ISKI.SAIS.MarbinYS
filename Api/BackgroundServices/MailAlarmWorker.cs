@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using Api.Helpers;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -52,6 +53,12 @@ public class MailAlarmWorker(
                 var latestDigital = await context.DigitalSensorData
                     .OrderByDescending(x => x.ReadTime)
                     .FirstOrDefaultAsync(stoppingToken);
+                var latestSendData = await context.SendData
+                    .OrderByDescending(x => x.Readtime)
+                    .FirstOrDefaultAsync(stoppingToken);
+                var station = await context.Stations
+                    .OrderBy(x => x.Id)
+                    .FirstOrDefaultAsync(stoppingToken);
 
                 var query = from ua in context.UserMailAlarms
                             where ua.IsActive
@@ -65,11 +72,14 @@ public class MailAlarmWorker(
                     bool triggered = false;
                     double? analogVal = GetAnalogValue(item.Alarm.Channel, latestAnalog);
                     bool? digitalVal = GetDigitalValue(item.Alarm.Channel, latestDigital);
+                    bool? invalidStatusVal = GetInvalidStatusValue(item.Alarm.Channel, latestSendData);
 
                     if (analogVal.HasValue)
                         triggered = analogVal.Value > item.Alarm.Limit;
                     else if (digitalVal.HasValue)
                         triggered = digitalVal.Value;
+                    else if (invalidStatusVal.HasValue)
+                        triggered = invalidStatusVal.Value;
                     else
                         continue;
 
@@ -83,8 +93,25 @@ public class MailAlarmWorker(
                         continue;
 
                     var subject = item.Alarm.MailSubject;
-                    var bodyValue = analogVal?.ToString("F2") ?? (digitalVal?.ToString() ?? string.Empty);
-                    var body = item.Alarm.MailBody.Replace("{value}", bodyValue);
+                    var measurementValue = analogVal?.ToString("F2")
+                        ?? (digitalVal.HasValue
+                            ? (digitalVal.Value ? "Aktif" : "Pasif")
+                            : (invalidStatusVal.HasValue ? (invalidStatusVal.Value ? "Aktif" : "Pasif") : string.Empty));
+                    var limitValue = analogVal.HasValue ? item.Alarm.Limit.ToString("F2") : "-";
+                    var body = MailTemplateBuilder.Build(
+                        alarmName: item.Alarm.Name,
+                        severity: invalidStatusVal.HasValue ? "Hata" : "Alarm",
+                        stationName: station?.Name ?? "-",
+                        timestamp: DateTime.UtcNow,
+                        parameterName: item.Alarm.Name,
+                        measuredValue: measurementValue,
+                        unit: string.Empty,
+                        limit: limitValue,
+                        description: item.Alarm.MailBody,
+                        sampleTaken: "-",
+                        sampleId: "-",
+                        nextSampleAt: "-",
+                        alarmId: item.Alarm.Id.ToString());
 
                     using var client = new SmtpClient(mailSetting.SmtpHost, mailSetting.SmtpPort)
                     {
@@ -106,7 +133,7 @@ public class MailAlarmWorker(
                         LogMessages.MailAlarmWorker.AlarmTriggered,
                         item.Alarm.Name,
                         item.Email,
-                        bodyValue);
+                        measurementValue);
                     _lastSentTimes[key] = DateTime.UtcNow;
                 }
             }
@@ -136,6 +163,18 @@ public class MailAlarmWorker(
         var prop = typeof(Domain.Entities.DigitalSensorData).GetProperty(channel);
         if (prop is null || prop.PropertyType != typeof(bool))
             return null;
+        return (bool)prop.GetValue(data)!;
+    }
+
+    private static bool? GetInvalidStatusValue(string channel, Domain.Entities.SendData? data)
+    {
+        if (data is null)
+            return null;
+
+        var prop = typeof(Domain.Entities.SendData).GetProperty(channel);
+        if (prop is null || prop.PropertyType != typeof(bool))
+            return null;
+
         return (bool)prop.GetValue(data)!;
     }
 }
