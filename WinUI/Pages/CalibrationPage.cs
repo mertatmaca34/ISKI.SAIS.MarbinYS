@@ -23,6 +23,8 @@ namespace WinUI.Pages
         private Timer? _timer;
         private int _elapsed;
         private bool _isZero;
+        private bool _zeroCompleted;
+        private bool _spanCompleted;
         private string _activeParameter = string.Empty;
 
         public CalibrationPage()
@@ -58,6 +60,30 @@ namespace WinUI.Pages
         {
             if (limit == null)
                 return;
+
+            double zeroRef = limit.ZeroRef;
+            double spanRef = limit.SpanRef;
+
+            bool isSameParameter = _currentRequest != null &&
+                                   _currentRequest.DBColumnName.Equals(parameter, StringComparison.OrdinalIgnoreCase);
+            if (!isSameParameter)
+            {
+                _currentRequest = null;
+                _zeroCompleted = false;
+                _spanCompleted = false;
+            }
+
+            if (spanRef < zeroRef && zero && !_spanCompleted)
+            {
+                MessageBox.Show("Span değeri daha düşük. Lütfen önce span kalibrasyonunu yapın.", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (zeroRef < spanRef && !zero && !_zeroCompleted)
+            {
+                MessageBox.Show("Zero değeri daha düşük. Lütfen önce zero kalibrasyonunu yapın.", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             _activeParameter = parameter;
             _isZero = zero;
@@ -197,9 +223,21 @@ namespace WinUI.Pages
             {
                 _timer!.Stop();
                 if (_isZero)
-                    StartCalibration(_activeParameter, false, limit);
+                {
+                    _zeroCompleted = true;
+                    if (!_spanCompleted)
+                        StartCalibration(_activeParameter, false, limit);
+                    else
+                        FinishCalibration();
+                }
                 else
-                    FinishCalibration();
+                {
+                    _spanCompleted = true;
+                    if (!_zeroCompleted)
+                        StartCalibration(_activeParameter, true, limit);
+                    else
+                        FinishCalibration();
+                }
             }
         }
 
@@ -234,6 +272,9 @@ namespace WinUI.Pages
                 _currentRequest.ResultZero && _currentRequest.ResultSpan));
 
             _currentRequest = null;
+            _zeroCompleted = false;
+            _spanCompleted = false;
+            _activeParameter = string.Empty;
         }
     }
 }

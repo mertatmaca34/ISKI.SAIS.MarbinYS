@@ -123,7 +123,7 @@ namespace WinUI.Pages.Settings
             {
                 ConnectedServerTextBox.Text = info.Server;
                 DatabaseNameTextBox.Text = info.DatabaseName ?? string.Empty;
-                StorageUsageTextBox.Text = info.StorageUsageMb.HasValue ? $"{info.StorageUsageMb} MB" : string.Empty;
+                StorageUsageTextBox.Text = FormatStorage(info.StorageUsedMb, info.StorageAllocatedMb);
             }
             else
             {
@@ -131,6 +131,36 @@ namespace WinUI.Pages.Settings
                 DatabaseNameTextBox.Text = string.Empty;
                 StorageUsageTextBox.Text = string.Empty;
             }
+        }
+
+        private static string FormatStorage(long? usedMb, long? allocatedMb)
+        {
+            if (!usedMb.HasValue && !allocatedMb.HasValue)
+                return string.Empty;
+
+            string used = usedMb.HasValue ? FormatSize(usedMb.Value) : "-";
+            string allocated = allocatedMb.HasValue ? FormatSize(allocatedMb.Value) : "Sınırsız";
+            return $"{used} / {allocated}";
+        }
+
+        private static string FormatSize(long valueMb)
+        {
+            double size = valueMb;
+            string suffix = "MB";
+
+            if (size >= 1024)
+            {
+                size /= 1024;
+                suffix = "GB";
+            }
+
+            if (size >= 1024)
+            {
+                size /= 1024;
+                suffix = "TB";
+            }
+
+            return $"{size:0.##} {suffix}";
         }
 
         private void AuthMethodComboBox_SelectedIndexChanged(object? sender, EventArgs e)

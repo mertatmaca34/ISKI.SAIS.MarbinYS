@@ -1,6 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using WinUI.Models;
 using WinUI.Services;
-using System.Drawing;
 
 namespace WinUI.Pages
 {
@@ -9,22 +14,32 @@ namespace WinUI.Pages
         private readonly ILogService _logService;
         private readonly IReportExportService _exportService;
         private readonly IMeasurementReportService _measurementService;
+        private readonly ISaisApiService _saisApiService;
+        private readonly IStationService _stationService;
         private List<LogDto> _currentLogs = new();
         private List<ApiDataResultDto> _currentMeasurements = new();
+        private List<MissingDateRow> _currentMissingDates = new();
         private DateTime _lastStartDate;
         private DateTime _lastEndDate;
 
-        public ReportingPage(ILogService logService, IReportExportService exportService, IMeasurementReportService measurementService)
+        public ReportingPage(
+            ILogService logService,
+            IReportExportService exportService,
+            IMeasurementReportService measurementService,
+            ISaisApiService saisApiService,
+            IStationService stationService)
         {
             _logService = logService;
             _exportService = exportService;
             _measurementService = measurementService;
+            _saisApiService = saisApiService;
+            _stationService = stationService;
             InitializeComponent();
         }
 
         private void ReportingPage_Load(object sender, EventArgs e)
         {
-            ComboBoxReportType.Items.AddRange(new object[] { "Ölçüm Verileri", "Kalibrasyon Verileri", "Numune Verileri", "Log Kayıtları" });
+            ComboBoxReportType.Items.AddRange(new object[] { "Ölçüm Verileri", "Kalibrasyon Verileri", "Numune Verileri", "Log Kayıtları", "Eksik Veriler" });
             ComboBoxReportType.SelectedIndex = 0;
             RadioButtonDaily.Checked = true;
         }
@@ -114,6 +129,10 @@ namespace WinUI.Pages
                 _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end);
                 DataGridViewDatas.DataSource = _currentMeasurements;
                 ConfigureMeasurementColumns();
+            }
+            else if (reportType == "Eksik Veriler")
+            {
+                await LoadMissingDatesAsync(start, end);
             }
         }
 
@@ -289,7 +308,64 @@ namespace WinUI.Pages
                     else
                         row.DefaultCellStyle.BackColor = Color.White;
                     break;
+                case MissingDateRow:
+                    row.DefaultCellStyle.BackColor = Color.White;
+                    break;
+                default:
+                    row.DefaultCellStyle.BackColor = Color.White;
+                    break;
             }
+        }
+
+        private async Task LoadMissingDatesAsync(DateTime start, DateTime end)
+        {
+            var station = await _stationService.GetFirstAsync();
+            if (station == null)
+            {
+                MessageBox.Show("İstasyon bilgisi bulunamadı.", "Eksik Veriler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var response = await _saisApiService.GetMissingDatesAsync(station.StationId);
+            if (response == null || !response.result)
+            {
+                string message = response?.message ?? "Eksik veriler alınırken hata oluştu.";
+                MessageBox.Show(message, "Eksik Veriler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var dates = response.objects?.MissingDates ?? new List<DateTime>();
+            _currentMissingDates = dates
+                .Where(date => date >= start && date <= end)
+                .OrderBy(date => date)
+                .Select(date => new MissingDateRow(date))
+                .ToList();
+
+            DataGridViewDatas.DataSource = _currentMissingDates;
+            ConfigureMissingDateColumns();
+        }
+
+        private void ConfigureMissingDateColumns()
+        {
+            DataGridViewDatas.AutoGenerateColumns = false;
+            DataGridViewDatas.Columns.Clear();
+
+            DataGridViewDatas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(MissingDateRow.MissingDate),
+                HeaderText = "Eksik Veri Zamanı",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "g" }
+            });
+        }
+
+        private sealed class MissingDateRow
+        {
+            public MissingDateRow(DateTime missingDate)
+            {
+                MissingDate = missingDate;
+            }
+
+            public DateTime MissingDate { get; }
         }
     }
 }
