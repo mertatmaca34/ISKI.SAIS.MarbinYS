@@ -371,7 +371,7 @@ namespace WinUI.Pages
             // 
             DataGridViewDatas.AllowUserToDeleteRows = false;
             DataGridViewDatas.AllowUserToResizeRows = false;
-            DataGridViewDatas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DataGridViewDatas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             DataGridViewDatas.BackgroundColor = Color.White;
             DataGridViewDatas.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
