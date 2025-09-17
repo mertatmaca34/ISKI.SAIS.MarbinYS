@@ -20,6 +20,7 @@ namespace WinUI
             ApplicationConfiguration.Initialize();
 
             SplashScreenForm splash = new SplashScreenForm();
+            splash.UpdateStatus("Uygulama başlatılıyor...");
             var splashThread = new Thread(() =>
             {
                 Application.Run(splash);
@@ -27,21 +28,26 @@ namespace WinUI
             splashThread.SetApartmentState(ApartmentState.STA);
             splashThread.Start();
 
+            splash.UpdateStatus("Hizmet yapılandırması hazırlanıyor...");
             using var host = CreateHostBuilder(args).Build();
             var hostStarted = false;
 
             try
             {
+                splash.UpdateStatus("Arka plan servisleri başlatılıyor...");
                 host.StartAsync().GetAwaiter().GetResult();
                 hostStarted = true;
 
                 Log.Information(LogMessages.Program.ApplicationStarted);
                 Services = host.Services;
+                splash.UpdateStatus("Bağımlılıklar yükleniyor...");
                 using var scope = Services.CreateScope();
                 var services = scope.ServiceProvider;
 
+                splash.UpdateStatus("Ana ekran hazırlanıyor...");
                 var mainForm = services.GetRequiredService<MainForm>();
 
+                splash.UpdateStatus("Ana ekran açılıyor...");
                 splash.Invoke(() => splash.Close());
                 splashThread.Join();
 
