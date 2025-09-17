@@ -50,20 +50,31 @@ public class SqlDatabaseSearchEngine : IDatabaseSearchEngine
             await connection.OpenAsync();
 
             await using var command = new SqlCommand(
-                "SELECT DB_NAME(); SELECT SUM(size)*8/1024 FROM sys.database_files;", connection);
+                "SELECT DB_NAME();" + Environment.NewLine +
+                "SELECT " +
+                "    SUM(CAST(FILEPROPERTY(name, 'SpaceUsed') AS BIGINT))*8/1024 AS UsedMb," +
+                "    SUM(CAST(size AS BIGINT))*8/1024 AS AllocatedMb " +
+                "FROM sys.database_files;",
+                connection);
 
             await using var reader = await command.ExecuteReaderAsync();
 
             string? databaseName = null;
-            int? sizeMb = null;
+            long? usedMb = null;
+            long? allocatedMb = null;
 
             if (await reader.ReadAsync() && !reader.IsDBNull(0))
                 databaseName = reader.GetString(0);
 
-            if (await reader.NextResultAsync() && await reader.ReadAsync() && !reader.IsDBNull(0))
-                sizeMb = reader.GetInt32(0); // toplam boyut (MB)
+            if (await reader.NextResultAsync() && await reader.ReadAsync())
+            {
+                if (!reader.IsDBNull(0))
+                    usedMb = reader.GetInt64(0);
+                if (!reader.IsDBNull(1))
+                    allocatedMb = reader.GetInt64(1);
+            }
 
-            return new DatabaseInfo(server, databaseName, sizeMb);
+            return new DatabaseInfo(server, databaseName, usedMb, allocatedMb);
         }
         catch
         {
