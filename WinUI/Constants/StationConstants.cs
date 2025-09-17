@@ -15,5 +15,6 @@ public static class StationConstants
     public const string StationSettingsRequiredMessage = "Bu servisi kullanabilmeniz için istasyon ayarlarını tanımlamanız gerekmektedir.";
     public const string StationInfoApiUrl = "https://entegrationsais.csb.gov.tr/SAIS/GetStationInformation";
     public static string Ticket { get; set; } = string.Empty;
+    public static string DeviceId { get; set; } = string.Empty;
     public static DateTime TicketExpiry { get; set; } = DateTime.MinValue;
 }

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WinUI.Constants;
@@ -43,6 +45,7 @@ public class SaisApiService : ISaisApiService
     private readonly ITicketService _ticketService;
     private readonly IApiEndpointService _apiEndpointService;
     private readonly ILogger<SaisApiService> _logger;
+    private static readonly JsonSerializerOptions JsonOpts = new();
 
     public SaisApiService(HttpClient httpClient, ITicketService ticketService, IApiEndpointService apiEndpointService, ILogger<SaisApiService> logger)
     {
@@ -51,6 +54,9 @@ public class SaisApiService : ISaisApiService
         _apiEndpointService = apiEndpointService;
         _logger = logger;
     }
+
+    private Task<HttpResponseMessage> PostAsJsonAsync<TValue>(string requestUri, TValue value, CancellationToken cancellationToken = default) =>
+        _httpClient.PostAsJsonAsync(requestUri, value, JsonOpts, cancellationToken);
 
     private async Task<string?> PrepareAsync()
     {
@@ -61,9 +67,29 @@ public class SaisApiService : ISaisApiService
             _logger.LogWarning(LogMessages.SaisApiNotConfigured);
             return null;
         }
-        _httpClient.DefaultRequestHeaders.Remove("AToken");
-        _httpClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket }));
-        return endpoint.ApiAddress.TrimEnd('/');
+        var baseUrl = endpoint.ApiAddress?.TrimEnd('/');
+        if (string.IsNullOrWhiteSpace(baseUrl))
+        {
+            _logger.LogWarning(LogMessages.SaisApiNotConfigured);
+            return null;
+        }
+
+        _httpClient.DefaultRequestHeaders.Accept.Clear();
+        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        if (!string.IsNullOrWhiteSpace(StationConstants.Ticket))
+        {
+            _httpClient.DefaultRequestHeaders.Remove("AToken");
+            var token = new AToken { TicketId = StationConstants.Ticket };
+            if (!string.IsNullOrWhiteSpace(StationConstants.DeviceId))
+            {
+                token.DeviceId = StationConstants.DeviceId;
+            }
+
+            _httpClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(token));
+        }
+
+        return baseUrl;
     }
 
     private async Task<T?> SendAsync<T>(Func<string, Task<HttpResponseMessage>> sendRequest)
@@ -85,7 +111,7 @@ public class SaisApiService : ISaisApiService
         try
         {
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>();
+            return await response.Content.ReadFromJsonAsync<T>(JsonOpts);
         }
         finally
         {
@@ -102,7 +128,7 @@ public class SaisApiService : ISaisApiService
 
     public Task<ResultStatus?> SendHostChangedAsync(SendHostChangedRequest request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendHostChanged", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SendHostChanged", request));
 
     public Task<ResultStatus<List<ChannelInfoDto>>?> GetChannelInformationByStationIdAsync(Guid stationId) =>
         SendAsync<ResultStatus<List<ChannelInfoDto>>>(baseUrl =>
@@ -110,7 +136,7 @@ public class SaisApiService : ISaisApiService
 
     public Task<ResultStatus?> UpdateChannelInformationAsync(UpdateChannelInformationRequest request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/UpdateChannelInformation", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/UpdateChannelInformation", request));
 
     public Task<ResultStatus<List<ParameterDto>>?> GetParametersAsync() =>
         SendAsync<ResultStatus<List<ParameterDto>>>(baseUrl =>
@@ -122,7 +148,7 @@ public class SaisApiService : ISaisApiService
 
     public Task<ResultStatus<SendDataResult>> SendDataAsync(ApiSendDataDto body) =>
         SendAsync<ResultStatus<SendDataResult>>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendData", body));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SendData", body));
 
     public Task<ResultStatus<ApiDataResultDto>?> GetLastDataAsync(Guid stationId, int period) =>
         SendAsync<ResultStatus<ApiDataResultDto>>(baseUrl =>
@@ -150,19 +176,19 @@ public class SaisApiService : ISaisApiService
 
     public Task<ResultStatus?> SendDiagnosticAsync(DiagnosticRequest request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnostic", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnostic", request));
 
     public Task<ResultStatus?> SendPowerOffTimeAsync(PowerOffTimeRequest request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendPowerOffTime", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SendPowerOffTime", request));
 
     public Task<ResultStatus?> SendDiagnosticWithTypeNoAsync(DiagnosticWithTypeRequest request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnosticWithTypeNo", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SendDiagnosticWithTypeNo", request));
 
     public Task<ResultStatus?> SendCalibrationAsync(CalibrationRequest request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SendCalibration", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SendCalibration", request));
 
     public Task<ResultStatus<List<CalibrationRecordDto>>?> GetCalibrationAsync(Guid stationId, DateTime startDate, DateTime endDate)
     {
@@ -174,17 +200,17 @@ public class SaisApiService : ISaisApiService
 
     public Task<ResultStatus?> SampleRequestStartAsync(SampleRequestStart request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestStart", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestStart", request));
 
     public Task<ResultStatus<string>?> SampleRequestLimitOverAsync(SampleRequestLimitOver request) =>
         SendAsync<ResultStatus<string>>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestLimitOver", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestLimitOver", request));
 
     public Task<ResultStatus?> SampleRequestCompleteAsync(SampleRequestComplete request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestComplete", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestComplete", request));
 
     public Task<ResultStatus?> SampleRequestErrorAsync(SampleRequestError request) =>
         SendAsync<ResultStatus>(baseUrl =>
-            _httpClient.PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestError", request));
+            PostAsJsonAsync($"{baseUrl}/SAIS/SampleRequestError", request));
 }
