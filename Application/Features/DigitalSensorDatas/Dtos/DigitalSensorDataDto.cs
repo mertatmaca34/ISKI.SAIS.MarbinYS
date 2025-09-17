@@ -26,4 +26,7 @@ public class DigitalSensorDataDto
     public bool PhTetik { get; set; }
     public bool ManuelTetik { get; set; }
     public bool SimNumuneTetik { get; set; }
+    public bool AkmMail { get; set; }
+    public bool KoiMail { get; set; }
+    public bool PhMail { get; set; }
 }

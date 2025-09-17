@@ -56,7 +56,10 @@ public class PlcDataParser : IPlcDataParser
             KoiTetik = ReadBit(data, 2, 2),
             PhTetik = ReadBit(data, 2, 3),
             ManuelTetik = ReadBit(data, 2, 4),
-            SimNumuneTetik = ReadBit(data, 2, 5)
+            SimNumuneTetik = ReadBit(data, 2, 5),
+            AkmMail = ReadBit(data, 3, 0),
+            KoiMail = ReadBit(data, 3, 1),
+            PhMail = ReadBit(data, 3, 2),
         };
     }
 
