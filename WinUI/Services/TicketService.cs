@@ -45,32 +45,37 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
             password = MD5Hash(MD5Hash(endpoint.Password)),
         };
 
+        httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         if (!string.IsNullOrWhiteSpace(StationConstants.Ticket))
         {
             httpClient.DefaultRequestHeaders.Remove("AToken");
-            var aTokenJson = JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket });
+            var token = new AToken { TicketId = StationConstants.Ticket };
+            if (!string.IsNullOrWhiteSpace(StationConstants.DeviceId))
+            {
+                token.DeviceId = StationConstants.DeviceId;
+            }
+            var aTokenJson = JsonSerializer.Serialize(token);
             httpClient.DefaultRequestHeaders.Add("AToken", aTokenJson);
         }
 
         using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest, JsonOpts, ct);
         response.EnsureSuccessStatusCode();
 
-
         var loginResult = await response.Content.ReadFromJsonAsync<ResultStatus<LoginResult>>(JsonOpts, ct);
         if (loginResult?.objects?.TicketId is not { } ticketId)
             return null;
 
-
-        // Sunucunun döndürdüðü deðerlerle sabitleri güncelle
+        // Sunucunun dÃ¶ndÃ¼rdÃ¼ÄŸÃ¼ deÄŸerlerle sabitleri gÃ¼ncelle
         StationConstants.Ticket = ticketId.ToString();
         StationConstants.TicketExpiry = loginResult.objects.ExpireDate;
-
+        StationConstants.DeviceId = loginResult.objects.DeviceId?.ToString() ?? string.Empty;
 
         return loginResult;
     }
-        public static string MD5Hash(string input)
+
+    public static string MD5Hash(string input)
     {
         MD5 md5Hasher = MD5.Create();
         byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
