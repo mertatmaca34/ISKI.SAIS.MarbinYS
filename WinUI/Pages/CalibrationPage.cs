@@ -38,10 +38,6 @@ namespace WinUI.Pages
             _plcService = Program.Services.GetRequiredService<IPlcDataService>();
 
             Load += CalibrationPage_Load;
-            ButtonPhZero.Click += ButtonPhZero_Click;
-            ButtonPhSpan.Click += ButtonPhSpan_Click;
-            ButtonIletkenlikZero.Click += ButtonIletkenlikZero_Click;
-            ButtonIletkenlikSpan.Click += ButtonIletkenlikSpan_Click;
         }
 
         private async void CalibrationPage_Load(object? sender, EventArgs e)
@@ -59,7 +55,14 @@ namespace WinUI.Pages
         private async void StartCalibration(string parameter, bool zero, CalibrationLimitDto? limit)
         {
             if (limit == null)
+            {
+                MessageBox.Show(
+                    $"{parameter} kalibrasyon değerleri ayarlardan tanımlanmamış.",
+                    "Kalibrasyon",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
+            }
 
             double zeroRef = limit.ZeroRef;
             double spanRef = limit.SpanRef;
