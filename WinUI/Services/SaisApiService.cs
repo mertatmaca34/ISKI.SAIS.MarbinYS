@@ -110,12 +110,55 @@ public class SaisApiService : ISaisApiService
 
         try
         {
+            var (payload, rawContent) = await DeserializeAsync<T>(response);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return payload;
+            }
+
+            if (payload != null)
+            {
+                _logger.LogWarning(
+                    "SAIS API returned non-success status code {StatusCode}. Response: {ResponseContent}",
+                    response.StatusCode,
+                    rawContent);
+                return payload;
+            }
+
+            _logger.LogWarning(
+                "SAIS API returned non-success status code {StatusCode} with no readable payload.",
+                response.StatusCode);
+
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>(JsonOpts);
+            return default;
         }
         finally
         {
             response.Dispose();
+        }
+    }
+
+    private async Task<(T? Payload, string Content)> DeserializeAsync<T>(HttpResponseMessage response)
+    {
+        var content = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            return (default, content);
+        }
+
+        try
+        {
+            var payload = JsonSerializer.Deserialize<T>(content, JsonOpts);
+            return (payload, content);
+        }
+        catch (JsonException ex)
+        {
+            _logger.LogWarning(ex,
+                "Failed to deserialize SAIS API response. StatusCode: {StatusCode}, Content: {ResponseContent}",
+                response.StatusCode,
+                content);
+            return (default, content);
         }
     }
 
