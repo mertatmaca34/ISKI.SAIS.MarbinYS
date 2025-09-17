@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.Helpers;
@@ -123,7 +124,9 @@ public class MailAlarmWorker(
                     {
                         From = new MailAddress(mailSetting.SenderEmail, mailSetting.SenderName),
                         Subject = subject,
-                        Body = body
+                        Body = body,
+                        IsBodyHtml = true,
+                        BodyEncoding = Encoding.UTF8
                     };
                     mail.To.Add(item.Email);
 
