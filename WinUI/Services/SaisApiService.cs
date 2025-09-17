@@ -77,9 +77,10 @@ public class SaisApiService : ISaisApiService
         _httpClient.DefaultRequestHeaders.Accept.Clear();
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        if (!string.IsNullOrWhiteSpace(StationConstants.Ticket))
+        _httpClient.DefaultRequestHeaders.Remove("AToken");
+
+        if (_ticketService.HasValidTicket())
         {
-            _httpClient.DefaultRequestHeaders.Remove("AToken");
             var token = new AToken { TicketId = StationConstants.Ticket };
             if (!string.IsNullOrWhiteSpace(StationConstants.DeviceId))
             {

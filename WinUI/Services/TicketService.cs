@@ -11,6 +11,7 @@ namespace WinUI.Services;
 
 public interface ITicketService
 {
+    bool HasValidTicket();
     Task EnsureTicketAsync();
     Task<ResultStatus<LoginResult>?> RefreshTicketAsync(CancellationToken ct = default);
 }
@@ -18,9 +19,15 @@ public interface ITicketService
 public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpointService, ILogger<TicketService> logger) : ITicketService
 {
     private static readonly JsonSerializerOptions JsonOpts = new();
+    public bool HasValidTicket()
+    {
+        return !string.IsNullOrWhiteSpace(StationConstants.Ticket) &&
+               DateTime.Now < StationConstants.TicketExpiry;
+    }
+
     public async Task EnsureTicketAsync()
     {
-        if (!string.IsNullOrEmpty(StationConstants.Ticket) && DateTime.Now < StationConstants.TicketExpiry)
+        if (HasValidTicket())
         {
             return;
         }

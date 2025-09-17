@@ -118,8 +118,7 @@ namespace WinUI.Pages
                     return ApiConnectionStatus.NoAccess;
                 }
 
-                if (!string.IsNullOrWhiteSpace(StationConstants.Ticket) &&
-                    DateTime.Now < StationConstants.TicketExpiry)
+                if (_ticketService.HasValidTicket())
                 {
                     ApplyApiConnectionStatus(ApiConnectionStatus.Connected);
                     return ApiConnectionStatus.Connected;
@@ -225,7 +224,10 @@ namespace WinUI.Pages
                     digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
                     StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                     _isConnected = false;
-                    Log.Warning(LogMessages.HomePage.TicketMissingOrExpired);
+                    if (!_ticketService.HasValidTicket())
+                    {
+                        Log.Warning(LogMessages.HomePage.TicketMissingOrExpired);
+                    }
                 }
                 else
                 {
