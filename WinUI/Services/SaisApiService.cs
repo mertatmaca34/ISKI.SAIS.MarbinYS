@@ -61,11 +61,6 @@ public class SaisApiService : ISaisApiService
     private async Task<string?> PrepareAsync()
     {
         await _ticketService.EnsureTicketAsync();
-        if (!_ticketService.HasValidTicket())
-        {
-            _logger.LogWarning(LogMessages.SaisApiService.TicketMissingOrExpired);
-            return null;
-        }
         var endpoint = await _apiEndpointService.GetFirstAsync();
         if (endpoint == null)
         {
@@ -82,17 +77,10 @@ public class SaisApiService : ISaisApiService
         _httpClient.DefaultRequestHeaders.Accept.Clear();
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        _httpClient.DefaultRequestHeaders.Remove("AToken");
-
-        if (_ticketService.HasValidTicket())
+        if (!_ticketService.TryApplyTicket(_httpClient.DefaultRequestHeaders))
         {
-            var token = new AToken { TicketId = StationConstants.Ticket };
-            if (!string.IsNullOrWhiteSpace(StationConstants.DeviceId))
-            {
-                token.DeviceId = StationConstants.DeviceId;
-            }
-
-            _httpClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(token));
+            _logger.LogWarning(LogMessages.SaisApiService.TicketMissingOrExpired);
+            return null;
         }
 
         return baseUrl;
