@@ -26,7 +26,7 @@ public sealed record TicketSession(string TicketId, DateTime Expiration, string?
 
 public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpointService, ILogger<TicketService> logger) : ITicketService
 {
-    private const string TicketHeaderName = "Ticket";
+    private const string TicketHeaderName = "AToken";
     private static readonly JsonSerializerOptions JsonOpts = new();
 
     public TicketSession? CurrentTicket { get; private set; } = CreateSessionFromConstants();
@@ -66,6 +66,8 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+        ApplyTicketHeader(httpClient.DefaultRequestHeaders, allowExpired: true);
+
         using var response = await httpClient.PostAsJsonAsync(loginUrl, loginRequest, JsonOpts, ct);
         response.EnsureSuccessStatusCode();
 
@@ -86,27 +88,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
     {
         ArgumentNullException.ThrowIfNull(headers);
 
-        headers.Remove(TicketHeaderName);
-
-        if (!HasValidTicket())
-        {
-            return false;
-        }
-
-        var ticket = CurrentTicket!;
-        var payload = new Dictionary<string, string>
-        {
-            ["TicketId"] = ticket.TicketId,
-        };
-
-        if (!string.IsNullOrWhiteSpace(ticket.DeviceId))
-        {
-            payload["DeviceId"] = ticket.DeviceId!;
-        }
-
-        var serialized = JsonSerializer.Serialize(payload, JsonOpts);
-        headers.Add(TicketHeaderName, serialized);
-        return true;
+        return ApplyTicketHeader(headers, allowExpired: false);
     }
 
     public static string MD5Hash(string input)
@@ -139,5 +121,36 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         StationConstants.Ticket = session.TicketId;
         StationConstants.TicketExpiry = session.Expiration;
         StationConstants.DeviceId = session.DeviceId ?? string.Empty;
+    }
+
+    private bool ApplyTicketHeader(HttpRequestHeaders headers, bool allowExpired)
+    {
+        ArgumentNullException.ThrowIfNull(headers);
+
+        headers.Remove(TicketHeaderName);
+
+        if (!allowExpired && !HasValidTicket())
+        {
+            return false;
+        }
+
+        if (CurrentTicket is not { TicketId.Length: > 0 } ticket)
+        {
+            return false;
+        }
+
+        var payload = new Dictionary<string, string>
+        {
+            ["TicketId"] = ticket.TicketId,
+        };
+
+        if (!string.IsNullOrWhiteSpace(ticket.DeviceId))
+        {
+            payload["DeviceId"] = ticket.DeviceId!;
+        }
+
+        var serialized = JsonSerializer.Serialize(payload, JsonOpts);
+        headers.Add(TicketHeaderName, serialized);
+        return true;
     }
 }
