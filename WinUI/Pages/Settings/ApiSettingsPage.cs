@@ -170,8 +170,11 @@ public partial class ApiSettingsPage : UserControl
                 return;
             }
 
-            _remoteClient.DefaultRequestHeaders.Remove("AToken");
-            _remoteClient.DefaultRequestHeaders.Add("AToken", JsonSerializer.Serialize(new AToken { TicketId = StationConstants.Ticket }));
+            if (!_ticketService.TryApplyTicket(_remoteClient.DefaultRequestHeaders))
+            {
+                ResponseTextBox.Text = FormatContent("Geçerli bir ticket bulunamadı.");
+                return;
+            }
 
             var url = CombineUrl(ApiUrlTextBox.Text, "SAIS/SendDiagnostic");
             using var request = new HttpRequestMessage(HttpMethod.Post, url);
