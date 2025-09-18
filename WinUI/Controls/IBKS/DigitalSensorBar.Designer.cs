@@ -94,10 +94,10 @@
             // 
             LabelSystemStateTitle.Anchor = AnchorStyles.Bottom;
             LabelSystemStateTitle.AutoSize = true;
-            LabelSystemStateTitle.Font = new Font("Arial", 8.25F);
-            LabelSystemStateTitle.Location = new Point(43, 6);
+            LabelSystemStateTitle.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            LabelSystemStateTitle.Location = new Point(49, 6);
             LabelSystemStateTitle.Name = "LabelSystemStateTitle";
-            LabelSystemStateTitle.Size = new Size(89, 14);
+            LabelSystemStateTitle.Size = new Size(77, 14);
             LabelSystemStateTitle.TabIndex = 0;
             LabelSystemStateTitle.Text = "PLC DURUMU";
             // 
@@ -156,10 +156,10 @@
             // 
             // LabelChannelName
             // 
-            LabelChannelName.Anchor = AnchorStyles.Bottom;
+            LabelChannelName.Anchor = AnchorStyles.None;
             LabelChannelName.AutoSize = true;
             LabelChannelName.Font = new Font("Arial", 11.25F, FontStyle.Bold);
-            LabelChannelName.Location = new Point(8, 2);
+            LabelChannelName.Location = new Point(8, 1);
             LabelChannelName.Name = "LabelChannelName";
             LabelChannelName.Size = new Size(160, 18);
             LabelChannelName.TabIndex = 0;
@@ -194,10 +194,10 @@
             // 
             LabelDataStateTitle.Anchor = AnchorStyles.Bottom;
             LabelDataStateTitle.AutoSize = true;
-            LabelDataStateTitle.Font = new Font("Arial", 8.25F);
-            LabelDataStateTitle.Location = new Point(51, 6);
+            LabelDataStateTitle.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            LabelDataStateTitle.Location = new Point(50, 6);
             LabelDataStateTitle.Name = "LabelDataStateTitle";
-            LabelDataStateTitle.Size = new Size(76, 14);
+            LabelDataStateTitle.Size = new Size(79, 14);
             LabelDataStateTitle.TabIndex = 0;
             LabelDataStateTitle.Text = "VERİ DURUMU";
             // 
