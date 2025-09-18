@@ -36,6 +36,8 @@ public static class PageManager
             panel.Controls.Add(page);
         }
 
+        ControlScalingHelper.CaptureBaseMetrics(page);
+
         page.Show();
         page.BringToFront();
     }
