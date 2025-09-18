@@ -20,7 +20,7 @@ public partial class ApiSettingsPage : UserControl
     private readonly ITicketService _ticketService;
     private readonly IStationService _stationService;
     private int? _apiEndpointId;
-    private readonly int[] _resendPeriodOptions = new[] { 24*60, 48*60, 7*24*60, 30*24*60, 90*24*60, 180*24*60, 365*24*60 };
+    private readonly int[] _resendPeriodOptions = new[] { 24 * 60, 48 * 60, 7 * 24 * 60, 30 * 24 * 60, 90 * 24 * 60, 180 * 24 * 60, 365 * 24 * 60 };
 
 
     public ApiSettingsPage()
