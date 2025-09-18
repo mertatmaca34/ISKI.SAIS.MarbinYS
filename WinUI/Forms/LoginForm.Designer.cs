@@ -49,7 +49,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.BackColor = Color.White;
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
             tableLayoutPanel1.Controls.Add(label2, 0, 4);
@@ -64,79 +64,79 @@ namespace WinUI.Forms
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(100, 50, 100, 100);
             tableLayoutPanel1.RowCount = 8;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 8F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
             tableLayoutPanel1.Size = new Size(579, 438);
             tableLayoutPanel1.TabIndex = 2;
-            //
+            // 
             // label1
-            //
+            // 
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label1.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label1.Location = new Point(130, 158);
             label1.Margin = new Padding(30, 0, 30, 0);
             label1.Name = "label1";
-            label1.Size = new Size(100, 20);
+            label1.Size = new Size(72, 15);
             label1.TabIndex = 1;
             label1.Text = "Kullanıcı Adı";
-            //
+            // 
             // label2
-            //
+            // 
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label2.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
             label2.Location = new Point(130, 240);
             label2.Margin = new Padding(30, 0, 30, 0);
             label2.Name = "label2";
-            label2.Size = new Size(38, 20);
+            label2.Size = new Size(32, 15);
             label2.TabIndex = 3;
             label2.Text = "Şifre";
-            //
+            // 
             // PasswordTextBox
-            //
+            // 
             tableLayoutPanel1.SetColumnSpan(PasswordTextBox, 2);
             PasswordTextBox.Dock = DockStyle.Fill;
-            PasswordTextBox.Font = new Font("Segoe UI", 12F);
+            PasswordTextBox.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             PasswordTextBox.Location = new Point(130, 258);
             PasswordTextBox.Margin = new Padding(30, 3, 3, 3);
             PasswordTextBox.Name = "PasswordTextBox";
             PasswordTextBox.PlaceholderText = "sifre";
             PasswordTextBox.Size = new Size(285, 27);
             PasswordTextBox.TabIndex = 4;
-            //
+            // 
             // labelTitle
-            //
+            // 
             labelTitle.Anchor = AnchorStyles.None;
             labelTitle.AutoSize = true;
             tableLayoutPanel1.SetColumnSpan(labelTitle, 3);
-            labelTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            labelTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labelTitle.ForeColor = Color.FromArgb(47, 47, 47);
-            labelTitle.Location = new Point(205, 86);
+            labelTitle.Location = new Point(221, 99);
             labelTitle.Margin = new Padding(3);
             labelTitle.Name = "labelTitle";
-            labelTitle.Size = new Size(167, 32);
+            labelTitle.Size = new Size(137, 25);
             labelTitle.TabIndex = 0;
             labelTitle.Text = "Kullanıcı Girişi";
-            //
+            // 
             // LoginButton
-            //
+            // 
             LoginButton.BaseColor = Color.FromArgb(0, 130, 201);
             LoginButton.BorderRadius = 12;
             LoginButton.ButtonText = "Giriş Yap";
             tableLayoutPanel1.SetColumnSpan(LoginButton, 3);
             LoginButton.Dock = DockStyle.Fill;
-            LoginButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            LoginButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             LoginButton.Location = new Point(130, 319);
             LoginButton.Margin = new Padding(30, 23, 30, 13);
             LoginButton.Name = "LoginButton";
-            LoginButton.Size = new Size(319, 49);
+            LoginButton.Size = new Size(319, 36);
             LoginButton.TabIndex = 6;
             LoginButton.TextColor = Color.White;
             LoginButton.Click += LoginButton_Click;
@@ -167,21 +167,20 @@ namespace WinUI.Forms
             // textBox1
             // 
             tableLayoutPanel1.SetColumnSpan(textBox1, 2);
-            textBox1.Font = new Font("Segoe UI", 12F);
+            textBox1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             textBox1.Location = new Point(130, 176);
             textBox1.Margin = new Padding(30, 3, 3, 3);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "kullanıcı adı";
             textBox1.Size = new Size(285, 27);
             textBox1.TabIndex = 9;
-            //
+            // 
             // LoginForm
-            //
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(579, 438);
             Controls.Add(tableLayoutPanel1);
-            Font = new Font("Segoe UI", 10F);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;

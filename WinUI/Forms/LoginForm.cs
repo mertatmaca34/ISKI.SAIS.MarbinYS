@@ -1,35 +1,12 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using WinUI.Helpers;
-
-namespace WinUI.Forms
+﻿namespace WinUI.Forms
 {
     public partial class LoginForm : Form
     {
         private bool isPasswordVisible = true;
-        private readonly Size _baseClientSize;
 
         public LoginForm()
         {
             InitializeComponent();
-
-            _baseClientSize = ClientSize;
-            ControlScalingHelper.CaptureBaseMetrics(this);
-            Load += LoginForm_Load;
-            Resize += LoginForm_Resize;
-        }
-
-        private void LoginForm_Load(object? sender, EventArgs e)
-        {
-            var scaleFactor = ControlScalingHelper.CalculateScaleFactor(_baseClientSize, ClientSize);
-            ControlScalingHelper.ScaleFonts(this, scaleFactor);
-        }
-
-        private void LoginForm_Resize(object? sender, EventArgs e)
-        {
-            var scaleFactor = ControlScalingHelper.CalculateScaleFactor(_baseClientSize, ClientSize);
-            ControlScalingHelper.ScaleFonts(this, scaleFactor);
         }
 
         private void EyeButton_Click(object sender, EventArgs e)
