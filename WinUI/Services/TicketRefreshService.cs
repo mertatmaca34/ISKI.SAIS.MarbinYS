@@ -2,12 +2,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using WinUI.Constants;
 
 namespace WinUI.Services;
 
 public class TicketRefreshService : BackgroundService
 {
+    private static readonly TimeSpan MinimumDelay = TimeSpan.FromMinutes(1);
     private readonly ITicketService _ticketService;
 
     public TicketRefreshService(ITicketService ticketService)
@@ -28,12 +28,7 @@ public class TicketRefreshService : BackgroundService
                 // ignore refresh errors
             }
 
-            var delay = StationConstants.TicketExpiry - DateTime.Now - TimeSpan.FromMinutes(1);
-            if (delay < TimeSpan.FromMinutes(1))
-            {
-                delay = TimeSpan.FromMinutes(1);
-            }
-
+            var delay = CalculateDelay();
             try
             {
                 await Task.Delay(delay, stoppingToken);
@@ -43,5 +38,17 @@ public class TicketRefreshService : BackgroundService
                 // ignore cancellation
             }
         }
+    }
+
+    private TimeSpan CalculateDelay()
+    {
+        var session = _ticketService.CurrentTicket;
+        if (session is null)
+        {
+            return MinimumDelay;
+        }
+
+        var delay = session.Expiration - DateTime.Now - MinimumDelay;
+        return delay < MinimumDelay ? MinimumDelay : delay;
     }
 }
