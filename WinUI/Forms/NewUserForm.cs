@@ -1,8 +1,10 @@
 using System;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Constants;
+using WinUI.Helpers;
 using WinUI.Models;
 using WinUI.Services;
 
@@ -12,12 +14,18 @@ namespace WinUI.Forms
     {
         private readonly IUserService _userService;
         private readonly int? _userId;
+        private readonly Size _baseClientSize;
 
         public NewUserForm(UserDto? user = null)
         {
             InitializeComponent();
             _userService = Program.Services.GetRequiredService<IUserService>();
             saveButton.Click += SaveButton_Click;
+
+            _baseClientSize = ClientSize;
+            ControlScalingHelper.CaptureBaseMetrics(this);
+            Load += NewUserForm_Load;
+            Resize += NewUserForm_Resize;
 
             if (user != null)
             {
@@ -27,6 +35,18 @@ namespace WinUI.Forms
                 titleLabel.Text = "Kullanıcı Düzenle";
                 Text = "Kullanıcı Düzenle";
             }
+        }
+
+        private void NewUserForm_Load(object? sender, EventArgs e)
+        {
+            var scaleFactor = ControlScalingHelper.CalculateScaleFactor(_baseClientSize, ClientSize);
+            ControlScalingHelper.ScaleFonts(this, scaleFactor);
+        }
+
+        private void NewUserForm_Resize(object? sender, EventArgs e)
+        {
+            var scaleFactor = ControlScalingHelper.CalculateScaleFactor(_baseClientSize, ClientSize);
+            ControlScalingHelper.ScaleFonts(this, scaleFactor);
         }
 
         private async void SaveButton_Click(object? sender, EventArgs e)
