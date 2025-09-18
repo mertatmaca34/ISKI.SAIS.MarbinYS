@@ -31,6 +31,17 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(IBKSContext).Assembly);
 
+        modelBuilder.Entity<ApiEndpoint>().HasData(new ApiEndpoint
+        {
+            Id = 1,
+            ApiAddress = "http://172.17.15.4/",
+            UserName = "istanbul_iski_uskudar",
+            Password = "iskiist34",
+            DataSendPeriodMinute = 1,
+            ResendDataPeriodMinute = 48 * 60,
+            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+        });
+
         modelBuilder.Entity<MailSetting>().HasData(new MailSetting
         {
             Id = 1,
