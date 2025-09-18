@@ -240,6 +240,9 @@ namespace WinUI.Pages
             if (alarmsDataGridView.Columns[nameof(MailAlarmDto.MailBody)] != null)
                 alarmsDataGridView.Columns[nameof(MailAlarmDto.MailBody)].Visible = false;
 
+            if (alarmsDataGridView.Columns[nameof(MailAlarmDto.TemplateType)] != null)
+                alarmsDataGridView.Columns[nameof(MailAlarmDto.TemplateType)].Visible = false;
+
             if (alarmsDataGridView.Columns["Edit"] == null)
             {
                 var editColumn2 = new DataGridViewImageColumn

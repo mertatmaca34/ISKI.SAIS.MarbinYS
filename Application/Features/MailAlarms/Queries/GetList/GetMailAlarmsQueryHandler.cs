@@ -21,7 +21,8 @@ public class GetMailAlarmsQueryHandler(
             Limit = a.Limit,
             MailSubject = a.MailSubject,
             MailBody = a.MailBody,
-            IsActive = activeSet.Contains(a.Id)
+            IsActive = activeSet.Contains(a.Id),
+            TemplateType = a.TemplateType
         }).ToList();
     }
 }
