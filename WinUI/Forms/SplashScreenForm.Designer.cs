@@ -59,7 +59,7 @@
             tableLayoutPanel1.RowCount = 5;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 36.42857F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 13.57143F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
@@ -70,10 +70,10 @@
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Image = Properties.Resources.e57b3257b6ccd2895f11c6a89710e02b;
-            pictureBox1.Location = new Point(3, 223);
+            pictureBox1.Location = new Point(3, 230);
             pictureBox1.Name = "pictureBox1";
             tableLayoutPanel1.SetRowSpan(pictureBox1, 2);
-            pictureBox1.Size = new Size(786, 194);
+            pictureBox1.Size = new Size(786, 186);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -84,7 +84,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label1.ForeColor = Color.FromArgb(0, 148, 212);
-            label1.Location = new Point(308, 60);
+            label1.Location = new Point(308, 54);
             label1.Name = "label1";
             label1.Size = new Size(176, 86);
             label1.TabIndex = 0;
@@ -96,10 +96,10 @@
             LabelVersion.AutoSize = true;
             LabelVersion.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
             LabelVersion.ForeColor = Color.FromArgb(0, 148, 212);
-            LabelVersion.Location = new Point(775, 423);
+            LabelVersion.Location = new Point(775, 422);
             LabelVersion.Margin = new Padding(3);
             LabelVersion.Name = "LabelVersion";
-            LabelVersion.Size = new Size(14, 16);
+            LabelVersion.Size = new Size(14, 17);
             LabelVersion.TabIndex = 0;
             LabelVersion.Text = "v";
             // 
@@ -109,7 +109,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label2.ForeColor = Color.FromArgb(0, 148, 212);
-            label2.Location = new Point(197, 146);
+            label2.Location = new Point(197, 140);
             label2.Name = "label2";
             label2.Size = new Size(397, 40);
             label2.TabIndex = 0;
@@ -121,9 +121,9 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label3.ForeColor = Color.FromArgb(0, 148, 212);
-            label3.Location = new Point(377, 200);
+            label3.Location = new Point(377, 192);
             label3.Name = "label3";
-            label3.Size = new Size(37, 20);
+            label3.Size = new Size(37, 25);
             label3.TabIndex = 0;
             label3.Text = ".....";
             label3.TextAlign = ContentAlignment.MiddleCenter;
