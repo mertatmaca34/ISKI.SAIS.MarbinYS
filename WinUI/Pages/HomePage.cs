@@ -61,7 +61,6 @@ namespace WinUI.Pages
             {
                 digitalSensorBar1.SystemStateDescription = "KURULMADI";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.NotConfigured;
                 digitalSensorBar1.DataStateDescription = "KURULMADI";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
@@ -268,7 +267,6 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "BAĞLI";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Ok;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.Ok;
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı";
 
                 if (!_isConnected)
@@ -293,7 +291,6 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "KURULMADI";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.NotConfigured;
                 digitalSensorBar1.DataStateDescription = "KURULMADI";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
 
@@ -310,7 +307,6 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "ERİŞİM YOK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.NoAccess;
 
                 _isConnected = false;
                 Log.Error(ex, LogMessages.HomePage.ApiAccessError);
@@ -324,7 +320,6 @@ namespace WinUI.Pages
 
                 digitalSensorBar1.SystemStateDescription = "KOPUK";
                 digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-                digitalSensorBar1.SystemStateTitleColor = StateColors.Error;
 
                 StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
                 _isConnected = false;
