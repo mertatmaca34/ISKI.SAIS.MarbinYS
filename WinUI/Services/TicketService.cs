@@ -76,7 +76,7 @@ public class TicketService(HttpClient httpClient, IApiEndpointService apiEndpoin
         }
 
         var deviceId = loginResult.objects.DeviceId?.ToString();
-        var session = new TicketSession(ticketId.ToString(), loginResult.objects.ExpireDate, string.IsNullOrWhiteSpace(deviceId) ? null : deviceId);
+        var session = new TicketSession(ticketId.ToString(), loginResult.objects.User.ExpireDate, string.IsNullOrWhiteSpace(deviceId) ? null : deviceId);
         UpdateSession(session);
 
         return loginResult;
