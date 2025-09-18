@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -151,7 +152,8 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
                 Channel = "ManuelTetik",
                 Limit = 0,
                 MailSubject = "Manuel Numune Tetiklendi",
-                MailBody = "Manuel olarak numune tetiklemesi yapıldı."
+                MailBody = "Manuel olarak numune tetiklemesi yapıldı.",
+                TemplateType = MailTemplateType.Info
             },
             new MailAlarm
             {
@@ -160,7 +162,8 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
                 Channel = "SimNumuneTetik",
                 Limit = 0,
                 MailSubject = "Sim Numune Tetiklendi",
-                MailBody = "Sim tarafından numune tetiklemesi yapıldı."
+                MailBody = "Sim tarafından numune tetiklemesi yapıldı.",
+                TemplateType = MailTemplateType.Info
             },
             new MailAlarm
             {
@@ -169,7 +172,8 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
                 Channel = "AkmMail",
                 Limit = 0,
                 MailSubject = "AKM Limiti Aşıldı",
-                MailBody = "AKM parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi."
+                MailBody = "AKM parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi.",
+                TemplateType = MailTemplateType.Info
             },
             new MailAlarm
             {
@@ -178,7 +182,8 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
                 Channel = "KoiMail",
                 Limit = 0,
                 MailSubject = "KOİ Limiti Aşıldı",
-                MailBody = "KOİ parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi."
+                MailBody = "KOİ parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi.",
+                TemplateType = MailTemplateType.Info
             },
             new MailAlarm
             {
@@ -187,7 +192,8 @@ public class IBKSContext(DbContextOptions<IBKSContext> options) : DbContext(opti
                 Channel = "PhMail",
                 Limit = 0,
                 MailSubject = "pH Limiti Aşıldı",
-                MailBody = "pH parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi."
+                MailBody = "pH parametresi limit değerini aştı. Numune alma işlemi gerçekleştirildi.",
+                TemplateType = MailTemplateType.Info
             },
             new MailAlarm
             {

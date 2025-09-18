@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.Helpers;
+using Domain.Enums;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -99,9 +100,13 @@ public class MailAlarmWorker(
                             ? (digitalVal.Value ? "Aktif" : "Pasif")
                             : (invalidStatusVal.HasValue ? (invalidStatusVal.Value ? "Aktif" : "Pasif") : string.Empty));
                     var limitValue = analogVal.HasValue ? item.Alarm.Limit.ToString("F2") : "-";
+                    var severity = item.Alarm.TemplateType == MailTemplateType.Info
+                        ? "Bilgi"
+                        : invalidStatusVal.HasValue ? "Hata" : "Alarm";
                     var body = MailTemplateBuilder.Build(
+                        templateType: item.Alarm.TemplateType,
                         alarmName: item.Alarm.Name,
-                        severity: invalidStatusVal.HasValue ? "Hata" : "Alarm",
+                        severity: severity,
                         stationName: station?.Name ?? "-",
                         timestamp: DateTime.UtcNow,
                         parameterName: item.Alarm.Name,

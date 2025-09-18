@@ -1,3 +1,4 @@
+using Domain.Enums;
 using ISKI.Core.Domain;
 
 namespace Domain.Entities;
@@ -9,5 +10,6 @@ public class MailAlarm : BaseEntity<int>
     public double Limit { get; set; }
     public string MailSubject { get; set; } = string.Empty;
     public string MailBody { get; set; } = string.Empty;
+    public MailTemplateType TemplateType { get; set; } = MailTemplateType.Alarm;
 }
 

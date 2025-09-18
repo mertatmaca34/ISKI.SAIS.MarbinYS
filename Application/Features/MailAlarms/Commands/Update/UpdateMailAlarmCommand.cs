@@ -1,4 +1,5 @@
 using Application.Features.MailAlarms.Dtos;
+using Domain.Enums;
 using MediatR;
 
 namespace Application.Features.MailAlarms.Commands.Update;
@@ -9,4 +10,5 @@ public record UpdateMailAlarmCommand(
     string Channel,
     double Limit,
     string MailSubject,
-    string MailBody) : IRequest<MailAlarmDto>;
+    string MailBody,
+    MailTemplateType TemplateType) : IRequest<MailAlarmDto>;

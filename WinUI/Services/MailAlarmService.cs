@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using Domain.Enums;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -36,5 +37,6 @@ public record UpdateMailAlarmCommand(
     string Channel,
     double Limit,
     string MailSubject,
-    string MailBody);
+    string MailBody,
+    MailTemplateType TemplateType);
 

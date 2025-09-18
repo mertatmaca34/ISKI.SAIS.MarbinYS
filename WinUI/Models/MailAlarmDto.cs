@@ -1,3 +1,5 @@
+using Domain.Enums;
+
 namespace WinUI.Models;
 
 public class MailAlarmDto
@@ -9,5 +11,6 @@ public class MailAlarmDto
     public string MailSubject { get; set; } = string.Empty;
     public string MailBody { get; set; } = string.Empty;
     public bool IsActive { get; set; }
+    public MailTemplateType TemplateType { get; set; }
 }
 

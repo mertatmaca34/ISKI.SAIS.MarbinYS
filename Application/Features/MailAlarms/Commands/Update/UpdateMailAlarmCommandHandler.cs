@@ -20,6 +20,7 @@ public class UpdateMailAlarmCommandHandler(IMailAlarmRepository repository, IMap
         entity.Limit = request.Limit;
         entity.MailSubject = request.MailSubject;
         entity.MailBody = request.MailBody;
+        entity.TemplateType = request.TemplateType;
         await repository.UpdateAsync(entity);
         return mapper.Map<MailAlarmDto>(entity);
     }

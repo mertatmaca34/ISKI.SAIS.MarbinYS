@@ -38,7 +38,8 @@ namespace WinUI.Forms
                 channelComboBox.SelectedItem?.ToString() ?? string.Empty,
                 (double)limitNumericUpDown.Value,
                 subjectTextBox.Text,
-                bodyTextBox.Text);
+                bodyTextBox.Text,
+                _alarm.TemplateType);
 
             try
             {
