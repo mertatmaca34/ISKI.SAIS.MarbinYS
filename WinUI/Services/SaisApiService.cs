@@ -61,6 +61,11 @@ public class SaisApiService : ISaisApiService
     private async Task<string?> PrepareAsync()
     {
         await _ticketService.EnsureTicketAsync();
+        if (!_ticketService.HasValidTicket())
+        {
+            _logger.LogWarning(LogMessages.SaisApiService.TicketMissingOrExpired);
+            return null;
+        }
         var endpoint = await _apiEndpointService.GetFirstAsync();
         if (endpoint == null)
         {

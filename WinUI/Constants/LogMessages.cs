@@ -12,6 +12,7 @@ public static class LogMessages
     public static class SaisApiService
     {
         public const string SessionNotFoundOrExpired = "SAIS oturumu bulunamadı veya süresi doldu. Bilet yenileniyor ve yeniden deneniyor.";
+        public const string TicketMissingOrExpired = "SAIS bileti eksik veya süresi dolmuş. İstek gönderilemedi.";
     }
 
     public static class DatabaseSelectionService
