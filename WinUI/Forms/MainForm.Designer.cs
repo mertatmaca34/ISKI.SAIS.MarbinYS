@@ -66,7 +66,7 @@
             SideBarTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             SideBarTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 84F));
             SideBarTableLayoutPanel.Size = new Size(90, 681);
-            SideBarTableLayoutPanel.TabIndex = 1;
+            SideBarTableLayoutPanel.TabIndex = 0;
             // 
             // HomePageButton
             // 
@@ -97,7 +97,7 @@
             SimulationPageButton.Location = new Point(8, 92);
             SimulationPageButton.Name = "SimulationPageButton";
             SimulationPageButton.Size = new Size(74, 68);
-            SimulationPageButton.TabIndex = 0;
+            SimulationPageButton.TabIndex = 1;
             SimulationPageButton.Text = "Simülasyon";
             SimulationPageButton.TextAlign = ContentAlignment.BottomCenter;
             SimulationPageButton.UseVisualStyleBackColor = false;
@@ -114,7 +114,7 @@
             CalibrationPageButton.Location = new Point(8, 176);
             CalibrationPageButton.Name = "CalibrationPageButton";
             CalibrationPageButton.Size = new Size(74, 68);
-            CalibrationPageButton.TabIndex = 0;
+            CalibrationPageButton.TabIndex = 2;
             CalibrationPageButton.Text = "Kalibrasyon";
             CalibrationPageButton.TextAlign = ContentAlignment.BottomCenter;
             CalibrationPageButton.UseVisualStyleBackColor = false;
@@ -131,7 +131,7 @@
             ReportingPageButton.Location = new Point(8, 344);
             ReportingPageButton.Name = "ReportingPageButton";
             ReportingPageButton.Size = new Size(74, 68);
-            ReportingPageButton.TabIndex = 0;
+            ReportingPageButton.TabIndex = 4;
             ReportingPageButton.Text = "Raporlama";
             ReportingPageButton.TextAlign = ContentAlignment.BottomCenter;
             ReportingPageButton.UseVisualStyleBackColor = false;
@@ -148,7 +148,7 @@
             MailPageButton.Location = new Point(8, 260);
             MailPageButton.Name = "MailPageButton";
             MailPageButton.Size = new Size(74, 68);
-            MailPageButton.TabIndex = 0;
+            MailPageButton.TabIndex = 3;
             MailPageButton.Text = "Mail";
             MailPageButton.TextAlign = ContentAlignment.BottomCenter;
             MailPageButton.UseVisualStyleBackColor = false;
@@ -165,7 +165,7 @@
             SettingsPageButton.Location = new Point(8, 428);
             SettingsPageButton.Name = "SettingsPageButton";
             SettingsPageButton.Size = new Size(74, 68);
-            SettingsPageButton.TabIndex = 0;
+            SettingsPageButton.TabIndex = 5;
             SettingsPageButton.Text = "Ayarlar";
             SettingsPageButton.TextAlign = ContentAlignment.BottomCenter;
             SettingsPageButton.UseVisualStyleBackColor = false;
@@ -182,7 +182,7 @@
             LoginButton.Location = new Point(8, 605);
             LoginButton.Name = "LoginButton";
             LoginButton.Size = new Size(74, 68);
-            LoginButton.TabIndex = 0;
+            LoginButton.TabIndex = 6;
             LoginButton.Text = "Giriş Yap";
             LoginButton.TextAlign = ContentAlignment.BottomCenter;
             LoginButton.UseVisualStyleBackColor = false;
@@ -194,7 +194,7 @@
             MainContentPanel.Location = new Point(90, 0);
             MainContentPanel.Name = "MainContentPanel";
             MainContentPanel.Size = new Size(1174, 681);
-            MainContentPanel.TabIndex = 2;
+            MainContentPanel.TabIndex = 1;
             // 
             // MainForm
             // 

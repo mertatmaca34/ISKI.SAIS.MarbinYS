@@ -72,7 +72,7 @@
             mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             mainLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
             mainLayoutPanel.Size = new Size(579, 521);
-            mainLayoutPanel.TabIndex = 3;
+            mainLayoutPanel.TabIndex = 0;
             // 
             // userNameLabel
             // 
@@ -83,7 +83,7 @@
             userNameLabel.Margin = new Padding(30, 0, 30, 0);
             userNameLabel.Name = "userNameLabel";
             userNameLabel.Size = new Size(72, 15);
-            userNameLabel.TabIndex = 1;
+            userNameLabel.TabIndex = 0;
             userNameLabel.Text = "Kullanıcı Adı";
             // 
             // passwordLabel
@@ -95,7 +95,7 @@
             passwordLabel.Margin = new Padding(30, 0, 30, 0);
             passwordLabel.Name = "passwordLabel";
             passwordLabel.Size = new Size(32, 15);
-            passwordLabel.TabIndex = 3;
+            passwordLabel.TabIndex = 0;
             passwordLabel.Text = "Şifre";
             // 
             // passwordTextBox
@@ -108,7 +108,7 @@
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.PlaceholderText = "şifre";
             passwordTextBox.Size = new Size(285, 27);
-            passwordTextBox.TabIndex = 4;
+            passwordTextBox.TabIndex = 2;
             // 
             // titleLabel
             // 
@@ -136,7 +136,7 @@
             saveButton.Margin = new Padding(30, 23, 30, 13);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(319, 36);
-            saveButton.TabIndex = 6;
+            saveButton.TabIndex = 3;
             saveButton.TextColor = Color.White;
             // 
             // userNameTextBox
@@ -148,7 +148,7 @@
             userNameTextBox.Name = "userNameTextBox";
             userNameTextBox.PlaceholderText = "kullanıcı adı";
             userNameTextBox.Size = new Size(285, 27);
-            userNameTextBox.TabIndex = 9;
+            userNameTextBox.TabIndex = 0;
             // 
             // emailLabel
             // 
@@ -159,7 +159,7 @@
             emailLabel.Margin = new Padding(30, 0, 30, 0);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new Size(30, 15);
-            emailLabel.TabIndex = 1;
+            emailLabel.TabIndex = 0;
             emailLabel.Text = "Mail";
             // 
             // emailTextBox
@@ -171,7 +171,7 @@
             emailTextBox.Name = "emailTextBox";
             emailTextBox.PlaceholderText = "sample@sample.com";
             emailTextBox.Size = new Size(285, 27);
-            emailTextBox.TabIndex = 9;
+            emailTextBox.TabIndex = 1;
             // 
             // NewUserForm
             // 
