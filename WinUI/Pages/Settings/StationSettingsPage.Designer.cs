@@ -194,38 +194,38 @@ namespace WinUI.Pages.Settings
             // 
             // StationIdSettingTextBox
             // 
-            StationIdSettingTextBox.Anchor = AnchorStyles.None;
-            StationIdSettingTextBox.Location = new Point(234, 19);
+            StationIdSettingTextBox.Dock = DockStyle.Fill;
+            StationIdSettingTextBox.Location = new Point(234, 18);
             StationIdSettingTextBox.Name = "StationIdSettingTextBox";
-            StationIdSettingTextBox.PlaceholderText = StationConstants.StationIdPlaceholder;
-            StationIdSettingTextBox.Size = new Size(288, 23);
+            StationIdSettingTextBox.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
+            StationIdSettingTextBox.Size = new Size(289, 23);
             StationIdSettingTextBox.TabIndex = 2;
             // 
             // ConnectionPasswordTextBox
             // 
-            ConnectionPasswordTextBox.Anchor = AnchorStyles.None;
-            ConnectionPasswordTextBox.Location = new Point(234, 81);
+            ConnectionPasswordTextBox.Dock = DockStyle.Fill;
+            ConnectionPasswordTextBox.Location = new Point(234, 80);
             ConnectionPasswordTextBox.Name = "ConnectionPasswordTextBox";
             ConnectionPasswordTextBox.PlaceholderText = "Kabin Yazılımı Kullanıcı Şifresi";
-            ConnectionPasswordTextBox.Size = new Size(288, 23);
+            ConnectionPasswordTextBox.Size = new Size(289, 23);
             ConnectionPasswordTextBox.TabIndex = 2;
             // 
             // ConnectionDomainAddressTextBox
             // 
-            ConnectionDomainAddressTextBox.Anchor = AnchorStyles.None;
-            ConnectionDomainAddressTextBox.Location = new Point(234, 112);
+            ConnectionDomainAddressTextBox.Dock = DockStyle.Fill;
+            ConnectionDomainAddressTextBox.Location = new Point(234, 111);
             ConnectionDomainAddressTextBox.Name = "ConnectionDomainAddressTextBox";
             ConnectionDomainAddressTextBox.PlaceholderText = "Kabin Yazılımı Erişim Host veya IP Numarası";
-            ConnectionDomainAddressTextBox.Size = new Size(288, 23);
+            ConnectionDomainAddressTextBox.Size = new Size(289, 23);
             ConnectionDomainAddressTextBox.TabIndex = 2;
             // 
             // ConnectionUserTextBox
             // 
-            ConnectionUserTextBox.Anchor = AnchorStyles.None;
-            ConnectionUserTextBox.Location = new Point(234, 50);
+            ConnectionUserTextBox.Dock = DockStyle.Fill;
+            ConnectionUserTextBox.Location = new Point(234, 49);
             ConnectionUserTextBox.Name = "ConnectionUserTextBox";
             ConnectionUserTextBox.PlaceholderText = "Kabin Yazılımı Kullanıcı Adı";
-            ConnectionUserTextBox.Size = new Size(288, 23);
+            ConnectionUserTextBox.Size = new Size(289, 23);
             ConnectionUserTextBox.TabIndex = 2;
             // 
             // ConnectionPortLabel
@@ -242,11 +242,11 @@ namespace WinUI.Pages.Settings
             // 
             // ConnectionPortTextBox
             // 
-            ConnectionPortTextBox.Anchor = AnchorStyles.None;
-            ConnectionPortTextBox.Location = new Point(234, 143);
+            ConnectionPortTextBox.Dock = DockStyle.Fill;
+            ConnectionPortTextBox.Location = new Point(234, 142);
             ConnectionPortTextBox.Name = "ConnectionPortTextBox";
             ConnectionPortTextBox.PlaceholderText = "Kabin Yazılımı Erişim için kullanılan PORT bilgisi";
-            ConnectionPortTextBox.Size = new Size(288, 23);
+            ConnectionPortTextBox.Size = new Size(289, 23);
             ConnectionPortTextBox.TabIndex = 2;
             // 
             // StationSettingsHeaderTableLayoutPanel
@@ -572,155 +572,155 @@ namespace WinUI.Pages.Settings
             // 
             // StationIdTextBox
             // 
-            StationIdTextBox.Anchor = AnchorStyles.None;
+            StationIdTextBox.Dock = DockStyle.Fill;
             StationIdTextBox.Enabled = false;
-            StationIdTextBox.Location = new Point(235, 19);
+            StationIdTextBox.Location = new Point(234, 18);
             StationIdTextBox.Name = "StationIdTextBox";
-            StationIdTextBox.PlaceholderText = StationConstants.StationIdPlaceholder;
-            StationIdTextBox.Size = new Size(285, 23);
+            StationIdTextBox.PlaceholderText = "edf10dfd-5fab-460b-b2fd-66b67da7a489";
+            StationIdTextBox.Size = new Size(288, 23);
             StationIdTextBox.TabIndex = 2;
             StationIdTextBox.TextChanged += StationInfoTextChanged;
             // 
             // StationNameTextBox
             // 
-            StationNameTextBox.Anchor = AnchorStyles.None;
+            StationNameTextBox.Dock = DockStyle.Fill;
             StationNameTextBox.Enabled = false;
-            StationNameTextBox.Location = new Point(235, 81);
+            StationNameTextBox.Location = new Point(234, 80);
             StationNameTextBox.Name = "StationNameTextBox";
             StationNameTextBox.PlaceholderText = "Test Sais İstasyonu";
-            StationNameTextBox.Size = new Size(285, 23);
+            StationNameTextBox.Size = new Size(288, 23);
             StationNameTextBox.TabIndex = 2;
             StationNameTextBox.TextChanged += StationInfoTextChanged;
             // 
             // DataPeriodTextBox
             // 
-            DataPeriodTextBox.Anchor = AnchorStyles.None;
+            DataPeriodTextBox.Dock = DockStyle.Fill;
             DataPeriodTextBox.Enabled = false;
-            DataPeriodTextBox.Location = new Point(235, 112);
+            DataPeriodTextBox.Location = new Point(234, 111);
             DataPeriodTextBox.Name = "DataPeriodTextBox";
             DataPeriodTextBox.PlaceholderText = "1";
-            DataPeriodTextBox.Size = new Size(285, 23);
+            DataPeriodTextBox.Size = new Size(288, 23);
             DataPeriodTextBox.TabIndex = 2;
             DataPeriodTextBox.TextChanged += StationInfoTextChanged;
             // 
             // LastDataDateTextBox
             // 
-            LastDataDateTextBox.Anchor = AnchorStyles.None;
+            LastDataDateTextBox.Dock = DockStyle.Fill;
             LastDataDateTextBox.Enabled = false;
-            LastDataDateTextBox.Location = new Point(235, 143);
+            LastDataDateTextBox.Location = new Point(234, 142);
             LastDataDateTextBox.Name = "LastDataDateTextBox";
             LastDataDateTextBox.PlaceholderText = "2019-12-01T00:00:00";
-            LastDataDateTextBox.Size = new Size(285, 23);
+            LastDataDateTextBox.Size = new Size(288, 23);
             LastDataDateTextBox.TabIndex = 2;
             LastDataDateTextBox.TextChanged += StationInfoTextChanged;
             // 
             // CabinSoftwareAddressTextBox
             // 
-            CabinSoftwareAddressTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwareAddressTextBox.Dock = DockStyle.Fill;
             CabinSoftwareAddressTextBox.Enabled = false;
-            CabinSoftwareAddressTextBox.Location = new Point(235, 174);
+            CabinSoftwareAddressTextBox.Location = new Point(234, 173);
             CabinSoftwareAddressTextBox.Name = "CabinSoftwareAddressTextBox";
             CabinSoftwareAddressTextBox.PlaceholderText = "istanbul.ssl";
-            CabinSoftwareAddressTextBox.Size = new Size(285, 23);
+            CabinSoftwareAddressTextBox.Size = new Size(288, 23);
             CabinSoftwareAddressTextBox.TabIndex = 2;
             CabinSoftwareAddressTextBox.TextChanged += StationInfoTextChanged;
             // 
             // CodeTextBox
             // 
-            CodeTextBox.Anchor = AnchorStyles.None;
+            CodeTextBox.Dock = DockStyle.Fill;
             CodeTextBox.Enabled = false;
-            CodeTextBox.Location = new Point(235, 50);
+            CodeTextBox.Location = new Point(234, 49);
             CodeTextBox.Name = "CodeTextBox";
             CodeTextBox.PlaceholderText = "0337000";
-            CodeTextBox.Size = new Size(285, 23);
+            CodeTextBox.Size = new Size(288, 23);
             CodeTextBox.TabIndex = 2;
             CodeTextBox.TextChanged += StationInfoTextChanged;
             // 
             // CabinSoftwarePortTextBox
             // 
-            CabinSoftwarePortTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwarePortTextBox.Dock = DockStyle.Fill;
             CabinSoftwarePortTextBox.Enabled = false;
-            CabinSoftwarePortTextBox.Location = new Point(235, 205);
+            CabinSoftwarePortTextBox.Location = new Point(234, 204);
             CabinSoftwarePortTextBox.Name = "CabinSoftwarePortTextBox";
             CabinSoftwarePortTextBox.PlaceholderText = "443";
-            CabinSoftwarePortTextBox.Size = new Size(285, 23);
+            CabinSoftwarePortTextBox.Size = new Size(288, 23);
             CabinSoftwarePortTextBox.TabIndex = 2;
             CabinSoftwarePortTextBox.TextChanged += StationInfoTextChanged;
             // 
             // CabinSoftwareUsernameTextBox
             // 
-            CabinSoftwareUsernameTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwareUsernameTextBox.Dock = DockStyle.Fill;
             CabinSoftwareUsernameTextBox.Enabled = false;
-            CabinSoftwareUsernameTextBox.Location = new Point(235, 236);
+            CabinSoftwareUsernameTextBox.Location = new Point(234, 235);
             CabinSoftwareUsernameTextBox.Name = "CabinSoftwareUsernameTextBox";
             CabinSoftwareUsernameTextBox.PlaceholderText = "iski";
-            CabinSoftwareUsernameTextBox.Size = new Size(285, 23);
+            CabinSoftwareUsernameTextBox.Size = new Size(288, 23);
             CabinSoftwareUsernameTextBox.TabIndex = 2;
             CabinSoftwareUsernameTextBox.TextChanged += StationInfoTextChanged;
             // 
             // CabinSoftwarePasswordTextBox
             // 
-            CabinSoftwarePasswordTextBox.Anchor = AnchorStyles.None;
+            CabinSoftwarePasswordTextBox.Dock = DockStyle.Fill;
             CabinSoftwarePasswordTextBox.Enabled = false;
-            CabinSoftwarePasswordTextBox.Location = new Point(235, 267);
+            CabinSoftwarePasswordTextBox.Location = new Point(234, 266);
             CabinSoftwarePasswordTextBox.Name = "CabinSoftwarePasswordTextBox";
             CabinSoftwarePasswordTextBox.PlaceholderText = "iski123";
-            CabinSoftwarePasswordTextBox.Size = new Size(285, 23);
+            CabinSoftwarePasswordTextBox.Size = new Size(288, 23);
             CabinSoftwarePasswordTextBox.TabIndex = 2;
             CabinSoftwarePasswordTextBox.TextChanged += StationInfoTextChanged;
             // 
             // OrganizationTextBox
             // 
-            OrganizationTextBox.Anchor = AnchorStyles.None;
+            OrganizationTextBox.Dock = DockStyle.Fill;
             OrganizationTextBox.Enabled = false;
-            OrganizationTextBox.Location = new Point(235, 298);
+            OrganizationTextBox.Location = new Point(234, 297);
             OrganizationTextBox.Name = "OrganizationTextBox";
             OrganizationTextBox.PlaceholderText = "Test Tesisi";
-            OrganizationTextBox.Size = new Size(285, 23);
+            OrganizationTextBox.Size = new Size(288, 23);
             OrganizationTextBox.TabIndex = 2;
             OrganizationTextBox.TextChanged += StationInfoTextChanged;
             // 
             // StationSetupDateTextBox
             // 
-            StationSetupDateTextBox.Anchor = AnchorStyles.None;
+            StationSetupDateTextBox.Dock = DockStyle.Fill;
             StationSetupDateTextBox.Enabled = false;
-            StationSetupDateTextBox.Location = new Point(235, 329);
+            StationSetupDateTextBox.Location = new Point(234, 328);
             StationSetupDateTextBox.Name = "StationSetupDateTextBox";
             StationSetupDateTextBox.PlaceholderText = "2019-12-01T00:00:00";
-            StationSetupDateTextBox.Size = new Size(285, 23);
+            StationSetupDateTextBox.Size = new Size(288, 23);
             StationSetupDateTextBox.TabIndex = 2;
             StationSetupDateTextBox.TextChanged += StationInfoTextChanged;
             // 
             // SoftwareSetupDateTextBox
             // 
-            SoftwareSetupDateTextBox.Anchor = AnchorStyles.None;
+            SoftwareSetupDateTextBox.Dock = DockStyle.Fill;
             SoftwareSetupDateTextBox.Enabled = false;
-            SoftwareSetupDateTextBox.Location = new Point(235, 360);
+            SoftwareSetupDateTextBox.Location = new Point(234, 359);
             SoftwareSetupDateTextBox.Name = "SoftwareSetupDateTextBox";
             SoftwareSetupDateTextBox.PlaceholderText = "2019-12-01T00:00:00";
-            SoftwareSetupDateTextBox.Size = new Size(285, 23);
+            SoftwareSetupDateTextBox.Size = new Size(288, 23);
             SoftwareSetupDateTextBox.TabIndex = 2;
             SoftwareSetupDateTextBox.TextChanged += StationInfoTextChanged;
             // 
             // StationAddressTextBox
             // 
-            StationAddressTextBox.Anchor = AnchorStyles.None;
+            StationAddressTextBox.Dock = DockStyle.Fill;
             StationAddressTextBox.Enabled = false;
-            StationAddressTextBox.Location = new Point(235, 391);
+            StationAddressTextBox.Location = new Point(234, 390);
             StationAddressTextBox.Name = "StationAddressTextBox";
             StationAddressTextBox.PlaceholderText = "İstanbul";
-            StationAddressTextBox.Size = new Size(285, 23);
+            StationAddressTextBox.Size = new Size(288, 23);
             StationAddressTextBox.TabIndex = 2;
             StationAddressTextBox.TextChanged += StationInfoTextChanged;
             // 
             // SoftwareTextBox
             // 
-            SoftwareTextBox.Anchor = AnchorStyles.None;
+            SoftwareTextBox.Dock = DockStyle.Fill;
             SoftwareTextBox.Enabled = false;
-            SoftwareTextBox.Location = new Point(235, 422);
+            SoftwareTextBox.Location = new Point(234, 421);
             SoftwareTextBox.Name = "SoftwareTextBox";
             SoftwareTextBox.PlaceholderText = "IBKS";
-            SoftwareTextBox.Size = new Size(285, 23);
+            SoftwareTextBox.Size = new Size(288, 23);
             SoftwareTextBox.TabIndex = 2;
             SoftwareTextBox.TextChanged += StationInfoTextChanged;
             // 

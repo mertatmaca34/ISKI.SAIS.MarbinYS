@@ -85,8 +85,8 @@
             tableLayoutSystemState.Dock = DockStyle.Fill;
             tableLayoutSystemState.Location = new Point(203, 3);
             tableLayoutSystemState.Name = "tableLayoutSystemState";
-            tableLayoutSystemState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutSystemState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutSystemState.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutSystemState.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutSystemState.Size = new Size(176, 40);
             tableLayoutSystemState.TabIndex = 0;
             // 
@@ -149,17 +149,17 @@
             tableLayoutChannel.Dock = DockStyle.Fill;
             tableLayoutChannel.Location = new Point(11, 3);
             tableLayoutChannel.Name = "tableLayoutChannel";
-            tableLayoutChannel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutChannel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutChannel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutChannel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutChannel.Size = new Size(176, 40);
             tableLayoutChannel.TabIndex = 4;
             // 
             // LabelChannelName
             // 
-            LabelChannelName.Anchor = AnchorStyles.None;
+            LabelChannelName.Anchor = AnchorStyles.Bottom;
             LabelChannelName.AutoSize = true;
             LabelChannelName.Font = new Font("Arial", 11.25F, FontStyle.Bold);
-            LabelChannelName.Location = new Point(8, 1);
+            LabelChannelName.Location = new Point(8, 2);
             LabelChannelName.Name = "LabelChannelName";
             LabelChannelName.Size = new Size(160, 18);
             LabelChannelName.TabIndex = 0;
@@ -185,8 +185,8 @@
             tableLayoutDataState.Dock = DockStyle.Fill;
             tableLayoutDataState.Location = new Point(395, 3);
             tableLayoutDataState.Name = "tableLayoutDataState";
-            tableLayoutDataState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutDataState.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutDataState.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutDataState.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutDataState.Size = new Size(179, 40);
             tableLayoutDataState.TabIndex = 5;
             // 

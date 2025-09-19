@@ -1,11 +1,13 @@
+using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Windows.Forms;
+using WinUI.Forms;
 
 namespace WinUI.Helpers;
 
 public static class PageManager
 {
-    public static void ShowPage(Panel panel, UserControl page)
+    public static void ShowPage(Panel panel, UserControl page, MainForm mainForm = null)
     {
         if (panel is null)
         {
@@ -38,5 +40,24 @@ public static class PageManager
 
         page.Show();
         page.BringToFront();
+
+        foreach (UserControl activeForm in panel.Controls)
+        {
+            activeForm.Size = panel.Size;
+        }
+
+        if (page.Name == "SimulationPage" && mainForm != null)
+        {
+            mainForm.WindowState = FormWindowState.Normal;
+            mainForm.MaximumSize = new Size(1280, 720);
+
+            mainForm.MaximizeBox = false;
+        }
+        else if (mainForm != null)
+        {
+            mainForm.MaximumSize = new Size(0, 0);
+
+            mainForm.MaximizeBox = true;
+        }
     }
 }

@@ -32,7 +32,7 @@ public partial class MainForm : Form
         _mailPage = mailPage;
         _settingsPage = settingsPage;
 
-        PageManager.ShowPage(MainContentPanel, _homePage);
+        PageManager.ShowPage(MainContentPanel, _homePage, this);
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -45,37 +45,37 @@ public partial class MainForm : Form
     private void HomePageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, HomePageButton);
-        PageManager.ShowPage(MainContentPanel, _homePage);
+        PageManager.ShowPage(MainContentPanel, _homePage, this);
     }
 
     private void SimulationPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SimulationPageButton);
-        PageManager.ShowPage(MainContentPanel, _simulationPage);
+        PageManager.ShowPage(MainContentPanel, _simulationPage, this);
     }
 
     private void CalibrationPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, CalibrationPageButton);
-        PageManager.ShowPage(MainContentPanel, _calibrationPage);
+        PageManager.ShowPage(MainContentPanel, _calibrationPage, this);
     }
 
     private void ReportingPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, ReportingPageButton);
-        PageManager.ShowPage(MainContentPanel, _reportingPage);
+        PageManager.ShowPage(MainContentPanel, _reportingPage, this);
     }
 
     private void SettingsPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, SettingsPageButton);
-        PageManager.ShowPage(MainContentPanel, new SettingsPage());
+        PageManager.ShowPage(MainContentPanel, new SettingsPage(), this);
     }
 
     private void MailPageButton_Click(object sender, EventArgs e)
     {
         ButtonImageExtensions.Replace(SideBarTableLayoutPanel, MailPageButton);
-        PageManager.ShowPage(MainContentPanel, _mailPage);
+        PageManager.ShowPage(MainContentPanel, _mailPage, this);
     }
 
     private void LoginButton_Click(object sender, EventArgs e)
@@ -83,5 +83,13 @@ public partial class MainForm : Form
         LoginForm loginForm = new LoginForm();
 
         loginForm.ShowDialog();
+    }
+
+    private void MainForm_SizeChanged(object sender, EventArgs e)
+    {
+        foreach (UserControl activeForm in MainContentPanel.Controls)
+        {
+            activeForm.Size = MainContentPanel.Size;
+        }
     }
 }

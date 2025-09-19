@@ -204,10 +204,12 @@
             Controls.Add(MainContentPanel);
             Controls.Add(SideBarTableLayoutPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(1280, 720);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "İSKİ Marbin Yönetim Sistemi";
             Load += MainForm_Load;
+            SizeChanged += MainForm_SizeChanged;
             SideBarTableLayoutPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
