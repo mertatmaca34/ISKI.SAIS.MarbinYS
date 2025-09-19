@@ -1,0 +1,21 @@
+<Page
+    x:Class="WinUI.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinUI.Controls"
+    mc:Ignorable="d">
+
+    <Grid RowDefinitions="Auto,*" Padding="24" ColumnSpacing="24">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <TextBlock Text="Ana Sayfa" Style="{StaticResource PageTitleTextStyle}" />
+            <controls:BusyIndicator IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Spacing="12">
+            <Button Content="Verileri Yenile" Command="{x:Bind ViewModel.RefreshCommand}" />
+            <TextBlock Text="{x:Bind ViewModel.PlcSummary, Mode=OneWay}" TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</Page>
