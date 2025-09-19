@@ -1,0 +1,31 @@
+<Window
+    x:Class="WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:WinUI.ViewModels"
+    mc:Ignorable="d"
+    Title="İSKİ SAİS"
+    Width="1200"
+    Height="800">
+
+    <Window.Resources>
+        <DataTemplate x:Key="NavigationItemTemplate" x:DataType="vm:NavigationItemViewModel">
+            <muxc:NavigationViewItem Content="{x:Bind Title}" Tag="{x:Bind Key}">
+                <muxc:NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="{x:Bind Icon}" />
+                </muxc:NavigationViewItem.Icon>
+            </muxc:NavigationViewItem>
+        </DataTemplate>
+    </Window.Resources>
+
+    <muxc:NavigationView x:Name="ShellNavigationView"
+                         IsSettingsVisible="False"
+                         PaneDisplayMode="Left"
+                         MenuItemsSource="{x:Bind ViewModel.NavigationItems, Mode=OneWay}"
+                         MenuItemTemplate="{StaticResource NavigationItemTemplate}">
+        <Frame x:Name="ContentFrame" />
+    </muxc:NavigationView>
+</Window>

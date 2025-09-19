@@ -1,0 +1,26 @@
+<Page
+    x:Class="WinUI.Views.SimulationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinUI.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="24" RowDefinitions="Auto,Auto,*" RowSpacing="16">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <TextBlock Text="Simülasyon" Style="{StaticResource PageTitleTextStyle}" />
+            <controls:BusyIndicator IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12">
+            <Button Content="PLC Verisini Yükle" Command="{x:Bind ViewModel.LoadDataCommand}" />
+            <Button Content="Simülasyonu Gönder" Command="{x:Bind ViewModel.SendSimulationCommand}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Spacing="8">
+            <TextBlock Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" TextWrapping="Wrap" />
+            <TextBlock Text="{x:Bind ViewModel.LatestPlcData.Analog.Readtime, Mode=OneWay, StringFormat='Son Okuma: {0:G}'}" />
+        </StackPanel>
+    </Grid>
+</Page>
