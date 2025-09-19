@@ -73,7 +73,7 @@ namespace WinUI.Forms
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
             tableLayoutPanel1.Size = new Size(579, 438);
-            tableLayoutPanel1.TabIndex = 2;
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
             // 
@@ -84,7 +84,7 @@ namespace WinUI.Forms
             label1.Margin = new Padding(30, 0, 30, 0);
             label1.Name = "label1";
             label1.Size = new Size(72, 15);
-            label1.TabIndex = 1;
+            label1.TabIndex = 0;
             label1.Text = "Kullanıcı Adı";
             // 
             // label2
@@ -96,7 +96,7 @@ namespace WinUI.Forms
             label2.Margin = new Padding(30, 0, 30, 0);
             label2.Name = "label2";
             label2.Size = new Size(32, 15);
-            label2.TabIndex = 3;
+            label2.TabIndex = 0;
             label2.Text = "Şifre";
             // 
             // PasswordTextBox
@@ -109,7 +109,7 @@ namespace WinUI.Forms
             PasswordTextBox.Name = "PasswordTextBox";
             PasswordTextBox.PlaceholderText = "sifre";
             PasswordTextBox.Size = new Size(285, 27);
-            PasswordTextBox.TabIndex = 4;
+            PasswordTextBox.TabIndex = 1;
             // 
             // labelTitle
             // 
@@ -137,7 +137,7 @@ namespace WinUI.Forms
             LoginButton.Margin = new Padding(30, 23, 30, 13);
             LoginButton.Name = "LoginButton";
             LoginButton.Size = new Size(319, 36);
-            LoginButton.TabIndex = 6;
+            LoginButton.TabIndex = 2;
             LoginButton.TextColor = Color.White;
             LoginButton.Click += LoginButton_Click;
             // 
@@ -149,7 +149,8 @@ namespace WinUI.Forms
             EyeButton.Location = new Point(421, 258);
             EyeButton.Name = "EyeButton";
             EyeButton.Size = new Size(24, 23);
-            EyeButton.TabIndex = 7;
+            EyeButton.TabIndex = 3;
+            EyeButton.TabStop = false;
             EyeButton.UseVisualStyleBackColor = true;
             EyeButton.Click += EyeButton_Click;
             // 
@@ -160,7 +161,8 @@ namespace WinUI.Forms
             button1.Location = new Point(103, 53);
             button1.Name = "button1";
             button1.Size = new Size(373, 35);
-            button1.TabIndex = 8;
+            button1.TabIndex = 4;
+            button1.TabStop = false;
             button1.UseVisualStyleBackColor = true;
             button1.Visible = false;
             // 
@@ -173,7 +175,7 @@ namespace WinUI.Forms
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "kullanıcı adı";
             textBox1.Size = new Size(285, 27);
-            textBox1.TabIndex = 9;
+            textBox1.TabIndex = 0;
             // 
             // LoginForm
             // 

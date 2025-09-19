@@ -60,7 +60,7 @@ namespace WinUI.Forms
             nameTextBox.Location = new Point(110, 12);
             nameTextBox.Name = "nameTextBox";
             nameTextBox.Size = new Size(250, 23);
-            nameTextBox.TabIndex = 1;
+            nameTextBox.TabIndex = 0;
             // 
             // channelLabel
             // 
@@ -68,7 +68,7 @@ namespace WinUI.Forms
             channelLabel.Location = new Point(12, 45);
             channelLabel.Name = "channelLabel";
             channelLabel.Size = new Size(41, 15);
-            channelLabel.TabIndex = 2;
+            channelLabel.TabIndex = 0;
             channelLabel.Text = "Kanal";
             // 
             // channelComboBox
@@ -77,7 +77,7 @@ namespace WinUI.Forms
             channelComboBox.Location = new Point(110, 42);
             channelComboBox.Name = "channelComboBox";
             channelComboBox.Size = new Size(250, 23);
-            channelComboBox.TabIndex = 3;
+            channelComboBox.TabIndex = 1;
             // 
             // limitLabel
             // 
@@ -85,7 +85,7 @@ namespace WinUI.Forms
             limitLabel.Location = new Point(12, 75);
             limitLabel.Name = "limitLabel";
             limitLabel.Size = new Size(32, 15);
-            limitLabel.TabIndex = 4;
+            limitLabel.TabIndex = 0;
             limitLabel.Text = "Limit";
             // 
             // limitNumericUpDown
@@ -95,7 +95,7 @@ namespace WinUI.Forms
             limitNumericUpDown.Maximum = new decimal(new int[] {1000000, 0, 0, 0});
             limitNumericUpDown.Name = "limitNumericUpDown";
             limitNumericUpDown.Size = new Size(120, 23);
-            limitNumericUpDown.TabIndex = 5;
+            limitNumericUpDown.TabIndex = 2;
             // 
             // subjectLabel
             // 
@@ -103,7 +103,7 @@ namespace WinUI.Forms
             subjectLabel.Location = new Point(12, 105);
             subjectLabel.Name = "subjectLabel";
             subjectLabel.Size = new Size(75, 15);
-            subjectLabel.TabIndex = 6;
+            subjectLabel.TabIndex = 0;
             subjectLabel.Text = "Mail Konusu";
             // 
             // subjectTextBox
@@ -111,7 +111,7 @@ namespace WinUI.Forms
             subjectTextBox.Location = new Point(110, 102);
             subjectTextBox.Name = "subjectTextBox";
             subjectTextBox.Size = new Size(250, 23);
-            subjectTextBox.TabIndex = 7;
+            subjectTextBox.TabIndex = 3;
             // 
             // bodyLabel
             // 
@@ -119,7 +119,7 @@ namespace WinUI.Forms
             bodyLabel.Location = new Point(12, 135);
             bodyLabel.Name = "bodyLabel";
             bodyLabel.Size = new Size(67, 15);
-            bodyLabel.TabIndex = 8;
+            bodyLabel.TabIndex = 0;
             bodyLabel.Text = "Mail İçeriği";
             // 
             // bodyTextBox
@@ -128,14 +128,14 @@ namespace WinUI.Forms
             bodyTextBox.Multiline = true;
             bodyTextBox.Name = "bodyTextBox";
             bodyTextBox.Size = new Size(250, 80);
-            bodyTextBox.TabIndex = 9;
+            bodyTextBox.TabIndex = 4;
             // 
             // saveButton
             // 
             saveButton.Location = new Point(285, 220);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(75, 23);
-            saveButton.TabIndex = 10;
+            saveButton.TabIndex = 5;
             saveButton.Text = "Kaydet";
             saveButton.UseVisualStyleBackColor = true;
             // 
