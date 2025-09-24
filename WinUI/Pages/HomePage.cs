@@ -59,11 +59,9 @@ namespace WinUI.Pages
             }
             else
             {
-                digitalSensorBar1.SystemStateDescription = "KURULMADI";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
+                ApplyPlcUnavailableState(false);
                 digitalSensorBar1.DataStateDescription = "KURULMADI";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
                 _isConnected = false;
                 Log.Warning(LogMessages.HomePage.PlcConfigurationMissing);
             }
@@ -172,7 +170,7 @@ namespace WinUI.Pages
                     break;
                 case ApiConnectionStatus.NotConfigured:
                     digitalSensorBar1.DataStateDescription = "KURULMADI";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Warning;
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
                     Log.Warning("SAIS API ayarları bulunamadı.");
                     break;
                 default:
@@ -211,17 +209,32 @@ namespace WinUI.Pages
             }
         }
 
+        private void ApplyPlcUnavailableState(bool hasConfiguration)
+        {
+            if (hasConfiguration)
+            {
+                digitalSensorBar1.SystemStateDescription = "ERİŞİM YOK";
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
+                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Erişim Yok";
+            }
+            else
+            {
+                digitalSensorBar1.SystemStateDescription = "KURULMADI";
+                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
+                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
+            }
+        }
+
         private async void TimerAssignUI_Tick(object sender, EventArgs e)
         {
+            var hasPlcConfiguration = IsPlcConfigured();
             try
             {
                 var apiStatus = await UpdateSaisConnectionStatusAsync();
 
                 if (apiStatus != ApiConnectionStatus.Connected)
                 {
-                    digitalSensorBar1.SystemStateDescription = "KOPUK";
-                    digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-                    StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
+                    ApplyPlcUnavailableState(hasPlcConfiguration);
                     _isConnected = false;
                     if (!_ticketService.HasValidTicket())
                     {
@@ -289,12 +302,9 @@ namespace WinUI.Pages
                 foreach (var sensor in _digitalSensors)
                     sensor.SensorState = StateColors.Waiting;
 
-                digitalSensorBar1.SystemStateDescription = "KURULMADI";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
+                ApplyPlcUnavailableState(false);
                 digitalSensorBar1.DataStateDescription = "KURULMADI";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
-
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
                 _isConnected = false;
                 Log.Warning(LogMessages.HomePage.PlcInfoNotYetConfigured);
             }
@@ -305,9 +315,7 @@ namespace WinUI.Pages
                 foreach (var sensor in _digitalSensors)
                     sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
 
-                digitalSensorBar1.SystemStateDescription = "ERİŞİM YOK";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
-
+                ApplyPlcUnavailableState(hasPlcConfiguration);
                 _isConnected = false;
                 Log.Error(ex, LogMessages.HomePage.ApiAccessError);
             }
@@ -318,10 +326,7 @@ namespace WinUI.Pages
                 foreach (var sensor in _digitalSensors)
                     sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
 
-                digitalSensorBar1.SystemStateDescription = "KOPUK";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.Error;
-
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı Değil";
+                ApplyPlcUnavailableState(hasPlcConfiguration);
                 _isConnected = false;
                 Log.Error(ex, LogMessages.HomePage.PlcDataReadFailed);
             }
