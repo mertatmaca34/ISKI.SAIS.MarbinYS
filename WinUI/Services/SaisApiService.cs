@@ -45,14 +45,16 @@ public class SaisApiService : ISaisApiService
     private readonly ITicketService _ticketService;
     private readonly IApiEndpointService _apiEndpointService;
     private readonly ILogger<SaisApiService> _logger;
+    private readonly IConnectionStatusService _connectionStatusService;
     private static readonly JsonSerializerOptions JsonOpts = new();
 
-    public SaisApiService(HttpClient httpClient, ITicketService ticketService, IApiEndpointService apiEndpointService, ILogger<SaisApiService> logger)
+    public SaisApiService(HttpClient httpClient, ITicketService ticketService, IApiEndpointService apiEndpointService, ILogger<SaisApiService> logger, IConnectionStatusService connectionStatusService)
     {
         _httpClient = httpClient;
         _ticketService = ticketService;
         _apiEndpointService = apiEndpointService;
         _logger = logger;
+        _connectionStatusService = connectionStatusService;
     }
 
     private Task<HttpResponseMessage> PostAsJsonAsync<TValue>(string requestUri, TValue value, CancellationToken cancellationToken = default) =>
@@ -60,17 +62,37 @@ public class SaisApiService : ISaisApiService
 
     private async Task<string?> PrepareAsync()
     {
-        await _ticketService.EnsureTicketAsync();
+        try
+        {
+            await _ticketService.EnsureTicketAsync();
+        }
+        catch (HttpRequestException ex)
+        {
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+            throw;
+        }
+        catch (TaskCanceledException ex)
+        {
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess, ex.Message);
+            throw;
+        }
         var endpoint = await _apiEndpointService.GetFirstAsync();
         if (endpoint == null)
         {
             _logger.LogWarning(LogMessages.SaisApiNotConfigured);
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NotConfigured);
             return null;
         }
         var baseUrl = endpoint.ApiAddress?.TrimEnd('/');
         if (string.IsNullOrWhiteSpace(baseUrl))
         {
             _logger.LogWarning(LogMessages.SaisApiNotConfigured);
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NotConfigured);
             return null;
         }
 
@@ -80,9 +102,11 @@ public class SaisApiService : ISaisApiService
         if (!_ticketService.TryApplyTicket(_httpClient.DefaultRequestHeaders))
         {
             _logger.LogWarning(LogMessages.SaisApiService.TicketMissingOrExpired);
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess);
             return null;
         }
 
+        _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Connected);
         return baseUrl;
     }
 
@@ -91,7 +115,7 @@ public class SaisApiService : ISaisApiService
         var baseUrl = await PrepareAsync();
         if (baseUrl == null) return default;
 
-        HttpResponseMessage response = await sendRequest(baseUrl);
+        HttpResponseMessage response = await SendWithStatusTrackingAsync(baseUrl, sendRequest);
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
             _logger.LogWarning(LogMessages.SaisApiService.SessionNotFoundOrExpired);
@@ -99,7 +123,7 @@ public class SaisApiService : ISaisApiService
             await _ticketService.RefreshTicketAsync();
             baseUrl = await PrepareAsync();
             if (baseUrl == null) return default;
-            response = await sendRequest(baseUrl);
+            response = await SendWithStatusTrackingAsync(baseUrl, sendRequest);
         }
 
         try
@@ -108,11 +132,13 @@ public class SaisApiService : ISaisApiService
 
             if (response.IsSuccessStatusCode)
             {
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Connected);
                 return payload;
             }
 
             if (payload != null)
             {
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess, rawContent);
                 _logger.LogWarning(
                     "SAIS API returned non-success status code {StatusCode}. Response: {ResponseContent}",
                     response.StatusCode,
@@ -120,6 +146,7 @@ public class SaisApiService : ISaisApiService
                 return payload;
             }
 
+            _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess);
             _logger.LogWarning(
                 "SAIS API returned non-success status code {StatusCode} with no readable payload.",
                 response.StatusCode);
@@ -130,6 +157,24 @@ public class SaisApiService : ISaisApiService
         finally
         {
             response.Dispose();
+        }
+
+        async Task<HttpResponseMessage> SendWithStatusTrackingAsync(string baseUrl, Func<string, Task<HttpResponseMessage>> sender)
+        {
+            try
+            {
+                return await sender(baseUrl);
+            }
+            catch (HttpRequestException ex)
+            {
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+                throw;
+            }
+            catch (TaskCanceledException ex)
+            {
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+                throw;
+            }
         }
     }
 
