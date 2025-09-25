@@ -52,6 +52,7 @@
             ResponseTextBox = new TextBox();
             RequestSampleButton = new Button();
             SendDiagnosticButton = new Button();
+            button1 = new Button();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoBgTableLayoutPanel.SuspendLayout();
@@ -318,6 +319,7 @@
             ApiTestContentTableLayoutPanel.Controls.Add(ResponseGroupBox, 1, 0);
             ApiTestContentTableLayoutPanel.Controls.Add(RequestSampleButton, 0, 1);
             ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 2);
+            ApiTestContentTableLayoutPanel.Controls.Add(button1, 0, 3);
             ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
             ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
             ApiTestContentTableLayoutPanel.Margin = new Padding(1);
@@ -404,6 +406,18 @@
             SendDiagnosticButton.Text = "Deneme Diagnostik Gönder";
             SendDiagnosticButton.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Left;
+            button1.AutoSize = true;
+            button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Location = new Point(18, 111);
+            button1.Name = "button1";
+            button1.Size = new Size(176, 25);
+            button1.TabIndex = 2;
+            button1.Text = "Son Veriyi Getir";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // ApiSettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -454,5 +468,6 @@
         private Button SendDiagnosticButton;
         private GroupBox ResponseGroupBox;
         private TextBox ResponseTextBox;
+        private Button button1;
     }
 }

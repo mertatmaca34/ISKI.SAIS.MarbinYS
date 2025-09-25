@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using Application.Features.CalibrationMeasurements.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Models;
 using WinUI.Services;

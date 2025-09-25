@@ -188,13 +188,13 @@ namespace WinUI.Pages
             RadioButtonSortByLast.Name = "RadioButtonSortByLast";
             RadioButtonSortByLast.Size = new Size(115, 19);
             RadioButtonSortByLast.TabIndex = 2;
-            RadioButtonSortByLast.TabStop = true;
             RadioButtonSortByLast.Text = "Son Veriye Göre";
             RadioButtonSortByLast.UseVisualStyleBackColor = true;
             // 
             // RadioButtonSortByFirst
             // 
             RadioButtonSortByFirst.AutoSize = true;
+            RadioButtonSortByFirst.Checked = true;
             RadioButtonSortByFirst.Location = new Point(6, 21);
             RadioButtonSortByFirst.Name = "RadioButtonSortByFirst";
             RadioButtonSortByFirst.Size = new Size(106, 19);
@@ -371,7 +371,6 @@ namespace WinUI.Pages
             // 
             DataGridViewDatas.AllowUserToDeleteRows = false;
             DataGridViewDatas.AllowUserToResizeRows = false;
-            DataGridViewDatas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             DataGridViewDatas.BackgroundColor = Color.White;
             DataGridViewDatas.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -391,10 +390,10 @@ namespace WinUI.Pages
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DataGridViewDatas.RowsDefaultCellStyle = dataGridViewCellStyle2;
             DataGridViewDatas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGridViewDatas.CellFormatting += DataGridViewDatas_CellFormatting;
             DataGridViewDatas.Size = new Size(926, 575);
             DataGridViewDatas.TabIndex = 0;
-            //
+            DataGridViewDatas.CellFormatting += DataGridViewDatas_CellFormatting;
+            // 
             // tableLayoutPanel5
             // 
             tableLayoutPanel5.BackColor = Color.FromArgb(235, 235, 235);
