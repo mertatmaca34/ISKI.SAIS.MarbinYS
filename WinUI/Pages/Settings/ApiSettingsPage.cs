@@ -82,6 +82,9 @@ public partial class ApiSettingsPage : UserControl
         {
             PeriodComboBox.SelectedIndex = 0;
         }
+
+        StartDatePicker.Value = DateTime.Now.AddDays(-1);
+        EndDatePicker.Value = DateTime.Now;
     }
 
     private async void ApiSettingsPage_Load(object? sender, EventArgs e)
@@ -259,9 +262,15 @@ public partial class ApiSettingsPage : UserControl
             }
 
             int period = GetSelectedPeriodCode();
-            DateTime endDate = DateTime.Now;
+            DateTime startDate = StartDatePicker.Value;
+            DateTime endDate = EndDatePicker.Value;
+            if (startDate >= endDate)
+            {
+                ResponseTextBox.Text = FormatContent("Başlangıç tarihi bitiş tarihinden küçük olmalıdır.");
+                return;
+            }
+
             DateTime? latestLocalReadTime = await _sendDataService.GetLatestReadTimeAsync();
-            DateTime startDate = ResolveStartDate(station, latestLocalReadTime, endDate);
 
             var result = await _saisApiService.GetDataByBetweenTwoDateAsync(station.StationId, period, startDate, endDate);
             if (result == null)
@@ -379,33 +388,6 @@ public partial class ApiSettingsPage : UserControl
             ResponseTextBox.Text = FormatContent(ex.Message);
         }
     }
-
-    private static DateTime ResolveStartDate(StationDto station, DateTime? latestLocalReadTime, DateTime endDate)
-    {
-        if (latestLocalReadTime.HasValue)
-        {
-            var candidate = latestLocalReadTime.Value.AddMinutes(1);
-            if (candidate < endDate)
-            {
-                return candidate;
-            }
-
-            return endDate.AddMinutes(-1);
-        }
-
-        if (station.SetupDate.HasValue)
-        {
-            return station.SetupDate.Value;
-        }
-
-        if (station.BirtDate.HasValue)
-        {
-            return station.BirtDate.Value;
-        }
-
-        return endDate.AddYears(-1);
-    }
-
     private sealed class PeriodOption
     {
         public PeriodOption(string displayName, int code)
