@@ -13,18 +13,20 @@ namespace WinUI.Pages
         private readonly IPlcDataService _plcService;
         private readonly IApiEndpointService _apiEndpointService;
         private readonly ITicketService _ticketService;
+        private readonly IConnectionStatusService _connectionStatusService;
         private readonly List<ChannelControl> _channels;
         private readonly List<DigitalSensorControl> _digitalSensors;
         private DateTime? _lastConnectedTime;
-        private bool _isConnected;
-        private ApiConnectionStatus _apiConnectionStatus = ApiConnectionStatus.Unknown;
+        private ConnectionState _currentApiState = ConnectionState.Unknown;
+        private ConnectionState _currentPlcState = ConnectionState.Unknown;
 
-        public HomePage(IPlcDataService plcService, IApiEndpointService apiEndpointService, ITicketService ticketService)
+        public HomePage(IPlcDataService plcService, IApiEndpointService apiEndpointService, ITicketService ticketService, IConnectionStatusService connectionStatusService)
         {
             InitializeComponent();
             _plcService = plcService;
             _apiEndpointService = apiEndpointService;
             _ticketService = ticketService;
+            _connectionStatusService = connectionStatusService;
             _channels = new()
             {
                 ChannelAkm,
@@ -48,6 +50,9 @@ namespace WinUI.Pages
                 DigitalSensorYikamaTanki,
                 DigitalSensorEnerji
             };
+
+            _connectionStatusService.StatusChanged += ConnectionStatusService_StatusChanged;
+            Disposed += HomePage_Disposed;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -62,7 +67,6 @@ namespace WinUI.Pages
                 ApplyPlcUnavailableState(false);
                 digitalSensorBar1.DataStateDescription = "KURULMADI";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
-                _isConnected = false;
                 Log.Warning(LogMessages.HomePage.PlcConfigurationMissing);
             }
         }
@@ -77,15 +81,128 @@ namespace WinUI.Pages
             return value.HasValue ? $"{value.Value:0.##}{unit}" : "-";
         }
 
-        private async Task<ApiConnectionStatus> UpdateSaisConnectionStatusAsync()
+        private void HomePage_Disposed(object? sender, EventArgs e)
+        {
+            _connectionStatusService.StatusChanged -= ConnectionStatusService_StatusChanged;
+        }
+
+        private void ConnectionStatusService_StatusChanged(object? sender, ConnectionStatusChangedEventArgs e)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => ConnectionStatusService_StatusChanged(sender, e)));
+                return;
+            }
+
+            switch (e.Component)
+            {
+                case ConnectionComponent.SaisApi:
+                    UpdateApiStatus(e.State);
+                    break;
+                case ConnectionComponent.Plc:
+                    UpdatePlcStatus(e.State);
+                    break;
+            }
+        }
+
+        private void UpdateApiStatus(ConnectionState state)
+        {
+            if (_currentApiState == state)
+            {
+                return;
+            }
+
+            _currentApiState = state;
+
+            switch (state)
+            {
+                case ConnectionState.Connected:
+                    digitalSensorBar1.DataStateDescription = "BAĞLI";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
+                    Log.Information("SAIS API bağlantısı sağlandı.");
+                    break;
+                case ConnectionState.NotConfigured:
+                    digitalSensorBar1.DataStateDescription = "KURULMADI";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
+                    Log.Warning("SAIS API ayarları bulunamadı.");
+                    break;
+                case ConnectionState.NoAccess:
+                    digitalSensorBar1.DataStateDescription = "ERİŞİM YOK";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
+                    Log.Warning("SAIS API erişimi sağlanamadı.");
+                    break;
+                case ConnectionState.Unreachable:
+                    digitalSensorBar1.DataStateDescription = "ERİŞİM YOK";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.NoAccess;
+                    Log.Warning("SAIS API erişimi sağlanamadı.");
+                    break;
+                default:
+                    digitalSensorBar1.DataStateDescription = "BEKLENİYOR";
+                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Waiting;
+                    break;
+            }
+        }
+
+        private void UpdatePlcStatus(ConnectionState state)
+        {
+            if (_currentPlcState == state)
+            {
+                return;
+            }
+
+            _currentPlcState = state;
+
+            switch (state)
+            {
+                case ConnectionState.Connected:
+                    digitalSensorBar1.SystemStateDescription = "BAĞLI";
+                    digitalSensorBar1.SystemStateDescriptionColor = StateColors.Ok;
+                    StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı";
+                    if (!_lastConnectedTime.HasValue)
+                    {
+                        _lastConnectedTime = DateTime.Now;
+                    }
+                    break;
+                case ConnectionState.NotConfigured:
+                    digitalSensorBar1.SystemStateDescription = "KURULMADI";
+                    digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
+                    StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
+                    _lastConnectedTime = null;
+                    break;
+                case ConnectionState.NoAccess:
+                case ConnectionState.Unreachable:
+                    digitalSensorBar1.SystemStateDescription = "ERİŞİM YOK";
+                    digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
+                    StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Erişim Yok";
+                    _lastConnectedTime = null;
+                    break;
+                default:
+                    digitalSensorBar1.SystemStateDescription = "BEKLENİYOR";
+                    digitalSensorBar1.SystemStateDescriptionColor = StateColors.Waiting;
+                    StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bekleniyor";
+                    _lastConnectedTime = null;
+                    break;
+            }
+        }
+
+        private async Task<bool> UpdateSaisConnectionStatusAsync()
         {
             try
             {
                 var endpoint = await _apiEndpointService.GetFirstAsync();
                 if (endpoint == null)
                 {
-                    ApplyApiConnectionStatus(ApiConnectionStatus.NotConfigured);
-                    return ApiConnectionStatus.NotConfigured;
+                    if (_currentApiState != ConnectionState.NotConfigured)
+                    {
+                        Log.Warning("SAIS API ayarları bulunamadı.");
+                    }
+                    _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NotConfigured);
+                    return false;
                 }
 
                 try
@@ -94,104 +211,68 @@ namespace WinUI.Pages
                 }
                 catch (HttpRequestException ex)
                 {
-                    if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                    if (_currentApiState != ConnectionState.Unreachable)
                     {
                         Log.Warning(ex, "SAIS bileti alınamadı.");
                     }
-                    ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                    return ApiConnectionStatus.NoAccess;
+                    _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+                    return false;
                 }
                 catch (TaskCanceledException ex)
                 {
-                    if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                    if (_currentApiState != ConnectionState.Unreachable)
                     {
                         Log.Warning(ex, "SAIS bileti isteği zaman aşımına uğradı.");
                     }
-                    ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                    return ApiConnectionStatus.NoAccess;
+                    _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+                    return false;
                 }
                 catch (Exception ex)
                 {
-                    if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                    if (_currentApiState != ConnectionState.NoAccess)
                     {
                         Log.Error(ex, "SAIS bileti alınırken beklenmeyen bir hata oluştu.");
                     }
-                    ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                    return ApiConnectionStatus.NoAccess;
+                    _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess, ex.Message);
+                    return false;
                 }
 
                 if (_ticketService.HasValidTicket())
                 {
-                    ApplyApiConnectionStatus(ApiConnectionStatus.Connected);
-                    return ApiConnectionStatus.Connected;
+                    _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Connected);
+                    return true;
                 }
 
-                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                return ApiConnectionStatus.NoAccess;
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess);
+                return false;
             }
             catch (HttpRequestException ex)
             {
-                if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                if (_currentApiState != ConnectionState.Unreachable)
                 {
                     Log.Warning(ex, "SAIS API ayarları alınamadı.");
                 }
-                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                return ApiConnectionStatus.NoAccess;
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+                return false;
             }
             catch (TaskCanceledException ex)
             {
-                if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                if (_currentApiState != ConnectionState.Unreachable)
                 {
                     Log.Warning(ex, "SAIS API ayarları isteği zaman aşımına uğradı.");
                 }
-                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                return ApiConnectionStatus.NoAccess;
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.Unreachable, ex.Message);
+                return false;
             }
             catch (Exception ex)
             {
-                if (_apiConnectionStatus != ApiConnectionStatus.NoAccess)
+                if (_currentApiState != ConnectionState.NoAccess)
                 {
                     Log.Error(ex, "SAIS API ayarları alınırken beklenmeyen bir hata oluştu.");
                 }
-                ApplyApiConnectionStatus(ApiConnectionStatus.NoAccess);
-                return ApiConnectionStatus.NoAccess;
+                _connectionStatusService.ReportStatus(ConnectionComponent.SaisApi, ConnectionState.NoAccess, ex.Message);
+                return false;
             }
-        }
-
-        private void ApplyApiConnectionStatus(ApiConnectionStatus status)
-        {
-            if (_apiConnectionStatus == status)
-            {
-                return;
-            }
-
-            _apiConnectionStatus = status;
-            switch (status)
-            {
-                case ApiConnectionStatus.Connected:
-                    digitalSensorBar1.DataStateDescription = "BAĞLI";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
-                    Log.Information("SAIS API bağlantısı sağlandı.");
-                    break;
-                case ApiConnectionStatus.NotConfigured:
-                    digitalSensorBar1.DataStateDescription = "KURULMADI";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
-                    Log.Warning("SAIS API ayarları bulunamadı.");
-                    break;
-                default:
-                    digitalSensorBar1.DataStateDescription = "ERİŞİM YOK";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Error;
-                    Log.Warning("SAIS API erişimi sağlanamadı.");
-                    break;
-            }
-        }
-
-        private enum ApiConnectionStatus
-        {
-            Unknown,
-            Connected,
-            NoAccess,
-            NotConfigured
         }
 
         private static bool IsPlcConfigured()
@@ -216,18 +297,8 @@ namespace WinUI.Pages
 
         private void ApplyPlcUnavailableState(bool hasConfiguration)
         {
-            if (hasConfiguration)
-            {
-                digitalSensorBar1.SystemStateDescription = "ERİŞİM YOK";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NoAccess;
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Erişim Yok";
-            }
-            else
-            {
-                digitalSensorBar1.SystemStateDescription = "KURULMADI";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.NotConfigured;
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Kurulmadı";
-            }
+            var state = hasConfiguration ? ConnectionState.Unreachable : ConnectionState.NotConfigured;
+            _connectionStatusService.ReportStatus(ConnectionComponent.Plc, state);
         }
 
         private async void TimerAssignUI_Tick(object sender, EventArgs e)
@@ -235,22 +306,33 @@ namespace WinUI.Pages
             var hasPlcConfiguration = IsPlcConfigured();
             try
             {
-                var apiStatus = await UpdateSaisConnectionStatusAsync();
+                var apiConnected = await UpdateSaisConnectionStatusAsync();
 
-                if (apiStatus != ApiConnectionStatus.Connected)
+                if (!apiConnected)
                 {
+                    foreach (var ch in _channels)
+                        ch.ChannelStatement = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
+                    foreach (var sensor in _digitalSensors)
+                        sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
+
                     ApplyPlcUnavailableState(hasPlcConfiguration);
-                    _isConnected = false;
+
                     if (!_ticketService.HasValidTicket())
                     {
                         Log.Warning(LogMessages.HomePage.TicketMissingOrExpired);
                     }
+
+                    if (_currentApiState == ConnectionState.Connected)
+                    {
+                        digitalSensorBar1.DataStateDescription = "ERİŞİM YOK";
+                        digitalSensorBar1.DataStateDescriptionColor = StateColors.NoAccess;
+                    }
+
+                    return;
                 }
-                else
-                {
-                    digitalSensorBar1.DataStateDescription = "GÖNDERİYOR";
-                    digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
-                }
+
+                digitalSensorBar1.DataStateDescription = "GÖNDERİYOR";
+                digitalSensorBar1.DataStateDescriptionColor = StateColors.Ok;
 
                 var value = await ReadPlcDataAsync();
                 if (value == null)
@@ -300,21 +382,14 @@ namespace WinUI.Pages
                 foreach (var ch in _channels)
                     ch.ChannelStatement = StateColors.Ok;
 
-                digitalSensorBar1.SystemStateDescription = "BAĞLI";
-                digitalSensorBar1.SystemStateDescriptionColor = StateColors.Ok;
-                StatusBarControl.ConnectionStatement = "Bağlantı Durumu: Bağlı";
-
-                if (!_isConnected)
-                {
-                    _lastConnectedTime = DateTime.Now;
-                    _isConnected = true;
-                }
+                _connectionStatusService.ReportStatus(ConnectionComponent.Plc, ConnectionState.Connected);
 
                 if (_lastConnectedTime.HasValue)
                 {
                     var elapsed = DateTime.Now - _lastConnectedTime.Value;
                     StatusBarControl.ConnectionTime = $"Bağlantı Zamanı: {elapsed:hh\\:mm\\:ss}";
                 }
+
                 Log.Information(LogMessages.HomePage.PlcDataRead);
             }
             catch (InvalidOperationException)
@@ -327,31 +402,33 @@ namespace WinUI.Pages
                 ApplyPlcUnavailableState(false);
                 digitalSensorBar1.DataStateDescription = "KURULMADI";
                 digitalSensorBar1.DataStateDescriptionColor = StateColors.NotConfigured;
-                _isConnected = false;
                 Log.Warning(LogMessages.HomePage.PlcInfoNotYetConfigured);
             }
             catch (HttpRequestException ex)
             {
-                foreach (var ch in _channels)
-                    ch.ChannelStatement = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
-                foreach (var sensor in _digitalSensors)
-                    sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
-
-                ApplyPlcUnavailableState(hasPlcConfiguration);
-                _isConnected = false;
-                Log.Error(ex, LogMessages.HomePage.ApiAccessError);
+                HandlePlcFailure(hasPlcConfiguration, LogMessages.HomePage.ApiAccessError, ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                HandlePlcFailure(hasPlcConfiguration, LogMessages.HomePage.ApiAccessError, ex);
             }
             catch (Exception ex)
             {
-                foreach (var ch in _channels)
-                    ch.ChannelStatement = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
-                foreach (var sensor in _digitalSensors)
-                    sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
-
-                ApplyPlcUnavailableState(hasPlcConfiguration);
-                _isConnected = false;
-                Log.Error(ex, LogMessages.HomePage.PlcDataReadFailed);
+                HandlePlcFailure(hasPlcConfiguration, LogMessages.HomePage.PlcDataReadFailed, ex);
             }
+        }
+
+        private void HandlePlcFailure(bool hasPlcConfiguration, string logMessage, Exception exception)
+        {
+            foreach (var ch in _channels)
+                ch.ChannelStatement = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
+            foreach (var sensor in _digitalSensors)
+                sensor.SensorState = _lastConnectedTime.HasValue ? StateColors.Error : StateColors.Waiting;
+
+            ApplyPlcUnavailableState(hasPlcConfiguration);
+            digitalSensorBar1.DataStateDescription = "ERİŞİM YOK";
+            digitalSensorBar1.DataStateDescriptionColor = StateColors.NoAccess;
+            Log.Error(exception, logMessage);
         }
     }
 }
