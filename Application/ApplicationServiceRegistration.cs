@@ -16,6 +16,7 @@ public static class ApplicationServiceRegistration
         services.AddValidatorsFromAssembly(typeof(ApplicationServiceRegistration).Assembly);
         services.AddSingleton<IPlcDataParser, PlcDataParser>();
         services.AddTransient<IPlcDataReader, PlcDataReader>();
+        services.AddTransient<IAnalogSensorStatisticsService, AnalogSensorStatisticsService>();
         return services;
     }
 }

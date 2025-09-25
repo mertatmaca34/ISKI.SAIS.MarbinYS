@@ -3,16 +3,21 @@ using Infrastructure.Services.PLC;
 using Application.Features.PlcData.Dtos;
 using Api.Constants;
 using AutoMapper;
+using Application.Services.PlcData;
 using Microsoft.Extensions.Logging;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PlcDataController(IPlcDataCache dataCache, IMapper mapper, ILogger<PlcDataController> logger) : ControllerBase
+public class PlcDataController(
+    IPlcDataCache dataCache,
+    IMapper mapper,
+    ILogger<PlcDataController> logger,
+    IAnalogSensorStatisticsService statisticsService) : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetLatest()
+    public async Task<IActionResult> GetLatest(CancellationToken cancellationToken)
     {
         var data = dataCache.GetLatest();
         if (data == null)
@@ -22,6 +27,7 @@ public class PlcDataController(IPlcDataCache dataCache, IMapper mapper, ILogger<
         }
 
         var dto = mapper.Map<PlcDataDto>(data);
+        dto.AnalogHourlyAverage = await statisticsService.GetHourlyAverageAsync(DateTime.Now, cancellationToken);
         return Ok(dto);
     }
 }
