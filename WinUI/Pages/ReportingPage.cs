@@ -18,6 +18,7 @@ namespace WinUI.Pages
         private readonly IStationService _stationService;
         private List<LogDto> _currentLogs = new();
         private List<ApiDataResultDto> _currentMeasurements = new();
+        private List<CalibrationRecordDto> _currentCalibrations = new();
         private List<MissingDateRow> _currentMissingDates = new();
         private DateTime _lastStartDate;
         private DateTime _lastEndDate;
@@ -129,6 +130,10 @@ namespace WinUI.Pages
                 _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end, descending);
                 DataGridViewDatas.DataSource = _currentMeasurements;
                 ConfigureMeasurementColumns();
+            }
+            else if (reportType == "Kalibrasyon Verileri")
+            {
+                await LoadCalibrationDataAsync(start, end, descending);
             }
             else if (reportType == "Eksik Veriler")
             {
@@ -256,6 +261,9 @@ namespace WinUI.Pages
                     else
                         row.DefaultCellStyle.BackColor = Color.White;
                     break;
+                case CalibrationRecordDto calibration:
+                    row.DefaultCellStyle.BackColor = calibration.Result ? Color.LightGreen : Color.LightCoral;
+                    break;
                 case MissingDateRow:
                     row.DefaultCellStyle.BackColor = Color.White;
                     break;
@@ -293,6 +301,32 @@ namespace WinUI.Pages
             ConfigureMissingDateColumns();
         }
 
+        private async Task LoadCalibrationDataAsync(DateTime start, DateTime end, bool descending)
+        {
+            var station = await _stationService.GetFirstAsync();
+            if (station == null)
+            {
+                MessageBox.Show("İstasyon bilgisi bulunamadı.", "Kalibrasyon Verileri", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var response = await _saisApiService.GetCalibrationAsync(station.StationId, start, end);
+            if (response == null || !response.result)
+            {
+                string message = response?.message ?? "Kalibrasyon verileri alınırken hata oluştu.";
+                MessageBox.Show(message, "Kalibrasyon Verileri", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var calibrations = response.objects ?? new List<CalibrationRecordDto>();
+            _currentCalibrations = descending
+                ? calibrations.OrderByDescending(x => x.CalibrationDate).ToList()
+                : calibrations.OrderBy(x => x.CalibrationDate).ToList();
+
+            DataGridViewDatas.DataSource = _currentCalibrations;
+            ConfigureCalibrationColumns();
+        }
+
         private void ConfigureMissingDateColumns()
         {
             ConfigureColumns(new[]
@@ -301,6 +335,30 @@ namespace WinUI.Pages
                 {
                     Format = "g"
                 }
+            });
+        }
+
+        private void ConfigureCalibrationColumns()
+        {
+            ConfigureColumns(new[]
+            {
+                new ColumnConfiguration(nameof(CalibrationRecordDto.CalibrationDate), "Kalibrasyon Tarihi", DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader)
+                {
+                    Format = "g"
+                },
+                new ColumnConfiguration(nameof(CalibrationRecordDto.DBColumnName), "Parametre", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ZeroRef), "Zero Referans", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ZeroMeas), "Zero Ölçüm", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ZeroDiff), "Zero Fark", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ZeroSTD), "Zero STD", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.SpanRef), "Span Referans", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.SpanMeas), "Span Ölçüm", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.SpanDiff), "Span Fark", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.SpanSTD), "Span STD", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ResultFactor), "Sonuç Faktörü", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ResultZero), "Zero Sonucu", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.ResultSpan), "Span Sonucu", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(CalibrationRecordDto.Result), "Kalibrasyon Sonucu", DataGridViewAutoSizeColumnMode.AllCells)
             });
         }
 
