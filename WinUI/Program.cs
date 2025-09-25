@@ -86,6 +86,7 @@ namespace WinUI
                     services.AddSingleton<ReportingPage>();
                     services.AddSingleton<MailPage>();
                     services.AddSingleton<SettingsPage>();
+                    services.AddSingleton<IConnectionStatusService, ConnectionStatusService>();
 
                     services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
                     {

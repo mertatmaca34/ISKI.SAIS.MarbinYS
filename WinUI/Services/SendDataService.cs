@@ -15,6 +15,7 @@ public interface ISendDataService
     Task CreateAsync(SendData data);
     Task<SendDataRecord?> GetByReadTimeAsync(Guid stationId, DateTime readTime);
     Task<bool> UpdateStatusAsync(SendDataStatusUpdateRequest request);
+    Task<DateTime?> GetLatestReadTimeAsync();
 }
 
 public class SendDataService(HttpClient httpClient) : ISendDataService
@@ -52,5 +53,15 @@ public class SendDataService(HttpClient httpClient) : ISendDataService
 
         response.EnsureSuccessStatusCode();
         return true;
+    public async Task<DateTime?> GetLatestReadTimeAsync()
+    {
+        using var response = await httpClient.GetAsync($"{SendDataConstants.ApiUrl}/latest-readtime");
+        if (response.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
+
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<DateTime?>();
     }
 }

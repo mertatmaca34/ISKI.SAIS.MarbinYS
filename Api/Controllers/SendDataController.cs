@@ -21,6 +21,16 @@ public class SendDataController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("latest-readtime")]
+    public async Task<IActionResult> GetLatestReadTime()
+    {
+        var result = await mediator.Send(new GetLatestReadTimeQuery());
+        if (result is null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
