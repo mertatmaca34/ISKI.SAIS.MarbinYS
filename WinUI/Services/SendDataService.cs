@@ -53,6 +53,7 @@ public class SendDataService(HttpClient httpClient) : ISendDataService
 
         response.EnsureSuccessStatusCode();
         return true;
+    }
     public async Task<DateTime?> GetLatestReadTimeAsync()
     {
         using var response = await httpClient.GetAsync($"{SendDataConstants.ApiUrl}/latest-readtime");

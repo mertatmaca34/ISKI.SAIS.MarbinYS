@@ -458,69 +458,6 @@ namespace WinUI.Pages.Settings
             GetHistoricalDataButton.Text = "Geçmiş Tüm Veriyi Getir";
             GetHistoricalDataButton.UseVisualStyleBackColor = true;
             // 
-            // button2
-            // 
-            button2.Anchor = AnchorStyles.Left;
-            button2.AutoSize = true;
-            button2.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(18, 142);
-            button2.Name = "button2";
-            button2.Size = new Size(176, 25);
-            button2.TabIndex = 2;
-            button2.Text = "Geçmiş Tüm Veriyi Getir";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Anchor = AnchorStyles.Left;
-            button3.AutoSize = true;
-            button3.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Location = new Point(18, 266);
-            button3.Name = "button3";
-            button3.Size = new Size(176, 25);
-            button3.TabIndex = 2;
-            button3.Text = "Verileri Getir";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Location = new Point(18, 204);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(179, 23);
-            dateTimePicker1.TabIndex = 4;
-            // 
-            // dateTimePicker2
-            // 
-            dateTimePicker2.Format = DateTimePickerFormat.Time;
-            dateTimePicker2.Location = new Point(18, 235);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(179, 23);
-            dateTimePicker2.TabIndex = 4;
-            // 
-            // button4
-            // 
-            button4.Anchor = AnchorStyles.Left;
-            button4.AutoSize = true;
-            button4.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.Location = new Point(18, 297);
-            button4.Name = "button4";
-            button4.Size = new Size(176, 25);
-            button4.TabIndex = 2;
-            button4.Text = "Kalibrasyonları Getir";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Anchor = AnchorStyles.Left;
-            button5.AutoSize = true;
-            button5.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.Location = new Point(18, 328);
-            button5.Name = "button5";
-            button5.Size = new Size(176, 25);
-            button5.TabIndex = 2;
-            button5.Text = "Numuneleri Getir";
-            button5.UseVisualStyleBackColor = true;
-            // 
             // ApiSettingsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

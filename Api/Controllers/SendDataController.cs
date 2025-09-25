@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Features.SendDatas.Commands;
 using Application.Features.SendDatas.Commands.Create;
 using Application.Features.SendDatas.Commands.Update;
+using Application.Features.SendDatas.Queries.GetLatestReadTime;
 
 namespace Api.Controllers;
 
