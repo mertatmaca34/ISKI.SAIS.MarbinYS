@@ -1,3 +1,4 @@
+using System;
 using Application.Features.DigitalSensorDatas.Commands.Delete;
 using Application.Features.DigitalSensorDatas.Queries.GetList;
 using Application.Features.DigitalSensorDatas.Queries.GetById;
@@ -5,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.DigitalSensorDatas.Commands.Update;
 using Application.Features.DigitalSensorDatas.Commands.Create;
+using Application.Features.DigitalSensorDatas.Queries.GetByDateRange;
 
 namespace Api.Controllers;
 
@@ -23,6 +25,16 @@ public class DigitalSensorDataController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetList()
     {
         var result = await mediator.Send(new GetDigitalSensorDataQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("by-range")]
+    public async Task<IActionResult> GetByRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+    {
+        if (endDate <= startDate)
+            return BadRequest();
+
+        var result = await mediator.Send(new GetDigitalSensorDataByDateRangeQuery(startDate, endDate));
         return Ok(result);
     }
 

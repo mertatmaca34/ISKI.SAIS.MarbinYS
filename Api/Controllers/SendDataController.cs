@@ -8,6 +8,7 @@ using Application.Features.SendDatas.Commands;
 using Application.Features.SendDatas.Commands.Create;
 using Application.Features.SendDatas.Commands.Update;
 using Application.Features.SendDatas.Queries.GetLatestReadTime;
+using Application.Features.SendDatas.Queries.GetByDateRange;
 
 namespace Api.Controllers;
 
@@ -47,6 +48,16 @@ public class SendDataController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new GetSendDataByStationAndReadTimeQuery(stationId, readTime));
         if (result is null)
             return NotFound();
+        return Ok(result);
+    }
+
+    [HttpGet("by-range")]
+    public async Task<IActionResult> GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+    {
+        if (endDate <= startDate)
+            return BadRequest();
+
+        var result = await mediator.Send(new GetSendDataByDateRangeQuery(startDate, endDate));
         return Ok(result);
     }
 

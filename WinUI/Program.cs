@@ -296,6 +296,23 @@ namespace WinUI
                     }).AddStandardResilienceHandler(options =>
                         options.Retry.MaxRetryAttempts = 3);
 
+                    services.AddHttpClient<IDigitalSensorDataService, DigitalSensorDataService>(client =>
+                    {
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
+                        baseUrl = baseUrl.TrimEnd('/');
+                        client.BaseAddress = new Uri(baseUrl);
+                    })
+                    .ConfigurePrimaryHttpMessageHandler(() =>
+                    {
+                        var handler = new HttpClientHandler();
+                        if (context.HostingEnvironment.IsDevelopment())
+                        {
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                        }
+                        return handler;
+                    }).AddStandardResilienceHandler(options =>
+                        options.Retry.MaxRetryAttempts = 3);
+
                     services.AddSingleton<IDatabaseSearchEngine, SqlDatabaseSearchEngine>();
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                     services.AddHostedService<TicketRefreshService>();
