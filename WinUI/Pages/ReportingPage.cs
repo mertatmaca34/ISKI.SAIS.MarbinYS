@@ -88,6 +88,7 @@ namespace WinUI.Pages
         private async void ButtonGenerate_Click(object sender, EventArgs e)
         {
             string? reportType = ComboBoxReportType.SelectedItem?.ToString();
+            bool descending = RadioButtonSortByLast.Checked;
 
             DateTime start;
             DateTime end;
@@ -119,14 +120,13 @@ namespace WinUI.Pages
 
             if (reportType == "Log Kayıtları")
             {
-                bool descending = RadioButtonSortByLast.Checked;
                 _currentLogs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
                 DataGridViewDatas.DataSource = _currentLogs;
                 ConfigureLogColumns();
             }
             else if (reportType == "Ölçüm Verileri")
             {
-                _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end);
+                _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end, descending);
                 DataGridViewDatas.DataSource = _currentMeasurements;
                 ConfigureMeasurementColumns();
             }
