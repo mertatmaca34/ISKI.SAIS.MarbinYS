@@ -38,6 +38,18 @@ public static class LogMessages
         public const string PlcApiError = "PLC API hatası {StatusCode}: {Error}";
     }
 
+    public static class MissingDataResendService
+    {
+        public const string UnexpectedError = "Eksik veriler yeniden gönderilirken beklenmeyen bir hata oluştu.";
+        public const string MissingDatesRequestFailed = "Eksik veri tarihleri isteği gönderilemedi.";
+        public const string MissingDatesResponseInvalid = "Eksik veri tarihleri alınamadı: {Message}";
+        public const string DataNotFound = "{MissingDate:o} zamanlı veri yerel veritabanında bulunamadı.";
+        public const string SendDataRequestFailed = "{MissingDate:o} zamanlı veri SAİS'e gönderilemedi.";
+        public const string SendDataFailed = "{MissingDate:o} zamanlı veri SAİS'e gönderilirken hata alındı: {Message}";
+        public const string InvalidStatusCodesReceived = "{MissingDate:o} zamanlı veri için geçersiz durum kodları alındı: {Codes}";
+        public const string UpdateStatusFailed = "{Id} kimlikli gönderi kaydı güncellenemedi.";
+    }
+
     public static class HomePage
     {
         public const string PlcConfigurationMissing = "PLC yapılandırması eksik: IP adresi tanımlı değil";

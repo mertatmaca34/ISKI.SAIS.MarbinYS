@@ -119,7 +119,7 @@ public class PlcDataSendService : BackgroundService
         try
         {
             var result = await _saisApiService.SendDataAsync(body);
-            var invalidCodes = ExtractInvalidStatusCodes(result?.objects);
+            var invalidCodes = SendDataResultEvaluator.ExtractInvalidStatusCodes(result?.objects);
 
             if (invalidCodes.Count > 0)
             {
@@ -144,43 +144,15 @@ public class PlcDataSendService : BackgroundService
 
     private static void ApplyInvalidStatusCodes(SendData sendData, IReadOnlyCollection<InvalidSensorStatusCode> invalidCodes)
     {
-        bool Contains(InvalidSensorStatusCode code) => invalidCodes.Contains(code);
+        var flags = SendDataResultEvaluator.MapInvalidStatusFlags(invalidCodes);
 
-        sendData.SaatlikYikamaGecersiz = Contains(InvalidSensorStatusCode.GecersizYikama);
-        sendData.HaftalikYikamaGecersiz = Contains(InvalidSensorStatusCode.GecersizHaftalikYikama);
-        sendData.KalibrasyonGecersiz = Contains(InvalidSensorStatusCode.GecersizKalibrasyon);
-        sendData.AkisHiziGecersiz = Contains(InvalidSensorStatusCode.GecersizAkisHizi);
-        sendData.GecersizDebi = Contains(InvalidSensorStatusCode.GecersizDebi);
-        sendData.TekrarVeriGecersiz = Contains(InvalidSensorStatusCode.TekrarVeri);
-        sendData.GecersizOlcumBirimi = Contains(InvalidSensorStatusCode.GecersizOlcumBirimi);
-    }
-
-    private static HashSet<InvalidSensorStatusCode> ExtractInvalidStatusCodes(SendDataResult? result)
-    {
-        var codes = new HashSet<InvalidSensorStatusCode>();
-        if (result is null)
-            return codes;
-
-        foreach (var property in typeof(SendDataResult).GetProperties())
-        {
-            if (!property.Name.EndsWith("_N", StringComparison.Ordinal))
-                continue;
-
-            var value = property.GetValue(result);
-            if (value is null)
-                continue;
-
-            if (!double.TryParse(value.ToString(), out var numericValue))
-                continue;
-
-            var intValue = (int)Math.Round(numericValue, MidpointRounding.AwayFromZero);
-            if (!Enum.IsDefined(typeof(InvalidSensorStatusCode), intValue))
-                continue;
-
-            codes.Add((InvalidSensorStatusCode)intValue);
-        }
-
-        return codes;
+        sendData.SaatlikYikamaGecersiz = flags.SaatlikYikamaGecersiz;
+        sendData.HaftalikYikamaGecersiz = flags.HaftalikYikamaGecersiz;
+        sendData.KalibrasyonGecersiz = flags.KalibrasyonGecersiz;
+        sendData.AkisHiziGecersiz = flags.AkisHiziGecersiz;
+        sendData.GecersizDebi = flags.GecersizDebi;
+        sendData.TekrarVeriGecersiz = flags.TekrarVeriGecersiz;
+        sendData.GecersizOlcumBirimi = flags.GecersizOlcumBirimi;
     }
 
     private sealed class SaisSendResult
