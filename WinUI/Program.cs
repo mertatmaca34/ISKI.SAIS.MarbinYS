@@ -299,6 +299,7 @@ namespace WinUI
                     services.AddSingleton<IDatabaseSelectionService, DatabaseSelectionService>();
                     services.AddHostedService<TicketRefreshService>();
                     services.AddHostedService<PlcDataSendService>();
+                    services.AddHostedService<MissingDataResendService>();
                 });
         }
     }
