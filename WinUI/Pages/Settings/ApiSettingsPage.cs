@@ -1,14 +1,8 @@
+using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Domain.Entities;
 using WinUI.Constants;
 using WinUI.Models;
 using WinUI.Services;
@@ -25,6 +19,7 @@ public partial class ApiSettingsPage : UserControl
     private readonly IStationService _stationService;
     private readonly ISaisApiService _saisApiService;
     private readonly ISendDataService _sendDataService;
+    private readonly IMeasurementReportService _measurementReportService;
     private int? _apiEndpointId;
     private readonly int[] _resendPeriodOptions = new[] { 24 * 60, 48 * 60, 7 * 24 * 60, 30 * 24 * 60, 90 * 24 * 60, 180 * 24 * 60, 365 * 24 * 60 };
     private readonly PeriodOption[] _periodOptions =
@@ -48,6 +43,7 @@ public partial class ApiSettingsPage : UserControl
         _stationService = Program.Services.GetRequiredService<IStationService>();
         _saisApiService = Program.Services.GetRequiredService<ISaisApiService>();
         _sendDataService = Program.Services.GetRequiredService<ISendDataService>();
+        _measurementReportService = Program.Services.GetRequiredService<IMeasurementReportService>();
 
         var handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
@@ -270,8 +266,6 @@ public partial class ApiSettingsPage : UserControl
                 return;
             }
 
-            DateTime? latestLocalReadTime = await _sendDataService.GetLatestReadTimeAsync();
-
             var result = await _saisApiService.GetDataByBetweenTwoDateAsync(station.StationId, period, startDate, endDate);
             if (result == null)
             {
@@ -279,18 +273,12 @@ public partial class ApiSettingsPage : UserControl
                 return;
             }
 
-            if (result.objects is not { Count: > 0 })
+            if (result.objects.Count == 0)
             {
-                ResponseTextBox.Text = FormatContent(JsonSerializer.Serialize(result, JsonWriteOptions));
                 return;
             }
 
-            List<ApiDataResultDto> newItems = FilterMeasurements(result.objects, latestLocalReadTime);
-            foreach (var item in newItems)
-            {
-                var sendData = MapToSendData(item, station);
-                await _sendDataService.CreateAsync(sendData);
-            }
+            List<ApiDataResultDto> newItems = await FilterMeasurements(result.objects);
 
             var summary = new
             {
@@ -300,10 +288,17 @@ public partial class ApiSettingsPage : UserControl
                 startDate,
                 endDate,
                 fetchedCount = result.objects.Count,
-                savedCount = newItems.Count
+                savedCount = newItems.Count,
+                result.objects
             };
 
             ResponseTextBox.Text = FormatContent(JsonSerializer.Serialize(summary, JsonWriteOptions));
+
+            foreach (var item in newItems)
+            {
+                var sendData = MapToSendData(item, station);
+                await _sendDataService.CreateAsync(sendData);
+            }
         });
     }
 
@@ -333,14 +328,6 @@ public partial class ApiSettingsPage : UserControl
         }
 
         return _periodOptions[0].Code;
-    }
-
-    private static List<ApiDataResultDto> FilterMeasurements(IEnumerable<ApiDataResultDto> items, DateTime? latestLocalReadTime)
-    {
-        return items
-            .Where(item => latestLocalReadTime is null || item.ReadTime > latestLocalReadTime.Value)
-            .OrderBy(item => item.ReadTime)
-            .ToList();
     }
 
     private static SendData MapToSendData(ApiDataResultDto dto, StationDto station)
@@ -375,6 +362,22 @@ public partial class ApiSettingsPage : UserControl
             Iletkenlik_Status = string.Empty,
             IsSent = true
         };
+    }
+
+    private async Task<List<ApiDataResultDto>> FilterMeasurements(List<ApiDataResultDto> apiDataResultDtos)
+    {
+        var items = await _localClient.GetFromJsonAsync<List<ApiDataResultDto>>(SendDataConstants.ApiUrl);
+
+        if (items != null && items.Count >= 0)
+        {
+            foreach (var item in items)
+            {
+                apiDataResultDtos.Remove(items.Where(x => x.ReadTime == item.ReadTime).FirstOrDefault());
+
+            }
+        }
+
+        return apiDataResultDtos;
     }
 
     private async Task ExecuteSafeAsync(Func<Task> action)

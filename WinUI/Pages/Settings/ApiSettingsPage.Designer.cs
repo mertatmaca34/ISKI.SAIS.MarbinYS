@@ -393,6 +393,7 @@ namespace WinUI.Pages.Settings
             ResponseTextBox.Multiline = true;
             ResponseTextBox.Name = "ResponseTextBox";
             ResponseTextBox.ReadOnly = true;
+            ResponseTextBox.ScrollBars = ScrollBars.Vertical;
             ResponseTextBox.Size = new Size(299, 392);
             ResponseTextBox.TabIndex = 0;
             // 
@@ -421,73 +422,73 @@ namespace WinUI.Pages.Settings
             SendDiagnosticButton.UseVisualStyleBackColor = true;
             // 
             // PeriodLabel
-            //
+            // 
             PeriodLabel.Anchor = AnchorStyles.Left;
             PeriodLabel.AutoSize = true;
             PeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             PeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            PeriodLabel.Location = new Point(18, 111);
+            PeriodLabel.Location = new Point(18, 115);
             PeriodLabel.Name = "PeriodLabel";
-            PeriodLabel.Size = new Size(55, 16);
+            PeriodLabel.Size = new Size(52, 16);
             PeriodLabel.TabIndex = 4;
             PeriodLabel.Text = "Periyot";
-            //
+            // 
             // PeriodComboBox
-            //
+            // 
             PeriodComboBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             PeriodComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             PeriodComboBox.FormattingEnabled = true;
-            PeriodComboBox.Location = new Point(18, 142);
+            PeriodComboBox.Location = new Point(18, 143);
             PeriodComboBox.Name = "PeriodComboBox";
-            PeriodComboBox.Size = new Size(176, 23);
+            PeriodComboBox.Size = new Size(179, 23);
             PeriodComboBox.TabIndex = 5;
-            //
+            // 
             // StartDateLabel
-            //
+            // 
             StartDateLabel.Anchor = AnchorStyles.Left;
             StartDateLabel.AutoSize = true;
             StartDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             StartDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            StartDateLabel.Location = new Point(18, 173);
+            StartDateLabel.Location = new Point(18, 177);
             StartDateLabel.Name = "StartDateLabel";
-            StartDateLabel.Size = new Size(110, 16);
+            StartDateLabel.Size = new Size(109, 16);
             StartDateLabel.TabIndex = 8;
             StartDateLabel.Text = "Başlangıç Tarihi";
-            //
+            // 
             // StartDatePicker
-            //
+            // 
             StartDatePicker.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             StartDatePicker.CustomFormat = "dd.MM.yyyy HH:mm";
             StartDatePicker.Format = DateTimePickerFormat.Custom;
-            StartDatePicker.Location = new Point(18, 204);
+            StartDatePicker.Location = new Point(18, 205);
             StartDatePicker.Name = "StartDatePicker";
-            StartDatePicker.Size = new Size(176, 23);
+            StartDatePicker.Size = new Size(179, 23);
             StartDatePicker.TabIndex = 9;
-            //
+            // 
             // EndDateLabel
-            //
+            // 
             EndDateLabel.Anchor = AnchorStyles.Left;
             EndDateLabel.AutoSize = true;
             EndDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             EndDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            EndDateLabel.Location = new Point(18, 235);
+            EndDateLabel.Location = new Point(18, 239);
             EndDateLabel.Name = "EndDateLabel";
-            EndDateLabel.Size = new Size(83, 16);
+            EndDateLabel.Size = new Size(74, 16);
             EndDateLabel.TabIndex = 10;
             EndDateLabel.Text = "Bitiş Tarihi";
-            //
+            // 
             // EndDatePicker
-            //
+            // 
             EndDatePicker.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             EndDatePicker.CustomFormat = "dd.MM.yyyy HH:mm";
             EndDatePicker.Format = DateTimePickerFormat.Custom;
-            EndDatePicker.Location = new Point(18, 266);
+            EndDatePicker.Location = new Point(18, 267);
             EndDatePicker.Name = "EndDatePicker";
-            EndDatePicker.Size = new Size(176, 23);
+            EndDatePicker.Size = new Size(179, 23);
             EndDatePicker.TabIndex = 11;
-            //
+            // 
             // GetLastDataButton
-            //
+            // 
             GetLastDataButton.Anchor = AnchorStyles.Left;
             GetLastDataButton.AutoSize = true;
             GetLastDataButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -497,9 +498,9 @@ namespace WinUI.Pages.Settings
             GetLastDataButton.TabIndex = 12;
             GetLastDataButton.Text = "Son Veriyi Getir";
             GetLastDataButton.UseVisualStyleBackColor = true;
-            //
+            // 
             // GetHistoricalDataButton
-            //
+            // 
             GetHistoricalDataButton.Anchor = AnchorStyles.Left;
             GetHistoricalDataButton.AutoSize = true;
             GetHistoricalDataButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);

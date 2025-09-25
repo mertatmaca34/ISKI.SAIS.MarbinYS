@@ -242,6 +242,7 @@ public class SaisApiService : ISaisApiService
 
     public Task<ResultStatus<List<ApiDataResultDto>>?> GetDataByBetweenTwoDateAsync(Guid stationId, int period, DateTime startDate, DateTime endDate)
     {
+        _httpClient.Timeout  = TimeSpan.FromSeconds(300);
         string start = Uri.EscapeDataString(startDate.ToString("yyyy-MM-dd HH:mm:ss"));
         string end = Uri.EscapeDataString(endDate.ToString("yyyy-MM-dd HH:mm:ss"));
         return SendAsync<ResultStatus<List<ApiDataResultDto>>>(baseUrl =>
