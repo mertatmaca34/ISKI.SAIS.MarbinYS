@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinUI.Models;
@@ -16,31 +18,52 @@ namespace WinUI.Pages
         private readonly IMeasurementReportService _measurementService;
         private readonly ISaisApiService _saisApiService;
         private readonly IStationService _stationService;
+        private readonly ISendDataService _sendDataService;
+        private readonly IDigitalSensorDataService _digitalSensorDataService;
         private List<LogDto> _currentLogs = new();
         private List<ApiDataResultDto> _currentMeasurements = new();
         private List<CalibrationRecordDto> _currentCalibrations = new();
         private List<MissingDateRow> _currentMissingDates = new();
+        private List<DataValidityReportRow> _currentDataValidityRows = new();
         private DateTime _lastStartDate;
         private DateTime _lastEndDate;
+        private static readonly CultureInfo TurkishCulture = CultureInfo.GetCultureInfo("tr-TR");
+        private static readonly TimeSpan HourlyWashThreshold = TimeSpan.FromMinutes(440);
+        private static readonly TimeSpan WeeklyWashThreshold = TimeSpan.FromDays(8) + TimeSpan.FromHours(6);
+        private static readonly TimeSpan CalibrationThreshold = TimeSpan.FromDays(36);
+        private const int RepeatWindowSize = 30;
+        private const double DuplicateTolerance = 1e-6;
 
         public ReportingPage(
             ILogService logService,
             IReportExportService exportService,
             IMeasurementReportService measurementService,
             ISaisApiService saisApiService,
-            IStationService stationService)
+            IStationService stationService,
+            ISendDataService sendDataService,
+            IDigitalSensorDataService digitalSensorDataService)
         {
             _logService = logService;
             _exportService = exportService;
             _measurementService = measurementService;
             _saisApiService = saisApiService;
             _stationService = stationService;
+            _sendDataService = sendDataService;
+            _digitalSensorDataService = digitalSensorDataService;
             InitializeComponent();
         }
 
         private void ReportingPage_Load(object sender, EventArgs e)
         {
-            ComboBoxReportType.Items.AddRange(new object[] { "Ölçüm Verileri", "Kalibrasyon Verileri", "Numune Verileri", "Log Kayıtları", "Eksik Veriler" });
+            ComboBoxReportType.Items.AddRange(new object[]
+            {
+                "Ölçüm Verileri",
+                "Kalibrasyon Verileri",
+                "Numune Verileri",
+                "Log Kayıtları",
+                "Eksik Veriler",
+                "Veri Geçerlilik Raporu"
+            });
             ComboBoxReportType.SelectedIndex = 0;
             RadioButtonDaily.Checked = true;
         }
@@ -88,6 +111,7 @@ namespace WinUI.Pages
 
         private async void ButtonGenerate_Click(object sender, EventArgs e)
         {
+            TextBoxReportSummary.Clear();
             string? reportType = ComboBoxReportType.SelectedItem?.ToString();
             bool descending = RadioButtonSortByLast.Checked;
 
@@ -138,6 +162,10 @@ namespace WinUI.Pages
             else if (reportType == "Eksik Veriler")
             {
                 await LoadMissingDatesAsync(start, end);
+            }
+            else if (reportType == "Veri Geçerlilik Raporu")
+            {
+                await LoadDataValidityReportAsync(start, end, descending);
             }
         }
 
@@ -235,6 +263,24 @@ namespace WinUI.Pages
             });
         }
 
+        private void ConfigureDataValidityColumns()
+        {
+            ConfigureColumns(new[]
+            {
+                new ColumnConfiguration(nameof(DataValidityReportRow.ReadTime), "Tarih", DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader)
+                {
+                    Format = "g"
+                },
+                new ColumnConfiguration(nameof(DataValidityReportRow.AKM), "AKM", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(DataValidityReportRow.Debi), "Debi", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(DataValidityReportRow.KOi), "KOi", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(DataValidityReportRow.PH), "pH", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(DataValidityReportRow.Iletkenlik), "İletkenlik", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(DataValidityReportRow.AkisHizi), "Akış Hızı", DataGridViewAutoSizeColumnMode.AllCells),
+                new ColumnConfiguration(nameof(DataValidityReportRow.StatusDescription), "Durum", DataGridViewAutoSizeColumnMode.Fill)
+            });
+        }
+
         private void DataGridViewDatas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -263,6 +309,12 @@ namespace WinUI.Pages
                     break;
                 case CalibrationRecordDto calibration:
                     row.DefaultCellStyle.BackColor = calibration.Result ? Color.LightGreen : Color.LightCoral;
+                    break;
+                case DataValidityReportRow validity:
+                    if (!validity.HasData)
+                        row.DefaultCellStyle.BackColor = Color.LightYellow;
+                    else
+                        row.DefaultCellStyle.BackColor = validity.IsValid ? Color.LightGreen : Color.LightCoral;
                     break;
                 case MissingDateRow:
                     row.DefaultCellStyle.BackColor = Color.White;
@@ -299,6 +351,264 @@ namespace WinUI.Pages
 
             DataGridViewDatas.DataSource = _currentMissingDates;
             ConfigureMissingDateColumns();
+        }
+
+        private async Task LoadDataValidityReportAsync(DateTime start, DateTime end, bool descending)
+        {
+            if (end <= start)
+            {
+                MessageBox.Show("Bitiş tarihi başlangıç tarihinden büyük olmalıdır.", "Veri Geçerlilik Raporu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var station = await _stationService.GetFirstAsync();
+            if (station == null)
+            {
+                MessageBox.Show("İstasyon bilgisi bulunamadı.", "Veri Geçerlilik Raporu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DateTime sendDataFetchStart = start.AddMinutes(-RepeatWindowSize);
+            DateTime digitalFetchStart = start.AddDays(-9);
+            DateTime calibrationFetchStart = start.AddDays(-60);
+
+            var sendDataRecords = await _sendDataService.GetByRangeAsync(sendDataFetchStart, end);
+            var digitalSensorRecords = await _digitalSensorDataService.GetByRangeAsync(digitalFetchStart, end);
+            var calibrationResponse = await _saisApiService.GetCalibrationAsync(station.StationId, calibrationFetchStart, end);
+
+            if (calibrationResponse == null || !calibrationResponse.result)
+            {
+                string message = calibrationResponse?.message ?? "Kalibrasyon verileri alınırken hata oluştu.";
+                MessageBox.Show(message, "Veri Geçerlilik Raporu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            var calibrationRecords = calibrationResponse?.objects ?? new List<CalibrationRecordDto>();
+
+            var earliestRecords = sendDataRecords
+                .Where(record => record.Readtime < end)
+                .GroupBy(record => NormalizeToMinute(record.Readtime))
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .OrderBy(x => x.CreatedAt)
+                        .ThenBy(x => x.Id)
+                        .First());
+
+            var sortedRecords = earliestRecords
+                .OrderBy(kvp => kvp.Key)
+                .ToList();
+
+            var orderedDigitalRecords = digitalSensorRecords
+                .OrderBy(x => x.ReadTime)
+                .ToList();
+
+            var hourlyWashEvents = ExtractTransitionTimes(orderedDigitalRecords, x => x.KabinSaatlikYikamada);
+            var weeklyWashEvents = ExtractTransitionTimes(orderedDigitalRecords, x => x.KabinHaftalikYikamada);
+
+            var validCalibrations = calibrationRecords
+                .Where(x => x.Result)
+                .OrderBy(x => x.CalibrationDate)
+                .ToList();
+
+            var phCalibrations = validCalibrations
+                .Where(x => GetCalibrationParameterKey(x.DBColumnName) == "ph")
+                .ToList();
+            var conductivityCalibrations = validCalibrations
+                .Where(x => GetCalibrationParameterKey(x.DBColumnName) == "iletkenlik")
+                .ToList();
+
+            var parameterSelectors = new Dictionary<string, Func<SendDataRecord, double>>
+            {
+                ["AKM"] = x => x.AKM,
+                ["KOi"] = x => x.KOi,
+                ["pH"] = x => x.pH,
+                ["Debi"] = x => x.Debi,
+                ["AkisHizi"] = x => x.AkisHizi
+            };
+
+            var history = parameterSelectors.ToDictionary(
+                selector => selector.Key,
+                _ => new Queue<double>());
+
+            int phCalibrationIndex = 0;
+            int conductivityCalibrationIndex = 0;
+            DateTime? lastPhCalibration = null;
+            DateTime? lastConductivityCalibration = null;
+            int hourlyWashIndex = 0;
+            int weeklyWashIndex = 0;
+            DateTime? lastHourlyWash = null;
+            DateTime? lastWeeklyWash = null;
+
+            var computationMap = new Dictionary<DateTime, (SendDataRecord Record, bool IsValid, string Description)>();
+
+            foreach (var kvp in sortedRecords)
+            {
+                DateTime minute = kvp.Key;
+                SendDataRecord record = kvp.Value;
+
+                while (phCalibrationIndex < phCalibrations.Count && phCalibrations[phCalibrationIndex].CalibrationDate <= minute)
+                {
+                    lastPhCalibration = phCalibrations[phCalibrationIndex].CalibrationDate;
+                    phCalibrationIndex++;
+                }
+
+                while (conductivityCalibrationIndex < conductivityCalibrations.Count && conductivityCalibrations[conductivityCalibrationIndex].CalibrationDate <= minute)
+                {
+                    lastConductivityCalibration = conductivityCalibrations[conductivityCalibrationIndex].CalibrationDate;
+                    conductivityCalibrationIndex++;
+                }
+
+                while (hourlyWashIndex < hourlyWashEvents.Count && hourlyWashEvents[hourlyWashIndex] <= minute)
+                {
+                    lastHourlyWash = hourlyWashEvents[hourlyWashIndex];
+                    hourlyWashIndex++;
+                }
+
+                while (weeklyWashIndex < weeklyWashEvents.Count && weeklyWashEvents[weeklyWashIndex] <= minute)
+                {
+                    lastWeeklyWash = weeklyWashEvents[weeklyWashIndex];
+                    weeklyWashIndex++;
+                }
+
+                foreach (var selector in parameterSelectors)
+                {
+                    var queue = history[selector.Key];
+                    queue.Enqueue(selector.Value(record));
+                    if (queue.Count > RepeatWindowSize)
+                        queue.Dequeue();
+                }
+
+                if (minute < start)
+                    continue;
+
+                var reasons = new List<string>();
+
+                if (IsCalibrationInvalid(minute, lastPhCalibration, lastConductivityCalibration))
+                    reasons.Add("Geçersiz Kalibrasyon");
+
+                if (IsWashInvalid(minute, lastHourlyWash, HourlyWashThreshold))
+                    reasons.Add("Geçersiz Yıkama");
+
+                if (IsWashInvalid(minute, lastWeeklyWash, WeeklyWashThreshold))
+                    reasons.Add("Geçersiz Haftalık Yıkama");
+
+                if (HasRepeatedValues(history))
+                    reasons.Add("Tekrar Veri");
+
+                bool isValid = reasons.Count == 0;
+                string description = isValid ? "Geçerli" : string.Join(", ", reasons);
+
+                computationMap[minute] = (record, isValid, description);
+            }
+
+            var rows = new List<DataValidityReportRow>();
+            DateTime currentMinute = NormalizeToMinute(start);
+            if (currentMinute < start)
+                currentMinute = currentMinute.AddMinutes(1);
+
+            int validRowCount = 0;
+            int availableCount = 0;
+
+            while (currentMinute < end)
+            {
+                if (computationMap.TryGetValue(currentMinute, out var computed))
+                {
+                    var row = new DataValidityReportRow
+                    {
+                        ReadTime = currentMinute,
+                        AKM = computed.Record.AKM,
+                        Debi = computed.Record.Debi,
+                        KOi = computed.Record.KOi,
+                        PH = computed.Record.pH,
+                        Iletkenlik = computed.Record.Iletkenlik,
+                        AkisHizi = computed.Record.AkisHizi,
+                        HasData = true,
+                        IsValid = computed.IsValid,
+                        StatusDescription = computed.Description
+                    };
+
+                    rows.Add(row);
+                    availableCount++;
+                    if (computed.IsValid)
+                        validRowCount++;
+                }
+                else
+                {
+                    rows.Add(new DataValidityReportRow
+                    {
+                        ReadTime = currentMinute,
+                        HasData = false,
+                        IsValid = false,
+                        StatusDescription = "Veri Yok"
+                    });
+                }
+
+                currentMinute = currentMinute.AddMinutes(1);
+            }
+
+            if (descending)
+                _currentDataValidityRows = rows.OrderByDescending(x => x.ReadTime).ToList();
+            else
+                _currentDataValidityRows = rows;
+
+            int expectedCount = rows.Count;
+            int invalidRowCount = expectedCount - validRowCount;
+            double availabilityPercent = expectedCount == 0 ? 0 : availableCount * 100.0 / expectedCount;
+            double validPercent = expectedCount == 0 ? 0 : validRowCount * 100.0 / expectedCount;
+
+            var builder = new StringBuilder();
+            builder.AppendLine($"Mevcut Veri Sayısı: {availableCount}/{expectedCount}");
+            builder.AppendLine($"Geçerli Veri Sayısı/Toplam Veri Sayısı: {validRowCount}/{expectedCount}");
+            builder.AppendLine($"Geçersiz Veri Sayısı/Toplam Veri Sayısı: {invalidRowCount}/{expectedCount}");
+            builder.AppendLine($"Veri Yüzdesi: %{FormatPercentage(availabilityPercent)}");
+            builder.AppendLine($"Geçerli Veri Yüzdesi: %{FormatPercentage(validPercent)}");
+            builder.AppendLine();
+            builder.AppendLine("Günlük Özet:");
+
+            var dailyGroups = rows
+                .GroupBy(x => x.ReadTime.Date)
+                .OrderBy(x => x.Key)
+                .ToList();
+
+            int validDayCount = 0;
+
+            foreach (var group in dailyGroups)
+            {
+                int dayExpected = group.Count();
+                int dayAvailable = group.Count(x => x.HasData);
+                int dayValid = group.Count(x => x.HasData && x.IsValid);
+                double dayAvailabilityPercent = dayExpected == 0 ? 0 : dayAvailable * 100.0 / dayExpected;
+                double dayValidPercent = dayExpected == 0 ? 0 : dayValid * 100.0 / dayExpected;
+                int requiredValid = (int)Math.Ceiling(dayExpected * 0.8);
+                bool dayIsValid = dayValid >= requiredValid;
+
+                if (dayIsValid)
+                    validDayCount++;
+
+                var dayReasons = new List<string>();
+                if (dayAvailable < dayExpected)
+                    dayReasons.Add($"Eksik veri ({dayAvailable}/{dayExpected})");
+                if (dayValid < requiredValid)
+                    dayReasons.Add($"Geçerli veri yetersiz ({dayValid}/{requiredValid})");
+
+                string reasonText = dayReasons.Count > 0 ? $" - Neden: {string.Join(", ", dayReasons)}" : string.Empty;
+
+                builder.AppendLine(
+                    $"{group.Key:dd.MM.yyyy} - {(dayIsValid ? "Geçerli" : "Geçersiz")} - Veri: {dayAvailable}/{dayExpected} (%{FormatPercentage(dayAvailabilityPercent)}) - Geçerli Veri: {dayValid}/{dayExpected} (%{FormatPercentage(dayValidPercent)}){reasonText}");
+            }
+
+            builder.AppendLine();
+            builder.AppendLine($"Toplam Geçerli Gün Sayısı: {validDayCount}/{dailyGroups.Count}");
+            builder.AppendLine($"Toplam Veri Sayısı: {availableCount}/{expectedCount}");
+            builder.AppendLine($"Toplam Veri Yüzdesi: %{FormatPercentage(availabilityPercent)}");
+            builder.AppendLine($"Toplam Geçerli Veri Yüzdesi: %{FormatPercentage(validPercent)}");
+
+            DataGridViewDatas.DataSource = _currentDataValidityRows;
+            ConfigureDataValidityColumns();
+
+            TextBoxReportSummary.Text = builder.ToString();
+            TextBoxReportSummary.SelectionStart = 0;
+            TextBoxReportSummary.SelectionLength = 0;
         }
 
         private async Task LoadCalibrationDataAsync(DateTime start, DateTime end, bool descending)
@@ -403,6 +713,76 @@ namespace WinUI.Pages
                 DataGridViewDatas.Columns.Add(column);
             }
         }
+
+        private static DateTime NormalizeToMinute(DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, 0, dateTime.Kind);
+        }
+
+        private static List<DateTime> ExtractTransitionTimes(IEnumerable<DigitalSensorDataDto> records, Func<DigitalSensorDataDto, bool> selector)
+        {
+            var events = new List<DateTime>();
+            bool previousState = false;
+
+            foreach (var record in records)
+            {
+                bool currentState = selector(record);
+                if (currentState && !previousState)
+                    events.Add(record.ReadTime);
+                previousState = currentState;
+            }
+
+            return events;
+        }
+
+        private static string GetCalibrationParameterKey(string? columnName)
+        {
+            if (string.IsNullOrWhiteSpace(columnName))
+                return string.Empty;
+
+            string normalized = columnName.Trim().ToLower(TurkishCulture);
+            return normalized switch
+            {
+                "ph" => "ph",
+                "iletkenlik" => "iletkenlik",
+                "conductivity" => "iletkenlik",
+                _ => normalized
+            };
+        }
+
+        private static bool IsCalibrationInvalid(DateTime current, DateTime? lastPhCalibration, DateTime? lastConductivityCalibration)
+        {
+            bool IsValidCalibration(DateTime? calibration) =>
+                calibration.HasValue && current - calibration.Value <= CalibrationThreshold;
+
+            return !(IsValidCalibration(lastPhCalibration) && IsValidCalibration(lastConductivityCalibration));
+        }
+
+        private static bool IsWashInvalid(DateTime current, DateTime? lastWash, TimeSpan threshold)
+        {
+            if (!lastWash.HasValue)
+                return true;
+
+            return current - lastWash.Value > threshold;
+        }
+
+        private static bool HasRepeatedValues(Dictionary<string, Queue<double>> history)
+        {
+            foreach (var queue in history.Values)
+            {
+                if (queue.Count < RepeatWindowSize)
+                    continue;
+
+                double first = queue.Peek();
+                if (queue.All(value => Math.Abs(value - first) <= DuplicateTolerance))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static string FormatPercentage(double value) =>
+            value.ToString("F2", TurkishCulture);
 
         private sealed class ColumnConfiguration
         {

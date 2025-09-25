@@ -16,6 +16,7 @@ public interface ISendDataService
     Task<SendDataRecord?> GetByReadTimeAsync(Guid stationId, DateTime readTime);
     Task<bool> UpdateStatusAsync(SendDataStatusUpdateRequest request);
     Task<DateTime?> GetLatestReadTimeAsync();
+    Task<List<SendDataRecord>> GetByRangeAsync(DateTime startDate, DateTime endDate);
 }
 
 public class SendDataService(HttpClient httpClient) : ISendDataService
@@ -53,6 +54,22 @@ public class SendDataService(HttpClient httpClient) : ISendDataService
 
         response.EnsureSuccessStatusCode();
         return true;
+    }
+
+    public async Task<List<SendDataRecord>> GetByRangeAsync(DateTime startDate, DateTime endDate)
+    {
+        var query = new Dictionary<string, string?>
+        {
+            ["startDate"] = startDate.ToString("O"),
+            ["endDate"] = endDate.ToString("O")
+        };
+
+        var url = QueryHelpers.AddQueryString($"{SendDataConstants.ApiUrl}/by-range", query);
+        using var response = await httpClient.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+
+        var items = await response.Content.ReadFromJsonAsync<List<SendDataRecord>>(SerializerOptions);
+        return items ?? new List<SendDataRecord>();
     }
     public async Task<DateTime?> GetLatestReadTimeAsync()
     {

@@ -56,6 +56,7 @@ namespace WinUI.Pages
             ButtonGenerate = new System.Windows.Forms.Button();
             tableLayoutPanel4 = new TableLayoutPanel();
             DataGridViewDatas = new DataGridView();
+            TextBoxReportSummary = new TextBox();
             tableLayoutPanel5 = new TableLayoutPanel();
             tableLayoutPanel6 = new TableLayoutPanel();
             ButtonSaveAsExcel = new System.Windows.Forms.Button();
@@ -357,13 +358,15 @@ namespace WinUI.Pages
             // 
             tableLayoutPanel4.BackColor = Color.FromArgb(235, 235, 235);
             tableLayoutPanel4.ColumnCount = 1;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.Controls.Add(DataGridViewDatas, 0, 0);
+            tableLayoutPanel4.Controls.Add(TextBoxReportSummary, 0, 1);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(231, 89);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 1;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.RowCount = 2;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 160F));
             tableLayoutPanel4.Size = new Size(928, 577);
             tableLayoutPanel4.TabIndex = 2;
             // 
@@ -390,9 +393,23 @@ namespace WinUI.Pages
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DataGridViewDatas.RowsDefaultCellStyle = dataGridViewCellStyle2;
             DataGridViewDatas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGridViewDatas.Size = new Size(926, 575);
+            DataGridViewDatas.Size = new Size(926, 415);
             DataGridViewDatas.TabIndex = 0;
             DataGridViewDatas.CellFormatting += DataGridViewDatas_CellFormatting;
+            //
+            // TextBoxReportSummary
+            //
+            TextBoxReportSummary.BorderStyle = BorderStyle.FixedSingle;
+            TextBoxReportSummary.Dock = DockStyle.Fill;
+            TextBoxReportSummary.Font = new Font("Arial", 8.5F, FontStyle.Regular, GraphicsUnit.Point);
+            TextBoxReportSummary.Location = new Point(1, 418);
+            TextBoxReportSummary.Margin = new Padding(1);
+            TextBoxReportSummary.Multiline = true;
+            TextBoxReportSummary.Name = "TextBoxReportSummary";
+            TextBoxReportSummary.ReadOnly = true;
+            TextBoxReportSummary.ScrollBars = ScrollBars.Vertical;
+            TextBoxReportSummary.Size = new Size(926, 158);
+            TextBoxReportSummary.TabIndex = 1;
             // 
             // tableLayoutPanel5
             // 
@@ -494,5 +511,6 @@ namespace WinUI.Pages
         private TableLayoutPanel tableLayoutPanel5;
         private TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Button ButtonSaveAsExcel;
+        private TextBox TextBoxReportSummary;
     }
 }

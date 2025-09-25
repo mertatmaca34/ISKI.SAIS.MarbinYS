@@ -5,6 +5,7 @@ public class SendDataDto
     public int Id { get; set; }
     public Guid Stationid { get; set; }
     public DateTime Readtime { get; set; }
+    public DateTime CreatedAt { get; set; }
     public string SoftwareVersion { get; set; }
     public double AkisHizi { get; set; }
     public double AKM { get; set; }
