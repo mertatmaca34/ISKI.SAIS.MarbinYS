@@ -54,6 +54,10 @@ namespace WinUI.Pages.Settings
             SendDiagnosticButton = new Button();
             PeriodLabel = new Label();
             PeriodComboBox = new ComboBox();
+            StartDateLabel = new Label();
+            StartDatePicker = new DateTimePicker();
+            EndDateLabel = new Label();
+            EndDatePicker = new DateTimePicker();
             GetLastDataButton = new Button();
             GetHistoricalDataButton = new Button();
             StationInfoContentTableLayoutPanel.SuspendLayout();
@@ -324,8 +328,12 @@ namespace WinUI.Pages.Settings
             ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 2);
             ApiTestContentTableLayoutPanel.Controls.Add(PeriodLabel, 0, 3);
             ApiTestContentTableLayoutPanel.Controls.Add(PeriodComboBox, 0, 4);
-            ApiTestContentTableLayoutPanel.Controls.Add(GetLastDataButton, 0, 5);
-            ApiTestContentTableLayoutPanel.Controls.Add(GetHistoricalDataButton, 0, 6);
+            ApiTestContentTableLayoutPanel.Controls.Add(StartDateLabel, 0, 5);
+            ApiTestContentTableLayoutPanel.Controls.Add(StartDatePicker, 0, 6);
+            ApiTestContentTableLayoutPanel.Controls.Add(EndDateLabel, 0, 7);
+            ApiTestContentTableLayoutPanel.Controls.Add(EndDatePicker, 0, 8);
+            ApiTestContentTableLayoutPanel.Controls.Add(GetLastDataButton, 0, 9);
+            ApiTestContentTableLayoutPanel.Controls.Add(GetHistoricalDataButton, 0, 10);
             ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
             ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
             ApiTestContentTableLayoutPanel.Margin = new Padding(1);
@@ -434,15 +442,59 @@ namespace WinUI.Pages.Settings
             PeriodComboBox.Size = new Size(176, 23);
             PeriodComboBox.TabIndex = 5;
             //
+            // StartDateLabel
+            //
+            StartDateLabel.Anchor = AnchorStyles.Left;
+            StartDateLabel.AutoSize = true;
+            StartDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            StartDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            StartDateLabel.Location = new Point(18, 173);
+            StartDateLabel.Name = "StartDateLabel";
+            StartDateLabel.Size = new Size(110, 16);
+            StartDateLabel.TabIndex = 8;
+            StartDateLabel.Text = "Başlangıç Tarihi";
+            //
+            // StartDatePicker
+            //
+            StartDatePicker.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            StartDatePicker.CustomFormat = "dd.MM.yyyy HH:mm";
+            StartDatePicker.Format = DateTimePickerFormat.Custom;
+            StartDatePicker.Location = new Point(18, 204);
+            StartDatePicker.Name = "StartDatePicker";
+            StartDatePicker.Size = new Size(176, 23);
+            StartDatePicker.TabIndex = 9;
+            //
+            // EndDateLabel
+            //
+            EndDateLabel.Anchor = AnchorStyles.Left;
+            EndDateLabel.AutoSize = true;
+            EndDateLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            EndDateLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            EndDateLabel.Location = new Point(18, 235);
+            EndDateLabel.Name = "EndDateLabel";
+            EndDateLabel.Size = new Size(83, 16);
+            EndDateLabel.TabIndex = 10;
+            EndDateLabel.Text = "Bitiş Tarihi";
+            //
+            // EndDatePicker
+            //
+            EndDatePicker.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            EndDatePicker.CustomFormat = "dd.MM.yyyy HH:mm";
+            EndDatePicker.Format = DateTimePickerFormat.Custom;
+            EndDatePicker.Location = new Point(18, 266);
+            EndDatePicker.Name = "EndDatePicker";
+            EndDatePicker.Size = new Size(176, 23);
+            EndDatePicker.TabIndex = 11;
+            //
             // GetLastDataButton
             //
             GetLastDataButton.Anchor = AnchorStyles.Left;
             GetLastDataButton.AutoSize = true;
             GetLastDataButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GetLastDataButton.Location = new Point(18, 173);
+            GetLastDataButton.Location = new Point(18, 297);
             GetLastDataButton.Name = "GetLastDataButton";
             GetLastDataButton.Size = new Size(176, 25);
-            GetLastDataButton.TabIndex = 6;
+            GetLastDataButton.TabIndex = 12;
             GetLastDataButton.Text = "Son Veriyi Getir";
             GetLastDataButton.UseVisualStyleBackColor = true;
             //
@@ -451,10 +503,10 @@ namespace WinUI.Pages.Settings
             GetHistoricalDataButton.Anchor = AnchorStyles.Left;
             GetHistoricalDataButton.AutoSize = true;
             GetHistoricalDataButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GetHistoricalDataButton.Location = new Point(18, 204);
+            GetHistoricalDataButton.Location = new Point(18, 328);
             GetHistoricalDataButton.Name = "GetHistoricalDataButton";
             GetHistoricalDataButton.Size = new Size(176, 25);
-            GetHistoricalDataButton.TabIndex = 7;
+            GetHistoricalDataButton.TabIndex = 13;
             GetHistoricalDataButton.Text = "Geçmiş Tüm Veriyi Getir";
             GetHistoricalDataButton.UseVisualStyleBackColor = true;
             // 
@@ -508,6 +560,10 @@ namespace WinUI.Pages.Settings
         private Button SendDiagnosticButton;
         private Label PeriodLabel;
         private ComboBox PeriodComboBox;
+        private Label StartDateLabel;
+        private DateTimePicker StartDatePicker;
+        private Label EndDateLabel;
+        private DateTimePicker EndDatePicker;
         private Button GetLastDataButton;
         private Button GetHistoricalDataButton;
         private GroupBox ResponseGroupBox;
