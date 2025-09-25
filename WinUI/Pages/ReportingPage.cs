@@ -219,14 +219,14 @@ namespace WinUI.Pages
         {
             ConfigureColumns(new[]
             {
-                new ColumnConfiguration(nameof(ApiDataResultDto.ReadTime), "Tarih", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.AKM), "AKM", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.Debi), "Debi", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.KOi), "KOi", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.pH), "pH", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.CozunmusOksijen), "Çözünmüş Oksijen", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.AkisHizi), "Akış Hızı", DataGridViewAutoSizeColumnMode.AllCells),
-                new ColumnConfiguration(nameof(ApiDataResultDto.Sicaklik), "Sıcaklık", DataGridViewAutoSizeColumnMode.AllCells)
+                new ColumnConfiguration(nameof(ApiDataResultDto.ReadTime), "Tarih", DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader),
+                new ColumnConfiguration(nameof(ApiDataResultDto.AKM), "AKM", DataGridViewAutoSizeColumnMode.Fill),
+                new ColumnConfiguration(nameof(ApiDataResultDto.Debi), "Debi", DataGridViewAutoSizeColumnMode.Fill),
+                new ColumnConfiguration(nameof(ApiDataResultDto.KOi), "KOi", DataGridViewAutoSizeColumnMode.Fill),
+                new ColumnConfiguration(nameof(ApiDataResultDto.pH), "pH", DataGridViewAutoSizeColumnMode.Fill),
+                new ColumnConfiguration(nameof(ApiDataResultDto.CozunmusOksijen), "Çözünmüş Oksijen", DataGridViewAutoSizeColumnMode.Fill),
+                new ColumnConfiguration(nameof(ApiDataResultDto.AkisHizi), "Akış Hızı", DataGridViewAutoSizeColumnMode.Fill),
+                new ColumnConfiguration(nameof(ApiDataResultDto.Sicaklik), "Sıcaklık", DataGridViewAutoSizeColumnMode.Fill)
             });
         }
 
@@ -249,7 +249,7 @@ namespace WinUI.Pages
                 case ApiDataResultDto data:
                     int? status = data.AKM_Status ?? data.Debi_Status ?? data.KOi_Status ?? data.pH_Status ??
                                   data.CozunmusOksijen_Status ?? data.AkisHizi_Status ?? data.Sicaklik_Status;
-                    if (status == 3)
+                    if (status == 1)
                         row.DefaultCellStyle.BackColor = Color.LightGreen;
                     else if (status.HasValue && status.Value != 0)
                         row.DefaultCellStyle.BackColor = Color.LightCoral;

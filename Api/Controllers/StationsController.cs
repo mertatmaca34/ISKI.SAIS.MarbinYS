@@ -36,11 +36,9 @@ public class StationsController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{stationId}")]
-    public async Task<IActionResult> Update(Guid stationId, UpdateStationCommand command)
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateStationCommand command)
     {
-        if (stationId != command.StationId)
-            return BadRequest();
         var result = await mediator.Send(command);
         return Ok(result);
     }

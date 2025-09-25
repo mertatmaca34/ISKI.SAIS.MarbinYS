@@ -1,5 +1,3 @@
-using System;
-using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Constants;
 using WinUI.Models;
@@ -72,7 +70,7 @@ public partial class StationSettingsPage : UserControl
         else
         {
             var command = new UpdateStationCommand(
-                existing.StationId,
+                stationId,
                 existing.Code,
                 existing.Name,
                 existing.DataPeriodMinute,
@@ -103,8 +101,16 @@ public partial class StationSettingsPage : UserControl
 
             try
             {
-                await _saisApiService.SendHostChangedAsync(request);
-                MessageBox.Show("İstasyon ayarları kaydedildi ve SAİS'e gönderildi.", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var res = await _saisApiService.SendHostChangedAsync(request);
+
+                if (res.result == true)
+                {
+                    MessageBox.Show($"İstasyon ayarları kaydedildi ve SAİS'e gönderildi. \nSİM API'den dönen cevap: {res.message}", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"İstasyon ayarları kaydedildi ancak SAİS'e gönderilemedi. \nSİM API'den dönen cevap: {res.message}", StationConstants.InfoTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {

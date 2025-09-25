@@ -18,7 +18,7 @@ public class UpdateStationCommandHandler(
     {
         try
         {
-            var entity = await repository.GetAsync(x => x.StationId == request.StationId);
+            var entity = await repository.GetAsync(x => x.Id == 1);
             if (entity is null)
                 throw new KeyNotFoundException($"Station {request.StationId} not found");
 

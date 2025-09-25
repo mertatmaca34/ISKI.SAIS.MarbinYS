@@ -62,7 +62,7 @@ public class StationService(HttpClient httpClient) : IStationService
 
     public async Task<StationDto?> UpdateAsync(UpdateStationCommand command)
     {
-        using var response = await httpClient.PutAsJsonAsync($"{StationConstants.ApiUrl}/{command.StationId}", command);
+        using var response = await httpClient.PutAsJsonAsync(StationConstants.ApiUrl, command);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<StationDto>();
     }
