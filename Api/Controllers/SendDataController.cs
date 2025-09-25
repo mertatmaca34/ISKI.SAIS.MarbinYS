@@ -1,5 +1,6 @@
 using Application.Features.SendDatas.Queries.GetList;
 using Application.Features.SendDatas.Queries.GetById;
+using Application.Features.SendDatas.Queries.GetLatestReadTime;
 using MediatR;                     
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.SendDatas.Commands;
@@ -15,6 +16,16 @@ public class SendDataController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetList()
     {
         var result = await mediator.Send(new GetSendDataQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("latest-readtime")]
+    public async Task<IActionResult> GetLatestReadTime()
+    {
+        var result = await mediator.Send(new GetLatestReadTimeQuery());
+        if (result is null)
+            return NotFound();
+
         return Ok(result);
     }
 
