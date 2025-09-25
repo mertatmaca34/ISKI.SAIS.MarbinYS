@@ -52,7 +52,10 @@
             ResponseTextBox = new TextBox();
             RequestSampleButton = new Button();
             SendDiagnosticButton = new Button();
-            button1 = new Button();
+            PeriodLabel = new Label();
+            PeriodComboBox = new ComboBox();
+            GetLastDataButton = new Button();
+            GetHistoricalDataButton = new Button();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoBgTableLayoutPanel.SuspendLayout();
@@ -319,7 +322,10 @@
             ApiTestContentTableLayoutPanel.Controls.Add(ResponseGroupBox, 1, 0);
             ApiTestContentTableLayoutPanel.Controls.Add(RequestSampleButton, 0, 1);
             ApiTestContentTableLayoutPanel.Controls.Add(SendDiagnosticButton, 0, 2);
-            ApiTestContentTableLayoutPanel.Controls.Add(button1, 0, 3);
+            ApiTestContentTableLayoutPanel.Controls.Add(PeriodLabel, 0, 3);
+            ApiTestContentTableLayoutPanel.Controls.Add(PeriodComboBox, 0, 4);
+            ApiTestContentTableLayoutPanel.Controls.Add(GetLastDataButton, 0, 5);
+            ApiTestContentTableLayoutPanel.Controls.Add(GetHistoricalDataButton, 0, 6);
             ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
             ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
             ApiTestContentTableLayoutPanel.Margin = new Padding(1);
@@ -406,17 +412,51 @@
             SendDiagnosticButton.Text = "Deneme Diagnostik Gönder";
             SendDiagnosticButton.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Left;
-            button1.AutoSize = true;
-            button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(18, 111);
-            button1.Name = "button1";
-            button1.Size = new Size(176, 25);
-            button1.TabIndex = 2;
-            button1.Text = "Son Veriyi Getir";
-            button1.UseVisualStyleBackColor = true;
+            // PeriodLabel
+            //
+            PeriodLabel.Anchor = AnchorStyles.Left;
+            PeriodLabel.AutoSize = true;
+            PeriodLabel.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            PeriodLabel.ForeColor = Color.FromArgb(64, 64, 64);
+            PeriodLabel.Location = new Point(18, 111);
+            PeriodLabel.Name = "PeriodLabel";
+            PeriodLabel.Size = new Size(55, 16);
+            PeriodLabel.TabIndex = 4;
+            PeriodLabel.Text = "Periyot";
+            //
+            // PeriodComboBox
+            //
+            PeriodComboBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            PeriodComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            PeriodComboBox.FormattingEnabled = true;
+            PeriodComboBox.Location = new Point(18, 142);
+            PeriodComboBox.Name = "PeriodComboBox";
+            PeriodComboBox.Size = new Size(176, 23);
+            PeriodComboBox.TabIndex = 5;
+            //
+            // GetLastDataButton
+            //
+            GetLastDataButton.Anchor = AnchorStyles.Left;
+            GetLastDataButton.AutoSize = true;
+            GetLastDataButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GetLastDataButton.Location = new Point(18, 173);
+            GetLastDataButton.Name = "GetLastDataButton";
+            GetLastDataButton.Size = new Size(176, 25);
+            GetLastDataButton.TabIndex = 6;
+            GetLastDataButton.Text = "Son Veriyi Getir";
+            GetLastDataButton.UseVisualStyleBackColor = true;
+            //
+            // GetHistoricalDataButton
+            //
+            GetHistoricalDataButton.Anchor = AnchorStyles.Left;
+            GetHistoricalDataButton.AutoSize = true;
+            GetHistoricalDataButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GetHistoricalDataButton.Location = new Point(18, 204);
+            GetHistoricalDataButton.Name = "GetHistoricalDataButton";
+            GetHistoricalDataButton.Size = new Size(176, 25);
+            GetHistoricalDataButton.TabIndex = 7;
+            GetHistoricalDataButton.Text = "Geçmiş Tüm Veriyi Getir";
+            GetHistoricalDataButton.UseVisualStyleBackColor = true;
             // 
             // ApiSettingsPage
             // 
@@ -466,8 +506,11 @@
         private Button SendServerRequestButton;
         private Button RequestSampleButton;
         private Button SendDiagnosticButton;
+        private Label PeriodLabel;
+        private ComboBox PeriodComboBox;
+        private Button GetLastDataButton;
+        private Button GetHistoricalDataButton;
         private GroupBox ResponseGroupBox;
         private TextBox ResponseTextBox;
-        private Button button1;
     }
 }
