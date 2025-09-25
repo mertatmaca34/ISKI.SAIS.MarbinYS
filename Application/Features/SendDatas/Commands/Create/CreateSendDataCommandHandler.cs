@@ -15,6 +15,14 @@ public class CreateSendDataCommandHandler(
 {
     public async Task<SendDataDto> Handle(CreateSendDataCommand request, CancellationToken cancellationToken)
     {
+        var existingEntity = await repository.GetAsync(
+            x => x.Stationid == request.Stationid &&
+                 x.Readtime == request.Readtime &&
+                 x.DeletedAt == null);
+
+        if (existingEntity is not null)
+            return mapper.Map<SendDataDto>(existingEntity);
+
         var entity = new SendData
         {
             Stationid = request.Stationid,
