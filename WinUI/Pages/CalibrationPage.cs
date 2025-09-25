@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -282,7 +283,13 @@ namespace WinUI.Pages
                         _zeroCompleted = true;
                         if (!_spanCompleted)
                         {
-                            StartCalibration(_activeParameter, false, _activeLimit);
+                            if (ShouldWaitForManualPhaseStart(_currentRequest?.DBColumnName))
+                            {
+                                PauseCalibrationForNextPhase(_currentRequest?.DBColumnName, false);
+                                return;
+                            }
+
+                            StartCalibration(_currentRequest?.DBColumnName ?? _activeParameter, false, _activeLimit);
                         }
                         else
                         {
@@ -294,7 +301,13 @@ namespace WinUI.Pages
                         _spanCompleted = true;
                         if (_zeroSupported && !_zeroCompleted)
                         {
-                            StartCalibration(_activeParameter, true, _activeLimit);
+                            if (ShouldWaitForManualPhaseStart(_currentRequest?.DBColumnName))
+                            {
+                                PauseCalibrationForNextPhase(_currentRequest?.DBColumnName, true);
+                                return;
+                            }
+
+                            StartCalibration(_currentRequest?.DBColumnName ?? _activeParameter, true, _activeLimit);
                         }
                         else
                         {
@@ -314,49 +327,48 @@ namespace WinUI.Pages
             if (_currentRequest == null)
                 return;
 
-            _currentRequest.ResultFactor = _currentRequest.SpanMeas == 0
-                ? 0
-                : _currentRequest.SpanRef / _currentRequest.SpanMeas;
+            StopTimer();
 
-            _currentRequest.ResultZero = !_zeroSupported || _currentRequest.ZeroRef == 0
+            var request = _currentRequest;
+
+            request.ResultFactor = request.SpanMeas == 0
+                ? 0
+                : request.SpanRef / request.SpanMeas;
+
+            request.ResultZero = !_zeroSupported || request.ZeroRef == 0
                 ? true
-                : CalculatePercentDifference(_currentRequest.ZeroRef, _currentRequest.ZeroDiff) <= 10;
-            _currentRequest.ResultSpan = _currentRequest.SpanRef == 0
+                : CalculatePercentDifference(request.ZeroRef, request.ZeroDiff) <= 10;
+            request.ResultSpan = request.SpanRef == 0
                 ? true
-                : CalculatePercentDifference(_currentRequest.SpanRef, _currentRequest.SpanDiff) <= 10;
+                : CalculatePercentDifference(request.SpanRef, request.SpanDiff) <= 10;
+
+            bool calibrationSuccessful = request.ResultZero && request.ResultSpan;
 
             var station = await _stationService.GetFirstAsync();
             if (station != null)
             {
-                _currentRequest.StationId = station.StationId;
+                request.StationId = station.StationId;
             }
 
-            await _saisApiService.SendCalibrationAsync(_currentRequest);
-            await _calibrationMeasurementService.CreateAsync(new CreateCalibrationMeasurementCommand(
-                _currentRequest.CalibrationDate,
-                _currentRequest.DBColumnName,
-                _currentRequest.ZeroRef,
-                _currentRequest.ZeroMeas,
-                _currentRequest.ZeroDiff,
-                _currentRequest.ZeroSTD,
-                _currentRequest.SpanRef,
-                _currentRequest.SpanMeas,
-                _currentRequest.SpanDiff,
-                _currentRequest.SpanSTD,
-                _currentRequest.ResultFactor,
-                _currentRequest.ResultZero && _currentRequest.ResultSpan));
+            var databaseResult = await TrySaveCalibrationMeasurementAsync(new CreateCalibrationMeasurementCommand(
+                request.CalibrationDate,
+                request.DBColumnName,
+                request.ZeroRef,
+                request.ZeroMeas,
+                request.ZeroDiff,
+                request.ZeroSTD,
+                request.SpanRef,
+                request.SpanMeas,
+                request.SpanDiff,
+                request.SpanSTD,
+                request.ResultFactor,
+                calibrationSuccessful));
 
-            _currentRequest = null;
-            _zeroCompleted = false;
-            _spanCompleted = false;
-            _zeroSupported = false;
-            _activeParameter = string.Empty;
-            _activeLimit = null;
-            StopTimer();
-            ResetStatusBars();
-            TitleBarControlActiveCalibration.TitleBarText = "Aktif Kalibrasyon: -";
-            TitleBarControlTimeRemain.TitleBarText = "Kalan Süre: -";
-            ChartCalibration.Series.Clear();
+            var saisResult = await TrySendCalibrationToSaisAsync(request);
+
+            ShowCalibrationSummary(calibrationSuccessful, databaseResult, saisResult);
+
+            ResetCalibrationState();
         }
 
         private static bool IsZeroSupported(string parameter) => !parameter.Equals("Iletkenlik", StringComparison.OrdinalIgnoreCase);
@@ -496,5 +508,107 @@ namespace WinUI.Pages
             var phase = _isZero ? "ZERO" : "SPAN";
             TitleBarControlActiveCalibration.TitleBarText = $"Aktif Kalibrasyon: {_activeParameter} {phase}";
         }
+
+        private static bool ShouldWaitForManualPhaseStart(string? parameter) =>
+            !string.IsNullOrWhiteSpace(parameter) && parameter.Equals("pH", StringComparison.OrdinalIgnoreCase);
+
+        private void PauseCalibrationForNextPhase(string? parameter, bool nextIsZero)
+        {
+            var parameterName = string.IsNullOrWhiteSpace(parameter) ? "pH" : parameter;
+            var completedPhaseName = nextIsZero ? "SPAN" : "ZERO";
+            var nextPhaseName = nextIsZero ? "ZERO" : "SPAN";
+
+            TitleBarControlActiveCalibration.TitleBarText = "Aktif Kalibrasyon: -";
+            TitleBarControlTimeRemain.TitleBarText = "Kalan Süre: -";
+
+            MessageBox.Show(
+                $"{parameterName} kalibrasyonunun {completedPhaseName} aşaması tamamlandı. {nextPhaseName} aşamasını başlatmak için ilgili butona basınız.",
+                "Kalibrasyon",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            _activeParameter = string.Empty;
+        }
+
+        private async Task<OperationResult> TrySaveCalibrationMeasurementAsync(CreateCalibrationMeasurementCommand command)
+        {
+            try
+            {
+                var response = await _calibrationMeasurementService.CreateAsync(command);
+                return response != null
+                    ? new OperationResult(true, "Kalibrasyon verileri veritabanına kaydedildi.")
+                    : new OperationResult(false, "Veritabanından geçerli bir yanıt alınamadı.");
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult(false, ex.Message);
+            }
+        }
+
+        private async Task<OperationResult> TrySendCalibrationToSaisAsync(CalibrationRequest request)
+        {
+            try
+            {
+                var response = await _saisApiService.SendCalibrationAsync(request);
+                if (response == null)
+                {
+                    return new OperationResult(false, "SAİS servisi yanıt vermedi.");
+                }
+
+                var message = string.IsNullOrWhiteSpace(response.message)
+                    ? string.Empty
+                    : response.message;
+
+                return response.result
+                    ? new OperationResult(true, message)
+                    : new OperationResult(false, message);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult(false, ex.Message);
+            }
+        }
+
+        private void ShowCalibrationSummary(bool calibrationSuccessful, OperationResult databaseResult, OperationResult saisResult)
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine($"Kalibrasyon Sonucu: {(calibrationSuccessful ? "Başarılı" : "Başarısız")}");
+            builder.AppendLine(FormatOperationResult("Veritabanı Kaydı", databaseResult));
+            builder.AppendLine(FormatOperationResult("SAİS Gönderimi", saisResult));
+
+            var icon = calibrationSuccessful && databaseResult.IsSuccessful && saisResult.IsSuccessful
+                ? MessageBoxIcon.Information
+                : MessageBoxIcon.Warning;
+
+            MessageBox.Show(builder.ToString(), "Kalibrasyon", MessageBoxButtons.OK, icon);
+        }
+
+        private static string FormatOperationResult(string title, OperationResult result)
+        {
+            var status = result.IsSuccessful ? "Başarılı" : "Başarısız";
+            if (string.IsNullOrWhiteSpace(result.Message))
+            {
+                return $"{title}: {status}";
+            }
+
+            return $"{title}: {status} ({result.Message})";
+        }
+
+        private void ResetCalibrationState()
+        {
+            StopTimer();
+            _currentRequest = null;
+            _zeroCompleted = false;
+            _spanCompleted = false;
+            _zeroSupported = false;
+            _activeParameter = string.Empty;
+            _activeLimit = null;
+            ResetStatusBars();
+            TitleBarControlActiveCalibration.TitleBarText = "Aktif Kalibrasyon: -";
+            TitleBarControlTimeRemain.TitleBarText = "Kalan Süre: -";
+            ChartCalibration.Series.Clear();
+        }
+
+        private sealed record OperationResult(bool IsSuccessful, string Message);
     }
 }
