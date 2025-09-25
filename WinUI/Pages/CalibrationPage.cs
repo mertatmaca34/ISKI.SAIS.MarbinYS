@@ -1,8 +1,10 @@
-﻿using System;
+using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Application.Features.CalibrationMeasurements.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;
 using WinUI.Models;
 using WinUI.Services;
@@ -10,21 +12,28 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace WinUI.Pages
 {
-    public partial class CalibrationPage: UserControl
+    public partial class CalibrationPage : UserControl
     {
+        private const string CalibrationSeriesName = "Kalibrasyon Değeri";
+        private const string ReferenceSeriesName = "Referans Değeri";
+
         private readonly ISaisApiService _saisApiService;
         private readonly ICalibrationMeasurementService _calibrationMeasurementService;
         private readonly ICalibrationLimitService _calibrationLimitService;
         private readonly IStationService _stationService;
         private readonly IPlcDataService _plcService;
+
         private CalibrationLimitDto? _phLimit;
         private CalibrationLimitDto? _conductivityLimit;
+        private CalibrationLimitDto? _activeLimit;
         private CalibrationRequest? _currentRequest;
         private Timer? _timer;
         private int _elapsed;
         private bool _isZero;
+        private bool _zeroSupported;
         private bool _zeroCompleted;
         private bool _spanCompleted;
+        private bool _isTickRunning;
         private string _activeParameter = string.Empty;
 
         public CalibrationPage()
@@ -37,6 +46,9 @@ namespace WinUI.Pages
             _stationService = Program.Services.GetRequiredService<IStationService>();
             _plcService = Program.Services.GetRequiredService<IPlcDataService>();
 
+            ButtonIletkenlikZero.Visible = false;
+            ButtonIletkenlikZero.Enabled = false;
+
             Load += CalibrationPage_Load;
         }
 
@@ -48,8 +60,18 @@ namespace WinUI.Pages
         }
 
         private void ButtonPhZero_Click(object? sender, EventArgs e) => StartCalibration("pH", true, _phLimit);
+
         private void ButtonPhSpan_Click(object? sender, EventArgs e) => StartCalibration("pH", false, _phLimit);
-        private void ButtonIletkenlikZero_Click(object? sender, EventArgs e) => StartCalibration("Iletkenlik", true, _conductivityLimit);
+
+        private void ButtonIletkenlikZero_Click(object? sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "İletkenlik için ZERO kalibrasyonu devre dışı bırakılmıştır.",
+                "Kalibrasyon",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
         private void ButtonIletkenlikSpan_Click(object? sender, EventArgs e) => StartCalibration("Iletkenlik", false, _conductivityLimit);
 
         private async void StartCalibration(string parameter, bool zero, CalibrationLimitDto? limit)
@@ -64,6 +86,11 @@ namespace WinUI.Pages
                 return;
             }
 
+            StopTimer();
+
+            _activeLimit = limit;
+            _zeroSupported = IsZeroSupported(parameter);
+
             double zeroRef = limit.ZeroRef;
             double spanRef = limit.SpanRef;
 
@@ -72,8 +99,25 @@ namespace WinUI.Pages
             if (!isSameParameter)
             {
                 _currentRequest = null;
-                _zeroCompleted = false;
+                _zeroCompleted = !_zeroSupported;
                 _spanCompleted = false;
+                _activeParameter = string.Empty;
+                ResetStatusBars();
+            }
+
+            if (zero && !_zeroSupported)
+            {
+                MessageBox.Show(
+                    "İletkenlik için ZERO kalibrasyonu devre dışı bırakılmıştır.",
+                    "Kalibrasyon",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            if (!_zeroSupported)
+            {
+                SetZeroStatusUnavailable();
             }
 
             if (spanRef < zeroRef && zero && !_spanCompleted)
@@ -97,9 +141,7 @@ namespace WinUI.Pages
                 StationId = Guid.Empty
             };
 
-            ChartCalibration.Series.Clear();
-            var series = new Series(zero ? "Zero" : "Span") { ChartType = SeriesChartType.Line };
-            ChartCalibration.Series.Add(series);
+            ConfigureChart();
 
             PlcDataDto? plcData;
             try
@@ -125,10 +167,9 @@ namespace WinUI.Pages
                 ? plcData.Analog.Ph
                 : plcData.Analog.Iletkenlik;
             double diff = measurement - reference;
-            double percent = Math.Abs(diff) / reference * 100.0;
+            double percent = CalculatePercentDifference(reference, diff);
 
-            series.Color = percent <= 10 ? System.Drawing.Color.Green : System.Drawing.Color.Red;
-            series.Points.AddY(measurement);
+            UpdateChart(reference, measurement, percent);
 
             if (_isZero)
             {
@@ -156,91 +197,116 @@ namespace WinUI.Pages
             }
 
             _elapsed = 0;
-            _timer?.Stop();
-            _timer = new Timer { Interval = 1000 };
-            _timer.Tick += async (s, e) => await TimerTickAsync(limit);
-            _timer.Start();
+            UpdateRemainingTimeDisplay();
+            UpdateActiveCalibrationTitle();
+            StartTimer();
         }
 
-        private async Task TimerTickAsync(CalibrationLimitDto limit)
+        private async Task TimerTickAsync()
         {
-            _elapsed++;
-            PlcDataDto? plcData;
+            if (_isTickRunning)
+            {
+                return;
+            }
+
+            _isTickRunning = true;
+
             try
             {
-                plcData = await _plcService.GetLatestAsync();
-            }
-            catch (InvalidOperationException ex) when (ex.Message == "PLC_NOT_CONFIGURED")
-            {
-                _timer?.Stop();
-                MessageBox.Show("PLC konfigüre edilmemiş.", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            catch (Exception ex)
-            {
-                _timer?.Stop();
-                MessageBox.Show($"PLC verileri alınırken hata oluştu: {ex.Message}", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                _elapsed++;
+                UpdateRemainingTimeDisplay();
 
-            if (plcData == null)
-                return;
+                if (_activeLimit == null)
+                    return;
 
-            double reference = _isZero ? limit.ZeroRef : limit.SpanRef;
-            double measurement = _activeParameter.Equals("pH", StringComparison.OrdinalIgnoreCase)
-                ? plcData.Analog.Ph
-                : plcData.Analog.Iletkenlik;
-            double diff = measurement - reference;
-            double percent = Math.Abs(diff) / reference * 100.0;
+                PlcDataDto? plcData;
+                try
+                {
+                    plcData = await _plcService.GetLatestAsync();
+                }
+                catch (InvalidOperationException ex) when (ex.Message == "PLC_NOT_CONFIGURED")
+                {
+                    StopTimer();
+                    MessageBox.Show("PLC konfigüre edilmemiş.", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    StopTimer();
+                    MessageBox.Show($"PLC verileri alınırken hata oluştu: {ex.Message}", "Kalibrasyon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            var series = ChartCalibration.Series[0];
-            series.Color = percent <= 10 ? System.Drawing.Color.Green : System.Drawing.Color.Red;
-            series.Points.AddY(measurement);
+                if (plcData == null)
+                    return;
 
-            if (_isZero)
-            {
-                CalibrationStatusBarZero.ZeroRef = reference.ToString("F2");
-                CalibrationStatusBarZero.ZeroMeas = measurement.ToString("F2");
-                CalibrationStatusBarZero.ZeroDiff = diff.ToString("F2");
-                CalibrationStatusBarZero.ZeroStd = "0";
+                double reference = _isZero ? _activeLimit.ZeroRef : _activeLimit.SpanRef;
+                double measurement = _activeParameter.Equals("pH", StringComparison.OrdinalIgnoreCase)
+                    ? plcData.Analog.Ph
+                    : plcData.Analog.Iletkenlik;
+                double diff = measurement - reference;
+                double percent = CalculatePercentDifference(reference, diff);
 
-                _currentRequest!.ZeroRef = reference;
-                _currentRequest.ZeroMeas = measurement;
-                _currentRequest.ZeroDiff = diff;
-                _currentRequest.ZeroSTD = 0;
-            }
-            else
-            {
-                CalibrationStatusBarSpan.SpanRef = reference.ToString("F2");
-                CalibrationStatusBarSpan.SpanMeas = measurement.ToString("F2");
-                CalibrationStatusBarSpan.SpanDiff = diff.ToString("F2");
-                CalibrationStatusBarSpan.SpanStd = "0";
+                UpdateChart(reference, measurement, percent);
 
-                _currentRequest!.SpanRef = reference;
-                _currentRequest.SpanMeas = measurement;
-                _currentRequest.SpanDiff = diff;
-                _currentRequest.SpanSTD = 0;
-            }
-
-            if (_elapsed >= (_isZero ? limit.ZeroTimeStamp : limit.SpanTimeStamp))
-            {
-                _timer!.Stop();
                 if (_isZero)
                 {
-                    _zeroCompleted = true;
-                    if (!_spanCompleted)
-                        StartCalibration(_activeParameter, false, limit);
-                    else
-                        FinishCalibration();
+                    CalibrationStatusBarZero.ZeroRef = reference.ToString("F2");
+                    CalibrationStatusBarZero.ZeroMeas = measurement.ToString("F2");
+                    CalibrationStatusBarZero.ZeroDiff = diff.ToString("F2");
+                    CalibrationStatusBarZero.ZeroStd = "0";
+
+                    _currentRequest!.ZeroRef = reference;
+                    _currentRequest.ZeroMeas = measurement;
+                    _currentRequest.ZeroDiff = diff;
+                    _currentRequest.ZeroSTD = 0;
                 }
                 else
                 {
-                    _spanCompleted = true;
-                    if (!_zeroCompleted)
-                        StartCalibration(_activeParameter, true, limit);
-                    else
-                        FinishCalibration();
+                    CalibrationStatusBarSpan.SpanRef = reference.ToString("F2");
+                    CalibrationStatusBarSpan.SpanMeas = measurement.ToString("F2");
+                    CalibrationStatusBarSpan.SpanDiff = diff.ToString("F2");
+                    CalibrationStatusBarSpan.SpanStd = "0";
+
+                    _currentRequest!.SpanRef = reference;
+                    _currentRequest.SpanMeas = measurement;
+                    _currentRequest.SpanDiff = diff;
+                    _currentRequest.SpanSTD = 0;
                 }
+
+                int target = _isZero ? _activeLimit.ZeroTimeStamp : _activeLimit.SpanTimeStamp;
+                if (_elapsed >= target)
+                {
+                    StopTimer();
+                    if (_isZero)
+                    {
+                        _zeroCompleted = true;
+                        if (!_spanCompleted)
+                        {
+                            StartCalibration(_activeParameter, false, _activeLimit);
+                        }
+                        else
+                        {
+                            FinishCalibration();
+                        }
+                    }
+                    else
+                    {
+                        _spanCompleted = true;
+                        if (_zeroSupported && !_zeroCompleted)
+                        {
+                            StartCalibration(_activeParameter, true, _activeLimit);
+                        }
+                        else
+                        {
+                            FinishCalibration();
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                _isTickRunning = false;
             }
         }
 
@@ -249,9 +315,16 @@ namespace WinUI.Pages
             if (_currentRequest == null)
                 return;
 
-            _currentRequest.ResultFactor = _currentRequest.SpanMeas == 0 ? 0 : _currentRequest.SpanRef / _currentRequest.SpanMeas;
-            _currentRequest.ResultZero = Math.Abs(_currentRequest.ZeroDiff) / _currentRequest.ZeroRef * 100 <= 10;
-            _currentRequest.ResultSpan = Math.Abs(_currentRequest.SpanDiff) / _currentRequest.SpanRef * 100 <= 10;
+            _currentRequest.ResultFactor = _currentRequest.SpanMeas == 0
+                ? 0
+                : _currentRequest.SpanRef / _currentRequest.SpanMeas;
+
+            _currentRequest.ResultZero = !_zeroSupported || _currentRequest.ZeroRef == 0
+                ? true
+                : CalculatePercentDifference(_currentRequest.ZeroRef, _currentRequest.ZeroDiff) <= 10;
+            _currentRequest.ResultSpan = _currentRequest.SpanRef == 0
+                ? true
+                : CalculatePercentDifference(_currentRequest.SpanRef, _currentRequest.SpanDiff) <= 10;
 
             var station = await _stationService.GetFirstAsync();
             if (station != null)
@@ -277,7 +350,152 @@ namespace WinUI.Pages
             _currentRequest = null;
             _zeroCompleted = false;
             _spanCompleted = false;
+            _zeroSupported = false;
             _activeParameter = string.Empty;
+            _activeLimit = null;
+            StopTimer();
+            ResetStatusBars();
+            TitleBarControlActiveCalibration.TitleBarText = "Aktif Kalibrasyon: -";
+            TitleBarControlTimeRemain.TitleBarText = "Kalan Süre: -";
+            ChartCalibration.Series.Clear();
+        }
+
+        private static bool IsZeroSupported(string parameter) => !parameter.Equals("Iletkenlik", StringComparison.OrdinalIgnoreCase);
+
+        private void ResetStatusBars()
+        {
+            CalibrationStatusBarZero.ZeroRef = "-";
+            CalibrationStatusBarZero.ZeroMeas = "-";
+            CalibrationStatusBarZero.ZeroDiff = "-";
+            CalibrationStatusBarZero.ZeroStd = "-";
+
+            CalibrationStatusBarSpan.SpanRef = "-";
+            CalibrationStatusBarSpan.SpanMeas = "-";
+            CalibrationStatusBarSpan.SpanDiff = "-";
+            CalibrationStatusBarSpan.SpanStd = "-";
+        }
+
+        private void SetZeroStatusUnavailable()
+        {
+            CalibrationStatusBarZero.ZeroRef = "Desteklenmiyor";
+            CalibrationStatusBarZero.ZeroMeas = "Desteklenmiyor";
+            CalibrationStatusBarZero.ZeroDiff = "Desteklenmiyor";
+            CalibrationStatusBarZero.ZeroStd = "Desteklenmiyor";
+        }
+
+        private void ConfigureChart()
+        {
+            ChartCalibration.Series.Clear();
+
+            ChartCalibration.Series.Add(new Series(CalibrationSeriesName)
+            {
+                ChartArea = "ChartArea1",
+                Legend = "Legend1",
+                ChartType = SeriesChartType.Spline,
+                BorderWidth = 2,
+                Color = Color.Lime,
+                MarkerStyle = MarkerStyle.Circle,
+                MarkerSize = 6,
+                XValueType = ChartValueType.DateTime,
+                YValueType = ChartValueType.Double
+            });
+
+            ChartCalibration.Series.Add(new Series(ReferenceSeriesName)
+            {
+                ChartArea = "ChartArea1",
+                Legend = "Legend1",
+                ChartType = SeriesChartType.Spline,
+                BorderWidth = 2,
+                Color = Color.Blue,
+                XValueType = ChartValueType.DateTime,
+                YValueType = ChartValueType.Double
+            });
+
+            ChartCalibration.Invalidate();
+        }
+
+        private void UpdateChart(double reference, double measurement, double percent)
+        {
+            if (ChartCalibration.Series.IndexOf(CalibrationSeriesName) >= 0)
+            {
+                ChartCalibration.Series[CalibrationSeriesName].Color = percent <= 10 ? Color.Green : Color.Red;
+            }
+
+            var timestamp = DateTime.Now;
+            AddPoint(CalibrationSeriesName, timestamp, measurement);
+            AddPoint(ReferenceSeriesName, timestamp, reference);
+            ChartCalibration.Invalidate();
+        }
+
+        private void AddPoint(string seriesName, DateTime timestamp, double value)
+        {
+            if (ChartCalibration.Series.IndexOf(seriesName) < 0)
+                return;
+
+            ChartCalibration.Series[seriesName].Points.AddXY(timestamp, value);
+        }
+
+        private static double CalculatePercentDifference(double reference, double diff)
+        {
+            if (Math.Abs(reference) < double.Epsilon)
+            {
+                return 0;
+            }
+
+            return Math.Abs(diff) / Math.Abs(reference) * 100.0;
+        }
+
+        private void StartTimer()
+        {
+            StopTimer();
+            _timer = new Timer { Interval = 1000 };
+            _timer.Tick += TimerOnTick;
+            _timer.Start();
+        }
+
+        private void StopTimer()
+        {
+            if (_timer == null)
+                return;
+
+            _timer.Tick -= TimerOnTick;
+            _timer.Stop();
+            _timer.Dispose();
+            _timer = null;
+        }
+
+        private void TimerOnTick(object? sender, EventArgs e) => _ = TimerTickAsync();
+
+        private void UpdateRemainingTimeDisplay()
+        {
+            if (_activeLimit == null)
+            {
+                TitleBarControlTimeRemain.TitleBarText = "Kalan Süre: -";
+                return;
+            }
+
+            int target = _isZero ? _activeLimit.ZeroTimeStamp : _activeLimit.SpanTimeStamp;
+            if (target <= 0)
+            {
+                TitleBarControlTimeRemain.TitleBarText = "Kalan Süre: -";
+                return;
+            }
+
+            int remaining = Math.Max(0, target - _elapsed);
+            var time = TimeSpan.FromSeconds(remaining);
+            TitleBarControlTimeRemain.TitleBarText = $"Kalan Süre: {time:mm\\:ss}";
+        }
+
+        private void UpdateActiveCalibrationTitle()
+        {
+            if (string.IsNullOrWhiteSpace(_activeParameter))
+            {
+                TitleBarControlActiveCalibration.TitleBarText = "Aktif Kalibrasyon: -";
+                return;
+            }
+
+            var phase = _isZero ? "ZERO" : "SPAN";
+            TitleBarControlActiveCalibration.TitleBarText = $"Aktif Kalibrasyon: {_activeParameter} {phase}";
         }
     }
 }
