@@ -72,6 +72,11 @@ namespace WinUI.Pages
             return _plcService.GetLatestAsync();
         }
 
+        private static string FormatAverage(double? value, string unit)
+        {
+            return value.HasValue ? $"{value.Value:0.##}{unit}" : "-";
+        }
+
         private async Task<ApiConnectionStatus> UpdateSaisConnectionStatusAsync()
         {
             try
@@ -251,14 +256,31 @@ namespace WinUI.Pages
                 if (value == null)
                     return;
 
+                var averages = value.AnalogHourlyAverage ?? new AnalogSensorAverageDto();
+
                 ChannelAkm.InstantData = $"{value.Analog.Akm} mg/l";
+                ChannelAkm.AvgDataOf60Min = FormatAverage(averages.Akm, " mg/l");
+
                 ChannelCozunmusOksijen.InstantData = $"{value.Analog.CozunmusOksijen} mg/l";
+                ChannelCozunmusOksijen.AvgDataOf60Min = FormatAverage(averages.CozunmusOksijen, " mg/l");
+
                 ChannelSicaklik.InstantData = $"{value.Analog.Sicaklik} mg/l";
+                ChannelSicaklik.AvgDataOf60Min = FormatAverage(averages.Sicaklik, " mg/l");
+
                 ChannelPh.InstantData = $"{value.Analog.Ph} mg/l";
+                ChannelPh.AvgDataOf60Min = FormatAverage(averages.Ph, " mg/l");
+
                 ChannelIletkenlik.InstantData = $"{value.Analog.Iletkenlik} mg/l";
+                ChannelIletkenlik.AvgDataOf60Min = FormatAverage(averages.Iletkenlik, " mg/l");
+
                 ChannelKoi.InstantData = $"{value.Analog.Koi} mg/l";
+                ChannelKoi.AvgDataOf60Min = FormatAverage(averages.Koi, " mg/l");
+
                 ChannelAkisHizi.InstantData = $"{value.Analog.AkisHizi} mg/l";
+                ChannelAkisHizi.AvgDataOf60Min = FormatAverage(averages.AkisHizi, " mg/l");
+
                 ChannelDebi.InstantData = $"{value.Analog.Debi} mg/l";
+                ChannelDebi.AvgDataOf60Min = FormatAverage(averages.Debi, " mg/l");
 
                 DigitalSensorKapi.SensorState = value.Digital.KabinKapiAcildi ? StateColors.Error : StateColors.Ok;
                 DigitalSensorDuman.SensorState = value.Digital.KabinDuman ? StateColors.Error : StateColors.Ok;
