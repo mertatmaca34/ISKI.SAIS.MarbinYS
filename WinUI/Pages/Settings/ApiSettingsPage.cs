@@ -315,7 +315,10 @@ public partial class ApiSettingsPage : UserControl
         {
             ResponseTextBox.Text = FormatContent("SendData ve kalibrasyon verileri alınıyor...");
 
-            var result = await _externalDataImportService.ImportAsync();
+            var startDate = StartDatePicker.Value;
+            var endDate = EndDatePicker.Value;
+
+            var result = await _externalDataImportService.ImportAsync(startDate, endDate);
             ResponseTextBox.Text = FormatContent(JsonSerializer.Serialize(result, JsonWriteOptions));
 
             var summaryLines = new List<string>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Features.CalibrationMeasurements.Commands.Create;
 using Domain.Entities;
 using WinUI.Models;
 
@@ -10,6 +11,7 @@ namespace WinUI.Services;
 
 public interface IExternalDataImportService
 {
+    Task<ExternalDataImportResult> ImportAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default);
     Task<ExternalDataImportResult> ImportAsync(CancellationToken cancellationToken = default);
 }
 
@@ -24,10 +26,13 @@ public class ExternalDataImportService(
     private readonly ICalibrationMeasurementService _calibrationMeasurementService = calibrationMeasurementService;
     private readonly IStationService _stationService = stationService;
 
+    public async Task<ExternalDataImportResult> ImportAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default)
     public async Task<ExternalDataImportResult> ImportAsync(CancellationToken cancellationToken = default)
     {
         var result = new ExternalDataImportResult();
         StationDto? station = null;
+
+        var (startDate, endDate) = NormalizeRange(start, end);
 
         try
         {
@@ -38,18 +43,22 @@ public class ExternalDataImportService(
             result.Errors.Add($"İstasyon bilgisi alınamadı: {ex.Message}");
         }
 
+        await ImportSendDataAsync(result, station, startDate, endDate, cancellationToken);
+        await ImportCalibrationsAsync(result, startDate, endDate, cancellationToken);
         await ImportSendDataAsync(result, station, cancellationToken);
         await ImportCalibrationsAsync(result, cancellationToken);
 
         return result;
     }
 
+    private async Task ImportSendDataAsync(ExternalDataImportResult result, StationDto? station, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     private async Task ImportSendDataAsync(ExternalDataImportResult result, StationDto? station, CancellationToken cancellationToken)
     {
         IReadOnlyList<ExternalSendDataDto> remoteItems;
 
         try
         {
+            remoteItems = await _apiClient.GetSendDataAsync(startDate, endDate, cancellationToken);
             remoteItems = await _apiClient.GetSendDataAsync(cancellationToken);
         }
         catch (Exception ex)
@@ -93,12 +102,14 @@ public class ExternalDataImportService(
         }
     }
 
+    private async Task ImportCalibrationsAsync(ExternalDataImportResult result, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     private async Task ImportCalibrationsAsync(ExternalDataImportResult result, CancellationToken cancellationToken)
     {
         IReadOnlyList<ExternalCalibrationRecordDto> remoteItems;
 
         try
         {
+            remoteItems = await _apiClient.GetCalibrationsAsync(startDate, endDate, cancellationToken);
             remoteItems = await _apiClient.GetCalibrationsAsync(cancellationToken);
         }
         catch (Exception ex)
@@ -186,6 +197,24 @@ public class ExternalDataImportService(
             dto.SpanStd ?? 0,
             dto.ResultFactor ?? 0,
             isValid);
+    }
+
+    private static (DateTime Start, DateTime End) NormalizeRange(DateTime start, DateTime end)
+    {
+        var normalizedStart = start.Kind == DateTimeKind.Unspecified
+            ? DateTime.SpecifyKind(start, DateTimeKind.Local)
+            : start;
+
+        var normalizedEnd = end.Kind == DateTimeKind.Unspecified
+            ? DateTime.SpecifyKind(end, DateTimeKind.Local)
+            : end;
+
+        if (normalizedEnd < normalizedStart)
+        {
+            return (normalizedEnd, normalizedStart);
+        }
+
+        return (normalizedStart, normalizedEnd);
     }
 }
 

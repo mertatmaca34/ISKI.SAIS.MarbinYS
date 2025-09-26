@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -11,6 +14,8 @@ namespace WinUI.Services;
 
 public interface IExternalSaisApiClient
 {
+    Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(CancellationToken cancellationToken = default);
     Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(CancellationToken cancellationToken = default);
 }
@@ -22,6 +27,10 @@ public class ExternalSaisApiClient(HttpClient httpClient) : IExternalSaisApiClie
         PropertyNameCaseInsensitive = true
     };
 
+    public async Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default)
+    {
+        var requestUri = BuildRequestUri(ExternalSaisApiConstants.SendDataEndpoint, start, end);
+        using var response = await httpClient.GetAsync(requestUri, cancellationToken);
     public async Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(CancellationToken cancellationToken = default)
     {
         using var response = await httpClient.GetAsync(ExternalSaisApiConstants.SendDataEndpoint, cancellationToken);
@@ -31,6 +40,10 @@ public class ExternalSaisApiClient(HttpClient httpClient) : IExternalSaisApiClie
         return payload ?? new List<ExternalSendDataDto>();
     }
 
+    public async Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default)
+    {
+        var requestUri = BuildRequestUri(ExternalSaisApiConstants.SendCalibrationEndpoint, start, end);
+        using var response = await httpClient.GetAsync(requestUri, cancellationToken);
     public async Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(CancellationToken cancellationToken = default)
     {
         using var response = await httpClient.GetAsync(ExternalSaisApiConstants.SendCalibrationEndpoint, cancellationToken);
@@ -38,5 +51,25 @@ public class ExternalSaisApiClient(HttpClient httpClient) : IExternalSaisApiClie
 
         var payload = await response.Content.ReadFromJsonAsync<List<ExternalCalibrationRecordDto>>(SerializerOptions, cancellationToken);
         return payload ?? new List<ExternalCalibrationRecordDto>();
+    }
+
+    private static string BuildRequestUri(string endpoint, DateTime start, DateTime end)
+    {
+        var normalizedStart = NormalizeDate(start);
+        var normalizedEnd = NormalizeDate(end);
+
+        var startValue = Uri.EscapeDataString(normalizedStart.ToString("O", CultureInfo.InvariantCulture));
+        var endValue = Uri.EscapeDataString(normalizedEnd.ToString("O", CultureInfo.InvariantCulture));
+
+        return $"{endpoint}?{ExternalSaisApiConstants.StartQueryParameter}={startValue}&{ExternalSaisApiConstants.EndQueryParameter}={endValue}";
+    }
+
+    private static DateTime NormalizeDate(DateTime date)
+    {
+        return date.Kind switch
+        {
+            DateTimeKind.Unspecified => DateTime.SpecifyKind(date, DateTimeKind.Local),
+            _ => date
+        };
     }
 }

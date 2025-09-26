@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json.Nodes;
 using WinUI.Constants;
 using WinUI.Forms;
@@ -301,6 +303,10 @@ namespace WinUI
                         string baseUrl = context.Configuration["ExternalSaisApi:BaseUrl"] ?? "https://10.33.3.251:446";
                         baseUrl = baseUrl.TrimEnd('/') + "/";
                         client.BaseAddress = new Uri(baseUrl);
+                        var username = context.Configuration["ExternalSaisApi:Username"] ?? "iski";
+                        var password = context.Configuration["ExternalSaisApi:Password"] ?? "iski";
+                        var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
                     })
                     .ConfigurePrimaryHttpMessageHandler(() =>
                     {
