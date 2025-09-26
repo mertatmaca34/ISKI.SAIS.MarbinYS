@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -46,6 +47,10 @@ public class ExternalDataImportService(
         return result;
     }
 
+    private const int DefaultParallelism = 4;
+
+    private readonly record struct SendDataImportItem(ExternalSendDataDto Source, Guid StationId);
+
     private async Task ImportSendDataAsync(ExternalDataImportResult result, StationDto? station, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
         IReadOnlyList<ExternalSendDataDto> remoteItems;
@@ -62,37 +67,69 @@ public class ExternalDataImportService(
 
         result.SendDataFetchedCount = remoteItems.Count;
 
+        if (remoteItems.Count == 0)
+        {
+            return;
+        }
+
+        var existingRecords = await FetchExistingSendDataAsync(startDate, endDate, cancellationToken, result);
+        var existingLookup = new HashSet<(Guid StationId, DateTime ReadTime)>(existingRecords.Select(x => (x.Stationid, x.Readtime)));
+
+        var errors = new ConcurrentBag<string>();
+        var itemsToImport = new List<SendDataImportItem>(remoteItems.Count);
+
         foreach (var item in remoteItems)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            try
+            var stationId = ResolveStationId(item, station);
+            if (stationId == Guid.Empty)
             {
-                var stationId = item.StationId != Guid.Empty
-                    ? item.StationId
-                    : station?.StationId ?? Guid.Empty;
-
-                if (stationId == Guid.Empty)
-                {
-                    result.Errors.Add($"{item.ReadTime:O} tarihli SendData kaydı için istasyon bilgisi bulunamadı.");
-                    continue;
-                }
-
-                var existing = await _sendDataService.GetByReadTimeAsync(stationId, item.ReadTime);
-                if (existing != null)
-                {
-                    continue;
-                }
-
-                var entity = MapToSendData(item, station, stationId);
-                await _sendDataService.CreateAsync(entity);
-                result.SendDataSavedCount++;
+                errors.Add($"{item.ReadTime:O} tarihli SendData kaydı için istasyon bilgisi bulunamadı.");
+                continue;
             }
-            catch (Exception ex)
+
+            if (existingLookup.Contains((stationId, item.ReadTime)))
             {
-                result.Errors.Add($"SendData kaydı kaydedilemedi ({item.ReadTime:O}): {ex.Message}");
+                continue;
             }
+
+            itemsToImport.Add(new SendDataImportItem(item, stationId));
         }
+
+        if (itemsToImport.Count == 0)
+        {
+            result.Errors.AddRange(errors);
+            return;
+        }
+
+        var savedCount = 0;
+
+        await Parallel.ForEachAsync(
+            itemsToImport,
+            new ParallelOptions
+            {
+                CancellationToken = cancellationToken,
+                MaxDegreeOfParallelism = DefaultParallelism
+            },
+            async (candidate, token) =>
+            {
+                token.ThrowIfCancellationRequested();
+
+                try
+                {
+                    var entity = MapToSendData(candidate.Source, station, candidate.StationId);
+                    await _sendDataService.CreateAsync(entity);
+                    Interlocked.Increment(ref savedCount);
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"SendData kaydı kaydedilemedi ({candidate.Source.ReadTime:O}): {ex.Message}");
+                }
+            });
+
+        result.SendDataSavedCount += savedCount;
+        result.Errors.AddRange(errors);
     }
 
     private async Task ImportCalibrationsAsync(ExternalDataImportResult result, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
@@ -111,21 +148,70 @@ public class ExternalDataImportService(
 
         result.CalibrationFetchedCount = remoteItems.Count;
 
-        foreach (var item in remoteItems)
+        if (remoteItems.Count == 0)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            try
-            {
-                var command = MapToCalibrationCommand(item);
-                await _calibrationMeasurementService.CreateAsync(command);
-                result.CalibrationSavedCount++;
-            }
-            catch (Exception ex)
-            {
-                result.Errors.Add($"Kalibrasyon kaydı kaydedilemedi ({item.CalibrationDate:O}): {ex.Message}");
-            }
+            return;
         }
+
+        var errors = new ConcurrentBag<string>();
+        var savedCount = 0;
+
+        await Parallel.ForEachAsync(
+            remoteItems,
+            new ParallelOptions
+            {
+                CancellationToken = cancellationToken,
+                MaxDegreeOfParallelism = DefaultParallelism
+            },
+            async (item, token) =>
+            {
+                token.ThrowIfCancellationRequested();
+
+                try
+                {
+                    var command = MapToCalibrationCommand(item);
+                    await _calibrationMeasurementService.CreateAsync(command);
+                    Interlocked.Increment(ref savedCount);
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"Kalibrasyon kaydı kaydedilemedi ({item.CalibrationDate:O}): {ex.Message}");
+                }
+            });
+
+        result.CalibrationSavedCount += savedCount;
+        result.Errors.AddRange(errors);
+    }
+
+    private async Task<List<SendDataRecord>> FetchExistingSendDataAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken, ExternalDataImportResult result)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        try
+        {
+            var existing = await _sendDataService.GetByRangeAsync(startDate, endDate);
+            return existing;
+        }
+        catch (Exception ex)
+        {
+            result.Errors.Add($"Mevcut SendData kayıtları alınamadı: {ex.Message}");
+            return new List<SendDataRecord>();
+        }
+    }
+
+    private static Guid ResolveStationId(ExternalSendDataDto item, StationDto? fallbackStation)
+    {
+        if (item.StationId != Guid.Empty)
+        {
+            return item.StationId;
+        }
+
+        if (fallbackStation?.StationId is { } stationId && stationId != Guid.Empty)
+        {
+            return stationId;
+        }
+
+        return Guid.Empty;
     }
 
     private static SendData MapToSendData(ExternalSendDataDto dto, StationDto? station, Guid stationId)
