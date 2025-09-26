@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Windows.Forms;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http.Json;
-using System.Text.Json;
 using WinUI.Constants;
 using WinUI.Models;
 using WinUI.Services;
@@ -20,6 +24,7 @@ public partial class ApiSettingsPage : UserControl
     private readonly ISaisApiService _saisApiService;
     private readonly ISendDataService _sendDataService;
     private readonly IMeasurementReportService _measurementReportService;
+    private readonly IExternalDataImportService _externalDataImportService;
     private int? _apiEndpointId;
     private readonly int[] _resendPeriodOptions = new[] { 24 * 60, 48 * 60, 7 * 24 * 60, 30 * 24 * 60, 90 * 24 * 60, 180 * 24 * 60, 365 * 24 * 60 };
     private readonly PeriodOption[] _periodOptions =
@@ -44,6 +49,7 @@ public partial class ApiSettingsPage : UserControl
         _saisApiService = Program.Services.GetRequiredService<ISaisApiService>();
         _sendDataService = Program.Services.GetRequiredService<ISendDataService>();
         _measurementReportService = Program.Services.GetRequiredService<IMeasurementReportService>();
+        _externalDataImportService = Program.Services.GetRequiredService<IExternalDataImportService>();
 
         var handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
@@ -60,6 +66,7 @@ public partial class ApiSettingsPage : UserControl
         SendDiagnosticButton.Click += SendDiagnosticButton_Click;
         GetLastDataButton.Click += GetLastDataButton_Click;
         GetHistoricalDataButton.Click += GetHistoricalDataButton_Click;
+        SendDataAndCalibrationsButton.Click += SendDataAndCalibrationsButton_Click;
 
         ResendPeriodComboBox.Items.AddRange(new object[]
         {
@@ -300,6 +307,52 @@ public partial class ApiSettingsPage : UserControl
                 await _sendDataService.CreateAsync(sendData);
             }
         });
+    }
+
+    private async void SendDataAndCalibrationsButton_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            ResponseTextBox.Text = FormatContent("SendData ve kalibrasyon verileri alınıyor...");
+
+            var startDate = StartDatePicker.Value;
+            var endDate = EndDatePicker.Value;
+
+            var result = await _externalDataImportService.ImportAsync(startDate, endDate);
+            ResponseTextBox.Text = FormatContent(JsonSerializer.Serialize(result, JsonWriteOptions));
+
+            var summaryLines = new List<string>
+            {
+                result.IsSuccess
+                    ? "İçe aktarma başarıyla tamamlandı."
+                    : "İçe aktarma tamamlandı ancak bazı hatalar oluştu.",
+                $"SendData kayıtları: {result.SendDataSavedCount}/{result.SendDataFetchedCount}",
+                $"Kalibrasyon kayıtları: {result.CalibrationSavedCount}/{result.CalibrationFetchedCount}"
+            };
+
+            if (!result.IsSuccess && result.Errors.Count > 0)
+            {
+                summaryLines.Add("Hatalar:");
+                summaryLines.AddRange(result.Errors);
+            }
+
+            var icon = result.IsSuccess ? MessageBoxIcon.Information : MessageBoxIcon.Error;
+            var caption = result.IsSuccess ? ExternalSaisApiConstants.DefaultInfoTitle : ApiEndpointConstants.ErrorTitle;
+            MessageBox.Show(
+                string.Join(Environment.NewLine, summaryLines),
+                caption,
+                MessageBoxButtons.OK,
+                icon);
+        }
+        catch (Exception ex)
+        {
+            ResponseTextBox.Text = FormatContent(ex.Message);
+            MessageBox.Show(
+                $"İçe aktarma başarısız oldu. {ex.Message}",
+                ApiEndpointConstants.ErrorTitle,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
     }
 
     private static string CombineUrl(string baseUrl, string relative)
