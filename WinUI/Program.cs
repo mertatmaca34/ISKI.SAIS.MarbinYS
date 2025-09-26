@@ -303,7 +303,6 @@ namespace WinUI
                         string baseUrl = context.Configuration["ExternalSaisApi:BaseUrl"] ?? "https://10.33.3.251:446";
                         baseUrl = baseUrl.TrimEnd('/') + "/";
                         client.BaseAddress = new Uri(baseUrl);
-
                         var username = context.Configuration["ExternalSaisApi:Username"] ?? "iski";
                         var password = context.Configuration["ExternalSaisApi:Password"] ?? "iski";
                         var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));

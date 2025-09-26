@@ -12,6 +12,7 @@ namespace WinUI.Services;
 public interface IExternalDataImportService
 {
     Task<ExternalDataImportResult> ImportAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default);
+    Task<ExternalDataImportResult> ImportAsync(CancellationToken cancellationToken = default);
 }
 
 public class ExternalDataImportService(
@@ -26,6 +27,7 @@ public class ExternalDataImportService(
     private readonly IStationService _stationService = stationService;
 
     public async Task<ExternalDataImportResult> ImportAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default)
+    public async Task<ExternalDataImportResult> ImportAsync(CancellationToken cancellationToken = default)
     {
         var result = new ExternalDataImportResult();
         StationDto? station = null;
@@ -43,17 +45,21 @@ public class ExternalDataImportService(
 
         await ImportSendDataAsync(result, station, startDate, endDate, cancellationToken);
         await ImportCalibrationsAsync(result, startDate, endDate, cancellationToken);
+        await ImportSendDataAsync(result, station, cancellationToken);
+        await ImportCalibrationsAsync(result, cancellationToken);
 
         return result;
     }
 
     private async Task ImportSendDataAsync(ExternalDataImportResult result, StationDto? station, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    private async Task ImportSendDataAsync(ExternalDataImportResult result, StationDto? station, CancellationToken cancellationToken)
     {
         IReadOnlyList<ExternalSendDataDto> remoteItems;
 
         try
         {
             remoteItems = await _apiClient.GetSendDataAsync(startDate, endDate, cancellationToken);
+            remoteItems = await _apiClient.GetSendDataAsync(cancellationToken);
         }
         catch (Exception ex)
         {
@@ -97,12 +103,14 @@ public class ExternalDataImportService(
     }
 
     private async Task ImportCalibrationsAsync(ExternalDataImportResult result, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    private async Task ImportCalibrationsAsync(ExternalDataImportResult result, CancellationToken cancellationToken)
     {
         IReadOnlyList<ExternalCalibrationRecordDto> remoteItems;
 
         try
         {
             remoteItems = await _apiClient.GetCalibrationsAsync(startDate, endDate, cancellationToken);
+            remoteItems = await _apiClient.GetCalibrationsAsync(cancellationToken);
         }
         catch (Exception ex)
         {

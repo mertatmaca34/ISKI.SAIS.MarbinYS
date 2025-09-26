@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -15,6 +16,8 @@ public interface IExternalSaisApiClient
 {
     Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(DateTime start, DateTime end, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(CancellationToken cancellationToken = default);
 }
 
 public class ExternalSaisApiClient(HttpClient httpClient) : IExternalSaisApiClient
@@ -28,6 +31,9 @@ public class ExternalSaisApiClient(HttpClient httpClient) : IExternalSaisApiClie
     {
         var requestUri = BuildRequestUri(ExternalSaisApiConstants.SendDataEndpoint, start, end);
         using var response = await httpClient.GetAsync(requestUri, cancellationToken);
+    public async Task<IReadOnlyList<ExternalSendDataDto>> GetSendDataAsync(CancellationToken cancellationToken = default)
+    {
+        using var response = await httpClient.GetAsync(ExternalSaisApiConstants.SendDataEndpoint, cancellationToken);
         response.EnsureSuccessStatusCode();
 
         var payload = await response.Content.ReadFromJsonAsync<List<ExternalSendDataDto>>(SerializerOptions, cancellationToken);
@@ -38,6 +44,9 @@ public class ExternalSaisApiClient(HttpClient httpClient) : IExternalSaisApiClie
     {
         var requestUri = BuildRequestUri(ExternalSaisApiConstants.SendCalibrationEndpoint, start, end);
         using var response = await httpClient.GetAsync(requestUri, cancellationToken);
+    public async Task<IReadOnlyList<ExternalCalibrationRecordDto>> GetCalibrationsAsync(CancellationToken cancellationToken = default)
+    {
+        using var response = await httpClient.GetAsync(ExternalSaisApiConstants.SendCalibrationEndpoint, cancellationToken);
         response.EnsureSuccessStatusCode();
 
         var payload = await response.Content.ReadFromJsonAsync<List<ExternalCalibrationRecordDto>>(SerializerOptions, cancellationToken);
