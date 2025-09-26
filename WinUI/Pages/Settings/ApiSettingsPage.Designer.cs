@@ -60,6 +60,7 @@ namespace WinUI.Pages.Settings
             EndDatePicker = new DateTimePicker();
             GetLastDataButton = new Button();
             GetHistoricalDataButton = new Button();
+            SendDataAndCalibrationsButton = new Button();
             StationInfoContentTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataSendPeriodNumericUpDown).BeginInit();
             StationInfoBgTableLayoutPanel.SuspendLayout();
@@ -334,7 +335,7 @@ namespace WinUI.Pages.Settings
             ApiTestContentTableLayoutPanel.Controls.Add(EndDatePicker, 0, 8);
             ApiTestContentTableLayoutPanel.Controls.Add(GetLastDataButton, 0, 9);
             ApiTestContentTableLayoutPanel.Controls.Add(GetHistoricalDataButton, 0, 10);
-            ApiTestContentTableLayoutPanel.Controls.Add(SendDataAndCalibrationsButton, 0, 11);
+            ApiTestContentTableLayoutPanel.Controls.Add(SendDataAndCalibrationsButton, 0, 12);
             ApiTestContentTableLayoutPanel.Dock = DockStyle.Fill;
             ApiTestContentTableLayoutPanel.Location = new Point(1, 1);
             ApiTestContentTableLayoutPanel.Margin = new Padding(1);
@@ -511,17 +512,17 @@ namespace WinUI.Pages.Settings
             GetHistoricalDataButton.TabIndex = 13;
             GetHistoricalDataButton.Text = "Geçmiş Tüm Veriyi Getir";
             GetHistoricalDataButton.UseVisualStyleBackColor = true;
-            //
+            // 
             // SendDataAndCalibrationsButton
-            //
+            // 
             SendDataAndCalibrationsButton.Anchor = AnchorStyles.Left;
             SendDataAndCalibrationsButton.AutoSize = true;
             SendDataAndCalibrationsButton.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SendDataAndCalibrationsButton.Location = new Point(18, 359);
+            SendDataAndCalibrationsButton.Location = new Point(18, 390);
             SendDataAndCalibrationsButton.Name = "SendDataAndCalibrationsButton";
             SendDataAndCalibrationsButton.Size = new Size(176, 25);
-            SendDataAndCalibrationsButton.TabIndex = 14;
-            SendDataAndCalibrationsButton.Text = "SendData&Calibrations";
+            SendDataAndCalibrationsButton.TabIndex = 13;
+            SendDataAndCalibrationsButton.Text = "SendData & Calibration";
             SendDataAndCalibrationsButton.UseVisualStyleBackColor = true;
             // 
             // ApiSettingsPage
