@@ -285,7 +285,7 @@ public partial class ApiSettingsPage : UserControl
                 return;
             }
 
-            List<ApiDataResultDto> newItems = await FilterMeasurements(result.objects);
+            //List<ApiDataResultDto> newItems = await FilterMeasurements(result.objects);
 
             var summary = new
             {
@@ -295,13 +295,12 @@ public partial class ApiSettingsPage : UserControl
                 startDate,
                 endDate,
                 fetchedCount = result.objects.Count,
-                savedCount = newItems.Count,
                 result.objects
             };
 
             ResponseTextBox.Text = FormatContent(JsonSerializer.Serialize(summary, JsonWriteOptions));
 
-            foreach (var item in newItems)
+            foreach (var item in result.objects)
             {
                 var sendData = MapToSendData(item, station);
                 await _sendDataService.CreateAsync(sendData);

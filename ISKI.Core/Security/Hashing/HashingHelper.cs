@@ -19,4 +19,21 @@ public static class HashingHelper
 
         return computedHash.SequenceEqual(storedHash);
     }
+    public static string DoubleMD5Hash(string input)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            byte[] data = MD5.HashData(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder sBuilder = new();
+            for (int j = 0; j < data.Length; j++)
+            {
+                sBuilder.Append(data[j].ToString("x2"));
+            }
+
+            input = sBuilder.ToString();
+        }
+
+        return input;
+    }
 }

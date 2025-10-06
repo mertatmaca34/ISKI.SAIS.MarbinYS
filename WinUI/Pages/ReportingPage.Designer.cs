@@ -185,22 +185,22 @@ namespace WinUI.Pages
             // RadioButtonSortByLast
             // 
             RadioButtonSortByLast.AutoSize = true;
+            RadioButtonSortByLast.Checked = true;
             RadioButtonSortByLast.Location = new Point(6, 46);
             RadioButtonSortByLast.Name = "RadioButtonSortByLast";
             RadioButtonSortByLast.Size = new Size(115, 19);
             RadioButtonSortByLast.TabIndex = 2;
+            RadioButtonSortByLast.TabStop = true;
             RadioButtonSortByLast.Text = "Son Veriye Göre";
             RadioButtonSortByLast.UseVisualStyleBackColor = true;
             // 
             // RadioButtonSortByFirst
             // 
             RadioButtonSortByFirst.AutoSize = true;
-            RadioButtonSortByFirst.Checked = true;
             RadioButtonSortByFirst.Location = new Point(6, 21);
             RadioButtonSortByFirst.Name = "RadioButtonSortByFirst";
             RadioButtonSortByFirst.Size = new Size(106, 19);
             RadioButtonSortByFirst.TabIndex = 2;
-            RadioButtonSortByFirst.TabStop = true;
             RadioButtonSortByFirst.Text = "İlk Veriye Göre";
             RadioButtonSortByFirst.UseVisualStyleBackColor = true;
             // 
@@ -396,12 +396,12 @@ namespace WinUI.Pages
             DataGridViewDatas.Size = new Size(926, 415);
             DataGridViewDatas.TabIndex = 0;
             DataGridViewDatas.CellFormatting += DataGridViewDatas_CellFormatting;
-            //
+            // 
             // TextBoxReportSummary
-            //
+            // 
             TextBoxReportSummary.BorderStyle = BorderStyle.FixedSingle;
             TextBoxReportSummary.Dock = DockStyle.Fill;
-            TextBoxReportSummary.Font = new Font("Arial", 8.5F, FontStyle.Regular, GraphicsUnit.Point);
+            TextBoxReportSummary.Font = new Font("Arial", 8.5F);
             TextBoxReportSummary.Location = new Point(1, 418);
             TextBoxReportSummary.Margin = new Padding(1);
             TextBoxReportSummary.Multiline = true;
@@ -475,6 +475,7 @@ namespace WinUI.Pages
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewDatas).EndInit();
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel6.ResumeLayout(false);

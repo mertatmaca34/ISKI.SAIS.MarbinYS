@@ -373,7 +373,6 @@ namespace WinUI.Pages
             DateTime calibrationFetchStart = start.AddDays(-60);
 
             var sendDataRecords = await _sendDataService.GetByRangeAsync(sendDataFetchStart, end);
-            var digitalSensorRecords = await _digitalSensorDataService.GetByRangeAsync(digitalFetchStart, end);
             var calibrationResponse = await _saisApiService.GetCalibrationAsync(station.StationId, calibrationFetchStart, end);
 
             if (calibrationResponse == null || !calibrationResponse.result)
@@ -398,12 +397,8 @@ namespace WinUI.Pages
                 .OrderBy(kvp => kvp.Key)
                 .ToList();
 
-            var orderedDigitalRecords = digitalSensorRecords
-                .OrderBy(x => x.ReadTime)
-                .ToList();
-
-            var hourlyWashEvents = ExtractTransitionTimes(orderedDigitalRecords, x => x.KabinSaatlikYikamada);
-            var weeklyWashEvents = ExtractTransitionTimes(orderedDigitalRecords, x => x.KabinHaftalikYikamada);
+            var hourlyWashEvents = ExtractTransitionTimes(sendDataRecords, x => x.Debi_Status == 23);
+            var weeklyWashEvents = ExtractTransitionTimes(sendDataRecords, x => x.Debi_Status == 24);
 
             var validCalibrations = calibrationRecords
                 .Where(x => x.Result)
@@ -411,10 +406,10 @@ namespace WinUI.Pages
                 .ToList();
 
             var phCalibrations = validCalibrations
-                .Where(x => GetCalibrationParameterKey(x.DBColumnName) == "ph")
+                .Where(x => x.DBColumnName == "Ph" || x.DBColumnName == "pH")
                 .ToList();
             var conductivityCalibrations = validCalibrations
-                .Where(x => GetCalibrationParameterKey(x.DBColumnName) == "iletkenlik")
+                .Where(x => x.DBColumnName == "Iletkenlik")
                 .ToList();
 
             var parameterSelectors = new Dictionary<string, Func<SendDataRecord, double>>
@@ -719,7 +714,7 @@ namespace WinUI.Pages
             return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, 0, dateTime.Kind);
         }
 
-        private static List<DateTime> ExtractTransitionTimes(IEnumerable<DigitalSensorDataDto> records, Func<DigitalSensorDataDto, bool> selector)
+        private static List<DateTime> ExtractTransitionTimes(IEnumerable<SendDataRecord> records, Func<SendDataRecord, bool> selector)
         {
             var events = new List<DateTime>();
             bool previousState = false;
@@ -728,7 +723,7 @@ namespace WinUI.Pages
             {
                 bool currentState = selector(record);
                 if (currentState && !previousState)
-                    events.Add(record.ReadTime);
+                    events.Add(record.Readtime);
                 previousState = currentState;
             }
 
@@ -740,13 +735,14 @@ namespace WinUI.Pages
             if (string.IsNullOrWhiteSpace(columnName))
                 return string.Empty;
 
-            string normalized = columnName.Trim().ToLower(TurkishCulture);
-            return normalized switch
+            return columnName switch
             {
-                "ph" => "ph",
+                "Ph" => "ph",
+                "pH" => "ph",
                 "iletkenlik" => "iletkenlik",
+                "Iletkenlik" => "iletkenlik",
                 "conductivity" => "iletkenlik",
-                _ => normalized
+                _ => columnName
             };
         }
 
