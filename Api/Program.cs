@@ -8,15 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Formatting.Json;
+using System;
 using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, services, lc) =>
 {
-    var logsDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
+    var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+    var logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
     Directory.CreateDirectory(logsDirectory);
-    var logFilePath = Path.Combine(logsDirectory, "api-log-.json");
+    var logFilePath = Path.Combine(logsDirectory, LogsConstants.RollingFileNamePattern);
 
     lc.ReadFrom.Configuration(ctx.Configuration)
       .WriteTo.Console()
