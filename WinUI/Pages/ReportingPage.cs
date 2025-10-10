@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinUI.Models;
 using WinUI.Services;
+using WinUI.Services.Exceptions;
 
 namespace WinUI.Pages
 {
@@ -143,30 +145,50 @@ namespace WinUI.Pages
             _lastStartDate = start;
             _lastEndDate = end;
 
-            if (reportType == "Log Kayıtları")
+            try
             {
-                _currentLogs = await _logService.GetAsync(start, end, descending) ?? new List<LogDto>();
-                DataGridViewDatas.DataSource = _currentLogs;
-                ConfigureLogColumns();
+                if (reportType == "Log Kayıtları")
+                {
+                    _currentLogs = await _logService.GetAsync(start, end, descending);
+                    DataGridViewDatas.DataSource = _currentLogs;
+                    ConfigureLogColumns();
+                }
+                else if (reportType == "Ölçüm Verileri")
+                {
+                    _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end, descending);
+                    DataGridViewDatas.DataSource = _currentMeasurements;
+                    ConfigureMeasurementColumns();
+                }
+                else if (reportType == "Kalibrasyon Verileri")
+                {
+                    await LoadCalibrationDataAsync(start, end, descending);
+                }
+                else if (reportType == "Eksik Veriler")
+                {
+                    await LoadMissingDatesAsync(start, end);
+                }
+                else if (reportType == "Veri Geçerlilik Raporu")
+                {
+                    await LoadDataValidityReportAsync(start, end, descending);
+                }
             }
-            else if (reportType == "Ölçüm Verileri")
+            catch (ApiUnavailableException)
             {
-                _currentMeasurements = await _measurementService.GetMeasurementsAsync(start, end, descending);
-                DataGridViewDatas.DataSource = _currentMeasurements;
-                ConfigureMeasurementColumns();
+                ShowApiUnavailableMessage();
             }
-            else if (reportType == "Kalibrasyon Verileri")
+            catch (HttpRequestException)
             {
-                await LoadCalibrationDataAsync(start, end, descending);
+                ShowApiUnavailableMessage();
             }
-            else if (reportType == "Eksik Veriler")
+            catch (TaskCanceledException ex) when (!ex.CancellationToken.IsCancellationRequested)
             {
-                await LoadMissingDatesAsync(start, end);
+                ShowApiUnavailableMessage();
             }
-            else if (reportType == "Veri Geçerlilik Raporu")
-            {
-                await LoadDataValidityReportAsync(start, end, descending);
-            }
+        }
+
+        private void ShowApiUnavailableMessage()
+        {
+            MessageBox.Show("Sistem local API'ye bağlı değil.", "Raporlama", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void ButtonSaveAsExcel_Click(object sender, EventArgs e)
