@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -40,6 +41,8 @@ public class LogService : ILogService
             return new List<LogDto>();
         }
 
+        var entries = ReadFromFileSystem(startDate, endDate);
+        return Task.FromResult(SortAndRenumber(entries, descending));
         List<LogDto>? remoteLogs = await TryGetFromApiAsync(startDate, endDate, descending);
         if (remoteLogs != null)
         {
