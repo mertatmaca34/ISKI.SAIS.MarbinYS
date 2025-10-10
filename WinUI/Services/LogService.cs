@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Text;
 using WinUI.Constants;
 using WinUI.Models;
 
@@ -21,11 +16,6 @@ public class LogService : ILogService
     private readonly ILogFileLocator _fileLocator;
     private readonly ILogEntryParser _parser;
     private readonly ILogger<LogService> _logger;
-
-    public LogService()
-        : this(null, null, null)
-    {
-    }
 
     public LogService(ILogFileLocator? fileLocator, ILogEntryParser? parser, ILogger<LogService>? logger = null)
     {

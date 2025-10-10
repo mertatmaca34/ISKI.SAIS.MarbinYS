@@ -102,7 +102,9 @@ namespace WinUI
                     services.AddSingleton<IConnectionStatusService, ConnectionStatusService>();
                     services.AddSingleton<ILogFileLocator>(_ => new DailyLogFileLocator(logsDirectory, LogsConstants.FilePrefix, LogsConstants.FileExtension));
                     services.AddSingleton<ILogEntryParser, SerilogLogEntryParser>();
-                    services.AddHttpClient<ILogService, LogService>(client =>
+                    services.AddSingleton<ILogService, LogService>();
+
+                    /*services.AddHttpClient<ILogService, LogService>(client =>
                     {
                         string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
                         baseUrl = baseUrl.TrimEnd('/');
@@ -117,7 +119,7 @@ namespace WinUI
                         }
                         return handler;
                     })
-                    .AddStandardResilienceHandler(options => options.Retry.MaxRetryAttempts = 3);
+                    .AddStandardResilienceHandler(options => options.Retry.MaxRetryAttempts = 3);*/
 
                     services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
                     {
