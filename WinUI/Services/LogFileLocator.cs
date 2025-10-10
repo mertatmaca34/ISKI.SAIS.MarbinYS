@@ -18,6 +18,7 @@ public sealed class DailyLogFileLocator : ILogFileLocator
     public DailyLogFileLocator(string directoryPath, string filePrefix, string fileExtension)
     {
         _directoryPath = directoryPath ?? throw new ArgumentNullException(nameof(directoryPath));
+        Directory.CreateDirectory(_directoryPath);
         _filePrefix = filePrefix ?? throw new ArgumentNullException(nameof(filePrefix));
         _fileExtension = fileExtension ?? throw new ArgumentNullException(nameof(fileExtension));
     }
