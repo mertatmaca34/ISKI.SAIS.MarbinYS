@@ -79,7 +79,7 @@ namespace WinUI
             var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             var logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
             Directory.CreateDirectory(logsDirectory);
-            var logFilePath = Path.Combine(logsDirectory, "winui-log-.json");
+            var logFilePath = Path.Combine(logsDirectory, LogsConstants.RollingFileNamePattern);
 
             return Host.CreateDefaultBuilder(args)
                 .UseSerilog((ctx, services, lc) =>
