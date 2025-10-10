@@ -7,35 +7,22 @@ using ISKI.Core.CrossCuttingConcerns.Exceptions.ExceptionHandling;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Sinks.MSSqlServer;
+using Serilog.Formatting.Json;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, services, lc) =>
 {
+    var logsDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
+    Directory.CreateDirectory(logsDirectory);
+    var logFilePath = Path.Combine(logsDirectory, "api-log-.json");
+
     lc.ReadFrom.Configuration(ctx.Configuration)
-      .WriteTo.Console();
-
-    var connectionString = ctx.Configuration.GetConnectionString("Default");
-
-    if (string.IsNullOrWhiteSpace(connectionString))
-    {
-        Console.Error.WriteLine("Serilog SQL sink skipped because the default connection string is not configured.");
-        return;
-    }
-
-    try
-    {
-        lc.WriteTo.MSSqlServer(connectionString, new MSSqlServerSinkOptions
-        {
-            TableName = "Logs",
-            AutoCreateSqlTable = true
-        });
-    }
-    catch (Exception ex)
-    {
-        Console.Error.WriteLine($"Serilog SQL sink initialization failed: {ex.Message}");
-    }
+      .WriteTo.Console()
+      .WriteTo.File(new JsonFormatter(renderMessage: true), logFilePath,
+          rollingInterval: RollingInterval.Day,
+          shared: true);
 });
 
 builder.Services.AddApplication();

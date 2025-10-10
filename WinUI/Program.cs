@@ -2,7 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Serilog.Sinks.MSSqlServer;
+using Serilog.Formatting.Json;
+using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -72,30 +73,20 @@ namespace WinUI
             var apiSettingsPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Api", "appsettings.json"));
             var json = File.Exists(apiSettingsPath) ? File.ReadAllText(apiSettingsPath) : "{}";
             JsonNode? root = JsonNode.Parse(json);
-            string conn = root?["ConnectionStrings"]?["Default"]?.ToString() ?? string.Empty;
             string levelStr = root?["Serilog"]?["MinimumLevel"]?["Default"]?.ToString() ?? "Information";
             var level = Enum.TryParse<LogEventLevel>(levelStr, true, out var lvl) ? lvl : LogEventLevel.Information;
+            var logsDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
+            Directory.CreateDirectory(logsDirectory);
+            var logFilePath = Path.Combine(logsDirectory, "winui-log-.json");
 
             return Host.CreateDefaultBuilder(args)
                 .UseSerilog((ctx, services, lc) =>
                 {
                     lc.MinimumLevel.Is(level)
-                      .WriteTo.Console();
-
-                    if (string.IsNullOrWhiteSpace(conn))
-                    {
-                        Console.Error.WriteLine("Serilog SQL sink skipped because the default connection string is not configured.");
-                        return;
-                    }
-
-                    try
-                    {
-                        lc.WriteTo.MSSqlServer(conn, new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true });
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.Error.WriteLine($"Serilog SQL sink initialization failed: {ex.Message}");
-                    }
+                      .WriteTo.Console()
+                      .WriteTo.File(new JsonFormatter(renderMessage: true), logFilePath,
+                          rollingInterval: RollingInterval.Day,
+                          shared: true);
                 })
                 .ConfigureServices((context, services) =>
                 {
