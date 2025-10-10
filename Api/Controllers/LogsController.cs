@@ -1,6 +1,8 @@
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text.Json;
+using Api.Constants;
 using Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +21,16 @@ public class LogsController : ControllerBase
         var start = startDate.HasValue ? new DateTimeOffset(startDate.Value) : DateTimeOffset.MinValue;
         var end = endDate.HasValue ? new DateTimeOffset(endDate.Value) : DateTimeOffset.MaxValue;
 
-        var logDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
+        var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+        var logDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
 
         if (!Directory.Exists(logDirectory))
         {
             return Ok(new List<LogDto>());
         }
 
-        var files = Directory.EnumerateFiles(logDirectory, "api-log-*.json", SearchOption.TopDirectoryOnly)
+        var searchPattern = string.Concat(LogsConstants.FilePrefix, "*", LogsConstants.FileExtension);
+        var files = Directory.EnumerateFiles(logDirectory, searchPattern, SearchOption.TopDirectoryOnly)
             .OrderBy(f => f)
             .ToList();
 
