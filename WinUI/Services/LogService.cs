@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WinUI.Models;
@@ -16,26 +20,76 @@ public interface ILogService
 
 public class LogService : ILogService
 {
+    private readonly HttpClient _httpClient;
     private readonly ILogFileLocator _fileLocator;
     private readonly ILogEntryParser _parser;
     private readonly ILogger<LogService> _logger;
+    private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web);
 
-    public LogService(ILogFileLocator fileLocator, ILogEntryParser parser, ILogger<LogService> logger)
+    public LogService(HttpClient httpClient, ILogFileLocator fileLocator, ILogEntryParser parser, ILogger<LogService> logger)
     {
+        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _fileLocator = fileLocator ?? throw new ArgumentNullException(nameof(fileLocator));
         _parser = parser ?? throw new ArgumentNullException(nameof(parser));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public Task<List<LogDto>> GetAsync(DateTime startDate, DateTime endDate, bool descending)
+    public async Task<List<LogDto>> GetAsync(DateTime startDate, DateTime endDate, bool descending)
     {
         if (endDate <= startDate)
         {
-            return Task.FromResult(new List<LogDto>());
+            return new List<LogDto>();
         }
 
         var entries = ReadFromFileSystem(startDate, endDate);
         return Task.FromResult(SortAndRenumber(entries, descending));
+        List<LogDto>? remoteLogs = await TryGetFromApiAsync(startDate, endDate, descending);
+        if (remoteLogs != null)
+        {
+            return SortAndRenumber(FilterByRange(remoteLogs, startDate, endDate), descending);
+        }
+
+        return SortAndRenumber(ReadFromFileSystem(startDate, endDate), descending);
+    }
+
+    private async Task<List<LogDto>?> TryGetFromApiAsync(DateTime startDate, DateTime endDate, bool descending)
+    {
+        try
+        {
+            string requestUri = BuildRequestUri(startDate, endDate, descending);
+            using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogWarning(
+                    "Log kayıtları API'den alınamadı. StatusCode: {StatusCode}",
+                    response.StatusCode);
+                return null;
+            }
+
+            var logs = await response.Content.ReadFromJsonAsync<List<LogDto>>(SerializerOptions);
+            return logs ?? new List<LogDto>();
+        }
+        catch (HttpRequestException ex)
+        {
+            _logger.LogWarning(ex, "Log kayıtları API'den alınırken hata oluştu. Yerel log dosyaları kullanılacak.");
+            return null;
+        }
+        catch (TaskCanceledException ex) when (!ex.CancellationToken.IsCancellationRequested)
+        {
+            _logger.LogWarning(ex, "Log kayıtları API'den alınırken zaman aşımı oluştu. Yerel log dosyaları kullanılacak.");
+            return null;
+        }
+        catch (NotSupportedException ex)
+        {
+            _logger.LogWarning(ex, "Log kayıtları API yanıtı desteklenmeyen bir biçimde." );
+            return null;
+        }
+        catch (JsonException ex)
+        {
+            _logger.LogWarning(ex, "Log kayıtları API yanıtı ayrıştırılamadı. Yerel log dosyaları kullanılacak.");
+            return null;
+        }
     }
 
     private List<LogDto> ReadFromFileSystem(DateTime startDate, DateTime endDate)
@@ -74,6 +128,9 @@ public class LogService : ILogService
         return entries;
     }
 
+    private static IEnumerable<LogDto> FilterByRange(IEnumerable<LogDto> entries, DateTime startDate, DateTime endDate) =>
+        entries.Where(log => log.LoggedAt >= startDate && log.LoggedAt < endDate);
+
     private static List<LogDto> SortAndRenumber(IEnumerable<LogDto> entries, bool descending)
     {
         var ordered = descending
@@ -86,5 +143,17 @@ public class LogService : ILogService
         }
 
         return ordered;
+    }
+
+    private static string BuildRequestUri(DateTime startDate, DateTime endDate, bool descending)
+    {
+        var builder = new StringBuilder("api/logs?");
+        builder.Append("startDate=");
+        builder.Append(Uri.EscapeDataString(startDate.ToString("o")));
+        builder.Append("&endDate=");
+        builder.Append(Uri.EscapeDataString(endDate.ToString("o")));
+        builder.Append("&descending=");
+        builder.Append(descending ? "true" : "false");
+        return builder.ToString();
     }
 }

@@ -102,7 +102,22 @@ namespace WinUI
                     services.AddSingleton<IConnectionStatusService, ConnectionStatusService>();
                     services.AddSingleton<ILogFileLocator>(_ => new DailyLogFileLocator(logsDirectory, LogsConstants.FilePrefix, LogsConstants.FileExtension));
                     services.AddSingleton<ILogEntryParser, SerilogLogEntryParser>();
-                    services.AddSingleton<ILogService, LogService>();
+                    services.AddHttpClient<ILogService, LogService>(client =>
+                    {
+                        string baseUrl = context.Configuration["Api:BaseUrl"] ?? "https://localhost:62730";
+                        baseUrl = baseUrl.TrimEnd('/');
+                        client.BaseAddress = new Uri(baseUrl);
+                    })
+                    .ConfigurePrimaryHttpMessageHandler(() =>
+                    {
+                        var handler = new HttpClientHandler();
+                        if (context.HostingEnvironment.IsDevelopment())
+                        {
+                            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                        }
+                        return handler;
+                    })
+                    .AddStandardResilienceHandler(options => options.Retry.MaxRetryAttempts = 3);
 
                     services.AddHttpClient<IPlcDataService, PlcDataService>(client =>
                     {
