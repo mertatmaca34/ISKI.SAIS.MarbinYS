@@ -77,7 +77,7 @@ namespace WinUI
             var level = Enum.TryParse<LogEventLevel>(levelStr, true, out var lvl) ? lvl : LogEventLevel.Information;
             var logsDirectory = Path.Combine(AppContext.BaseDirectory, LogsConstants.DirectoryName);
             Directory.CreateDirectory(logsDirectory);
-            var logFilePath = Path.Combine(logsDirectory, LogsConstants.RollingFileNamePattern);
+            var logFilePath = Path.Combine(logsDirectory, "winui-log-.json");
 
             return Host.CreateDefaultBuilder(args)
                 .UseSerilog((ctx, services, lc) =>
