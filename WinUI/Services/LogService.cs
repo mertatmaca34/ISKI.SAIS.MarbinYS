@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using WinUI.Constants;
 using WinUI.Models;
 
 namespace WinUI.Services;
@@ -20,11 +22,16 @@ public class LogService : ILogService
     private readonly ILogEntryParser _parser;
     private readonly ILogger<LogService> _logger;
 
-    public LogService(ILogFileLocator fileLocator, ILogEntryParser parser, ILogger<LogService> logger)
+    public LogService()
+        : this(null, null, null)
     {
-        _fileLocator = fileLocator ?? throw new ArgumentNullException(nameof(fileLocator));
-        _parser = parser ?? throw new ArgumentNullException(nameof(parser));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    public LogService(ILogFileLocator? fileLocator, ILogEntryParser? parser, ILogger<LogService>? logger = null)
+    {
+        _fileLocator = fileLocator ?? CreateDefaultLocator();
+        _parser = parser ?? new SerilogLogEntryParser();
+        _logger = logger ?? NullLogger<LogService>.Instance;
     }
 
     public Task<List<LogDto>> GetAsync(DateTime startDate, DateTime endDate, bool descending)
@@ -84,7 +91,14 @@ public class LogService : ILogService
         {
             ordered[index].Id = index + 1;
         }
-
         return ordered;
+    }
+
+    private static ILogFileLocator CreateDefaultLocator()
+    {
+        string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+        string logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
+        Directory.CreateDirectory(logsDirectory);
+        return new DailyLogFileLocator(logsDirectory, LogsConstants.FilePrefix, LogsConstants.FileExtension);
     }
 }
