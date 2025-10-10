@@ -91,7 +91,6 @@ public class LogService : ILogService
         {
             ordered[index].Id = index + 1;
         }
-
         return ordered;
     }
 
