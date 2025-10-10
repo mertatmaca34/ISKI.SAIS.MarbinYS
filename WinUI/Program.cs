@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
+using System;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
@@ -75,7 +76,8 @@ namespace WinUI
             JsonNode? root = JsonNode.Parse(json);
             string levelStr = root?["Serilog"]?["MinimumLevel"]?["Default"]?.ToString() ?? "Information";
             var level = Enum.TryParse<LogEventLevel>(levelStr, true, out var lvl) ? lvl : LogEventLevel.Information;
-            var logsDirectory = Path.Combine(AppContext.BaseDirectory, LogsConstants.DirectoryName);
+            var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            var logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
             Directory.CreateDirectory(logsDirectory);
             var logFilePath = Path.Combine(logsDirectory, LogsConstants.RollingFileNamePattern);
 
