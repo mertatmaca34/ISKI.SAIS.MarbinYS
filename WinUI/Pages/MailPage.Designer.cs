@@ -149,9 +149,10 @@ namespace WinUI.Pages
             // 
             alarmsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             alarmsDataGridView.Dock = DockStyle.Fill;
-            alarmsDataGridView.Location = new Point(3, 3);
+            alarmsDataGridView.Location = new Point(1, 1);
+            alarmsDataGridView.Margin = new Padding(1);
             alarmsDataGridView.Name = "alarmsDataGridView";
-            alarmsDataGridView.Size = new Size(510, 543);
+            alarmsDataGridView.Size = new Size(514, 547);
             alarmsDataGridView.TabIndex = 1;
             // 
             // usersHeaderTableLayoutPanel
@@ -211,9 +212,10 @@ namespace WinUI.Pages
             // 
             usersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             usersDataGridView.Dock = DockStyle.Fill;
-            usersDataGridView.Location = new Point(3, 3);
+            usersDataGridView.Location = new Point(1, 1);
+            usersDataGridView.Margin = new Padding(1);
             usersDataGridView.Name = "usersDataGridView";
-            usersDataGridView.Size = new Size(510, 543);
+            usersDataGridView.Size = new Size(514, 547);
             usersDataGridView.TabIndex = 0;
             // 
             // titleBarControl1

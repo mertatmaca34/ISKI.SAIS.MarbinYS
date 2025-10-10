@@ -21,6 +21,8 @@ namespace WinUI
         {
             ApplicationConfiguration.Initialize();
 
+            //Application.Run(new StationSetupForm());
+
             SplashScreenForm splash = new SplashScreenForm();
             splash.UpdateStatus("Uygulama başlatılıyor...");
             var splashThread = new Thread(() =>
@@ -54,6 +56,7 @@ namespace WinUI
                 splashThread.Join();
 
                 Application.Run(mainForm);
+                //Application.Run(new StationSetupForm());
             }
             finally
             {
