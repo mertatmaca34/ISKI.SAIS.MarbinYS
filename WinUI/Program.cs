@@ -80,7 +80,22 @@ namespace WinUI
                 .UseSerilog((ctx, services, lc) =>
                 {
                     lc.MinimumLevel.Is(level)
-                      .WriteTo.MSSqlServer(conn, new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true });
+                      .WriteTo.Console();
+
+                    if (string.IsNullOrWhiteSpace(conn))
+                    {
+                        Console.Error.WriteLine("Serilog SQL sink skipped because the default connection string is not configured.");
+                        return;
+                    }
+
+                    try
+                    {
+                        lc.WriteTo.MSSqlServer(conn, new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true });
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Error.WriteLine($"Serilog SQL sink initialization failed: {ex.Message}");
+                    }
                 })
                 .ConfigureServices((context, services) =>
                 {

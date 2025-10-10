@@ -7,10 +7,36 @@ using ISKI.Core.CrossCuttingConcerns.Exceptions.ExceptionHandling;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
+builder.Host.UseSerilog((ctx, services, lc) =>
+{
+    lc.ReadFrom.Configuration(ctx.Configuration)
+      .WriteTo.Console();
+
+    var connectionString = ctx.Configuration.GetConnectionString("Default");
+
+    if (string.IsNullOrWhiteSpace(connectionString))
+    {
+        Console.Error.WriteLine("Serilog SQL sink skipped because the default connection string is not configured.");
+        return;
+    }
+
+    try
+    {
+        lc.WriteTo.MSSqlServer(connectionString, new MSSqlServerSinkOptions
+        {
+            TableName = "Logs",
+            AutoCreateSqlTable = true
+        });
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"Serilog SQL sink initialization failed: {ex.Message}");
+    }
+});
 
 builder.Services.AddApplication();
 var conn = builder.Configuration.GetConnectionString("Default") ?? string.Empty;
