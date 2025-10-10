@@ -64,20 +64,7 @@ public class DatabaseSelectionService : IDatabaseSelectionService
                 serilog["MinimumLevel"] = minLevel;
                 minLevel["Default"] = settings.LogLevel;
 
-                JsonArray writeTo = serilog["WriteTo"] as JsonArray ?? new JsonArray();
-                serilog["WriteTo"] = writeTo;
-                writeTo.Clear();
-                JsonObject sink = new JsonObject
-                {
-                    ["Name"] = "MSSqlServer",
-                    ["Args"] = new JsonObject
-                    {
-                        ["connectionString"] = connectionString,
-                        ["tableName"] = "Logs",
-                        ["autoCreateSqlTable"] = true
-                    }
-                };
-                writeTo.Add(sink);
+                serilog.Remove("WriteTo");
 
                 await File.WriteAllTextAsync(_apiSettingsPath,
                     root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
