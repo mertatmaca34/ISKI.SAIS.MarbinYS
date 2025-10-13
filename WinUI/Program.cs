@@ -76,8 +76,8 @@ namespace WinUI
             JsonNode? root = JsonNode.Parse(json);
             string levelStr = root?["Serilog"]?["MinimumLevel"]?["Default"]?.ToString() ?? "Information";
             var level = Enum.TryParse<LogEventLevel>(levelStr, true, out var lvl) ? lvl : LogEventLevel.Information;
-            var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            var logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
+            var tempDirectory = Path.GetTempPath();
+            var logsDirectory = Path.Combine(tempDirectory, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
             Directory.CreateDirectory(logsDirectory);
             var logFilePath = Path.Combine(logsDirectory, LogsConstants.RollingFileNamePattern);
 

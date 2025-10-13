@@ -15,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, services, lc) =>
 {
-    var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-    var logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
+    var tempDirectory = Path.GetTempPath();
+    var logsDirectory = Path.Combine(tempDirectory, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
     Directory.CreateDirectory(logsDirectory);
     var logFilePath = Path.Combine(logsDirectory, LogsConstants.RollingFileNamePattern);
 

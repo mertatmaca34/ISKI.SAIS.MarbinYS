@@ -21,8 +21,8 @@ public class LogsController : ControllerBase
         var start = startDate.HasValue ? new DateTimeOffset(startDate.Value) : DateTimeOffset.MinValue;
         var end = endDate.HasValue ? new DateTimeOffset(endDate.Value) : DateTimeOffset.MaxValue;
 
-        var programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-        var logDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
+        var tempDirectory = Path.GetTempPath();
+        var logDirectory = Path.Combine(tempDirectory, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
 
         if (!Directory.Exists(logDirectory))
         {
