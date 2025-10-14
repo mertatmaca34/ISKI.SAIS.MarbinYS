@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
@@ -111,10 +112,20 @@ internal abstract class SaisApiClientBase
             }
 
             var ticket = await _ticketProvider.GetTicketAsync(cancellationToken).ConfigureAwait(false);
-            var ticketHeaderValue = JsonSerializer.Serialize(new { ticket.TicketId }, SerializerOptions);
+            var headerPayload = new Dictionary<string, string>
+            {
+                ["TicketId"] = ticket.TicketId,
+            };
 
-            request.Headers.Remove("TicketId");
-            request.Headers.TryAddWithoutValidation("TicketId", ticketHeaderValue);
+            if (!string.IsNullOrWhiteSpace(ticket.DeviceId))
+            {
+                headerPayload["DeviceId"] = ticket.DeviceId!;
+            }
+
+            var ticketHeaderValue = JsonSerializer.Serialize(headerPayload, SerializerOptions);
+
+            request.Headers.Remove(_options.TicketHeaderName);
+            request.Headers.TryAddWithoutValidation(_options.TicketHeaderName, ticketHeaderValue);
         }
 
         try
