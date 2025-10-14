@@ -31,7 +31,15 @@ builder.Services.AddApplication();
 var conn = builder.Configuration.GetConnectionString("Default") ?? string.Empty;
 if (string.IsNullOrWhiteSpace(conn))
     Log.Warning(LogMessages.Program.ConnectionStringEmpty);
-builder.Services.AddInfrastructure(conn);
+var saisSection = builder.Configuration.GetSection("SaisApi");
+if (saisSection.Exists())
+{
+    builder.Services.AddInfrastructure(conn, saisSection.Bind);
+}
+else
+{
+    builder.Services.AddInfrastructure(conn);
+}
 
 builder.Services.AddControllers();
 builder.Services.AddHostedService<PlcDataWorker>();
