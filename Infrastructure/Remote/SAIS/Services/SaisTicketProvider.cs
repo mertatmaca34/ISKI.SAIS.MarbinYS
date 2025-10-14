@@ -41,9 +41,10 @@ internal sealed class SaisTicketProvider : ISaisTicketProvider
             }
 
             _logger.LogInformation("Requesting new SAİS API ticket.");
-            var ticketId = await _securityClient.LoginAsync(cancellationToken).ConfigureAwait(false);
+            var credentials = await _securityClient.LoginAsync(cancellationToken).ConfigureAwait(false);
+            var ticketId = credentials.TicketId;
             var expiresAt = DateTimeOffset.UtcNow.AddMinutes(30) - _options.TicketRenewalOffset;
-            _currentTicket = new SaisTicket(ticketId, expiresAt);
+            _currentTicket = new SaisTicket(ticketId, expiresAt, credentials.DeviceId);
 
             return _currentTicket;
         }

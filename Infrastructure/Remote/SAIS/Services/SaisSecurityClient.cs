@@ -3,6 +3,7 @@ using Infrastructure.Remote.SAIS.DTOs.Requests;
 using Infrastructure.Remote.SAIS.DTOs.Responses;
 using Infrastructure.Remote.SAIS.Http;
 using Infrastructure.Remote.SAIS.Models;
+using ISKI.Core.Security.Hashing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -21,12 +22,12 @@ internal sealed class SaisSecurityClient : SaisApiClientBase, ISaisSecurityClien
         _options = options.Value;
     }
 
-    public async Task<string> LoginAsync(CancellationToken cancellationToken)
+    public async Task<SaisTicketCredentials> LoginAsync(CancellationToken cancellationToken)
     {
         var payload = new LoginRequest
         {
             Username = _options.Username,
-            PasswordHash = _options.PasswordHash
+            Password = HashingHelper.DoubleMD5Hash(_options.Password)
         };
 
         var response = await PostAsync<LoginResponse>(
@@ -41,6 +42,6 @@ internal sealed class SaisSecurityClient : SaisApiClientBase, ISaisSecurityClien
             throw new SaisApiException("SAİS API login response did not contain a ticket identifier.");
         }
 
-        return response.TicketId;
+        return new SaisTicketCredentials(response.TicketId, response.DeviceId);
     }
 }

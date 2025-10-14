@@ -12,10 +12,13 @@ public sealed class SaisApiOptionsValidator : AbstractValidator<SaisApiOptions>
         RuleFor(x => x.Username)
             .NotEmpty();
 
-        RuleFor(x => x.PasswordHash)
+        RuleFor(x => x.Password)
             .NotEmpty();
 
         RuleFor(x => x.TicketRenewalOffset)
             .GreaterThan(TimeSpan.Zero);
+
+        RuleFor(x => x.TicketHeaderName)
+            .NotEmpty();
     }
 }

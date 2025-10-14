@@ -16,5 +16,5 @@ public sealed class SAISOptions
     // Header adı: Doküman, header’a JSON serialize “{ TicketId = \"GUID\" }” konacağını söylüyor.
     // Saha uygulamalarında genelde bir custom header anahtarı kullanılır. Sunucunun beklediği
     // anahtar “TicketId” ise aşağıdaki default doğru. Farklıysa değiştirebilirsin.
-    public string TicketHeaderName { get; init; } = "TicketId";
+    public string TicketHeaderName { get; init; } = "AToken";
 }
