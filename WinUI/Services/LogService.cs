@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.IO;
 using System.Text;
 using WinUI.Constants;
 using WinUI.Models;
@@ -86,8 +87,8 @@ public class LogService : ILogService
 
     private static ILogFileLocator CreateDefaultLocator()
     {
-        string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-        string logsDirectory = Path.Combine(programData, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
+        string tempDirectory = Path.GetTempPath();
+        string logsDirectory = Path.Combine(tempDirectory, LogsConstants.ApplicationFolderName, LogsConstants.DirectoryName);
         Directory.CreateDirectory(logsDirectory);
         return new DailyLogFileLocator(logsDirectory, LogsConstants.FilePrefix, LogsConstants.FileExtension);
     }
