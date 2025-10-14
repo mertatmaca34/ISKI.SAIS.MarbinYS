@@ -1,4 +1,5 @@
 using Infrastructure.Remote.SAIS.Configuration;
+using Infrastructure.Remote.SAIS.Http;
 using Infrastructure.Remote.SAIS.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

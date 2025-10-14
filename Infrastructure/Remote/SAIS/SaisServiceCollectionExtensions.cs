@@ -1,5 +1,6 @@
 using FluentValidation;
 using Infrastructure.Remote.SAIS.Configuration;
+using Infrastructure.Remote.SAIS.Http;
 using Infrastructure.Remote.SAIS.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
