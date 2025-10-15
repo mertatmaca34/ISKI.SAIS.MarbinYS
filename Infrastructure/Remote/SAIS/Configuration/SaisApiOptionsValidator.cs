@@ -17,5 +17,8 @@ public sealed class SaisApiOptionsValidator : AbstractValidator<SaisApiOptions>
 
         RuleFor(x => x.TicketRenewalOffset)
             .GreaterThan(TimeSpan.Zero);
+
+        RuleFor(x => x.TicketHeaderName)
+            .NotEmpty();
     }
 }

@@ -16,8 +16,8 @@ public sealed class SaisApiOptions
     public string Username { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets the password hash value that the remote API expects.
-    ///     The documentation states that the password must be sent as a double MD5 hash.
+    ///     Gets or sets the plain text password that will be transformed into the double MD5 hash
+    ///     expected by the remote SAİS API during authentication.
     /// </summary>
     public string Password { get; set; } = string.Empty;
 
@@ -25,4 +25,9 @@ public sealed class SaisApiOptions
     ///     Gets or sets the amount of time before ticket expiration when the client should proactively refresh the ticket.
     /// </summary>
     public TimeSpan TicketRenewalOffset { get; set; } = TimeSpan.FromMinutes(5);
+
+    /// <summary>
+    ///     Gets or sets the header name that SAİS expects ticket information to be transported in.
+    /// </summary>
+    public string TicketHeaderName { get; set; } = "AToken";
 }

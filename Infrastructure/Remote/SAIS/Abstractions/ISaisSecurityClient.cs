@@ -1,6 +1,8 @@
+using Infrastructure.Remote.SAIS.Models;
+
 namespace Infrastructure.Remote.SAIS;
 
 public interface ISaisSecurityClient
 {
-    Task<string> LoginAsync(CancellationToken cancellationToken);
+    Task<SaisTicketCredentials> LoginAsync(CancellationToken cancellationToken);
 }

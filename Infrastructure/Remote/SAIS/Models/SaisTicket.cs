@@ -1,3 +1,3 @@
 namespace Infrastructure.Remote.SAIS.Models;
 
-public sealed record SaisTicket(string TicketId, DateTimeOffset ExpiresAt);
+public sealed record SaisTicket(string TicketId, DateTimeOffset ExpiresAt, string? DeviceId);

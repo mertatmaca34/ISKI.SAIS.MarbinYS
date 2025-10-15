@@ -97,7 +97,7 @@ public sealed class SAISLoginHandler : DelegatingHandler
     {
         // Doküman: header’a JSON-serialize “{ TicketId = \"GUID\" }” eklenecek.
         // Pratikte çoğu entegrasyonda header değeri JSON-stringtir.
-        // Anahtar adı _opt.TicketHeaderName (default: "TicketId")
+        // Anahtar adı _opt.TicketHeaderName (default: "AToken")
         if (!string.IsNullOrWhiteSpace(_ticket))
         {
             var json = $"{{ \"TicketId\": \"{_ticket}\" }}";
