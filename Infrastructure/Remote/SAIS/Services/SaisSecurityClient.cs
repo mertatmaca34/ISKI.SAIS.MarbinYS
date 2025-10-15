@@ -1,6 +1,7 @@
 using Infrastructure.Remote.SAIS.Configuration;
 using Infrastructure.Remote.SAIS.DTOs.Requests;
 using Infrastructure.Remote.SAIS.DTOs.Responses;
+using Infrastructure.Remote.SAIS.Extensions;
 using Infrastructure.Remote.SAIS.Http;
 using Infrastructure.Remote.SAIS.Models;
 using Microsoft.Extensions.Logging;
@@ -26,7 +27,7 @@ internal sealed class SaisSecurityClient : SaisApiClientBase, ISaisSecurityClien
         var payload = new LoginRequest
         {
             Username = _options.Username,
-            PasswordHash = _options.PasswordHash
+            PasswordHash = _options.Password.DoubleMD5(),
         };
 
         var response = await PostAsync<LoginResponse>(

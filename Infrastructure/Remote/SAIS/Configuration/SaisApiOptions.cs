@@ -19,7 +19,7 @@ public sealed class SaisApiOptions
     ///     Gets or sets the password hash value that the remote API expects.
     ///     The documentation states that the password must be sent as a double MD5 hash.
     /// </summary>
-    public string PasswordHash { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 
     /// <summary>
     ///     Gets or sets the amount of time before ticket expiration when the client should proactively refresh the ticket.
