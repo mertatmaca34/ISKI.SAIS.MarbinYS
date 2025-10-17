@@ -27,7 +27,7 @@ internal sealed class SaisTicketProvider : ISaisTicketProvider
 
     public async Task<SaisTicket> GetTicketAsync(CancellationToken cancellationToken)
     {
-        if (_currentTicket is { } existingTicket && existingTicket.ExpiresAt > DateTimeOffset.UtcNow)
+        if (_currentTicket is { } existingTicket && existingTicket.ExpiresAt > DateTimeOffset.Now)
         {
             return existingTicket;
         }
@@ -35,7 +35,7 @@ internal sealed class SaisTicketProvider : ISaisTicketProvider
         await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
-            if (_currentTicket is { } cachedTicket && cachedTicket.ExpiresAt > DateTimeOffset.UtcNow)
+            if (_currentTicket is { } cachedTicket && cachedTicket.ExpiresAt > DateTimeOffset.Now)
             {
                 return cachedTicket;
             }
@@ -43,7 +43,7 @@ internal sealed class SaisTicketProvider : ISaisTicketProvider
             _logger.LogInformation("Requesting new SAİS API ticket.");
             var credentials = await _securityClient.LoginAsync(cancellationToken).ConfigureAwait(false);
             var ticketId = credentials.TicketId;
-            var expiresAt = DateTimeOffset.UtcNow.AddMinutes(30) - _options.TicketRenewalOffset;
+            var expiresAt = DateTimeOffset.Now.AddMinutes(30) - _options.TicketRenewalOffset;
             _currentTicket = new SaisTicket(ticketId, expiresAt, credentials.DeviceId);
 
             return _currentTicket;

@@ -17,5 +17,5 @@ public sealed class StationHostUpdateRequest
     public string ConnectionDomainAddress { get; init; } = string.Empty;
 
     [JsonPropertyName("ConnectionPort")]
-    public string ConnectionPort { get; init; } = string.Empty;
+    public int? ConnectionPort { get; init; }
 }

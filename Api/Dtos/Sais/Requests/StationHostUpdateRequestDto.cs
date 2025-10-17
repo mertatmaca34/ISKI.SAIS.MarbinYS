@@ -23,5 +23,5 @@ public sealed class StationHostUpdateRequestDto
 
     [JsonPropertyName("ConnectionPort")]
     [Required]
-    public string ConnectionPort { get; set; } = string.Empty;
+    public int? ConnectionPort { get; set; }
 }

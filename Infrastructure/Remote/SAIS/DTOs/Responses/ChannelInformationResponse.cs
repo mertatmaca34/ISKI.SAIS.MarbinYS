@@ -32,19 +32,19 @@ public sealed class ChannelInformationResponse
     public bool IsActive { get; init; }
 
     [JsonPropertyName("ChannelMinValue")]
-    public double ChannelMinValue { get; init; }
+    public double? ChannelMinValue { get; init; }
 
     [JsonPropertyName("ChannelMaxValue")]
-    public double ChannelMaxValue { get; init; }
+    public double? ChannelMaxValue { get; init; }
 
     [JsonPropertyName("ChannelNumber")]
-    public short ChannelNumber { get; init; }
+    public short? ChannelNumber { get; init; }
 
     [JsonPropertyName("CalibrationFormulaA")]
-    public double CalibrationFormulaA { get; init; }
+    public double? CalibrationFormulaA { get; init; }
 
     [JsonPropertyName("CalibrationFormulaB")]
-    public double CalibrationFormulaB { get; init; }
+    public double? CalibrationFormulaB { get; init; }
 
     [JsonPropertyName("SerialNumber")]
     public string? SerialNumber { get; init; }

@@ -139,6 +139,8 @@ internal abstract class SaisApiClientBase
 
             response.EnsureSuccessStatusCode();
 
+            var value = await response.Content.ReadAsStringAsync();
+
             var result = await response.Content.ReadFromJsonAsync<SaisResultEnvelope<TResponse>>(SerializerOptions, cancellationToken)
                          .ConfigureAwait(false);
 

@@ -21,14 +21,14 @@ public static class SaisMappingExtensions
             DataPeriodMinute = response.DataPeriodMinute <= short.MaxValue
                 ? (short?)response.DataPeriodMinute
                 : null,
-            LastDataDate = response.LastDataDate?.UtcDateTime,
+            LastDataDate = response.LastDataDate,
             ConnectionDomainAddress = response.ConnectionDomainAddress,
-            ConnectionPort = int.TryParse(response.ConnectionPort, out var port) ? port : null,
+            ConnectionPort = response.ConnectionPort,
             ConnectionUser = response.ConnectionUser,
             ConnectionPassword = response.ConnectionPassword,
             Company = response.Company,
-            BirthDate = response.BirthDate?.UtcDateTime,
-            SetupDate = response.SetupDate?.UtcDateTime,
+            BirthDate = response.BirthDate,
+            SetupDate = response.SetupDate,
             Address = response.Address,
             Software = response.Software
         };
@@ -40,7 +40,7 @@ public static class SaisMappingExtensions
 
         return new ChannelInformationDto
         {
-            Id = response.Id,
+            Id  = response.Id,
             Brand = response.Brand,
             BrandModel = response.BrandModel,
             FullName = response.FullName,

@@ -14,16 +14,16 @@ public sealed class StationInformationResponse
     public string? Name { get; init; }
 
     [JsonPropertyName("DataPeriodMinute")]
-    public int DataPeriodMinute { get; init; }
+    public short DataPeriodMinute { get; init; }
 
     [JsonPropertyName("LastDataDate")]
-    public DateTimeOffset? LastDataDate { get; init; }
+    public DateTime? LastDataDate { get; init; }
 
     [JsonPropertyName("ConnectionDomainAddress")]
     public string? ConnectionDomainAddress { get; init; }
 
     [JsonPropertyName("ConnectionPort")]
-    public string? ConnectionPort { get; init; }
+    public int? ConnectionPort { get; init; }
 
     [JsonPropertyName("ConnectionUser")]
     public string? ConnectionUser { get; init; }
@@ -35,10 +35,10 @@ public sealed class StationInformationResponse
     public string? Company { get; init; }
 
     [JsonPropertyName("BirtDate")]
-    public DateTimeOffset? BirthDate { get; init; }
+    public DateTime? BirthDate { get; init; }
 
     [JsonPropertyName("SetupDate")]
-    public DateTimeOffset? SetupDate { get; init; }
+    public DateTime? SetupDate { get; init; }
 
     [JsonPropertyName("Adress")]
     public string? Address { get; init; }

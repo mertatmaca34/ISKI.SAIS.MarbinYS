@@ -17,17 +17,17 @@ public sealed class ChannelUpdateRequestDto
     public bool IsActive { get; set; }
 
     [JsonPropertyName("ChannelMinValue")]
-    public double ChannelMinValue { get; set; }
+    public double? ChannelMinValue { get; set; }
 
     [JsonPropertyName("ChannelMaxValue")]
-    public double ChannelMaxValue { get; set; }
+    public double? ChannelMaxValue { get; set; }
 
     [JsonPropertyName("ChannelNumber")]
-    public short ChannelNumber { get; set; }
+    public short? ChannelNumber { get; set; }
 
     [JsonPropertyName("CalibrationFormulaA")]
-    public double CalibrationFormulaA { get; set; }
+    public double? CalibrationFormulaA { get; set; }
 
     [JsonPropertyName("CalibrationFormulaB")]
-    public double CalibrationFormulaB { get; set; }
+    public double? CalibrationFormulaB { get; set; }
 }
